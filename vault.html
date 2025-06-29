@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Vault - J Marsh Media</title>
+    <!-- Google Font: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- Global Styles & Variables --- */
+        :root {
+            --background-color: #0d0d0d;
+            --text-color: #ffffff;
+            --accent-color: #0033A0; /* Kentucky Blue */
+            --font-family: 'Inter', sans-serif;
+        }
+
+        /* --- Base & Reset --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--background-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            line-height: 1.6;
+        }
+
+        /* --- Layout Containers --- */
+        .container {
+            width: 100%;
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* --- Header & Navigation --- */
+        .site-header {
+            padding: 2rem 0;
+        }
+
+        .site-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: var(--text-color);
+        }
+
+        .main-nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .main-nav a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .main-nav a:hover,
+        .main-nav a.active {
+            color: var(--accent-color);
+        }
+
+        /* --- Main Content --- */
+        main {
+            flex-grow: 1;
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        .main-content .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.125rem;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 600px;
+            margin-bottom: 3rem;
+        }
+
+        /* --- Themed Button Styles --- */
+        .button-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            width: 100%;
+            max-width: 500px; /* Controls the max width of the buttons */
+        }
+        
+        .show-button {
+            display: block;
+            width: 100%;
+            padding: 1rem 1.5rem;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            border: 2px solid var(--accent-color);
+            background-color: transparent;
+            color: var(--accent-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            text-align: center;
+        }
+
+        .show-button:hover {
+            background-color: var(--accent-color);
+            color: var(--text-color); /* White text on hover */
+        }
+        
+        /* --- Footer --- */
+        .site-footer {
+            text-align: center;
+            padding: 2rem 0;
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        /* --- Responsive Adjustments --- */
+        @media (max-width: 600px) {
+            .site-header .container {
+                flex-direction: column;
+                justify-content: center;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container">
+            <a href="/index.html" class="logo">J Marsh Media</a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="/cast.html">The Voices</a></li>
+                    <li><a href="/vault.html" class="active">The Vault</a></li>
+                    <li><a href="/intel.html">Intel</a></li>
+                    <li><a href="/drop.html">The Drop</a></li>
+                    <li><a href="/contact.html">Send Word</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <h1 class="page-title">The Vault</h1>
+            <p class="page-subtitle">Archived content, classic drops, and exclusive legacy media.</p>
+            
+            <!-- Vertical Button Stack -->
+            <div class="button-stack">
+                <a href="/shows/on-the-clock.html" class="show-button">On The Clock w/ J and Damon</a>
+                <a href="/shows/portraits-of-power.html" class="show-button">Portraits of Power</a>
+                <a href="/shows/tech-timeline.html" class="show-button">Tech Timeline</a>
+                <a href="/shows/front-porch.html" class="show-button">Front Porch with Redwood</a>
+                <a href="/shows/our-woven-world.html" class="show-button">Our Woven World</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2025 J Marsh Media. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
