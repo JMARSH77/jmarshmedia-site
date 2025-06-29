@@ -1,144 +1,191 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>J. Marsh Media</title>
-  <link rel="stylesheet" href="assets/css/style.css">
-  <script src="assets/js/theme-toggle.js" defer></script>
-  <style>
-    body { background: #111827; color: #f3f3f3; font-family: 'Inter', sans-serif; margin: 0; }
-    header, nav, footer { max-width: 1100px; margin: 0 auto; }
-    header { display: flex; align-items: center; justify-content: space-between; padding: 2rem 0 1rem 0; }
-    nav a { color: #a5b4fc; margin: 0 1.2rem; text-decoration: none; font-weight: 500; }
-    nav a:hover { color: #60a5fa; }
-    #theme-toggle { margin-left: 1.5rem; background: none; border: none; color: #a5b4fc; cursor: pointer; font-size: 1.4rem;}
-    .hero { padding: 4rem 2rem 3rem 2rem; background: linear-gradient(120deg, #1e293b 60%, #0ea5e9 100%); text-align: center; }
-    .hero h2 { font-size: 2.8rem; margin-bottom: 1rem; letter-spacing: -2px; }
-    .hero p { font-size: 1.3rem; max-width: 600px; margin: 0 auto 2rem auto; color: #bae6fd; }
-    .cta-main { display: inline-block; background: #2563eb; color: #fff; padding: 0.9rem 2.3rem; border-radius: 30px; font-weight: 700; font-size: 1.1rem; text-decoration: none; box-shadow: 0 4px 16px #0ea5e92f;}
-    .about { display: flex; flex-wrap: wrap; gap: 2.5rem; max-width: 1050px; margin: 3rem auto; align-items: flex-start; }
-    .about-text { flex: 2; }
-    .about-pillars { display: flex; flex-direction: column; gap: 1.1rem; flex: 1;}
-    .pillar { background: #172554; padding: 1.1rem 1.2rem; border-radius: 10px; color: #7dd3fc; font-weight: 600;}
-    .section-title { font-size: 1.4rem; color: #38bdf8; letter-spacing: 1px; margin-bottom: 0.8rem;}
-    .blog-featured, .products, .newsletter, .testimonials, .contact-cta { max-width: 900px; margin: 2.5rem auto 0 auto; padding: 2rem; background: #1e293b; border-radius: 16px;}
-    .blog-featured img { width: 100%; max-width: 450px; border-radius: 12px; float: left; margin-right: 2rem; }
-    .blog-featured h4 { margin-top: 0; font-size: 1.3rem;}
-    .blog-featured .see-all { display: inline-block; margin-top: 1.2rem; color: #38bdf8;}
-    .products-list { display: flex; gap: 2rem; }
-    .product-card { background: #0f172a; border-radius: 10px; padding: 1.3rem; flex: 1; text-align: center;}
-    .product-card h5 { color: #60a5fa; margin-top: 0;}
-    .newsletter form { display: flex; gap: 1rem; margin-top: 1.2rem;}
-    .newsletter input[type=email] { flex: 2; padding: 0.7rem; border: none; border-radius: 20px;}
-    .newsletter button { padding: 0.7rem 1.8rem; border: none; border-radius: 20px; background: #2563eb; color: #fff; font-weight: 600;}
-    .testimonials { text-align: center;}
-    .testimonial-quote { font-size: 1.2rem; color: #facc15; margin: 0.8rem 0;}
-    .contact-cta { text-align: center;}
-    .contact-cta .cta-main { margin-top: 0.8rem;}
-    footer { text-align: center; padding: 2.2rem 0 1.2rem 0; color: #a5b4fc;}
-    @media (max-width: 900px) {
-      .about { flex-direction: column; gap: 1.2rem; }
-      .products-list { flex-direction: column;}
-      .blog-featured img { float: none; margin: 0 auto 1rem auto; display: block;}
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <div style="font-size:2rem;font-weight:800;color:#38bdf8;letter-spacing:-1px;">J. Marsh Media</div>
-    <nav>
-      <a href="/">Home</a>
-      <a href="/about/">About</a>
-      <a href="/services/">Services</a>
-      <a href="/blog/">News</a>
-      <a href="/shop/">Shop</a>
-      <a href="/contact/">Contact</a>
-      <button id="theme-toggle" title="Toggle light/dark">🌓</button>
-    </nav>
-  </header>
+<!DOCTYPE html> 
 
-  <main>
-    <!-- HERO SECTION -->
-    <section class="hero">
-      <h2>Power Your Story.<br>Control Your Signal.</h2>
-      <p>Welcome to J. Marsh Media: Future home of original content. Stay tuned...</p>
-      <a href="/shop/" class="cta-main">Shop Now</a>
-    </section>
+<html lang="en"> 
 
-    <!-- ABOUT / VALUE PROP -->
-    <section class="about">
-      <div class="about-text">
-        <div class="section-title">Who We Are</div>
-        <p>Jeremy Marsh is the creative and tactical mind behind J.Marsh Media. Here, we build bold books, unfiltered commentary, and real-world guides for those who want to stand out and make an impact. No corporate puppet strings. No sugar-coating. Just the real story, told with grit and guts.</p>
-        <a href="/about/" class="cta-main" style="background:#0ea5e9;">Meet Jeremy</a>
-      </div>
-      <div class="about-pillars">
-        <div class="pillar">🧠 Relentless Originality</div>
-        <div class="pillar">🔥 Built for the Bold</div>
-        <div class="pillar">📢 No Bullshit, No Spin</div>
-      </div>
-    </section>
+<head> 
 
-    <!-- FEATURED BLOG/NEWS -->
-    <section class="blog-featured">
-      <div class="section-title">Latest From the Newsroom</div>
-      <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=600&q=80" alt="News Feature">
-      <div style="overflow:hidden;">
-        <h4><a href="/posts/first-post.md" style="color:#38bdf8;">5 Lessons from Building a Brand That Doesn’t Bullshit</a></h4>
-        <p>Go behind the scenes with J. Marsh Media. Learn what it really takes to grow an honest, impactful media brand in a world of hot air.</p>
-        <a href="/blog/" class="see-all">See all news →</a>
-      </div>
-    </section>
+    <meta charset="UTF-8"> 
 
-    <!-- FEATURED PRODUCTS / SHOP TEASER -->
-    <section class="products">
-      <div class="section-title">Featured Releases</div>
-      <div class="products-list">
-        <div class="product-card">
-          <h5>"The Front Porch" Print Edition</h5>
-          <p>Limited run. The history podcast in a collector’s format. Includes exclusive commentary and bonus stories.</p>
-          <a href="/shop/" class="cta-main" style="background:#0ea5e9;">Buy Now</a>
-        </div>
-        <div class="product-card">
-          <h5>VIP Digital Subscription</h5>
-          <p>Access to member-only essays, behind-the-scenes, and early project drops. Cancel anytime. Stay ahead of the herd.</p>
-          <a href="/shop/" class="cta-main" style="background:#0ea5e9;">Subscribe</a>
-        </div>
-      </div>
-    </section>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 
-    <!-- NEWSLETTER SIGNUP -->
-    <section class="newsletter">
-      <div class="section-title">No Spam. Just Fire.</div>
-      <p>Get original content, new drops, and occasional wisdom direct from Jeremy. Zero fluff. Unsubscribe anytime.</p>
-      <form action="#" method="POST">
-        <input type="email" placeholder="Your email address" required>
-        <button type="submit">Subscribe</button>
-      </form>
-    </section>
+    <title>J. Marsh Media // A New World of Media</title> 
 
-    <!-- TESTIMONIALS / FEATURED -->
-    <section class="testimonials">
-      <div class="section-title">What Readers Say</div>
-      <div class="testimonial-quote">"Finally, a voice that doesn’t just copy-paste the same old crap." — K. Bennett</div>
-      <div class="testimonial-quote">"This guy delivers truth with style. Bookmark and buy everything." — D. Thomas</div>
-    </section>
+    <link rel="stylesheet" href="style.css"> 
 
-    <!-- CONTACT / CTA -->
-    <section class="contact-cta">
-      <div class="section-title">Work With JMarsh</div>
-      <p>Have a project, story tip, or want to collaborate? Let’s build something real. Reach out directly below.</p>
-      <a href="/contact/" class="cta-main">Contact Jeremy</a>
-    </section>
-  </main>
+    <link rel="preconnect" href="https://fonts.googleapis.com"> 
 
-  <footer>
-    <p>© 2025 J.Marsh Media. Built with grit. <a href="/contact/">Contact</a></p>
-    <div>
-      <a href="#" style="color:#60a5fa;">Twitter</a> | 
-      <a href="#" style="color:#60a5fa;">LinkedIn</a>
-    </div>
-  </footer>
-</body>
-</html>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet"> 
+
+</head> 
+
+<body> 
+
+  
+
+    <header class="navbar"> 
+
+        <div class="container"> 
+
+            <div class="logo">[Your Name]</div> 
+
+            <nav> 
+
+                <a href="#content-grid">Work</a> 
+
+                <a href="#about">About</a> 
+
+                <a href="mailto:your-email@example.com" class="contact-link">Contact</a> 
+
+            </nav> 
+
+        </div> 
+
+    </header> 
+
+  
+
+    <main> 
+
+        <section class="hero"> 
+
+            <div class="container"> 
+
+                <h1 class="fade-in"> 
+
+                    Power <span class="text-accent">your story.</span> Control your Signal. 
+
+                </h1> 
+
+                <p class="fade-in-delay-1"> 
+
+                    Welcome to J. Marsh Media: Future home of original content. Stay tuned... 
+
+                </p> 
+
+            </div> 
+
+        </section> 
+
+  
+
+        <section id="content-grid" class="content-grid"> 
+
+            <div class="container"> 
+
+                <a href="#" class="card animate-on-scroll"> 
+
+                    <div class="card-content"> 
+
+                        <h2>Our Voice</h2> 
+
+                        <p>Blogs from our talent.</p> 
+
+                    </div> 
+
+                    <div class="card-arrow">&rarr;</div> 
+
+                </a> 
+
+                <a href="#" class="card animate-on-scroll"> 
+
+                    <div class="card-content"> 
+
+                        <h2> The Vault </h2> 
+
+                        <p>Find it here!</p> 
+
+                    </div> 
+
+                    <div class="card-arrow">&rarr;</div> 
+
+                </a> 
+
+                <a href="#" class="card animate-on-scroll"> 
+
+                    <div class="card-content"> 
+
+                        <h2>Intel</h2> 
+
+                        <p>Be in the know!</p> 
+
+                    </div> 
+
+                    <div class="card-arrow">&rarr;</div> 
+
+                </a> 
+
+                <a href="#" class="card card-highlight animate-on-scroll"> 
+
+                    <div class="card-content"> 
+
+                        <h2>The Drop</h2> 
+
+                        <p>Get your merch here!</p> 
+
+                    </div> 
+
+                    <div class="card-arrow">&rarr;</div> 
+
+                </a> 
+
+            </div> 
+
+        </section> 
+
+  
+
+        <section id="about" class="about"> 
+
+            <div class="container animate-on-scroll"> 
+
+                <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="Professional headshot of [Your Name]"> 
+
+                <div class="about-text"> 
+
+                    <h2>About Me</h2> 
+
+                    <p> 
+
+                        I'm Jeremy Marsh. 
+
+                    </p> 
+
+                </div> 
+
+            </div> 
+
+        </section> 
+
+    </main> 
+
+     
+
+    <footer class="site-footer"> 
+
+        <div class="container"> 
+
+            <p>&copy; 2025 Jeremy</p> 
+
+            <div class="social-links"> 
+
+                 <a href="#"> www.linkedin.com/in/jmarsh20</a> 
+
+                 <a href="#">Twitter / X</a> 
+
+                 <a href="#">GitHub</a> 
+
+            </div> 
+
+        </div> 
+
+    </footer> 
+
+  
+
+    <script src="script.js"></script> 
+
+</body> 
+
+</html> 
