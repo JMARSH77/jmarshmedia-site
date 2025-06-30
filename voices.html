@@ -1,1 +1,337 @@
+<!DOCTYPE html>
+<html lang="en" class="dark-mode">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preview: The Voices | J. Marsh Media</title>
+    <meta name="description" content="Meet the characters behind the stories of J. Marsh Media.">
+    <!-- Font Import -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Embedded CSS for Preview -->
+    <style>
+        /*
+         * styles.css
+         * For J. Marsh Media - "The Voices" Page
+         * Synchronized with homepage styles for brand consistency.
+         */
+
+        /* 1. Root Variables & Global Styles
+        -------------------------------------------------- */
+        :root {
+            --background-color: #000000;
+            --card-background: #111111;
+            --border-color: #222222;
+            --glow-color: rgba(255, 255, 255, 0.05);
+            --text-primary: #e5e5e5;
+            --text-secondary: #888888;
+            --text-accent: #ffffff;
+
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --transition-smooth: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            color-scheme: dark;
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-primary);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* 2. Header & Navigation
+        -------------------------------------------------- */
+        .site-header {
+            width: 100%;
+            padding: 1.25rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            height: 24px;
+            display: block;
+            transition: transform var(--transition-smooth);
+            filter: invert(1); /* To make placeholder text visible */
+        }
+
+        .logo-link:hover .logo {
+            transform: scale(1.05);
+        }
+
+        .nav-list {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        .main-nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            letter-spacing: 0.01em;
+            padding: 0.5rem 0;
+            position: relative;
+            transition: color var(--transition-smooth);
+            white-space: nowrap; /* Prevents nav links from wrapping */
+        }
+
+        .main-nav a:hover {
+            color: var(--text-accent);
+        }
+
+        .main-nav a.active {
+            color: var(--text-accent);
+        }
+
+        /* 3. Main Content & Voices Grid
+        -------------------------------------------------- */
+        .content-wrapper {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 6rem 2rem 4rem;
+        }
+
+        .voices-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 2rem;
+        }
+
+        .profile-card {
+            background: var(--card-background);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
+            will-change: transform;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 25px var(--glow-color);
+            border-color: #333;
+        }
+
+        .card-content {
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .profile-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1.5rem;
+            border: 2px solid #333;
+            background-color: #000;
+        }
+
+        .profile-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-description {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* 4. Placeholder Cards
+        -------------------------------------------------- */
+        .placeholder .placeholder-button {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: var(--background-color);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            cursor: default;
+        }
+
+        .placeholder .placeholder-button img {
+            width: 40px; /* Adjusted for SVG sizing */
+            height: auto;
+            opacity: 0.4;
+            transition: opacity var(--transition-smooth);
+        }
+
+        .profile-card.placeholder:hover .placeholder-button img {
+            opacity: 0.7;
+        }
+
+        /* 5. Footer
+        -------------------------------------------------- */
+        .site-footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+        }
+
+        /* 6. Responsive Design
+        -------------------------------------------------- */
+        @media (max-width: 768px) {
+            .site-header {
+                padding: 1rem 1.5rem;
+            }
+            
+            /* Keep header on one line, but adjust padding */
+            .header-container {
+                flex-direction: row; /* Change from 'column' */
+                gap: 1.5rem;
+                justify-content: space-between;
+            }
+
+            /* Adjust nav links for smaller screens */
+            .main-nav {
+                /* Allows nav to scroll horizontally if it overflows */
+                overflow-x: auto;
+                -ms-overflow-style: none;  /* IE and Edge */
+                scrollbar-width: none;  /* Firefox */
+            }
+            .main-nav::-webkit-scrollbar {
+                display: none; /* Chrome, Safari, Opera */
+            }
+
+            .nav-list {
+                gap: 1.5rem; /* Adjust gap between links for mobile */
+            }
+            .main-nav a {
+                font-size: 0.9rem; /* Make nav text slightly smaller */
+            }
+            
+            /* Add more breathing room around the content */
+            .content-wrapper {
+                padding: 4rem 1.5rem; /* Adjust padding for mobile */
+            }
+
+            .voices-grid {
+                gap: 1.5rem;
+            }
+            
+            /* Make profile cards slightly more compact */
+            .card-content {
+                padding: 1.5rem;
+            }
+            .profile-name {
+                font-size: 1.1rem; /* Slightly smaller name for mobile */
+            }
+            .profile-description {
+                font-size: 0.9rem; /* Slightly smaller description */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="header-container">
+            <a href="#" class="logo-link" aria-label="J. Marsh Media Home">
+                <!-- Placeholder for SVG logo -->
+                <img src="https://placehold.co/200x50/000000/FFFFFF?text=J.M+Media" alt="J. Marsh Media Logo" class="logo">
+            </a>
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#" class="active">The Voices</a></li>
+                    <li><a href="#">The Vault</a></li>
+                    <li><a href="#">Intel</a></li>
+                    <li><a href="#">The Drop</a></li>
+                    <li><a href="#">Send Word</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="content-wrapper">
+        <section class="voices-grid">
+            <!-- Real Character Card: Taylor Reese -->
+            <article class="profile-card">
+                <div class="card-content">
+                    <img src="https://raw.githubusercontent.com/JMARSH77/jmarshmedia-site/main/assets/css/Taylor/Taylor-Reese-Profile.png" alt="Headshot of Taylor Reese" class="profile-image" 
+                         onerror="this.onerror=null;this.src='https://placehold.co/100x100/111/fff?text=Error';">
+                    <h2 class="profile-name">Taylor Reese</h2>
+                    <p class="profile-description">A rogue archivist navigating the digital shadows of the SignalBox network.</p>
+                </div>
+            </article>
+
+            <!-- Real Character Card: Jeremy Marsh -->
+            <article class="profile-card">
+                <div class="card-content">
+                    <img src="https://raw.githubusercontent.com/JMARSH77/jmarshmedia-site/main/assets/css/Jeremy-Profile.png" alt="Headshot of Jeremy Marsh" class="profile-image"
+                         onerror="this.onerror=null;this.src='https://placehold.co/100x100/111/fff?text=Error';">
+                    <h2 class="profile-name">Jeremy Marsh</h2>
+                    <p class="profile-description">The architect of the story, pulling strings from behind the curtain.</p>
+                </div>
+            </article>
+
+            <!-- Placeholder Cards -->
+            <script>
+              // Script to generate the 8 placeholder cards dynamically
+              for (let i = 0; i < 8; i++) {
+                document.write(`
+                  <article class="profile-card placeholder">
+                      <div class="card-content">
+                          <div class="placeholder-button" aria-hidden="true">
+                              <img src="https://raw.githubusercontent.com/JMARSH77/jmarshmedia-site/main/assets/css/Signalbox/SignalBox-Media.svg" alt="SignalBox Media Logo" onerror="this.onerror=null;this.src='https://placehold.co/40x40/111/444?text=SB';">
+                          </div>
+                          <h2 class="profile-name">Coming Soon</h2>
+                          <p class="profile-description">Another voice joins the story.</p>
+                      </div>
+                  </article>
+                `);
+              }
+            </script>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2025 J. Marsh Media. Power your story. Control your signal.</p>
+    </footer>
+
+</body>
+</html>
 
