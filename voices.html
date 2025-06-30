@@ -1,21 +1,25 @@
-<!DOCTYPE html>
+
 <html lang="en" class="dark-mode">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Preview: The Voices | J. Marsh Media</title>
     <meta name="description" content="Meet the characters behind the stories of J. Marsh Media.">
+    
     <!-- Font Import -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Corrected Favicon -->
+    <link rel="icon" href="https://raw.githubusercontent.com/JMARSH77/jmarshmedia-site/main/assets/css/J-Marsh-Media.svg" type="image/svg+xml">
     
     <!-- Embedded CSS for Preview -->
     <style>
         /*
          * styles.css
-         * For J. Marsh Media - "The Voices" Page
-         * Synchronized with homepage styles for brand consistency.
+         * For J. Marsh Media Site
+         * Awwwards-inspired, minimalist dark theme.
          */
 
         /* 1. Root Variables & Global Styles
@@ -28,7 +32,6 @@
             --text-primary: #e5e5e5;
             --text-secondary: #888888;
             --text-accent: #ffffff;
-
             --font-main: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             --transition-smooth: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
@@ -77,10 +80,9 @@
         }
 
         .logo {
-            height: 24px;
+            height: 60px;
             display: block;
             transition: transform var(--transition-smooth);
-            filter: invert(1); /* To make placeholder text visible */
         }
 
         .logo-link:hover .logo {
@@ -102,7 +104,7 @@
             padding: 0.5rem 0;
             position: relative;
             transition: color var(--transition-smooth);
-            white-space: nowrap; /* Prevents nav links from wrapping */
+            white-space: nowrap;
         }
 
         .main-nav a:hover {
@@ -188,7 +190,7 @@
         }
 
         .placeholder .placeholder-button img {
-            width: 40px; /* Adjusted for SVG sizing */
+            width: 40px;
             height: auto;
             opacity: 0.4;
             transition: opacity var(--transition-smooth);
@@ -218,66 +220,61 @@
                 padding: 1rem 1.5rem;
             }
             
-            /* Keep header on one line, but adjust padding */
             .header-container {
-                flex-direction: row; /* Change from 'column' */
+                flex-direction: row; 
                 gap: 1.5rem;
                 justify-content: space-between;
             }
 
-            /* Adjust nav links for smaller screens */
             .main-nav {
-                /* Allows nav to scroll horizontally if it overflows */
                 overflow-x: auto;
-                -ms-overflow-style: none;  /* IE and Edge */
-                scrollbar-width: none;  /* Firefox */
+                -ms-overflow-style: none;
+                scrollbar-width: none;
             }
             .main-nav::-webkit-scrollbar {
-                display: none; /* Chrome, Safari, Opera */
+                display: none;
             }
 
             .nav-list {
-                gap: 1.5rem; /* Adjust gap between links for mobile */
+                gap: 1.5rem;
             }
             .main-nav a {
-                font-size: 0.9rem; /* Make nav text slightly smaller */
+                font-size: 0.9rem;
             }
             
-            /* Add more breathing room around the content */
             .content-wrapper {
-                padding: 4rem 1.5rem; /* Adjust padding for mobile */
+                padding: 4rem 1.5rem;
             }
 
             .voices-grid {
                 gap: 1.5rem;
             }
             
-            /* Make profile cards slightly more compact */
             .card-content {
                 padding: 1.5rem;
             }
             .profile-name {
-                font-size: 1.1rem; /* Slightly smaller name for mobile */
+                font-size: 1.1rem;
             }
             .profile-description {
-                font-size: 0.9rem; /* Slightly smaller description */
+                font-size: 0.9rem;
             }
         }
     </style>
 </head>
 <body>
 
+    <!-- Site Header -->
     <header class="site-header">
         <div class="header-container">
-            <a href="#" class="logo-link" aria-label="J. Marsh Media Home">
-                <!-- Placeholder for SVG logo -->
-                <img src="https://placehold.co/200x50/000000/FFFFFF?text=J.M+Media" alt="J. Marsh Media Logo" class="logo">
+            <a href="index.html" class="logo-link" aria-label="J. Marsh Media Home">
+                <img src="https://raw.githubusercontent.com/JMARSH77/jmarshmedia-site/main/assets/css/J-Marsh-Media.svg" alt="J. Marsh Media Logo" class="logo">
             </a>
             <nav class="main-nav">
                 <ul class="nav-list">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#" class="active">The Voices</a></li>
-                    <li><a href="#">The Vault</a></li>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="voices.html" class="active">The Voices</a></li>
+                    <li><a href="vault.html">The Vault</a></li>
                     <li><a href="#">Intel</a></li>
                     <li><a href="#">The Drop</a></li>
                     <li><a href="#">Send Word</a></li>
@@ -286,52 +283,123 @@
         </div>
     </header>
 
+    <!-- Main Content Area -->
     <main class="content-wrapper">
         <section class="voices-grid">
-            <!-- Real Character Card: Taylor Reese -->
+            
+            <!-- Character Card: Taylor Reese -->
             <article class="profile-card">
                 <div class="card-content">
-                    <img src="https://raw.githubusercontent.com/JMARSH77/jmarshmedia-site/main/assets/css/Taylor/Taylor-Reese-Profile.png" alt="Headshot of Taylor Reese" class="profile-image" 
-                         onerror="this.onerror=null;this.src='https://placehold.co/100x100/111/fff?text=Error';">
+                    <img src="https://raw.githubusercontent.com/JMARSH77/jmarshmedia-site/main/assets/css/Taylor/Taylor-Reese-Profile.png" alt="Headshot of Taylor Reese" class="profile-image">
                     <h2 class="profile-name">Taylor Reese</h2>
                     <p class="profile-description">A rogue archivist navigating the digital shadows of the SignalBox network.</p>
                 </div>
             </article>
 
-            <!-- Real Character Card: Jeremy Marsh -->
+            <!-- Character Card: Jeremy Marsh -->
             <article class="profile-card">
                 <div class="card-content">
-                    <img src="https://raw.githubusercontent.com/JMARSH77/jmarshmedia-site/main/assets/css/Jeremy-Profile.png" alt="Headshot of Jeremy Marsh" class="profile-image"
-                         onerror="this.onerror=null;this.src='https://placehold.co/100x100/111/fff?text=Error';">
+                    <img src="https://raw.githubusercontent.com/JMARSH77/jmarshmedia-site/main/assets/css/Jeremy-Profile.png" alt="Headshot of Jeremy Marsh" class="profile-image">
                     <h2 class="profile-name">Jeremy Marsh</h2>
                     <p class="profile-description">The architect of the story, pulling strings from behind the curtain.</p>
                 </div>
             </article>
 
-            <!-- Placeholder Cards -->
-            <script>
-              // Script to generate the 8 placeholder cards dynamically
-              for (let i = 0; i < 8; i++) {
-                document.write(`
-                  <article class="profile-card placeholder">
-                      <div class="card-content">
-                          <div class="placeholder-button" aria-hidden="true">
-                              <img src="https://raw.githubusercontent.com/JMARSH77/jmarshmedia-site/main/assets/css/Signalbox/SignalBox-Media.svg" alt="SignalBox Media Logo" onerror="this.onerror=null;this.src='https://placehold.co/40x40/111/444?text=SB';">
-                          </div>
-                          <h2 class="profile-name">Coming Soon</h2>
-                          <p class="profile-description">Another voice joins the story.</p>
-                      </div>
-                  </article>
-                `);
-              }
-            </script>
+            <!-- Placeholder Card 1 -->
+            <article class="profile-card placeholder">
+                <div class="card-content">
+                    <div class="placeholder-button" aria-hidden="true">
+                        <img src="https://raw.githubusercontent.com/JMARSH77/jmarshmedia-site/main/assets/css/Signalbox/SignalBox-Media.svg" alt="SignalBox Media Logo">
+                    </div>
+                    <h2 class="profile-name">Coming Soon</h2>
+                    <p class="profile-description">Another voice joins the story.</p>
+                </div>
+            </article>
+
+            <!-- Placeholder Card 2 -->
+            <article class="profile-card placeholder">
+                <div class="card-content">
+                    <div class="placeholder-button" aria-hidden="true">
+                        <img src="https://raw.githubusercontent.com/JMARSH77/jmarshmedia-site/main/assets/css/Signalbox/SignalBox-Media.svg" alt="SignalBox Media Logo">
+                    </div>
+                    <h2 class="profile-name">Coming Soon</h2>
+                    <p class="profile-description">Another voice joins the story.</p>
+                </div>
+            </article>
+
+            <!-- Placeholder Card 3 -->
+            <article class="profile-card placeholder">
+                <div class="card-content">
+                    <div class="placeholder-button" aria-hidden="true">
+                        <img src="https://raw.githubusercontent.com/JMARSH77/jmarshmedia-site/main/assets/css/Signalbox/SignalBox-Media.svg" alt="SignalBox Media Logo">
+                    </div>
+                    <h2 class="profile-name">Coming Soon</h2>
+                    <p class="profile-description">Another voice joins the story.</p>
+                </div>
+            </article>
+
+            <!-- Placeholder Card 4 -->
+            <article class="profile-card placeholder">
+                <div class="card-content">
+                    <div class="placeholder-button" aria-hidden="true">
+                        <img src="https://raw.githubusercontent.com/JMARSH77/jmarshmedia-site/main/assets/css/Signalbox/SignalBox-Media.svg" alt="SignalBox Media Logo">
+                    </div>
+                    <h2 class="profile-name">Coming Soon</h2>
+                    <p class="profile-description">Another voice joins the story.</p>
+                </div>
+            </article>
+
+            <!-- Placeholder Card 5 -->
+            <article class="profile-card placeholder">
+                <div class="card-content">
+                    <div class="placeholder-button" aria-hidden="true">
+                        <img src="https://raw.githubusercontent.com/JMARSH77/jmarshmedia-site/main/assets/css/Signalbox/SignalBox-Media.svg" alt="SignalBox Media Logo">
+                    </div>
+                    <h2 class="profile-name">Coming Soon</h2>
+                    <p class="profile-description">Another voice joins the story.</p>
+                </div>
+            </article>
+
+            <!-- Placeholder Card 6 -->
+            <article class="profile-card placeholder">
+                <div class="card-content">
+                    <div class="placeholder-button" aria-hidden="true">
+                        <img src="https://raw.githubusercontent.com/JMARSH77/jmarshmedia-site/main/assets/css/Signalbox/SignalBox-Media.svg" alt="SignalBox Media Logo">
+                    </div>
+                    <h2 class="profile-name">Coming Soon</h2>
+                    <p class="profile-description">Another voice joins the story.</p>
+                </div>
+            </article>
+            
+            <!-- Placeholder Card 7 -->
+            <article class="profile-card placeholder">
+                <div class="card-content">
+                    <div class="placeholder-button" aria-hidden="true">
+                        <img src="https://raw.githubusercontent.com/JMARSH77/jmarshmedia-site/main/assets/css/Signalbox/SignalBox-Media.svg" alt="SignalBox Media Logo">
+                    </div>
+                    <h2 class="profile-name">Coming Soon</h2>
+                    <p class="profile-description">Another voice joins the story.</p>
+                </div>
+            </article>
+
+            <!-- Placeholder Card 8 -->
+            <article class="profile-card placeholder">
+                <div class="card-content">
+                     <div class="placeholder-button" aria-hidden="true">
+                        <img src="https://raw.githubusercontent.com/JMARSH77/jmarshmedia-site/main/assets/css/Signalbox/SignalBox-Media.svg" alt="SignalBox Media Logo">
+                    </div>
+                    <h2 class="profile-name">Coming Soon</h2>
+                    <p class="profile-description">Another voice joins the story.</p>
+                </div>
+            </article>
+            
         </section>
     </main>
 
+    <!-- Site Footer -->
     <footer class="site-footer">
         <p>&copy; 2025 J. Marsh Media. Power your story. Control your signal.</p>
     </footer>
 
 </body>
 </html>
-
