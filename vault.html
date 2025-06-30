@@ -58,12 +58,16 @@
             flex-wrap: wrap;
             gap: 1rem;
         }
-        
+
         .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
             text-decoration: none;
-            color: var(--text-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-img {
+            height: 35px; /* Controls the height of the logo image */
+            width: auto;
         }
 
         .main-nav ul {
@@ -120,7 +124,7 @@
             width: 100%;
             max-width: 500px; /* Controls the max width of the buttons */
         }
-        
+
         .show-button {
             display: block;
             width: 100%;
@@ -141,7 +145,7 @@
             background-color: var(--accent-color);
             color: var(--text-color); /* White text on hover */
         }
-        
+
         /* --- Footer --- */
         .site-footer {
             text-align: center;
@@ -149,16 +153,35 @@
             font-size: 0.875rem;
             color: rgba(255, 255, 255, 0.5);
         }
-        
+
         /* --- Responsive Adjustments --- */
         @media (max-width: 600px) {
+            /* --- Header & Nav --- */
+            .site-header {
+                padding: 1.5rem 0; /* Reduced padding */
+            }
+
             .site-header .container {
                 flex-direction: column;
                 justify-content: center;
             }
+
+            .main-nav ul {
+                gap: 1rem; /* Tighter spacing for stacked links */
+            }
             
+            /* --- Main Content --- */
+            main {
+                padding: 2rem 0; /* Reduced padding */
+            }
+
             .page-title {
                 font-size: 2rem;
+            }
+
+            .page-subtitle {
+                font-size: 1rem; /* Reduced font size for mobile */
+                margin-bottom: 2rem; /* Reduced bottom margin */
             }
         }
     </style>
@@ -168,14 +191,18 @@
     <!-- Header -->
     <header class="site-header">
         <div class="container">
-            <a href="/index.html" class="logo">J Marsh Media</a>
+            <a href="#" class="logo">
+                <!-- Site Logo -->
+                <!-- Replace the src below with a direct, public URL to your logo image when you publish your site. -->
+                <img src="https://placehold.co/180x35/0d0d0d/FFFFFF?text=J+Marsh+Media&font=inter" alt="J Marsh Media Logo" class="logo-img">
+            </a>
             <nav class="main-nav">
                 <ul>
-                    <li><a href="/cast.html">The Voices</a></li>
-                    <li><a href="/vault.html" class="active">The Vault</a></li>
-                    <li><a href="/intel.html">Intel</a></li>
-                    <li><a href="/drop.html">The Drop</a></li>
-                    <li><a href="/contact.html">Send Word</a></li>
+                    <li><a href="#">The Voices</a></li>
+                    <li><a href="#" class="active">The Vault</a></li>
+                    <li><a href="#">Intel</a></li>
+                    <li><a href="#">The Drop</a></li>
+                    <li><a href="#">Send Word</a></li>
                 </ul>
             </nav>
         </div>
@@ -189,11 +216,11 @@
             
             <!-- Vertical Button Stack -->
             <div class="button-stack">
-                <a href="/shows/on-the-clock.html" class="show-button">On The Clock w/ J and Damon</a>
-                <a href="/shows/portraits-of-power.html" class="show-button">Portraits of Power</a>
-                <a href="/shows/tech-timeline.html" class="show-button">Tech Timeline</a>
-                <a href="/shows/front-porch.html" class="show-button">Front Porch with Redwood</a>
-                <a href="/shows/our-woven-world.html" class="show-button">Our Woven World</a>
+                <a href="#" class="show-button">On The Clock w/ J and Damon</a>
+                <a href="#" class="show-button">Portraits of Power</a>
+                <a href="#" class="show-button">Tech Timeline</a>
+                <a href="#" class="show-button">Front Porch with Redwood</a>
+                <a href="#" class="show-button">Our Woven World</a>
             </div>
         </div>
     </main>
