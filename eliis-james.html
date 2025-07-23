@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ellis James | J Marsh Media</title>
+  <link rel="stylesheet" href="/styles/main.css" />
+  <link href="https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ellis-main: #7C3AED;
+      --ellis-dark: #120027;
+      --ellis-bg: #FAF8FF;
+      --ellis-font: 'Poppins', 'Montserrat', Arial, sans-serif;
+    }
+    body.ellis {
+      background: var(--ellis-bg);
+      color: var(--ellis-main);
+      font-family: var(--ellis-font);
+    }
+    @media (prefers-color-scheme: dark) {
+      body.ellis {
+        background: var(--ellis-dark);
+        color: var(--ellis-main);
+      }
+    }
+    .ellis .section {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 2rem 1rem 1.5rem 1rem;
+      text-align: center;
+    }
+    .ellis .headshot {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 50%;
+      box-shadow: 0 2px 14px #7C3AED18;
+      margin-bottom: 1rem;
+    }
+    .ellis .logos-row {
+      display: flex;
+      gap: 1.2rem;
+      justify-content: center;
+      align-items: center;
+      margin: 1rem 0 2rem 0;
+      flex-wrap: wrap;
+    }
+    .ellis .logos-row img {
+      width: 56px;
+      height: 56px;
+      object-fit: contain;
+      border-radius: 10px;
+      background: #fff;
+      padding: 0.2rem;
+      box-shadow: 0 1px 5px #7C3AED12;
+    }
+    .ellis h1, .ellis h2, .ellis h3, .ellis a, .ellis .shop-btn, .ellis .profile-link {
+      color: var(--ellis-main);
+      font-family: var(--ellis-font);
+    }
+    .ellis .talent-card, .ellis .blog-card, .ellis .download-card, .ellis .store-card {
+      background: #fff;
+      border: 1.5px solid var(--ellis-main);
+      border-radius: 12px;
+      margin-bottom: 1.2rem;
+      box-shadow: 0 2px 12px #7C3AED10;
+      padding: 1.2rem;
+      text-align: left;
+      flex: 1 1 260px;
+      min-width: 220px;
+      max-width: 320px;
+      margin: 0.7rem;
+      display: inline-block;
+      vertical-align: top;
+    }
+    @media (prefers-color-scheme: dark) {
+      .ellis .talent-card, .ellis .blog-card, .ellis .download-card, .ellis .store-card {
+        background: #1E0934;
+        border: 1.5px solid var(--ellis-main);
+      }
+    }
+    .ellis .blog-list, .ellis .download-list, .ellis .store-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
+      margin-top: 1.3rem;
+      flex-wrap: wrap;
+    }
+    @media (min-width: 600px) {
+      .ellis .blog-list, .ellis .download-list, .ellis .store-list {
+        flex-direction: row;
+        justify-content: center;
+      }
+    }
+    .ellis .profile-link, .ellis .shop-btn {
+      display: inline-block;
+      margin-top: 0.6rem;
+      color: #fff !important;
+      background: var(--ellis-main);
+      border: none;
+      border-radius: 8px;
+      padding: 0.7rem 1.3rem;
+      font-size: 1rem;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background 0.18s;
+    }
+    .ellis .profile-link:hover, .ellis .shop-btn:hover {
+      background: #4C1D95;
+      color: #fff !important;
+    }
+  </style>
+</head>
+<body class="ellis">
+  <nav class="navbar">
+    <div class="nav-logo"><a href="/#home">J Marsh Media</a></div>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" />
+    <label for="nav-toggle" class="nav-toggle-label">&#9776;</label>
+    <div class="nav-links">
+      <a href="/#home">Home</a>
+      <a href="/#mission">Our Mission</a>
+      <a href="/#talent">Talent</a>
+      <a href="/#shop">Shop</a>
+      <a href="/#contact">Contact</a>
+    </div>
+  </nav>
+  <main>
+    <!-- Hero / Headshot and Logos -->
+    <section class="section">
+      <img src="/images/headshots/ellis-james.jpg" alt="Ellis James" class="headshot">
+      <h1>Ellis James</h1>
+      <p style="margin:0.6rem 0 1.2rem 0;">Young Adult Author • Gen Z Fiction Expert</p>
+      <div class="logos-row">
+        <img src="/images/logos/ellis-logo-ya.png" alt="YA Logo"/>
+        <img src="/images/logos/ellis-logo-romance.png" alt="Romance Logo"/>
+        <img src="/images/logos/ellis-logo-sci-fi.png" alt="Sci-Fi Logo"/>
+      </div>
+      <p style="max-width:520px;margin:0 auto 0.7rem auto;line-height:1.55;">
+        Ellis James writes bold, emotionally honest young adult stories with a Gen Z edge—romance, thriller, adventure, and more. Every book is built for readers who want real characters, modern stakes, and an authentic voice.
+      </p>
+    </section>
+
+    <!-- Blog Section -->
+    <section class="section">
+      <h2>Blog</h2>
+      <div class="blog-list">
+        <div class="blog-card">
+          <h3>Why YA Thrillers Matter in 2025</h3>
+          <p>Ellis shares the story behind “Ashes Left Behind”—and what’s next for the genre.</p>
+          <a href="/blog/ellis-james/ya-thrillers-2025.html" class="profile-link">Read More</a>
+        </div>
+        <div class="blog-card">
+          <h3>Worldbuilding for Real People</h3>
+          <p>Building relatable characters in impossible worlds: Ellis’s craft notes.</p>
+          <a href="/blog/ellis-james/worldbuilding.html" class="profile-link">Read More</a>
+        </div>
+        <!-- Add more posts as needed -->
+      </div>
+    </section>
+
+    <!-- Downloads Section -->
+    <section class="section">
+      <h2>Downloads</h2>
+      <div class="download-list">
+        <div class="download-card">
+          <h3>Sample Chapter</h3>
+          <p>Preview the first chapter of Ashes Left Behind—no email required.</p>
+          <a href="/downloads/ashes-left-behind-sample.pdf" class="profile-link" target="_blank">Download PDF</a>
+        </div>
+        <div class="download-card">
+          <h3>Classroom Guide (Coming Soon)</h3>
+          <p>Discussion questions, activities, and more—ideal for teachers and readers.</p>
+          <a href="#" class="profile-link" style="background:#ccc;pointer-events:none;">Coming Soon</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Store Section -->
+    <section class="section">
+      <h2>Ellis James Store</h2>
+      <div class="store-list">
+        <div class="store-card">
+          <img src="/images/books/ashes-left-behind.jpg" alt="Ashes Left Behind" style="width:90px;height:132px;border-radius:8px;object-fit:cover;margin-bottom:0.5rem;">
+          <h3>Ashes Left Behind</h3>
+          <p>Dystopian YA Thriller</p>
+          <a href="https://your-shopify-link.com/ashes-left-behind" class="shop-btn" target="_blank">Buy Now</a>
+        </div>
+        <!-- Add more books/cards as needed -->
+      </div>
+    </section>
+  </main>
+</body>
+</html>
