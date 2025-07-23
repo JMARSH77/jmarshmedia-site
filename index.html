@@ -1,105 +1,222 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>J Marsh Media</title>
-  <link rel="stylesheet" href="styles/main.css"/>
-  <link rel="icon" href="/public/images/favicon.ico"/>
-</head>
-<body>
-  <header>
-    <nav class="navbar">
-      <div class="logo">
-        <a href="#home">J Marsh Media</a>
-      </div>
-      <input type="checkbox" id="menu-toggle"/>
-      <label for="menu-toggle" class="menu-icon">&#9776;</label>
-      <ul class="nav-links">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#mission">Our Mission</a></li>
-        <li><a href="#talent">Talent</a></li>
-        <li><a href="#shop">Shop</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
+:root {
+  --primary-blue: #0033A0;
+  --background-light: #FFF;
+  --background-dark: #000;
+  --text-light: #000;
+  --text-dark: #FFF;
+}
 
-  <main>
-    <section id="home" class="hero">
-      <h1>J MARSH MEDIA</h1>
-      <p class="tagline">Power your story. Control your signal.</p>
-      <form class="newsletter">
-        <input type="email" placeholder="Your email" required />
-        <button type="submit">Subscribe</button>
-      </form>
-    </section>
+html {
+  scroll-behavior: smooth;
+}
 
-    <section id="mission" class="mission">
-      <h2>Our Mission</h2>
-      <p>We exist to build connections and transform audiences into loyal communities.</p>
-      <div class="quick-facts">
-        <span>12+ Talents</span>
-        <span>20+ Projects</span>
-        <span>Limitless Creativity</span>
-      </div>
-    </section>
+body {
+  margin: 0;
+  background: var(--background-light);
+  color: var(--primary-blue);
+  font-family: 'Montserrat', Arial, sans-serif;
+}
 
-    <section id="talent" class="talent-section">
-      <h2>Talent</h2>
-      <div class="talent-grid">
-        <!-- Repeat for each talent -->
-        <a href="/jeremy-marsh.html" class="talent-card">
-          <img src="/public/images/headshots/jeremy-marsh.jpg" alt="Jeremy Marsh"/>
-          <h3>Jeremy Marsh</h3>
-          <p>Founder, Author, Creative Lead</p>
-        </a>
-        <a href="/miles-reid.html" class="talent-card">
-          <img src="/public/images/headshots/miles-reid.jpg" alt="Miles Reid"/>
-          <h3>Miles Reid</h3>
-          <p>Youth Author & Educator</p>
-        </a>
-        <a href="/ellis-james.html" class="talent-card">
-          <img src="/public/images/headshots/ellis-james.jpg" alt="Ellis James"/>
-          <h3>Ellis James</h3>
-          <p>Gen Z Fiction Expert (YA)</p>
-        </a>
-        <a href="/asha-monroe.html" class="talent-card">
-          <img src="/public/images/headshots/asha-monroe.jpg" alt="Asha Monroe"/>
-          <h3>Asha Monroe</h3>
-          <p>Sci-fi & Fantasy Mastermind</p>
-        </a>
-        <a href="/tessa-reese.html" class="talent-card">
-          <img src="/public/images/headshots/tessa-reese.jpg" alt="Tessa Reese"/>
-          <h3>Tessa Reese</h3>
-          <p>Adult Fiction Expert</p>
-        </a>
-        <a href="/rhea.html" class="talent-card">
-          <img src="/public/images/headshots/rhea.jpg" alt="Rhea"/>
-          <h3>Rhea</h3>
-          <p>Rom-Com Queen</p>
-        </a>
-        <a href="/redwood-daniels.html" class="talent-card">
-          <img src="/public/images/headshots/redwood-daniels.jpg" alt="Redwood Daniels"/>
-          <h3>Redwood Daniels</h3>
-          <p>Modern Male Fiction Specialist</p>
-        </a>
-        <a href="/reyna-noire.html" class="talent-card">
-          <img src="/public/images/headshots/reyna-noire.jpg" alt="Reyna Noire"/>
-          <h3>Reyna Noire</h3>
-          <p>Horror Fiction Master</p>
-        </a>
-        <a href="/reginald.html" class="talent-card">
-          <img src="/public/images/headshots/reginald.jpg" alt="Reginald"/>
-          <h3>Reginald</h3>
-          <p>Satirical News Host</p>
-        </a>
-        <a href="/j.html" class="talent-card">
-          <img src="/public/images/headshots/j.jpg" alt="J"/>
-          <h3>J</h3>
-          <p>Football Analyst & Biographer</p>
-        </a>
-        <a href="/damon.html" class="talent-card">
-          <img src="/public/images/headshots/damon.jpg" alt="Damon"/>
-          <h3>Damon</h3>
-          <p>
+@media (prefers-color-scheme: dark) {
+  body {
+    background: var(--background-dark);
+    color: var(--primary-blue);
+  }
+}
+
+.navbar {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background: inherit;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 1.5rem;
+  z-index: 1000;
+}
+.nav-logo a {
+  color: var(--primary-blue);
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-decoration: none;
+}
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+}
+.nav-links a {
+  color: var(--primary-blue);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.2rem 0.5rem;
+}
+.nav-links a:hover {
+  text-decoration: underline;
+}
+.nav-toggle, .nav-toggle-label {
+  display: none;
+}
+
+@media (max-width: 800px) {
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 58px;
+    right: 0;
+    background: var(--background-light);
+    flex-direction: column;
+    width: 60vw;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  .nav-links a {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #eee;
+  }
+  .nav-toggle:checked + .nav-toggle-label + .nav-links {
+    display: flex;
+  }
+  .nav-toggle-label {
+    display: block;
+    cursor: pointer;
+    font-size: 2rem;
+    color: var(--primary-blue);
+  }
+}
+
+/* Hero Section */
+.hero {
+  padding: 3rem 1rem 2rem 1rem;
+  text-align: center;
+}
+.hero h1 {
+  font-size: 2.2rem;
+  margin-bottom: 0.5rem;
+}
+.tagline {
+  font-size: 1.1rem;
+}
+
+/* Mission Section */
+.mission {
+  text-align: center;
+  padding: 2rem 1rem 1.5rem 1rem;
+}
+
+/* Talent Section */
+.talent-section {
+  padding: 2rem 1rem;
+  text-align: center;
+}
+.talent-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.2rem;
+  margin-top: 1.5rem;
+}
+@media (min-width: 600px) {
+  .talent-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (min-width: 900px) {
+  .talent-grid {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+.talent-card {
+  background: rgba(0,0,0,0.03);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--primary-blue);
+  text-decoration: none;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.talent-card:hover {
+  box-shadow: 0 4px 16px rgba(0,51,160,0.08);
+  transform: translateY(-4px) scale(1.02);
+}
+.talent-card img {
+  width: 96px;
+  height: 96px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 0.8rem;
+}
+.talent-card h3 {
+  margin: 0.4rem 0 0.1rem 0;
+  font-size: 1.1rem;
+}
+.talent-card p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* Shop Section */
+.shop-section {
+  padding: 2rem 1rem;
+  text-align: center;
+}
+.shop-btn {
+  background: var(--primary-blue);
+  color: #fff;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 8px;
+  padding: 0.9rem 2rem;
+  margin-top: 1rem;
+  text-decoration: none;
+  cursor: pointer;
+  display: inline-block;
+  transition: background 0.2s;
+}
+.shop-btn:hover {
+  background: #002277;
+}
+
+/* Contact Section */
+.contact-section {
+  padding: 2rem 1rem;
+  text-align: center;
+}
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+.contact-form input, .contact-form textarea {
+  width: 100%;
+  padding: 0.7rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+.contact-form button {
+  background: var(--primary-blue);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.social-links {
+  margin-top: 1.2rem;
+}
+.social-links a {
+  color: var(--primary-blue);
+  margin: 0 0.7rem;
+  text-decoration: none;
+  font-weight: 500;
+}
+.social-links a:hover {
+  text-decoration: underline;
+}
