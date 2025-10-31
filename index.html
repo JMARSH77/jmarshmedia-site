@@ -1,222 +1,579 @@
-:root {
-  --primary-blue: #0033A0;
-  --background-light: #FFF;
-  --background-dark: #000;
-  --text-light: #000;
-  --text-dark: #FFF;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Title and Favicon -->
+    <title>J-Marsh Media</title>
+    <!-- <link rel="icon" href="path/to/favicon.ico"> -->
 
-html {
-  scroll-behavior: smooth;
-}
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 
-body {
-  margin: 0;
-  background: var(--background-light);
-  color: var(--primary-blue);
-  font-family: 'Montserrat', Arial, sans-serif;
-}
+    <style>
+        /*
+         * Base styles inspired by Apple & Videinfra
+         */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
 
-@media (prefers-color-scheme: dark) {
-  body {
-    background: var(--background-dark);
-    color: var(--primary-blue);
-  }
-}
+        /*
+         * Header: Apple-style translucent sticky nav
+         */
+        .header-nav {
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
 
-.navbar {
-  position: sticky;
-  top: 0;
-  width: 100%;
-  background: inherit;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.8rem 1.5rem;
-  z-index: 1000;
-}
-.nav-logo a {
-  color: var(--primary-blue);
-  font-size: 1.2rem;
-  font-weight: bold;
-  text-decoration: none;
-}
-.nav-links {
-  display: flex;
-  gap: 1.5rem;
-}
-.nav-links a {
-  color: var(--primary-blue);
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 1rem;
-  padding: 0.2rem 0.5rem;
-}
-.nav-links a:hover {
-  text-decoration: underline;
-}
-.nav-toggle, .nav-toggle-label {
-  display: none;
-}
+        .nav-link {
+            color: #333;
+            transition: color 0.3s;
+        }
+        .nav-link:hover {
+            color: #000;
+        }
 
-@media (max-width: 800px) {
-  .nav-links {
-    display: none;
-    position: absolute;
-    top: 58px;
-    right: 0;
-    background: var(--background-light);
-    flex-direction: column;
-    width: 60vw;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  }
-  .nav-links a {
-    padding: 1rem 1.5rem;
-    border-bottom: 1px solid #eee;
-  }
-  .nav-toggle:checked + .nav-toggle-label + .nav-links {
-    display: flex;
-  }
-  .nav-toggle-label {
-    display: block;
-    cursor: pointer;
-    font-size: 2rem;
-    color: var(--primary-blue);
-  }
-}
+        /*
+         * Typography: Large, bold headings
+         */
+        .hero-headline {
+            font-size: clamp(3rem, 10vw, 8rem);
+            line-height: 1;
+            font-weight: 800;
+            letter-spacing: -0.05em;
+        }
+        
+        .section-headline {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            line-height: 1.1;
+            font-weight: 700;
+            letter-spacing: -0.04em;
+        }
 
-/* Hero Section */
-.hero {
-  padding: 3rem 1rem 2rem 1rem;
-  text-align: center;
-}
-.hero h1 {
-  font-size: 2.2rem;
-  margin-bottom: 0.5rem;
-}
-.tagline {
-  font-size: 1.1rem;
-}
+        /*
+         * Scroll Animations: Smooth fade/slide-in
+         */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                        transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition-delay: 0.1s;
+        }
 
-/* Mission Section */
-.mission {
-  text-align: center;
-  padding: 2rem 1rem 1.5rem 1rem;
-}
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-/* Talent Section */
-.talent-section {
-  padding: 2rem 1rem;
-  text-align: center;
-}
-.talent-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.2rem;
-  margin-top: 1.5rem;
-}
-@media (min-width: 600px) {
-  .talent-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-@media (min-width: 900px) {
-  .talent-grid {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-  }
-}
-.talent-card {
-  background: rgba(0,0,0,0.03);
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: var(--primary-blue);
-  text-decoration: none;
-  transition: box-shadow 0.2s, transform 0.2s;
-}
-.talent-card:hover {
-  box-shadow: 0 4px 16px rgba(0,51,160,0.08);
-  transform: translateY(-4px) scale(1.02);
-}
-.talent-card img {
-  width: 96px;
-  height: 96px;
-  object-fit: cover;
-  border-radius: 50%;
-  margin-bottom: 0.8rem;
-}
-.talent-card h3 {
-  margin: 0.4rem 0 0.1rem 0;
-  font-size: 1.1rem;
-}
-.talent-card p {
-  margin: 0;
-  font-size: 0.9rem;
-}
+        /* Staggered delay for grid items */
+        .scroll-reveal:nth-child(2) {
+            transition-delay: 0.2s;
+        }
+        .scroll-reveal:nth-child(3) {
+            transition-delay: 0.3s;
+        }
 
-/* Shop Section */
-.shop-section {
-  padding: 2rem 1rem;
-  text-align: center;
-}
-.shop-btn {
-  background: var(--primary-blue);
-  color: #fff;
-  font-size: 1.1rem;
-  border: none;
-  border-radius: 8px;
-  padding: 0.9rem 2rem;
-  margin-top: 1rem;
-  text-decoration: none;
-  cursor: pointer;
-  display: inline-block;
-  transition: background 0.2s;
-}
-.shop-btn:hover {
-  background: #002277;
-}
+        /*
+         * Project Grid: Clean, simple hover effect
+         */
+        .project-card {
+            background-color: #f5f5f7;
+            border-radius: 24px;
+            overflow: hidden;
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.07);
+        }
+        .project-card img {
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .project-card:hover img {
+            transform: scale(1.05);
+        }
 
-/* Contact Section */
-.contact-section {
-  padding: 2rem 1rem;
-  text-align: center;
-}
-.contact-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  max-width: 400px;
-  margin: 0 auto;
-}
-.contact-form input, .contact-form textarea {
-  width: 100%;
-  padding: 0.7rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 1rem;
-}
-.contact-form button {
-  background: var(--primary-blue);
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  padding: 0.7rem 1.5rem;
-  font-size: 1rem;
-  cursor: pointer;
-}
-.social-links {
-  margin-top: 1.2rem;
-}
-.social-links a {
-  color: var(--primary-blue);
-  margin: 0 0.7rem;
-  text-decoration: none;
-  font-weight: 500;
-}
-.social-links a:hover {
-  text-decoration: underline;
-}
+    </style>
+</head>
+<body class="bg-white text-black">
+
+    <header class="header-nav sticky top-0 z-50">
+        <nav class="container mx-auto flex justify-between items-center p-4 md:px-6">
+            <a href="#home" class="block">
+                <!-- Replaced text with img logo. Falls back to text if image fails. -->
+                <img src="J-Marsh-Media.svg" alt="J-Marsh Media Logo" class="h-8 w-auto" onerror="this.outerHTML='<span class=\'text-xl font-bold\'>J-Marsh Media</span>'">
+            </a>
+            <div class="hidden md:flex space-x-8 text-sm font-medium">
+                <a href="#talent" class="nav-link">Talent</a>
+                <a href="#story" class="nav-link">Our Story</a>
+                <a href="#media" class="nav-link">Media</a>
+                <a href="#press" class="nav-link">Press Room</a>
+                <a href="#social" class="nav-link">Social</a>
+                <a href="#store" class="nav-link">The Store</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+            <button id="mobile-menu-btn" class="md:hidden text-black">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden fixed inset-0 bg-white z-40 flex flex-col items-center justify-center space-y-8">
+            <a href="#talent" class="nav-link text-2xl font-medium">Talent</a>
+            <a href="#story" class="nav-link text-2xl font-medium">Our Story</a>
+            <a href="#media" class="nav-link text-2xl font-medium">Media</a>
+            <a href="#press" class="nav-link text-2xl font-medium">Press Room</a>
+            <a href="#social" class="nav-link text-2xl font-medium">Social</a>
+            <a href="#store" class="nav-link text-2xl font-medium">The Store</a>
+            <a href="#contact" class="nav-link text-2xl font-medium">Contact</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Section 1: Hero -->
+        <section id="home" class="min-h-screen flex items-center justify-center text-center px-4 py-24">
+            <div class="scroll-reveal">
+                <h1 class="hero-headline text-black">
+                    Control the Signal.
+                </h1>
+                <p class="text-lg md:text-xl max-w-2xl mx-auto mt-6 text-gray-700">
+                    Author-driven. Creator-owned. Audience-powered.
+                </p>
+            </div>
+        </section>
+
+        <!-- Section 2: Talent (NEW POSITION) -->
+        <section id="talent" class="bg-black text-white py-24 md:py-40">
+            <div class="container mx-auto px-4">
+                <div class="max-w-3xl mx-auto text-center scroll-reveal mb-16 md:mb-24">
+                    <h2 class="section-headline">
+                        Talent.
+                    </h2>
+                    <p class="text-lg md:text-xl max-w-xl mx-auto mt-6 text-gray-400">
+                        Representing the next generation of authors and creators.
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-8 md:gap-12">
+                    <!-- Talent 1 -->
+                    <div class="scroll-reveal">
+                        <a href="#" class="project-card block">
+                            <img src="Jeremy Logo.png" alt="Jeremy Marsh" class="w-full h-auto aspect-square object-cover">
+                            <div class="p-8">
+                                <h3 class="text-xl font-bold text-black">Jeremy Marsh</h3>
+                                <p class="text-gray-600 mt-1">Author, Creator, Songwriter/Music Producer</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Talent 2 -->
+                    <div class="scroll-reveal">
+                        <a href="#" class="project-card block">
+                            <img src="https://placehold.co/800x800/f5f5f7/cccccc?text=Jacen+Michaels" alt="Jacen Michaels" class="w-full h-auto aspect-square object-cover">
+                            <div class="p-8">
+                                <h3 class="text-xl font-bold text-black">Jacen Michaels</h3>
+                                <p class="text-gray-600 mt-1">Author</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Talent 3 -->
+                    <div class="scroll-reveal">
+                        <a href="#" class="project-card block">
+                            <img src="https://placehold.co/800x800/f5f5f7/cccccc?text=Redwood+Daniels" alt="Redwood Daniels" class="w-full h-auto aspect-square object-cover">
+                            <div class="p-8">
+                                <h3 class="text-xl font-bold text-black">Redwood Daniels</h3>
+                                <p class="text-gray-600 mt-1">Author</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Talent 4 -->
+                    <div class="scroll-reveal">
+                        <a href="#" class="project-card block">
+                            <img src="https://placehold.co/800x800/f5f5f7/cccccc?text=Grayson+Holt" alt="Grayson Holt" class="w-full h-auto aspect-square object-cover">
+                            <div class="p-8">
+                                <h3 class="text-xl font-bold text-black">Grayson Holt</h3>
+                                <p class="text-gray-600 mt-1">Author</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Talent 5 -->
+                    <div class="scroll-reveal">
+                        <a href="#" class="project-card block">
+                            <img src="https://placehold.co/800x800/f5f5f7/cccccc?text=Tessa+Reese" alt="Tessa Reese" class="w-full h-auto aspect-square object-cover">
+                            <div class="p-8">
+                                <h3 class="text-xl font-bold text-black">Tessa Reese</h3>
+                                <p class="text-gray-600 mt-1">Author</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Talent 6 -->
+                    <div class="scroll-reveal">
+                        <a href="#" class="project-card block">
+                            <img src="https://placehold.co/800x800/f5f5f7/cccccc?text=Reyna+Noire" alt="Reyna Noire" class="w-full h-auto aspect-square object-cover">
+                            <div class="p-8">
+                                <h3 class="text-xl font-bold text-black">Reyna Noire</h3>
+                                <p class="text-gray-600 mt-1">Author</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Talent 7 -->
+                    <div class="scroll-reveal">
+                        <a href="#" class="project-card block">
+                            <img src="https://placehold.co/800x800/f5f5f7/cccccc?text=Ellis+Jordan" alt="Ellis Jordan" class="w-full h-auto aspect-square object-cover">
+                            <div class="p-8">
+                                <h3 class="text-xl font-bold text-black">Ellis Jordan</h3>
+                                <p class="text-gray-600 mt-1">Author</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Talent 8 -->
+                    <div class="scroll-reveal">
+                        <a href="#" class="project-card block">
+                            <img src="https://placehold.co/800x800/f5f5f7/cccccc?text=Asha+Monroe" alt="Asha Monroe" class="w-full h-auto aspect-square object-cover">
+                            <div class="p-8">
+                                <h3 class="text-xl font-bold text-black">Asha Monroe</h3>
+                                <p class="text-gray-600 mt-1">Author</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Talent 9 -->
+                    <div class="scroll-reveal">
+                        <a href="#" class="project-card block">
+                            <img src="https://placehold.co/800x800/f5f5f7/cccccc?text=Damon+Walker" alt="Damon Walker" class="w-full h-auto aspect-square object-cover">
+                            <div class="p-8">
+                                <h3 class="text-xl font-bold text-black">Damon Walker</h3>
+                                <p class="text-gray-600 mt-1">Author</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Talent 10 -->
+                    <div class="scroll-reveal">
+                        <a href="#" class="project-card block">
+                            <img src="httpsOpening.co/800x800/f5f5f7/cccccc?text=Reginald+Roberts" alt="Reginald Roberts" class="w-full h-auto aspect-square object-cover">
+                            <div class="p-8">
+                                <h3 class="text-xl font-bold text-black">Reginald Roberts</h3>
+                                <p class="text-gray-600 mt-1">Author</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Talent 11 -->
+                    <div class="scroll-reveal">
+                        <a href="#" class="project-card block">
+                            <img src="https://placehold.co/800x800/f5f5f7/cccccc?text=Miles+Reid" alt="Miles Reid" class="w-full h-auto aspect-square object-cover">
+                            <div class="p-8">
+                                <h3 class="text-xl font-bold text-black">Miles Reid</h3>
+                                <p class="text-gray-600 mt-1">Author</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Talent 12 -->
+                    <div class="scroll-reveal">
+                        <a href="#" class="project-card block">
+                            <img src="https://placehold.co/800x800/f5f5f7/cccccc?text=Miguel+Marisma" alt="Miguel Marisma" class="w-full h-auto aspect-square object-cover">
+                            <div class="p-8">
+                                <h3 class="text-xl font-bold text-black">Miguel Marisma</h3>
+                                <p class="text-gray-600 mt-1">Author</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Our Story (NEW POSITION) -->
+        <section id="story" class="bg-white text-black py-24 md:py-40">
+            <div class="container mx-auto px-4">
+                <div class="max-w-3xl mx-auto text-center scroll-reveal">
+                    <h2 class="section-headline">
+                        Our Story.
+                    </h2>
+                    <p class="text-lg md:text-xl max-w-xl mx-auto mt-6 text-gray-700">
+                        Founded on a passion for creative independence.
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-8 md:gap-12 mt-16 md:mt-24 text-center md:text-left">
+                    <div class="scroll-reveal">
+                        <h3 class="text-2xl font-bold mb-3">Author-Driven</h3>
+                        <p class="text-gray-600">
+                            We believe in the power of the original voice, putting authors at the forefront.
+                        </p>
+                    </div>
+                    <div class="scroll-reveal">
+                        <h3 class="text-2xl font-bold mb-3">Creator-Owned</h3>
+                        <p class="text-gray-600">
+                            Building a model where creators retain ownership and control of their narratives.
+                        </p>
+                    </div>
+                    <div class="scroll-reveal">
+                        <h3 class="text-2xl font-bold mb-3">Audience-Powered</h3>
+                        <p class="text-gray-600">
+                            Connecting stories directly with the communities that champion them.
+                        </s
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Media (NEW POSITION) -->
+        <section id="media" class="bg-black text-white py-24 md:py-40">
+            <div class="container mx-auto px-4">
+                <div class="max-w-3xl mx-auto text-center scroll-reveal">
+                    <h2 class="section-headline">
+                        Media.
+                    </h2>
+                    <p class="text-lg md:text-xl max-w-xl mx-auto mt-6 text-gray-400">
+                        Podcasts, documentaries, and original series.
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-8 md:gap-12 mt-16 md:mt-24 text-center md:text-left">
+                    <div class="scroll-reveal">
+                        <h3 class="text-2xl font-bold mb-3">The Signal Podcast</h3>
+                        <p class="text-gray-400">
+                            Weekly interviews with industry-defining voices.
+                        </p>
+                    </div>
+                    <div class="scroll-reveal">
+                        <h3 class="text-2xl font-bold mb-3">New Origins</h3>
+                        <p class="text-gray-400">
+                            A documentary series on digital ownership.
+                        </p>
+                    </div>
+                    <div class="scroll-reveal">
+                        <h3 class="text-2xl font-bold mb-3">The Insider</h3>
+                        <p class="text-gray-400">
+                            Our monthly newsletter on creative independence.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Press Room (NEW POSITION) -->
+        <section id="press" class="bg-white text-black py-24 md:py-40">
+            <div class="container mx-auto px-4">
+                <div class="max-w-3xl mx-auto text-center scroll-reveal">
+                    <h2 class="section-headline">
+                        Press Room.
+                    </h2>
+                    <p class="text-lg md:text-xl max-w-xl mx-auto mt-6 text-gray-700">
+                        Media features, press kits, and news.
+                    </F>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-8 md:gap-12 mt-16 md:mt-24 text-center md:text-left">
+                    <div class="scroll-reveal">
+                        <h3 class="text-2xl font-bold mb-3">Feature: Forbes</h3>
+                        <p class="text-gray-600">
+                            "The New Wave of Creator-Owned Media."
+                        </p>
+                    </div>
+                    <div class="scroll-reveal">
+                        <h3 class="text-2xl font-bold mb-3">Announcement</h3>
+                        <p class="text-gray-600">
+                            "J-Marsh Media Launches 'The Signal' Platform."
+                        </p>
+                    </div>
+                    <div class="scroll-reveal">
+                        <h3 class="text-2xl font-bold mb-3">Press Kit</h3>
+                        <p class="text-gray-600">
+                            Download our official assets and brand guide.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Social (NEW POSITION) -->
+        <section id="social" class="bg-black text-white py-24 md:py-40">
+            <div class="container mx-auto px-4">
+                <div class="max-w-3xl mx-auto text-center scroll-reveal mb-16 md:mb-24">
+                    <h2 class="section-headline">
+                        Social.
+                    </h2>
+                    <p class="text-lg md:text-xl max-w-xl mx-auto mt-6 text-gray-400">
+                        Join the conversation.
+                    </p>
+                </div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                    <div class="scroll-reveal text-center">
+                        <a href="#" class="inline-block p-4 transition-transform hover:scale-110">
+                            <h3 class="text-xl font-bold">X (Twitter)</h3>
+                            <p class="text-gray-400 mt-1">@jmarshmedia</p>
+                        </a>
+                    </div>
+                    <div class="scroll-reveal text-center">
+                        <a href="#" class="inline-block p-4 transition-transform hover:scale-110">
+                            <h3 class="text-xl font-bold">Instagram</h3>
+                            <p class="text-gray-400 mt-1">@jmarshmedia</p>
+                        </a>
+                    </div>
+                    <div class="scroll-reveal text-center">
+                        <a href="#" class="inline-block p-4 transition-transform hover:scale-110">
+                            <h3 class="text-xl font-bold">LinkedIn</h3>
+                            <p class="text-gray-400 mt-1">J-Marsh Media</p>
+                        </a>
+                    </div>
+                    <div class="scroll-reveal text-center">
+                        <a href="#" class="inline-block p-4 transition-transform hover:scale-110">
+                            <h3 class="text-xl font-bold">Threads</h3>
+                            <p class="text-gray-400 mt-1">@jmarshmedia</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: The Store (NEW POSITION) -->
+        <section id="store" class="bg-white text-black py-24 md:py-40">
+            <div class="container mx-auto px-4">
+                <div class="max-w-3xl mx-auto text-center scroll-reveal mb-16 md:mb-24">
+                    <h2 class="section-headline">
+                        The Store.
+                    </h2>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-8 md:gap-12">
+                    <div class="scroll-reveal">
+                        <a href="#" class="project-card block">
+                            <img src="https://placehold.co/800x600/f5f5f7/cccccc?text=Product+One" alt="Product One" class="w-full h-auto">
+                            <div class="p-8">
+                                <h3 class="text-xl font-bold">Debut Collection</h3>
+                                <p class="text-gray-600 mt-1">Limited Edition Prints</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="scroll-reveal">
+                        <a href="#" class="project-card block">
+                            <img src="https://placehold.co/800x600/f5f5f7/cccccc?text=Product+Two" alt="Product Two" class="w-full h-auto">
+                            <div class="p-8">
+                                <h3 class="text-xl font-bold">The Signal Tee</h3>
+                                <p class="text-gray-600 mt-1">Apparel</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 8: Contact -->
+        <section id="contact" class="bg-black text-white py-24 md:py-40">
+            <div class="container mx-auto px-4">
+                <div class="max-w-3xl mx-auto text-center scroll-reveal">
+                    <h2 class="section-headline">
+                        Let's talk.
+                    </h2>
+                    <p class="text-lg md:text-xl max-w-xl mx-auto mt-6 text-gray-400">
+                        Have a project in mind? We'd love to hear about it.
+                    </p>
+                    <a href="mailto:hello@jmarsh.media" class="inline-block bg-white text-black font-medium py-3 px-8 rounded-full mt-10 transition-transform hover:scale-105">
+                        hello@jmarsh.media
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="text-center py-12 bg-white">
+        <div class="container mx-auto px-4 text-gray-500 text-sm">
+            <p>&copy; 2025 J-Marsh Media. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- Mobile Menu Toggle ---
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                // Optional: Toggle icon
+                if (mobileMenu.classList.contains('hidden')) {
+                    mobileMenuBtn.innerHTML = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>`;
+                } else {
+                    mobileMenuBtn.innerHTML = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>`;
+                }
+            });
+            
+            // Close mobile menu when a link is clicked
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenuBtn.innerHTML = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>`;
+                });
+            });
+
+            // --- Shuffle Talent Cards ---
+            const talentGrid = document.querySelector('#talent .grid');
+            if (talentGrid) {
+                const talentCards = Array.from(talentGrid.children);
+                
+                // Separate Jeremy Marsh (first card) from the rest
+                const jeremyMarshCard = talentCards.shift();
+                const otherTalentCards = talentCards;
+
+                // Fisher-Yates shuffle algorithm for *other* talent
+                for (let i = otherTalentCards.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [otherTalentCards[i], otherTalentCards[j]] = [otherTalentCards[j], otherTalentCards[i]];
+                }
+
+                // Clear the grid
+                talentGrid.innerHTML = '';
+                
+                // Append Jeremy Marsh first
+                if (jeremyMarshCard) {
+                    talentGrid.appendChild(jeremyMarshCard);
+                }
+                
+                // Append the shuffled cards
+                otherTalentCards.forEach(card => talentGrid.appendChild(card));
+            }
+
+            // --- Scroll Animation Observer ---
+            const revealElements = document.querySelectorAll('.scroll-reveal');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { 
+                threshold: 0.1 // Trigger when 10% of the element is visible
+            });
+
+            revealElements.forEach(el => {
+                observer.observe(el);
+            });
+
+        });
+    </script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
