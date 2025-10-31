@@ -1,222 +1,453 @@
-:root {
-  --primary-blue: #0033A0;
-  --background-light: #FFF;
-  --background-dark: #000;
-  --text-light: #000;
-  --text-dark: #FFF;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JM Studio &mdash; Minimalist Design Inspired by Apple</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg-light: #f5f5f7;
+      --bg-dark: #0b0b0f;
+      --text-light: #1d1d1f;
+      --text-muted: #6e6e73;
+      --text-dark: #f5f5f7;
+      --accent: #0071e3;
+      --accent-dark: #004d99;
+      font-size: 16px;
+    }
 
-html {
-  scroll-behavior: smooth;
-}
+    * {
+      box-sizing: border-box;
+    }
 
-body {
-  margin: 0;
-  background: var(--background-light);
-  color: var(--primary-blue);
-  font-family: 'Montserrat', Arial, sans-serif;
-}
+    body {
+      margin: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg-light);
+      color: var(--text-light);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
+    }
 
-@media (prefers-color-scheme: dark) {
-  body {
-    background: var(--background-dark);
-    color: var(--primary-blue);
-  }
-}
+    @media (prefers-color-scheme: dark) {
+      body {
+        background: var(--bg-dark);
+        color: var(--text-dark);
+        --text-muted: rgba(245,245,247,0.62);
+      }
+      .nav, .hero, .section, footer {
+        background: transparent;
+      }
+      .feature-card, .device-frame {
+        background: rgba(255,255,255,0.05);
+        border-color: rgba(255,255,255,0.08);
+      }
+      .feature-card p {
+        color: rgba(245,245,247,0.7);
+      }
+      .cta.secondary:hover {
+        background: rgba(255,255,255,0.08);
+      }
+    }
 
-.navbar {
-  position: sticky;
-  top: 0;
-  width: 100%;
-  background: inherit;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.8rem 1.5rem;
-  z-index: 1000;
-}
-.nav-logo a {
-  color: var(--primary-blue);
-  font-size: 1.2rem;
-  font-weight: bold;
-  text-decoration: none;
-}
-.nav-links {
-  display: flex;
-  gap: 1.5rem;
-}
-.nav-links a {
-  color: var(--primary-blue);
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 1rem;
-  padding: 0.2rem 0.5rem;
-}
-.nav-links a:hover {
-  text-decoration: underline;
-}
-.nav-toggle, .nav-toggle-label {
-  display: none;
-}
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+    }
 
-@media (max-width: 800px) {
-  .nav-links {
-    display: none;
-    position: absolute;
-    top: 58px;
-    right: 0;
-    background: var(--background-light);
-    flex-direction: column;
-    width: 60vw;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  }
-  .nav-links a {
-    padding: 1rem 1.5rem;
-    border-bottom: 1px solid #eee;
-  }
-  .nav-toggle:checked + .nav-toggle-label + .nav-links {
-    display: flex;
-  }
-  .nav-toggle-label {
-    display: block;
-    cursor: pointer;
-    font-size: 2rem;
-    color: var(--primary-blue);
-  }
-}
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 8vw;
+      background: rgba(245,245,247,0.72);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
 
-/* Hero Section */
-.hero {
-  padding: 3rem 1rem 2rem 1rem;
-  text-align: center;
-}
-.hero h1 {
-  font-size: 2.2rem;
-  margin-bottom: 0.5rem;
-}
-.tagline {
-  font-size: 1.1rem;
-}
+    @media (prefers-color-scheme: dark) {
+      .nav {
+        background: rgba(11,11,15,0.72);
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+      }
+    }
 
-/* Mission Section */
-.mission {
-  text-align: center;
-  padding: 2rem 1rem 1.5rem 1rem;
-}
+    .logo {
+      font-size: 1rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 600;
+      text-decoration: none;
+      color: inherit;
+    }
 
-/* Talent Section */
-.talent-section {
-  padding: 2rem 1rem;
-  text-align: center;
-}
-.talent-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.2rem;
-  margin-top: 1.5rem;
-}
-@media (min-width: 600px) {
-  .talent-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-@media (min-width: 900px) {
-  .talent-grid {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-  }
-}
-.talent-card {
-  background: rgba(0,0,0,0.03);
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: var(--primary-blue);
-  text-decoration: none;
-  transition: box-shadow 0.2s, transform 0.2s;
-}
-.talent-card:hover {
-  box-shadow: 0 4px 16px rgba(0,51,160,0.08);
-  transform: translateY(-4px) scale(1.02);
-}
-.talent-card img {
-  width: 96px;
-  height: 96px;
-  object-fit: cover;
-  border-radius: 50%;
-  margin-bottom: 0.8rem;
-}
-.talent-card h3 {
-  margin: 0.4rem 0 0.1rem 0;
-  font-size: 1.1rem;
-}
-.talent-card p {
-  margin: 0;
-  font-size: 0.9rem;
-}
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
 
-/* Shop Section */
-.shop-section {
-  padding: 2rem 1rem;
-  text-align: center;
-}
-.shop-btn {
-  background: var(--primary-blue);
-  color: #fff;
-  font-size: 1.1rem;
-  border: none;
-  border-radius: 8px;
-  padding: 0.9rem 2rem;
-  margin-top: 1rem;
-  text-decoration: none;
-  cursor: pointer;
-  display: inline-block;
-  transition: background 0.2s;
-}
-.shop-btn:hover {
-  background: #002277;
-}
+    .nav-links a {
+      font-size: 0.95rem;
+      color: inherit;
+      text-decoration: none;
+      font-weight: 400;
+      transition: opacity 0.2s ease;
+    }
 
-/* Contact Section */
-.contact-section {
-  padding: 2rem 1rem;
-  text-align: center;
-}
-.contact-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  max-width: 400px;
-  margin: 0 auto;
-}
-.contact-form input, .contact-form textarea {
-  width: 100%;
-  padding: 0.7rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 1rem;
-}
-.contact-form button {
-  background: var(--primary-blue);
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  padding: 0.7rem 1.5rem;
-  font-size: 1rem;
-  cursor: pointer;
-}
-.social-links {
-  margin-top: 1.2rem;
-}
-.social-links a {
-  color: var(--primary-blue);
-  margin: 0 0.7rem;
-  text-decoration: none;
-  font-weight: 500;
-}
-.social-links a:hover {
-  text-decoration: underline;
-}
+    .nav-links a:hover,
+    .nav-links a:focus {
+      opacity: 0.55;
+    }
+
+    .hero {
+      padding: 8rem 8vw 6rem;
+      text-align: center;
+      display: grid;
+      place-items: center;
+    }
+
+    .eyebrow {
+      letter-spacing: 0.35em;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(2.8rem, 6vw, 4.8rem);
+      font-weight: 600;
+      letter-spacing: -0.03em;
+    }
+
+    .hero p {
+      max-width: 640px;
+      margin: 1.8rem auto 2.5rem;
+      font-size: 1.1rem;
+      color: var(--text-muted);
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.85rem 2.6rem;
+      border-radius: 999px;
+      border: none;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      text-decoration: none;
+    }
+
+    .cta.primary {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 14px 30px rgba(0,113,227,0.24);
+    }
+
+    .cta.primary:hover {
+      background: var(--accent-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 16px 36px rgba(0,77,153,0.28);
+    }
+
+    .cta.secondary {
+      background: transparent;
+      color: inherit;
+      border: 1px solid currentColor;
+    }
+
+    .cta.secondary:hover {
+      transform: translateY(-2px);
+      background: rgba(0,0,0,0.04);
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+    }
+
+    .device-frame {
+      margin-top: 5rem;
+      width: min(820px, 92vw);
+      aspect-ratio: 16 / 10;
+      border-radius: 36px;
+      border: 1px solid rgba(0,0,0,0.08);
+      background: linear-gradient(135deg, rgba(0,113,227,0.08), rgba(0,0,0,0));
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+    }
+
+    .device-frame::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(255,255,255,0.35), transparent 55%);
+    }
+
+    .device-frame span {
+      position: relative;
+      z-index: 1;
+      font-size: clamp(1.6rem, 3vw, 2.1rem);
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: inherit;
+      text-align: center;
+    }
+
+    .section {
+      padding: 6rem 8vw;
+    }
+
+    .section h2 {
+      margin: 0 0 1.5rem;
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    .section p {
+      max-width: 640px;
+      font-size: 1.05rem;
+      color: var(--text-muted);
+    }
+
+    .feature-grid {
+      margin-top: 4rem;
+      display: grid;
+      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .feature-card {
+      padding: 2.4rem 2rem;
+      border-radius: 26px;
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.05);
+      min-height: 240px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    }
+
+    .feature-card h3 {
+      margin: 0;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .feature-card p {
+      margin: 0;
+    }
+
+    .quote {
+      padding: 6rem 8vw;
+      text-align: center;
+      background: radial-gradient(circle at top, rgba(0,113,227,0.08), transparent 70%);
+    }
+
+    .quote blockquote {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      margin: 0 auto;
+      max-width: 720px;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    .quote cite {
+      display: block;
+      margin-top: 2rem;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--text-muted);
+    }
+
+    footer {
+      padding: 4rem 8vw;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: space-between;
+      border-top: 1px solid rgba(0,0,0,0.08);
+      background: rgba(245,245,247,0.72);
+    }
+
+    footer nav {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    footer a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 720px) {
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+        padding: 1rem 6vw;
+      }
+      .nav-links {
+        width: 100%;
+        justify-content: space-between;
+        font-size: 0.85rem;
+      }
+      .hero {
+        padding-top: 6rem;
+      }
+      .section {
+        padding: 4.5rem 8vw;
+      }
+      footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+    }
+
+    @media (prefers-color-scheme: dark) {
+      footer {
+        background: rgba(11,11,15,0.72);
+        border-top: 1px solid rgba(255,255,255,0.08);
+        color: rgba(245,245,247,0.72);
+      }
+      footer a {
+        color: inherit;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <a class="logo" href="#top" aria-label="JM Studio home">JM STUDIO</a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#experience">Experience</a>
+        <a href="#craft">Craft</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <p class="eyebrow">Designed for humans</p>
+      <h1>Minimalist storytelling that feels effortless.</h1>
+      <p>
+        We build calm digital spaces where every interaction feels intentional, refined, and timeless. Inspired by the quiet confidence of iconic product design, JM Studio crafts web experiences that let your message breathe.
+      </p>
+      <div class="cta-row">
+        <a class="cta primary" href="#contact">Start a project</a>
+        <a class="cta secondary" href="#experience">See our work</a>
+      </div>
+      <div class="device-frame" role="presentation" aria-hidden="true">
+        <span>Portfolio. Reimagined.</span>
+      </div>
+    </section>
+
+    <section id="experience" class="section">
+      <h2>Every pixel serves a purpose.</h2>
+      <p>
+        From concept to launch, our team obsess over the details that create a seamless journey. Think cinematic typography, responsive motion, and bespoke imagery that feels at home on any device.
+      </p>
+      <div class="feature-grid">
+        <article class="feature-card">
+          <h3>Signature hero moments</h3>
+          <p>Immersive first impressions with large-format imagery, ambient gradients, and balanced whitespace.</p>
+        </article>
+        <article class="feature-card">
+          <h3>Modular storytelling</h3>
+          <p>Flexible layout systems that adapt to new chapters, product launches, and seasonal campaigns.</p>
+        </article>
+        <article class="feature-card">
+          <h3>Performance engineered</h3>
+          <p>Featherlight, accessible code that keeps static hosting fast and reliable worldwide.</p>
+        </article>
+        <article class="feature-card">
+          <h3>Editorial voice</h3>
+          <p>Minimal copywriting with just enough warmth to bring luxury experiences to life.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="craft" class="section">
+      <h2>Design systems with a human touch.</h2>
+      <p>
+        We combine prototyping, animation, and meticulous front-end development into a single streamlined process. Every build is optimized for static hosts, meaning fewer moving parts and more peace of mind.
+      </p>
+    </section>
+
+    <section class="quote" aria-labelledby="quote-title">
+      <h2 id="quote-title" class="visually-hidden">Client testimonial</h2>
+      <blockquote>
+        “JM Studio captured our brand’s quiet luxury and translated it into an online experience that feels alive, effortless, and unmistakably ours.”
+        <cite>Elena Flores, Creative Director</cite>
+      </blockquote>
+    </section>
+
+    <section id="contact" class="section">
+      <h2>Ready for a calmer web presence?</h2>
+      <p>
+        Tell us about your next product launch or portfolio refresh. We’ll respond within two business days with a curated project outline.
+      </p>
+      <div class="cta-row">
+        <a class="cta primary" href="mailto:hello@jmstudio.co">Email us</a>
+        <a class="cta secondary" href="services/index.html">Explore our process</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>© <span id="year"></span> JM Studio. Crafted in Portland.</span>
+    <nav aria-label="Footer">
+      <a href="#experience">Experience</a>
+      <a href="#craft">Craft</a>
+      <a href="#contact">Contact</a>
+      <a href="privacy/index.html">Privacy</a>
+    </nav>
+  </footer>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
