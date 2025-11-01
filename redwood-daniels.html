@@ -1,1 +1,545 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redwood Daniels - Modern Western-Noir Author</title>
+
+    <!-- SEO & Accessibility Metadata -->
+    <meta name="description" content="Official website for Redwood Daniels, author of modern western-noir fiction. Explore free reads, the author's code, and contact information.">
+    <meta name="theme-color" content="#1a1a1a"> 
+    
+    <!-- Open Graph for Social Sharing -->
+    <meta property="og:title" content="Redwood Daniels - Modern Western-Noir">
+    <meta property="og:description" content="The town wasn’t dead. It just stopped pretending to live. Official site for the rural-noir author.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.redwooddaniels.com">
+    <meta property="og:image" content="https://placehold.co/1200x630/1a1a1a/f7f4f0?text=REDWOOD+DANIELS+AUTHOR"> <!-- Placeholder for desaturated image/cover -->
+    
+    <!-- Schema.org JSON-LD for Search Engines -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Redwood Daniels",
+      "url": "https://www.redwooddaniels.com",
+      "jobTitle": "Author",
+      "description": "Writer of modern western-noir, focused on the grit and silence of the forgotten American West."
+    }
+    </script>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Import required fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700&family=Cormorant+Garamond:ital,wght@1,400&display=swap');
+
+        /* Custom configuration for fixed header height and transitions */
+        #header {
+            height: 60px;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        
+        /* Mobile Menu Drawer Styling */
+        #mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-out;
+            box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        #mobile-menu.open {
+            transform: translateX(0);
+        }
+        
+        /* Prevents background scroll when menu is open */
+        .overflow-hidden-y {
+            overflow-y: hidden;
+        }
+        
+        /* Utility class to restrict line length for optimal reading (max ~70 characters) */
+        .max-w-prose {
+            max-width: 650px;
+        }
+
+        /* Hero specific styling for background image */
+        .hero-section {
+            /* Placeholder for desaturated image */
+            background-image: url('https://placehold.co/1920x1080/c0b7a4/3d3d3d/webp?text=Two-Lane+Road+Evening+Light');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            filter: grayscale(80%); /* Enforce desaturation */
+        }
+
+        /* Custom style for the drop-cap/lead paragraph in stories */
+        .story-lead:first-letter {
+            float: left;
+            font-size: 4em; /* Large, noticeable size */
+            line-height: 0.8;
+            margin-top: 0.1em;
+            margin-right: 0.1em;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: #755c3b; /* Accent color */
+        }
+    </style>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'background-light': '#f7f4f0', /* Bone */
+                        'text-dark': '#1a1a1a',      /* Ink */
+                        'accent-dust': '#755c3b',     /* Dust Brown */
+                        'secondary-gray': '#c0b7a4',  /* Muted Gray */
+                        'hover-accent': '#a67c52',    /* Lighter Accent for Hover/CTA */
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'], /* H1, H2, Section Titles */
+                        serif_italic: ['Cormorant Garamond', 'serif'], /* Quotes */
+                        sans: ['Inter', 'sans-serif'], /* Body, Nav */
+                    },
+                    fontSize: {
+                        '4xl': '2.5rem', /* Enforced H2 size */
+                        '5xl': '3rem', /* Base font for large titles */
+                        '6xl': '4rem', /* Enforced H1 size */
+                        'xl': '1.125rem', /* Base text (18px) */
+                        '2xl': '1.5rem', /* Large quote text (22px) */
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background-light text-text-dark min-h-screen font-sans">
+
+    <!-- Mobile Menu Drawer -->
+    <div id="mobile-menu" class="fixed top-0 right-0 w-64 h-full bg-background-light p-6 z-30 flex flex-col justify-start">
+        <button id="close-menu" class="text-text-dark text-4xl absolute top-4 right-4 hover:text-accent-dust leading-none">&times;</button>
+        <div class="mt-12 space-y-4 flex flex-col uppercase tracking-widest font-semibold text-lg">
+            <!-- Nav Links -->
+            <a href="#home" class="py-2 hover:text-hover-accent transition duration-150 border-b border-secondary-gray" onclick="toggleMenu()">Home</a>
+            <a href="#stories" class="py-2 hover:text-hover-accent transition duration-150 border-b border-secondary-gray" onclick="toggleMenu()">Stories</a>
+            <a href="#about" class="py-2 hover:text-hover-accent transition duration-150 border-b border-secondary-gray" onclick="toggleMenu()">About</a>
+            <a href="#contact" class="py-2 hover:text-hover-accent transition duration-150 border-b border-secondary-gray" onclick="toggleMenu()">Contact</a>
+        </div>
+    </div>
+    
+    <!-- Menu Overlay -->
+    <div id="menu-overlay" class="fixed inset-0 bg-text-dark/40 z-20 hidden" onclick="toggleMenu()"></div>
+
+    <!-- Header -->
+    <header id="header" class="fixed top-0 left-0 right-0 z-20 bg-background-light/0 border-b border-transparent">
+        <!-- Replaced undefined max-w-prose-container with standard max-w-4xl for clean code -->
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex justify-between items-center">
+            
+            <!-- Logo/Name -->
+            <a href="#" class="text-2xl font-serif font-bold tracking-widest text-text-dark hover:text-accent-dust transition duration-300">
+                REDWOOD DANIELS
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex space-x-8 text-sm font-medium uppercase tracking-wider">
+                <a href="#stories" class="hover:text-hover-accent transition duration-150">Stories</a>
+                <a href="#about" class="hover:text-hover-accent transition duration-150">About</a>
+                <a href="#contact" class="hover:text-hover-accent transition duration-150">Contact</a>
+            </nav>
+
+            <!-- Mobile Hamburger Button -->
+            <button id="open-menu" class="md:hidden text-text-dark p-2 hover:text-accent-dust transition duration-150 z-30" aria-label="Open menu">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <main class="pt-[60px]">
+        
+        <!-- ===== HOME SECTION: Hero & Main Content ===== -->
+        <section id="home" class="pb-16 md:pb-32">
+            
+            <!-- HERO BLOCK: Set Tone -->
+            <div class="hero-section relative h-screen max-h-[800px] flex items-center justify-center text-center -mx-4 sm:-mx-6 lg:-mx-8 mt-[-60px]">
+                
+                <!-- Gradient Overlay for Readability -->
+                <div class="absolute inset-0 bg-gradient-to-t from-background-light via-background-light/60 to-transparent"></div>
+                
+                <div class="relative z-10 p-4 max-w-prose mx-auto">
+                    
+                    <!-- H1: Redwood Daniels -->
+                    <h1 class="text-6xl sm:text-7xl md:text-[4rem] font-serif font-bold tracking-tighter mb-4 leading-none text-text-dark/95">
+                        Redwood Daniels
+                    </h1>
+                    
+                    <!-- Subhead -->
+                    <p class="text-xl sm:text-2xl italic font-light text-text-dark/80 mb-8 border-t border-b border-secondary-gray py-2 inline-block px-4">
+                        Modern Western-Noir.
+                    </p>
+                    
+                    <!-- Quote Block (Cormorant Garamond Italic, 22px) -->
+                    <p class="text-2xl font-serif_italic font-normal text-text-dark/90 mt-8 mb-12 max-w-lg mx-auto leading-snug">
+                        “The town wasn’t dead. It just stopped pretending to live.”
+                    </p>
+
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6 justify-center mt-8">
+                        <a href="#stories" class="inline-flex items-center justify-center px-8 py-3 border border-accent-dust text-base font-semibold text-accent-dust hover:bg-accent-dust hover:text-background-light transition duration-150 uppercase tracking-widest">
+                            Start Reading
+                        </a>
+                        <a href="#about" class="inline-flex items-center justify-center px-8 py-3 border border-secondary-gray text-base font-semibold text-text-dark/90 hover:border-text-dark hover:text-text-dark transition duration-150 uppercase tracking-widest">
+                            Learn the Code
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+        </section>
+        
+        <!-- PULL QUOTE DIVIDER: Palate Cleanser -->
+        <div id="quote-divider" class="bg-secondary-gray/50 py-16 md:py-24 text-center -mx-4 sm:-mx-6 lg:-mx-8">
+            <p class="font-serif text-2xl sm:text-3xl tracking-widest uppercase text-text-dark/90 px-4 max-w-prose mx-auto leading-normal">
+                Justice while the law sleeps.
+            </p>
+        </div>
+
+        
+        <!-- ===== ABOUT PREVIEW SECTION ===== -->
+        <section id="about-preview" class="py-16 md:py-32 max-w-prose mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+                
+                <!-- Left: Author Portrait -->
+                <div class="md:sticky md:top-20 md:order-1 order-2">
+                    <img src="https://placehold.co/500x750/1a1a1a/c0b7a4?text=RD+PORTRAIT" 
+                         alt="Grainy black and white portrait of the author, Redwood Daniels." 
+                         class="w-full h-auto object-cover grayscale border border-secondary-gray/70">
+                </div>
+                
+                <!-- Right: Bio Snippet -->
+                <div class="md:order-2 order-1">
+                    
+                    <h2 class="text-3xl sm:text-4xl font-serif font-bold text-accent-dust mb-6 uppercase tracking-wider">
+                        About
+                    </h2>
+                    
+                    <!-- 50-75 Word Bio Snippet -->
+                    <p class="text-xl leading-relaxed text-text-dark/90 mb-8 font-sans">
+                        Redwood Daniels is focused on the silence between words. He writes crime stories that feel less like mysteries and more like inevitabilities, often set in the forgotten valleys and deserts of the American West. His work strips away the excess, leaving only the characters, the landscape, and the weight of their choices. He believes that action, not dialogue, tells the truth.
+                    </p>
+                    
+                    <a href="#about" class="inline-block px-6 py-2 border border-accent-dust text-base font-semibold text-accent-dust hover:bg-accent-dust hover:text-background-light transition duration-150 uppercase tracking-widest">
+                        Read More
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        
+        <!-- ===== STORIES PREVIEW SECTION: From the Road ===== -->
+        <section id="stories-preview" class="py-16 md:py-32 border-t border-secondary-gray">
+            <h2 class="text-3xl sm:text-4xl font-serif font-bold text-accent-dust mb-12 text-center uppercase tracking-wider">
+                From the Road.
+            </h2>
+
+            <div class="max-w-prose mx-auto grid grid-cols-1 sm:grid-cols-3 gap-8">
+                
+                <!-- Post Card 1: Short Story -->
+                <div class="border border-secondary-gray p-6 hover:border-accent-dust transition duration-150">
+                    <p class="text-xs uppercase tracking-widest text-secondary-gray mb-2">Short Fiction</p>
+                    <a href="#read-wires" class="block hover:text-hover-accent transition duration-150">
+                        <h3 class="text-lg font-semibold text-text-dark mb-2 font-sans">A Silence Between the Wires</h3>
+                    </a>
+                    <p class="text-sm leading-snug text-text-dark/70 mb-4 h-10 overflow-hidden">
+                        A young operator drives 50 miles into the desert to find out who killed the signal... and what else they killed along the way.
+                    </p>
+                    <a href="#read-wires" class="text-sm text-accent-dust border-b border-accent-dust/50 pb-0.5 hover:border-accent-dust transition duration-150 flex items-center justify-between uppercase tracking-wider">
+                        Read more
+                        <span class="text-lg leading-none">&rarr;</span>
+                    </a>
+                </div>
+
+                <!-- Post Card 2: Excerpt -->
+                <div class="border border-secondary-gray p-6 hover:border-accent-dust transition duration-150">
+                    <p class="text-xs uppercase tracking-widest text-secondary-gray mb-2">Excerpt</p>
+                    <a href="#read-drift-excerpt" class="block hover:text-hover-accent transition duration-150">
+                        <h3 class="text-lg font-semibold text-text-dark mb-2 font-sans">The Bone Orchard Drift - Chapter 1</h3>
+                    </a>
+                    <p class="text-sm leading-snug text-text-dark/70 mb-4 h-10 overflow-hidden">
+                        The opening sets the tone: a slow, measured walk through the aftermath of an irreversible mistake. The rain never came, but the mud is everywhere.
+                    </p>
+                    <a href="#read-drift-excerpt" class="text-sm text-accent-dust border-b border-accent-dust/50 pb-0.5 hover:border-accent-dust transition duration-150 flex items-center justify-between uppercase tracking-wider">
+                        Read more
+                        <span class="text-lg leading-none">&rarr;</span>
+                    </a>
+                </div>
+                
+                <!-- Placeholder Card -->
+                <div class="border border-secondary-gray p-6 text-center flex flex-col justify-center">
+                    <p class="text-xs uppercase tracking-widest text-secondary-gray mb-2">Waiting</p>
+                    <h3 class="text-lg font-semibold text-text-dark mb-4 font-sans">Next Entry Coming Soon</h3>
+                    <p class="text-sm leading-snug text-text-dark/70">
+                        Stay quiet, stay put.
+                    </p>
+                </div>
+            </div>
+            
+        </section>
+
+        
+        
+        <!-- ============================================= -->
+        <!-- ===== FULL CONTENT SECTIONS (ACT AS PAGES) ===== -->
+        <!-- ============================================= -->
+
+        
+        <!-- ===== STORIES PAGE: Index ===== -->
+        <section id="stories" class="py-16 md:py-32 border-t border-secondary-gray max-w-prose mx-auto">
+            <h2 class="text-3xl sm:text-4xl font-serif font-bold text-accent-dust mb-12 text-center uppercase tracking-wider">
+                Free Reads
+            </h2>
+
+            <p class="text-center text-xl font-serif_italic text-text-dark/70 max-w-prose mx-auto mb-16 leading-relaxed">
+                Short fiction and full samples—for those who need to feel the dust before they buy the road.
+            </p>
+
+            <div class="space-y-10">
+                
+                <!-- Story 1 Index Entry -->
+                <div class="border border-secondary-gray p-6 hover:border-accent-dust transition duration-150">
+                    <h3 class="text-2xl font-serif font-bold mb-2">A Silence Between the Wires</h3>
+                    <p class="text-sm text-text-dark/70 mb-4">Short story originally published in *The Western Review*</p>
+                    <p class="text-base leading-relaxed text-text-dark/90 mb-4">
+                        When the town’s phone line goes dead, a young operator drives 50 miles into the desert to find out who killed the signal... and what else they killed along the way.
+                    </p>
+                    <a href="#read-wires" class="text-sm text-hover-accent border-b border-hover-accent/50 pb-1 hover:border-hover-accent transition duration-150 uppercase tracking-widest">
+                        Read Full Story &rarr;
+                    </a>
+                </div>
+
+                <!-- Story 2 Index Entry -->
+                <div class="border border-secondary-gray p-6 hover:border-accent-dust transition duration-150">
+                    <h3 class="text-2xl font-serif font-bold mb-2">The Bone Orchard Drift - Chapter 1</h3>
+                    <p class="text-sm text-text-dark/70 mb-4">Excerpt from a work in progress</p>
+                    <p class="text-base leading-relaxed text-text-dark/90 mb-4">
+                        The opening sets the tone: a slow, measured walk through the aftermath of an irreversible mistake. The rain never came, but the mud is everywhere.
+                    </p>
+                    <a href="#read-drift-excerpt" class="text-sm text-hover-accent border-b border-hover-accent/50 pb-1 hover:border-hover-accent transition duration-150 uppercase tracking-widest">
+                        Read Excerpt &rarr;
+                    </a>
+                </div>
+                
+            </div>
+        </section>
+
+        
+        <!-- ===== STORIES PAGE: Full Story Content (A Silence Between the Wires) ===== -->
+        <section id="read-wires" class="py-16 md:py-32 border-t border-secondary-gray">
+            <div class="max-w-prose mx-auto">
+                <a href="#stories" class="text-sm text-secondary-gray hover:text-accent-dust transition duration-150 uppercase tracking-widest mb-8 inline-block">&larr; Back to Index</a>
+                
+                <h2 class="text-4xl font-serif font-bold mb-4 text-text-dark">A Silence Between the Wires</h2>
+                <p class="text-xl font-serif_italic text-text-dark/70 mb-10">Short Fiction</p>
+
+                <!-- Optional Header Image -->
+                <img src="https://placehold.co/800x400/1a1a1a/c0b7a4?text=TELEPHONE+POLE+B%26W" 
+                     alt="Desaturated black and white photo of a broken telephone pole." 
+                     class="w-full h-auto object-cover mb-12 border border-secondary-gray/70 grayscale">
+
+                <div class="text-xl leading-relaxed text-text-dark/90 space-y-6">
+                    <p class="story-lead">The first mistake was listening. Sheriff Kordell always said that in a town this small, the phone lines carried more truth than the courthouse. But the lines were dead now, thick with the kind of silence that suggests a sudden, surgical removal. It wasn't static; it was absence.</p>
+                    <p>Kordell had been retired for five years, but habits die harder than men out here. He checked his radio first—nothing but the white noise hum. He checked the town's small exchange box outside his window—lights dark. He drove the highway west, tracing the dead wire like a vein that had been cut.</p>
+                    <p>It led him to a turnout twelve miles out, where the high-tension lines crossed the old irrigation ditch. Someone hadn't just cut the wire; they’d used a saw and a cold, clear night. They didn’t want a noise complaint; they wanted quiet. And that made Kordell’s old bones hurt with the kind of certainty he hadn't felt since his daughter disappeared.</p>
+                    <p>He got out, the dry, alkaline dust crunching under his boots. The desert doesn't give up secrets easy, but it always leaves tracks. And standing right there, by the neatly severed line, was a single, clean footprint: too small for a man, too delicate for the dust.</p>
+                </div>
+                <a href="#stories" class="mt-12 inline-block text-sm text-secondary-gray hover:text-accent-dust transition duration-150 uppercase tracking-widest">&larr; Back to Index</a>
+            </div>
+        </section>
+        
+        <!-- ===== STORIES PAGE: Full Story Content (Excerpt) ===== -->
+        <section id="read-drift-excerpt" class="py-16 md:py-32 border-t border-secondary-gray">
+            <div class="max-w-prose mx-auto">
+                <a href="#stories" class="text-sm text-secondary-gray hover:text-accent-dust transition duration-150 uppercase tracking-widest mb-8 inline-block">&larr; Back to Index</a>
+                
+                <h2 class="text-4xl font-serif font-bold mb-4 text-text-dark">The Bone Orchard Drift - Chapter 1</h2>
+                <p class="text-xl font-serif_italic text-text-dark/70 mb-10">Excerpt from a work in progress</p>
+
+                <!-- Optional Header Image -->
+                <img src="https://placehold.co/800x400/1a1a1a/c0b7a4?text=DUST+AND+LOW+NEON+LIGHT" 
+                     alt="Desaturated photo of a desert field under low neon light." 
+                     class="w-full h-auto object-cover mb-12 border border-secondary-gray/70 grayscale">
+
+                <div class="text-xl leading-relaxed text-text-dark/90 space-y-6">
+                    <p class="story-lead">The drift always comes back. In Port Sulfur, the desert doesn't just surround you; it moves into your lungs and your foundation. You spend your life sweeping it away, knowing that by morning, the pale, fine dust will have crossed your threshold again, leaving a fresh, clean layer over everything you thought you'd finished.</p>
+                    <p>Sheriff Eli Kincaid was done sweeping. He stood on the edge of his property, where the fence met the old bone orchard—a stretch of scrubland where nothing but bleached wood and dry sage grew. The morning sun was a brutal, honest thing, but it hadn't stopped the killer from leaving their signature right there in the dirt.</p>
+                    <p>The body wasn't hidden. It was laid out, almost respectful, facing the rising sun. Kincaid knew the face. Everyone knew the face. It belonged to the kind of man who owed everyone a debt he could never pay back. But the way he was killed—clean, quiet—suggested an accountant, not a thug. Someone who was balancing the books.</p>
+                    <p>Kincaid crouched down, the heat already rising off the cracked earth. He hadn't been wearing his badge for six months. He was just a man with a piece of property that bordered the town's shame, and now, its new history. He touched the dust, feeling the weight of the silence. It told him that in Port Sulfur, being retired meant nothing. Some debts just transfer ownership.</p>
+                </div>
+                <a href="#stories" class="mt-12 inline-block text-sm text-secondary-gray hover:text-accent-dust transition duration-150 uppercase tracking-widest">&larr; Back to Index</a>
+            </div>
+        </section>
+
+        
+        <!-- ===== ABOUT PAGE: Full Author Bio + Code ===== -->
+        <section id="about" class="py-16 md:py-32 border-t border-secondary-gray">
+            <div class="max-w-prose mx-auto">
+                <h2 class="text-3xl sm:text-4xl font-serif font-bold text-accent-dust mb-12 text-center uppercase tracking-wider">
+                    Redwood Daniels
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12 items-start">
+                    
+                    <!-- Left Column: Large Portrait -->
+                    <div class="md:col-span-1">
+                        <img src="https://placehold.co/500x750/1a1a1a/c0b7a4?text=RD+PORTRAIT" 
+                             alt="Grainy black and white portrait of the author, Redwood Daniels." 
+                             class="w-full h-auto object-cover grayscale border border-secondary-gray/70">
+                    </div>
+
+                    <!-- Right Column: Bio and Code -->
+                    <div class="md:col-span-2 text-text-dark/90 space-y-8">
+                        
+                        <!-- Bio (150 words) -->
+                        <p class="text-xl leading-relaxed font-sans">
+                            Redwood Daniels grew up in the valleys and deserts of California, places where industry and nature fight a losing war. That landscape, heavy with history and silence, is the constant backdrop for his stories. He is less concerned with *who* committed the crime than with the weight that crime imposes on the people left behind.
+                        </p>
+                        <p class="text-xl leading-relaxed font-sans">
+                            He writes slowly, deliberately, and always with the intent to cut every sentence to its most necessary form. His work seeks to strip away the pretense of civilization, exploring what happens when the law stops paying attention and the local code takes over. He currently lives near the coast, where the highway ends and the real shadows begin.
+                        </p>
+                        
+                        <!-- The Code Section -->
+                        <div class="pt-4 border-t border-secondary-gray">
+                            <h3 class="text-2xl font-serif font-bold text-accent-dust mb-4 uppercase tracking-wider">The Code</h3>
+                            <ul class="list-none space-y-2 text-xl leading-relaxed pl-0">
+                                <li class="font-serif_italic">**No saints. No monsters.**</li>
+                                <li class="font-serif_italic">**Action tells the truth.**</li>
+                                <li class="font-serif_italic">**Silence matters.**</li>
+                                <li class="font-serif_italic">**The consequence is the story.**</li>
+                                <li class="font-serif_italic">**The land remembers.**</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ===== CONTACT PAGE: Form and Inquiry Info ===== -->
+        <section id="contact" class="py-16 md:py-32 border-t border-secondary-gray">
+             <h2 class="text-3xl sm:text-4xl font-serif font-bold text-accent-dust mb-12 text-center uppercase tracking-wider">
+                Inquiries
+            </h2>
+
+            <p class="text-center text-xl font-serif_italic text-text-dark/70 max-w-prose mx-auto mb-12 leading-relaxed">
+                For rights, interviews, or quiet conversation.
+            </p>
+
+            <div class="max-w-lg mx-auto border border-secondary-gray p-8">
+                <form class="space-y-6">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-text-dark mb-1 uppercase tracking-wider">Name</label>
+                        <input type="text" id="name" name="name" class="w-full p-3 border border-secondary-gray bg-background-light text-text-dark focus:border-accent-dust focus:outline-none" placeholder="Your Name or Company">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-text-dark mb-1 uppercase tracking-wider">Email</label>
+                        <input type="email" id="email" name="email" class="w-full p-3 border border-secondary-gray bg-background-light text-text-dark focus:border-accent-dust focus:outline-none" placeholder="inquiry@email.com">
+                    </div>
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-text-dark mb-1 uppercase tracking-wider">Message / Inquiry</label>
+                        <textarea id="message" name="message" rows="5" class="w-full p-3 border border-secondary-gray bg-background-light text-text-dark focus:border-accent-dust focus:outline-none" placeholder="Rights question, interview request, etc."></textarea>
+                    </div>
+                    <button type="submit" class="w-full inline-flex items-center justify-center px-6 py-3 border border-accent-dust text-base font-semibold text-accent-dust hover:bg-accent-dust hover:text-background-light transition duration-150 uppercase tracking-widest">
+                        Send Message
+                    </button>
+                </form>
+            </div>
+            
+            <!-- Redundancy Email Link -->
+            <div class="text-center mt-8">
+                <p class="text-sm uppercase tracking-widest text-text-dark/70 mb-2">Or contact directly:</p>
+                <a href="mailto:inquiries@redwooddaniels.com" class="text-base text-accent-dust border-b border-accent-dust/50 pb-1 hover:border-accent-dust transition duration-150">
+                    inquiries@redwooddaniels.com
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER: High Contrast -->
+    <footer class="mt-24 border-t border-secondary-gray bg-text-dark text-background-light">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+            <!-- Upper Footer: Contact/Nav -->
+            <div class="flex flex-col sm:flex-row justify-between items-center text-center sm:text-left border-b border-secondary-gray/50 pb-6 mb-6">
+                
+                <div class="mb-4 sm:mb-0">
+                    <a href="mailto:inquiries@redwooddaniels.com" class="text-base text-secondary-gray hover:text-hover-accent transition duration-150 uppercase tracking-widest">
+                        Rights / Inquiries
+                    </a>
+                </div>
+
+                <!-- Minimal Text Links -->
+                <nav class="space-x-4 text-sm font-medium">
+                    <a href="#stories" class="text-secondary-gray hover:text-hover-accent transition duration-150">Stories</a>
+                    <span class="text-secondary-gray/50">|</span>
+                    <a href="#about" class="text-secondary-gray hover:text-hover-accent transition duration-150">About</a>
+                    <!-- If social is required: -->
+                    <span class="text-secondary-gray/50">|</span>
+                    <a href="https://instagram.com/redwooddaniels" target="_blank" rel="noopener noreferrer" class="text-secondary-gray hover:text-hover-accent transition duration-150">Instagram</a>
+                </nav>
+            </div>
+
+            <!-- Lower Footer: Copyright & Tagline -->
+            <div class="text-center">
+                <p class="text-sm text-secondary-gray/70 mb-1">
+                    &copy; 2025 Redwood Daniels & J. Marsh Media
+                </p>
+                <p class="text-sm uppercase tracking-widest text-secondary-gray">
+                    Site built simple. Words carry weight.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // --- Header Scroll Logic: Transparent to Solid at 10% scroll ---
+        const header = document.getElementById('header');
+        // Calculate 10% of viewport height
+        const scrollThreshold = window.innerHeight * 0.10; 
+
+        const updateHeader = () => {
+            if (window.scrollY > scrollThreshold) {
+                // Solid state: background-light/95 and border-secondary-gray
+                header.classList.add('bg-background-light/95', 'border-secondary-gray', 'backdrop-blur-sm');
+                header.classList.remove('bg-background-light/0', 'border-transparent');
+            } else {
+                // Transparent state
+                header.classList.add('bg-background-light/0', 'border-transparent');
+                header.classList.remove('bg-background-light/95', 'border-secondary-gray', 'backdrop-blur-sm');
+            }
+        };
+
+        window.addEventListener('scroll', updateHeader);
+        // Initial call in case the user loads page already scrolled
+        document.addEventListener('DOMContentLoaded', updateHeader);
+
+
+        // --- Mobile Menu Logic: Hamburger Drawer ---
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuOverlay = document.getElementById('menu-overlay');
+        const mainNavLinks = mobileMenu.querySelectorAll('a');
+
+        function toggleMenu() {
+            const isOpen = mobileMenu.classList.toggle('open');
+            menuOverlay.classList.toggle('hidden', !isOpen);
+            document.body.classList.toggle('overflow-hidden-y', isOpen); // Prevent background scroll
+        }
+
+        // Attach listeners to buttons
+        document.getElementById('open-menu').addEventListener('click', toggleMenu);
+        document.getElementById('close-menu').addEventListener('click', toggleMenu);
+
+        // Note: The mobile menu links use inline onclick to ensure smooth scroll works 
+        // before the menu closes, which is acceptable in this single-file context.
+        
+    </script>
+
+</body>
+</html>
 
