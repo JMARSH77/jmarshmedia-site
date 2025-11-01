@@ -115,7 +115,7 @@
 
     <!-- Mobile Menu Drawer -->
     <div id="mobile-menu" class="fixed top-0 right-0 w-64 h-full bg-background-light p-6 z-30 flex flex-col justify-start">
-        <button id="close-menu" class="text-text-dark text-4xl absolute top-4 right-4 hover:text-accent-dust leading-none">&times;</button>
+        <button id="close-menu" class="text-text-dark text-4xl absolute top-4 right-4 hover:text-accent-dust leading-none" aria-label="Close menu">&times;</button>
         <div class="mt-12 space-y-4 flex flex-col uppercase tracking-widest font-semibold text-lg">
             <!-- Nav Links -->
             <a href="#home" class="py-2 hover:text-hover-accent transition duration-150 border-b border-secondary-gray" onclick="toggleMenu()">Home</a>
@@ -132,10 +132,20 @@
     <header id="header" class="fixed top-0 left-0 right-0 z-20 bg-background-light/0 border-b border-transparent">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex justify-between items-center">
             
-            <!-- Logo/Name -->
-            <a href="#" class="text-2xl font-serif font-bold tracking-widest text-text-dark hover:text-accent-dust transition duration-300">
-                REDWOOD DANIELS
-            </a>
+            <!-- Logo/Name Group -->
+            <div class="flex items-center space-x-4">
+                <!-- Publisher Logo Link -->
+                <a href="https://jmarshmedia.com" target="_blank" rel="noopener noreferrer" class="block" aria-label="Visit J Marsh Media">
+                    <img src="https://placehold.co/120x24/c0b7a4/1a1a1a?text=JMM" 
+                         alt="J Marsh Media Publisher Logo" 
+                         class="h-4 sm:h-6 opacity-70 hover:opacity-100 transition duration-200">
+                </a>
+                
+                <!-- Author Name -->
+                <a href="#" class="text-2xl font-serif font-bold tracking-widest text-text-dark hover:text-accent-dust transition duration-300">
+                    REDWOOD DANIELS
+                </a>
+            </div>
 
             <!-- Desktop Navigation -->
             <nav class="hidden md:flex space-x-8 text-sm font-medium uppercase tracking-wider">
@@ -270,13 +280,13 @@
 
             <div class="space-y-10 text-center py-10 border border-secondary-gray/50">
                 <p class="text-xl font-serif_italic text-text-dark/70">
-                    All pages are blank right now. Redwood Daniels is working on the next short piece.
+                    The free reads section is currently empty.
                 </p>
             </div>
         </section>
 
         
-        <!-- ===== ABOUT PAGE: Full Author Bio + Code (Code section removed) ===== -->
+        <!-- ===== ABOUT PAGE: Full Author Bio ===== -->
         <section id="about" class="py-16 md:py-32 border-t border-secondary-gray">
             <div class="max-w-prose mx-auto">
                 <h2 class="text-3xl sm:text-4xl font-serif font-bold text-accent-dust mb-12 text-center uppercase tracking-wider">
@@ -315,7 +325,7 @@
             </h2>
 
             <p class="text-center text-xl font-serif_italic text-text-dark/70 max-w-prose mx-auto mb-12 leading-relaxed">
-                For rights and interviews.
+                For rights, interviews, or quiet conversation.
             </p>
 
             <div class="max-w-lg mx-auto border border-secondary-gray p-8">
@@ -351,10 +361,16 @@
     <!-- FOOTER: High Contrast -->
     <footer class="mt-24 border-t border-secondary-gray bg-text-dark text-background-light">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-            <!-- Upper Footer: Contact/Nav -->
+            <!-- Upper Footer: Publisher Logo, Contact, and Nav -->
             <div class="flex flex-col sm:flex-row justify-between items-center text-center sm:text-left border-b border-secondary-gray/50 pb-6 mb-6">
                 
-                <div class="mb-4 sm:mb-0">
+                <!-- Publisher Logo/Link and Contact -->
+                <div class="flex flex-col sm:flex-row items-center text-center sm:text-left mb-4 sm:mb-0">
+                    <a href="https://jmarshmedia.com" target="_blank" rel="noopener noreferrer" class="mb-4 sm:mb-0 mr-0 sm:mr-8 block" aria-label="Visit J Marsh Media">
+                        <img src="https://placehold.co/120x24/1a1a1a/f7f4f0?text=JMM" 
+                             alt="J Marsh Media Publisher Logo" 
+                             class="h-6 opacity-70 hover:opacity-100 transition duration-200">
+                    </a>
                     <a href="mailto:inquiries@redwooddaniels.com" class="text-base text-secondary-gray hover:text-hover-accent transition duration-150 uppercase tracking-widest">
                         Rights / Inquiries
                     </a>
@@ -374,7 +390,7 @@
             <!-- Lower Footer: Copyright & Tagline -->
             <div class="text-center">
                 <p class="text-sm text-secondary-gray/70 mb-1">
-                    &copy; 2025 Redwood Daniels & J. Marsh Media
+                    &copy; 2025 Redwood Daniels
                 </p>
                 <p class="text-sm uppercase tracking-widest text-secondary-gray">
                     Site built simple. Words carry weight.
@@ -409,7 +425,6 @@
         // --- Mobile Menu Logic: Hamburger Drawer ---
         const mobileMenu = document.getElementById('mobile-menu');
         const menuOverlay = document.getElementById('menu-overlay');
-        const mainNavLinks = mobileMenu.querySelectorAll('a');
 
         function toggleMenu() {
             const isOpen = mobileMenu.classList.toggle('open');
@@ -421,8 +436,14 @@
         document.getElementById('open-menu').addEventListener('click', toggleMenu);
         document.getElementById('close-menu').addEventListener('click', toggleMenu);
 
-        // Note: The mobile menu links use inline onclick to ensure smooth scroll works 
-        // before the menu closes, which is acceptable in this single-file context.
+        // Close menu when a navigation link is clicked
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                // Give time for smooth scroll, then close menu
+                setTimeout(toggleMenu, 300);
+            });
+        });
         
     </script>
 
