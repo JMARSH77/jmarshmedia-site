@@ -70,7 +70,7 @@
             filter: grayscale(80%); /* Enforce desaturation */
         }
 
-        /* Custom style for the drop-cap/lead paragraph in stories */
+        /* Custom style for the drop-cap/lead paragraph in stories - KEPT FOR FUTURE USE */
         .story-lead:first-letter {
             float: left;
             font-size: 4em; /* Large, noticeable size */
@@ -130,7 +130,6 @@
 
     <!-- Header -->
     <header id="header" class="fixed top-0 left-0 right-0 z-20 bg-background-light/0 border-b border-transparent">
-        <!-- Replaced undefined max-w-prose-container with standard max-w-4xl for clean code -->
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex justify-between items-center">
             
             <!-- Logo/Name -->
@@ -235,52 +234,19 @@
         </section>
 
         
-        <!-- ===== STORIES PREVIEW SECTION: From the Road ===== -->
+        <!-- ===== STORIES PREVIEW SECTION: From the Road (Empty) ===== -->
         <section id="stories-preview" class="py-16 md:py-32 border-t border-secondary-gray">
             <h2 class="text-3xl sm:text-4xl font-serif font-bold text-accent-dust mb-12 text-center uppercase tracking-wider">
                 From the Road.
             </h2>
 
-            <div class="max-w-prose mx-auto grid grid-cols-1 sm:grid-cols-3 gap-8">
-                
-                <!-- Post Card 1: Short Story -->
-                <div class="border border-secondary-gray p-6 hover:border-accent-dust transition duration-150">
-                    <p class="text-xs uppercase tracking-widest text-secondary-gray mb-2">Short Fiction</p>
-                    <a href="#read-wires" class="block hover:text-hover-accent transition duration-150">
-                        <h3 class="text-lg font-semibold text-text-dark mb-2 font-sans">A Silence Between the Wires</h3>
-                    </a>
-                    <p class="text-sm leading-snug text-text-dark/70 mb-4 h-10 overflow-hidden">
-                        A young operator drives 50 miles into the desert to find out who killed the signal... and what else they killed along the way.
-                    </p>
-                    <a href="#read-wires" class="text-sm text-accent-dust border-b border-accent-dust/50 pb-0.5 hover:border-accent-dust transition duration-150 flex items-center justify-between uppercase tracking-wider">
-                        Read more
-                        <span class="text-lg leading-none">&rarr;</span>
-                    </a>
-                </div>
-
-                <!-- Post Card 2: Excerpt -->
-                <div class="border border-secondary-gray p-6 hover:border-accent-dust transition duration-150">
-                    <p class="text-xs uppercase tracking-widest text-secondary-gray mb-2">Excerpt</p>
-                    <a href="#read-drift-excerpt" class="block hover:text-hover-accent transition duration-150">
-                        <h3 class="text-lg font-semibold text-text-dark mb-2 font-sans">The Bone Orchard Drift - Chapter 1</h3>
-                    </a>
-                    <p class="text-sm leading-snug text-text-dark/70 mb-4 h-10 overflow-hidden">
-                        The opening sets the tone: a slow, measured walk through the aftermath of an irreversible mistake. The rain never came, but the mud is everywhere.
-                    </p>
-                    <a href="#read-drift-excerpt" class="text-sm text-accent-dust border-b border-accent-dust/50 pb-0.5 hover:border-accent-dust transition duration-150 flex items-center justify-between uppercase tracking-wider">
-                        Read more
-                        <span class="text-lg leading-none">&rarr;</span>
-                    </a>
-                </div>
-                
-                <!-- Placeholder Card -->
-                <div class="border border-secondary-gray p-6 text-center flex flex-col justify-center">
-                    <p class="text-xs uppercase tracking-widest text-secondary-gray mb-2">Waiting</p>
-                    <h3 class="text-lg font-semibold text-text-dark mb-4 font-sans">Next Entry Coming Soon</h3>
-                    <p class="text-sm leading-snug text-text-dark/70">
-                        Stay quiet, stay put.
-                    </p>
-                </div>
+            <div class="max-w-prose mx-auto text-center py-12">
+                <p class="text-xl font-serif_italic text-text-dark/70">
+                    The road is silent right now. Check back soon for new work.
+                </p>
+                <a href="#stories" class="mt-8 inline-block px-6 py-2 border border-secondary-gray text-base font-semibold text-text-dark/90 hover:border-text-dark transition duration-150 uppercase tracking-widest">
+                    View Stories Index
+                </a>
             </div>
             
         </section>
@@ -292,7 +258,7 @@
         <!-- ============================================= -->
 
         
-        <!-- ===== STORIES PAGE: Index ===== -->
+        <!-- ===== STORIES PAGE: Index (Empty) ===== -->
         <section id="stories" class="py-16 md:py-32 border-t border-secondary-gray max-w-prose mx-auto">
             <h2 class="text-3xl sm:text-4xl font-serif font-bold text-accent-dust mb-12 text-center uppercase tracking-wider">
                 Free Reads
@@ -302,84 +268,15 @@
                 Short fiction and full samples—for those who need to feel the dust before they buy the road.
             </p>
 
-            <div class="space-y-10">
-                
-                <!-- Story 1 Index Entry -->
-                <div class="border border-secondary-gray p-6 hover:border-accent-dust transition duration-150">
-                    <h3 class="text-2xl font-serif font-bold mb-2">A Silence Between the Wires</h3>
-                    <p class="text-sm text-text-dark/70 mb-4">Short story originally published in *The Western Review*</p>
-                    <p class="text-base leading-relaxed text-text-dark/90 mb-4">
-                        When the town’s phone line goes dead, a young operator drives 50 miles into the desert to find out who killed the signal... and what else they killed along the way.
-                    </p>
-                    <a href="#read-wires" class="text-sm text-hover-accent border-b border-hover-accent/50 pb-1 hover:border-hover-accent transition duration-150 uppercase tracking-widest">
-                        Read Full Story &rarr;
-                    </a>
-                </div>
-
-                <!-- Story 2 Index Entry -->
-                <div class="border border-secondary-gray p-6 hover:border-accent-dust transition duration-150">
-                    <h3 class="text-2xl font-serif font-bold mb-2">The Bone Orchard Drift - Chapter 1</h3>
-                    <p class="text-sm text-text-dark/70 mb-4">Excerpt from a work in progress</p>
-                    <p class="text-base leading-relaxed text-text-dark/90 mb-4">
-                        The opening sets the tone: a slow, measured walk through the aftermath of an irreversible mistake. The rain never came, but the mud is everywhere.
-                    </p>
-                    <a href="#read-drift-excerpt" class="text-sm text-hover-accent border-b border-hover-accent/50 pb-1 hover:border-hover-accent transition duration-150 uppercase tracking-widest">
-                        Read Excerpt &rarr;
-                    </a>
-                </div>
-                
+            <div class="space-y-10 text-center py-10 border border-secondary-gray/50">
+                <p class="text-xl font-serif_italic text-text-dark/70">
+                    All pages are blank right now. Redwood Daniels is working on the next short piece.
+                </p>
             </div>
         </section>
 
         
-        <!-- ===== STORIES PAGE: Full Story Content (A Silence Between the Wires) ===== -->
-        <section id="read-wires" class="py-16 md:py-32 border-t border-secondary-gray">
-            <div class="max-w-prose mx-auto">
-                <a href="#stories" class="text-sm text-secondary-gray hover:text-accent-dust transition duration-150 uppercase tracking-widest mb-8 inline-block">&larr; Back to Index</a>
-                
-                <h2 class="text-4xl font-serif font-bold mb-4 text-text-dark">A Silence Between the Wires</h2>
-                <p class="text-xl font-serif_italic text-text-dark/70 mb-10">Short Fiction</p>
-
-                <!-- Optional Header Image -->
-                <img src="https://placehold.co/800x400/1a1a1a/c0b7a4?text=TELEPHONE+POLE+B%26W" 
-                     alt="Desaturated black and white photo of a broken telephone pole." 
-                     class="w-full h-auto object-cover mb-12 border border-secondary-gray/70 grayscale">
-
-                <div class="text-xl leading-relaxed text-text-dark/90 space-y-6">
-                    <p class="story-lead">The first mistake was listening. Sheriff Kordell always said that in a town this small, the phone lines carried more truth than the courthouse. But the lines were dead now, thick with the kind of silence that suggests a sudden, surgical removal. It wasn't static; it was absence.</p>
-                    <p>Kordell had been retired for five years, but habits die harder than men out here. He checked his radio first—nothing but the white noise hum. He checked the town's small exchange box outside his window—lights dark. He drove the highway west, tracing the dead wire like a vein that had been cut.</p>
-                    <p>It led him to a turnout twelve miles out, where the high-tension lines crossed the old irrigation ditch. Someone hadn't just cut the wire; they’d used a saw and a cold, clear night. They didn’t want a noise complaint; they wanted quiet. And that made Kordell’s old bones hurt with the kind of certainty he hadn't felt since his daughter disappeared.</p>
-                    <p>He got out, the dry, alkaline dust crunching under his boots. The desert doesn't give up secrets easy, but it always leaves tracks. And standing right there, by the neatly severed line, was a single, clean footprint: too small for a man, too delicate for the dust.</p>
-                </div>
-                <a href="#stories" class="mt-12 inline-block text-sm text-secondary-gray hover:text-accent-dust transition duration-150 uppercase tracking-widest">&larr; Back to Index</a>
-            </div>
-        </section>
-        
-        <!-- ===== STORIES PAGE: Full Story Content (Excerpt) ===== -->
-        <section id="read-drift-excerpt" class="py-16 md:py-32 border-t border-secondary-gray">
-            <div class="max-w-prose mx-auto">
-                <a href="#stories" class="text-sm text-secondary-gray hover:text-accent-dust transition duration-150 uppercase tracking-widest mb-8 inline-block">&larr; Back to Index</a>
-                
-                <h2 class="text-4xl font-serif font-bold mb-4 text-text-dark">The Bone Orchard Drift - Chapter 1</h2>
-                <p class="text-xl font-serif_italic text-text-dark/70 mb-10">Excerpt from a work in progress</p>
-
-                <!-- Optional Header Image -->
-                <img src="https://placehold.co/800x400/1a1a1a/c0b7a4?text=DUST+AND+LOW+NEON+LIGHT" 
-                     alt="Desaturated photo of a desert field under low neon light." 
-                     class="w-full h-auto object-cover mb-12 border border-secondary-gray/70 grayscale">
-
-                <div class="text-xl leading-relaxed text-text-dark/90 space-y-6">
-                    <p class="story-lead">The drift always comes back. In Port Sulfur, the desert doesn't just surround you; it moves into your lungs and your foundation. You spend your life sweeping it away, knowing that by morning, the pale, fine dust will have crossed your threshold again, leaving a fresh, clean layer over everything you thought you'd finished.</p>
-                    <p>Sheriff Eli Kincaid was done sweeping. He stood on the edge of his property, where the fence met the old bone orchard—a stretch of scrubland where nothing but bleached wood and dry sage grew. The morning sun was a brutal, honest thing, but it hadn't stopped the killer from leaving their signature right there in the dirt.</p>
-                    <p>The body wasn't hidden. It was laid out, almost respectful, facing the rising sun. Kincaid knew the face. Everyone knew the face. It belonged to the kind of man who owed everyone a debt he could never pay back. But the way he was killed—clean, quiet—suggested an accountant, not a thug. Someone who was balancing the books.</p>
-                    <p>Kincaid crouched down, the heat already rising off the cracked earth. He hadn't been wearing his badge for six months. He was just a man with a piece of property that bordered the town's shame, and now, its new history. He touched the dust, feeling the weight of the silence. It told him that in Port Sulfur, being retired meant nothing. Some debts just transfer ownership.</p>
-                </div>
-                <a href="#stories" class="mt-12 inline-block text-sm text-secondary-gray hover:text-accent-dust transition duration-150 uppercase tracking-widest">&larr; Back to Index</a>
-            </div>
-        </section>
-
-        
-        <!-- ===== ABOUT PAGE: Full Author Bio + Code ===== -->
+        <!-- ===== ABOUT PAGE: Full Author Bio + Code (Code section removed) ===== -->
         <section id="about" class="py-16 md:py-32 border-t border-secondary-gray">
             <div class="max-w-prose mx-auto">
                 <h2 class="text-3xl sm:text-4xl font-serif font-bold text-accent-dust mb-12 text-center uppercase tracking-wider">
@@ -395,7 +292,7 @@
                              class="w-full h-auto object-cover grayscale border border-secondary-gray/70">
                     </div>
 
-                    <!-- Right Column: Bio and Code -->
+                    <!-- Right Column: Bio -->
                     <div class="md:col-span-2 text-text-dark/90 space-y-8">
                         
                         <!-- Bio (150 words) -->
@@ -406,17 +303,6 @@
                             He writes slowly, deliberately, and always with the intent to cut every sentence to its most necessary form. His work seeks to strip away the pretense of civilization, exploring what happens when the law stops paying attention and the local code takes over. He currently lives near the coast, where the highway ends and the real shadows begin.
                         </p>
                         
-                        <!-- The Code Section -->
-                        <div class="pt-4 border-t border-secondary-gray">
-                            <h3 class="text-2xl font-serif font-bold text-accent-dust mb-4 uppercase tracking-wider">The Code</h3>
-                            <ul class="list-none space-y-2 text-xl leading-relaxed pl-0">
-                                <li class="font-serif_italic">**No saints. No monsters.**</li>
-                                <li class="font-serif_italic">**Action tells the truth.**</li>
-                                <li class="font-serif_italic">**Silence matters.**</li>
-                                <li class="font-serif_italic">**The consequence is the story.**</li>
-                                <li class="font-serif_italic">**The land remembers.**</li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -429,7 +315,7 @@
             </h2>
 
             <p class="text-center text-xl font-serif_italic text-text-dark/70 max-w-prose mx-auto mb-12 leading-relaxed">
-                For rights, interviews, or quiet conversation.
+                For rights and interviews.
             </p>
 
             <div class="max-w-lg mx-auto border border-secondary-gray p-8">
@@ -542,4 +428,3 @@
 
 </body>
 </html>
-
