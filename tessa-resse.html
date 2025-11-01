@@ -1,1 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tessa Reese | Romance. Reality. Reckoning.</title>
+    
+    <!-- SEO & Accessibility Metadata -->
+    <meta name="description" content="Official site of Tessa Reese, romance author for women who’ve lived enough to know better—and want it anyway.">
+    <meta name="keywords" content="Tessa Reese, romance author, guided journal, midlife awakening, adult romance, empowering women, suburban rebellion">
+    <meta name="author" content="Tessa Reese">
+    
+    <!-- JSON-LD Schema Markup for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "url": "jmarshmedia.com/tessa-reese.hmtl",
+      "name": "Tessa Reese | Romance. Reality. Reckoning.",
+      "about": "Take-no-shit romance for grown women."
+    }
+    </script>
+    
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Load Custom Fonts: Playfair Display (Serif) and Lato (Sans-serif) -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- 1. Custom Colors and Fonts (WCAG AA Contrast Compliant) --- */
+        :root {
+            --color-rose-wine: #B24A5A; /* Primary CTA */
+            --color-smoky-taupe: #4A3C3D; /* Secondary/Texture */
+            --color-off-white-blush: #FAF5F3; /* Main Background */
+            --color-ink-black: #1A1A1A; /* Primary Text */
+            --color-warm-gold: #CDA349; /* Accent/Hover */
+        }
+        .font-serif-display { font-family: 'Playfair Display', serif; }
+        .font-sans-body { font-family: 'Lato', sans-serif; }
+
+        /* Custom Tailwind Color Classes */
+        .bg-blush { background-color: var(--color-off-white-blush); }
+        .text-ink { color: var(--color-ink-black); }
+        .text-taupe { color: var(--color-smoky-taupe); }
+        .bg-taupe { background-color: var(--color-smoky-taupe); }
+        .bg-wine { background-color: var(--color-rose-wine); }
+        .text-gold { color: var(--color-warm-gold); }
+        .border-gold { border-color: var(--color-warm-gold); }
+        .hover-gold:hover { color: var(--color-warm-gold); }
+
+        /* --- 2. Interactions & Motion --- */
+        /* Gold Fade Shimmer on Buttons/Links */
+        .btn-primary:hover { 
+            background-color: var(--color-warm-gold); 
+            color: var(--color-ink-black);
+        }
+        .link-gold-hover:hover {
+            color: var(--color-warm-gold);
+            border-color: var(--color-warm-gold);
+        }
+        
+        /* Cinematic Texture Overlay for Hero */
+        .hero-section {
+            background-image: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4)), url('https://placehold.co/1920x1080/4A3C3D/CDA349?text=Tessa+on+Vintage+Car+at+Dusk'); /* Image: Tessa leaning on vintage car, dusk tone */
+            background-position: center center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            min-height: 100vh; /* Full viewport height */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* Sticky Header Styling: Opacity Shift + Blur */
+        .sticky-header {
+            background-color: rgba(250, 245, 243, 0.95); /* Off-White Blush with 95% opacity */
+            backdrop-filter: blur(5px);
+        }
+        
+        /* Secondary CTA button with reversed colors */
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--color-off-white-blush);
+            border: 2px solid var(--color-off-white-blush);
+            transition: all 0.3s ease;
+        }
+        .btn-secondary:hover {
+            background-color: var(--color-off-white-blush);
+            color: var(--color-taupe);
+            border-color: var(--color-off-white-blush);
+        }
+
+        /* Initial hidden state for fade-in on load */
+        .fade-in-section {
+            opacity: 0;
+            transition: opacity 1s ease-out;
+        }
+    </style>
+</head>
+<body class="bg-blush text-ink font-sans-body antialiased">
+    
+    <!-- Main Content Wrapper to handle view switching -->
+    <div id="main-content">
+        
+        <!-- --- 0. STICKY HEADER --- -->
+        <header class="sticky top-0 z-20 sticky-header shadow-md px-6 py-4 md:px-12">
+            <div class="max-w-7xl mx-auto flex justify-between items-center">
+                
+                <div class="flex items-center space-x-4">
+                    <!-- Tessa Reese Wordmark (Logo) -->
+                    <a href="#" class="text-2xl font-serif-display font-bold text-taupe hover-gold" onclick="navigate('home')">TESSA REESE</a>
+                    <!-- J. Marsh Media Link -->
+                    <a href="https://jmarshmedia.com" target="_blank" class="text-xs font-medium uppercase tracking-widest text-taupe/70 hover-gold transition duration-200" title="Return to J. Marsh Media">
+                        J. MARSH MEDIA
+                    </a>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex space-x-8 text-sm font-medium uppercase tracking-wider text-taupe">
+                    <a href="#books" class="hover-gold transition duration-200" onclick="navigate('books')">Books</a>
+                    <a href="#random-thoughts" class="hover-gold transition duration-200" onclick="navigate('blog')">Random Thoughts</a>
+                    <a href="#about-page" class="hover-gold transition duration-200" onclick="navigate('about')">About</a>
+                    <a href="#contact-page" class="hover-gold transition duration-200" onclick="navigate('contact')">Contact</a>
+                </nav>
+                
+                <!-- Mobile Hamburger Menu (Simplified for this single file) -->
+                <button class="md:hidden text-taupe text-2xl hover-gold" onclick="alert('Menu functionality simulated. On a real site, this would open a mobile navigation.')">
+                    &#9776; <!-- Hamburger Icon -->
+                </button>
+            </div>
+        </header>
+
+        <!-- Container for the HOME View -->
+        <div id="home-view">
+            <!-- --- 1. HERO SECTION --- -->
+            <section id="hero" class="hero-section text-center text-blush">
+                <div class="relative z-10 max-w-4xl mx-auto p-6 md:p-12 fade-in-section">
+                    
+                    <!-- H1: Tessa Reese -->
+                    <h1 class="font-serif-display text-5xl sm:text-7xl md:text-9xl font-black leading-tight mb-4 drop-shadow-lg" style="color: var(--color-off-white-blush);">
+                        TESSA REESE
+                    </h1>
+                    
+                    <!-- Subhead -->
+                    <p class="font-sans-body text-xl sm:text-2xl md:text-3xl tracking-wide uppercase mb-10 drop-shadow-lg" style="color: var(--color-off-white-blush);">
+                        Take-no-shit romance for grown women.
+                    </p>
+                    
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-col sm:flex-row justify-center gap-6 mt-10">
+                        <a href="#featured-book" class="btn-primary bg-wine text-blush uppercase font-bold tracking-wider px-10 py-4 rounded-full shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105 link-gold-hover">
+                            Read the Latest Journal
+                        </a>
+                        <a href="#random-thoughts" class="btn-secondary uppercase font-bold tracking-wider px-10 py-4 rounded-full shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105">
+                            Enter at Your Own Risk
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- --- 2. FEATURED BOOK (Midlife Awakening) --- -->
+            <section id="featured-book" class="max-w-7xl mx-auto py-16 px-6 md:py-24 md:px-12 bg-blush border-b border-taupe/10 fade-in-section">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    
+                    <!-- Left: Book Cover & Review -->
+                    <div class="flex flex-col items-center md:items-start">
+                        <div class="relative">
+                            <img src="images/books/midlife-awaking-logo.jpg" alt="Cover for Midlife Awakening Guided Journal" class="w-64 md:w-80 rounded-lg shadow-2xl transition duration-500 hover:scale-[1.02] transform -rotate-1 shadow-taupe/50" style="border: 4px solid var(--color-warm-gold);">
+                        </div>
+                        <p class="mt-8 text-xl font-serif-display text-taupe/80">
+                            ★★★★★ <span class="text-ink font-semibold">“Wicked, heartfelt, and addictive.”</span> — BookAddict Reviews
+                        </p>
+                    </div>
+
+                    <!-- Right: Title, Pitch, CTAs -->
+                    <div class="text-taupe">
+                        <p class="uppercase text-sm tracking-widest mb-3 font-serif-display text-wine">The Journal</p>
+                        <h2 class="text-5xl font-serif-display font-bold mb-4 text-ink leading-snug">
+                            Midlife Awakening
+                        </h2>
+                        <h3 class="text-2xl font-sans-body font-light mb-6 text-taupe/90 italic">
+                            It's not a crisis. It's an explosion.
+                        </h3>
+                        
+                        <!-- Quick Pitch Line -->
+                        <p class="text-lg mb-8 font-sans-body leading-relaxed">
+                            Written for the woman who’s exhausted by performative gratitude, buried beneath mental load, and done with shrinking to survive, this large-print guided journal offers raw prompts, blackout poetry, and truth bombs sharp enough to cut through decades of silence.
+                        </p>
+
+                        <!-- CTA Buttons -->
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <a href="https://a.co/d/aUZejn8" target="_blank" class="btn-primary bg-wine text-blush uppercase font-bold tracking-wider px-8 py-3 rounded-md shadow-lg transition duration-300 transform hover:scale-105 link-gold-hover">
+                                Buy Now (Amazon)
+                            </a>
+                            <button onclick="showBookDetail('midlife-awakening')" class="bg-taupe text-blush uppercase font-bold tracking-wider px-8 py-3 rounded-md shadow-lg hover:bg-ink transition duration-300">
+                                See the Prompts &rarr;
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- --- 3. BIO PREVIEW --- -->
+            <section id="bio-preview" class="max-w-7xl mx-auto py-16 px-6 md:py-24 md:px-12 bg-blush border-b border-taupe/10 fade-in-section">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    
+                    <!-- Left: Black and White Portrait -->
+                    <div class="relative rounded-lg overflow-hidden shadow-2xl">
+                        <img src="images/headshots/jeremy-marsh-headshot.jpg" alt="Tessa Reese, casual black and white portrait." class="w-full object-cover transition duration-500 opacity-95">
+                    </div>
+
+                    <!-- Right: Short Bio Copy -->
+                    <div class="text-taupe">
+                        <h2 class="text-4xl font-serif-display font-bold mb-4 text-ink leading-snug">
+                            “I’m Tessa. I write stories about women who swear, drink, and fall for men who don’t scare easy.”
+                        </h2>
+                        <p class="text-lg mb-6 font-sans-body leading-relaxed">
+                            Tessa Reese writes the kind of romance you can smell on the pillow the next morning. Her heroines are smart, her men are dangerous in all the right ways, and her stories hit like confession.
+                        </p>
+                        <a href="#about-page" class="mt-4 inline-block text-wine uppercase font-bold border-b-2 border-wine pb-1 hover:text-gold hover:border-gold transition duration-200" onclick="navigate('about')">More About Tessa &rarr;</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- --- 4. RANDOM THOUGHTS (BLOG TEASER) --- -->
+            <section id="random-thoughts" class="bg-taupe text-blush py-16 px-6 md:py-20 text-center fade-in-section">
+                <div class="max-w-7xl mx-auto">
+                    <h3 class="uppercase text-sm tracking-widest mb-3 text-gold">Behind the Curtain</h3>
+                    <h2 class="text-4xl sm:text-5xl font-serif-display font-bold mb-6 italic leading-tight">
+                        Random Thoughts.
+                    </h2>
+                    <p class="text-xl mb-12 font-sans-body">
+                        Part gossip, part therapy, part confession. This is where the filter drops entirely. Get my brutally honest takes on writing, life, love, and the chaos in between.
+                    </p>
+
+                    <!-- Blog Post Grid Teaser -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                        <!-- Post 1 -->
+                        <div class="text-left bg-taupe rounded-lg overflow-hidden shadow-xl hover:shadow-2xl transition duration-300 transform hover:scale-[1.02]">
+                            <img src="https://placehold.co/600x400/CDA349/4A3C3D?text=Wineglass" alt="Muted image of a wineglass." class="w-full h-48 object-cover opacity-80">
+                            <div class="p-6">
+                                <h4 class="text-xl font-serif-display font-semibold text-blush mb-2">How to Fall in Love After Divorce</h4>
+                                <p class="text-sm text-blush/70 font-sans-body line-clamp-2 mb-4">
+                                    The rules change. The trust is gone. But the desire for connection is sharper than ever. Here's my raw truth on starting over...
+                                </p>
+                                <a href="#" onclick="showSinglePost(1); return false;" class="text-gold uppercase text-xs font-bold hover:text-blush transition duration-200">Read More &rarr;</a>
+                            </div>
+                        </div>
+                        <!-- Post 2 -->
+                        <div class="text-left bg-taupe rounded-lg overflow-hidden shadow-xl hover:shadow-2xl transition duration-300 transform hover:scale-[1.02]">
+                            <img src="https://placehold.co/600x400/B24A5A/FAF5F3?text=Lipstick" alt="Muted image of lipstick and coffee." class="w-full h-48 object-cover opacity-80">
+                            <div class="p-6">
+                                <h4 class="text-xl font-serif-display font-semibold text-blush mb-2">My Favorite Way to Weaponize Gratitude</h4>
+                                <p class="text-sm text-blush/70 font-sans-body line-clamp-2 mb-4">
+                                    Performative gratitude is exhausting. Let's talk about the kind that fuels your next reckless, wonderful decision...
+                                </p>
+                                <a href="#" onclick="showSinglePost(2); return false;" class="text-gold uppercase text-xs font-bold hover:text-blush transition duration-200">Read More &rarr;</a>
+                            </div>
+                        </div>
+                        <!-- Post 3 -->
+                        <div class="text-left bg-taupe rounded-lg overflow-hidden shadow-xl hover:shadow-2xl transition duration-300 transform hover:scale-[1.02]">
+                            <img src="https://placehold.co/600x400/4A3C3D/CDA349?text=Notebook" alt="Muted image of messy notes and coffee." class="w-full h-48 object-cover opacity-80">
+                            <div class="p-6">
+                                <h4 class="text-xl font-serif-display font-semibold text-blush mb-2">Is It Cheating If You Only Think About It?</h4>
+                                <p class="text-sm text-blush/70 font-sans-body line-clamp-2 mb-4">
+                                    A deep dive into the gray areas of emotional fidelity and what silence does to a marriage. No judgment, just honesty...
+                                </p>
+                                <a href="#" onclick="showSinglePost(3); return false;" class="text-gold uppercase text-xs font-bold hover:text-blush transition duration-200">Read More &rarr;</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Main Blog CTA Button -->
+                    <button class="bg-wine text-blush uppercase font-bold tracking-wider px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105" onclick="navigate('blog')">
+                        Read All Random Thoughts &rarr;
+                    </button>
+                </div>
+            </section>
+
+            <!-- --- 5. NEWSLETTER CTA (CLUBHOUSE) --- -->
+            <section id="clubhouse-cta" class="max-w-4xl mx-auto py-16 px-6 md:py-20 text-center border-b border-taupe/10 fade-in-section">
+                 <div class="text-taupe">
+                    <h4 class="text-4xl font-serif-display font-bold mb-4 text-ink">Join the Clubhouse.</h4>
+                    <p class="mb-8 text-xl font-sans-body">No spam, no shame. Just the stories too raw for Instagram.</p>
+                    
+                    <form class="flex flex-col sm:flex-row justify-center gap-4">
+                        <input type="email" placeholder="Email Address" required class="flex-grow sm:max-w-sm p-4 rounded-md border-2 border-taupe/30 focus:border-wine bg-blush font-sans-body text-ink placeholder-taupe/70 shadow-inner">
+                        <button type="submit" class="bg-wine text-blush uppercase font-bold px-8 py-3 rounded-md shadow-md hover:bg-taupe transition duration-300 link-gold-hover">
+                            Join Now
+                        </button>
+                    </form>
+                </div>
+            </section>
+        </div>
+        <!-- End of HOME View -->
+
+        <!-- --- INTERIOR PAGES START HERE --- -->
+        
+        <!-- --- BOOKS PAGE VIEW --- -->
+        <div id="books-view" class="hidden min-h-screen bg-blush py-16 px-6 md:py-24">
+            <div class="max-w-7xl mx-auto text-taupe fade-in-section" style="transition-delay: 0.1s;">
+                <h1 class="text-6xl font-serif-display font-bold mb-4 text-ink">The Collection.</h1>
+                <p class="text-xl mb-12 font-sans-body">One journal. One explosion. More stories coming soon.</p>
+
+                <!-- Book Gallery (Currently single item) -->
+                <div id="book-gallery" class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                    <!-- Midlife Awakening - Journal -->
+                    <div class="bg-blush p-6 rounded-xl shadow-lg border border-taupe/10 hover:shadow-xl transition duration-300 transform hover:scale-[1.02] text-center">
+                        <img src="https://placehold.co/400x600/B24A5A/FAF5F3?text=Midlife+Awakening+Journal" alt="Midlife Awakening Journal Cover" class="w-48 h-auto mx-auto mb-4 rounded-md shadow-lg" style="border: 3px solid var(--color-warm-gold);">
+                        <h3 class="text-2xl font-serif-display font-semibold text-ink mb-1">Midlife Awakening</h3>
+                        <p class="text-sm text-taupe italic mb-3">Guided Journal</p>
+                        <p class="text-md font-sans-body mb-4 line-clamp-2">The raw prompts, blackout poetry, and truth bombs sharp enough to cut through decades of silence.</p>
+                        <button onclick="showBookDetail('midlife-awakening')" class="text-wine uppercase text-sm font-bold border-b border-wine pb-1 link-gold-hover">Details &rarr;</button>
+                    </div>
+                </div>
+
+                <!-- Book Detail Modal/Section (Hidden by default) -->
+                <div id="book-detail-modal" class="fixed inset-0 bg-ink/70 z-50 flex justify-center items-center p-4 hidden">
+                    <div id="book-detail-content" class="bg-blush p-8 rounded-lg shadow-2xl max-w-3xl w-full relative transform transition-all duration-500 scale-90 opacity-0">
+                        <button onclick="closeBookDetail()" class="absolute top-4 right-4 text-ink text-3xl hover:text-wine">&times;</button>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+                            <img id="detail-cover" src="https://placehold.co/400x600/B24A5A/FAF5F3?text=Midlife+Awakening+Journal" alt="Book Cover" class="w-full h-auto rounded-md shadow-lg md:col-span-1" style="border: 3px solid var(--color-warm-gold);">
+                            <div class="md:col-span-2">
+                                <h2 id="detail-title" class="text-4xl font-serif-display font-bold text-ink mb-2"></h2>
+                                <p id="detail-tagline" class="text-lg font-sans-body italic mb-4 text-taupe/80"></p>
+                                
+                                <h4 class="uppercase text-sm tracking-widest text-wine mb-2">The Reckoning</h4>
+                                <p id="detail-synopsis" class="text-md font-sans-body leading-relaxed mb-6"></p>
+
+                                <div class="mt-6">
+                                    <h4 class="uppercase text-sm tracking-widest text-wine mb-2">Get Your Copy</h4>
+                                    <div class="flex gap-4">
+                                        <a id="detail-buy-amazon" target="_blank" class="btn-primary bg-wine text-blush uppercase font-bold tracking-wider px-6 py-2 rounded-md transition duration-300 link-gold-hover">Amazon</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End of BOOKS View -->
+
+        <!-- --- RANDOM THOUGHTS (BLOG) VIEW --- -->
+        <div id="blog-view" class="hidden min-h-screen bg-blush py-16 px-6 md:py-24">
+            <!-- Blog Index View -->
+            <div id="blog-index" class="max-w-7xl mx-auto text-taupe fade-in-section" style="transition-delay: 0.1s;">
+                <div class="relative w-full h-64 md:h-80 mb-12 rounded-lg overflow-hidden shadow-xl" style="background-image: url('https://placehold.co/1200x400/CDA349/4A3C3D?text=Coffee+Table,+Messy+Notes'); background-size: cover; background-position: center;">
+                    <div class="absolute inset-0 bg-ink/60 flex items-center justify-center">
+                        <h1 class="text-5xl font-serif-display font-black text-blush drop-shadow-lg">Random Thoughts</h1>
+                    </div>
+                </div>
+
+                <p class="text-xl mb-12 font-sans-body text-center">Part gossip, part therapy, part confession. No filter, just the truth.</p>
+
+                <!-- Full Post Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Post 1: How to Fall in Love After Divorce (Placeholder Content) -->
+                    <div class="bg-blush p-6 rounded-lg shadow-md border border-taupe/10">
+                        <img src="https://placehold.co/600x400/CDA349/4A3C3D?text=Wineglass" alt="Muted image of a wineglass." class="w-full h-40 object-cover rounded-md mb-4">
+                        <h3 class="text-2xl font-serif-display font-bold text-ink mb-1">How to Fall in Love After Divorce</h3>
+                        <p class="text-xs text-taupe/70 mb-3">Oct 29, 2025 | Confession</p>
+                        <p class="text-md font-sans-body mb-4 line-clamp-3">The rules change. The trust is gone. But the desire for connection is sharper than ever. Here's my raw truth on starting over, the first dates, and why you should always pay for your own dirty martini.</p>
+                        <a href="#" onclick="showSinglePost(1); return false;" class="text-wine uppercase text-sm font-bold border-b border-wine pb-1 link-gold-hover">Read More &rarr;</a>
+                    </div>
+                    <!-- Post 2: My Favorite Way to Weaponize Gratitude (Placeholder Content) -->
+                    <div class="bg-blush p-6 rounded-lg shadow-md border border-taupe/10">
+                         <img src="https://placehold.co/600x400/B24A5A/FAF5F3?text=Lipstick" alt="Muted image of lipstick and coffee." class="w-full h-40 object-cover rounded-md mb-4">
+                        <h3 class="text-2xl font-serif-display font-bold text-ink mb-1">My Favorite Way to Weaponize Gratitude</h3>
+                        <p class="text-xs text-taupe/70 mb-3">Oct 20, 2025 | Therapy</p>
+                        <p class="text-md font-sans-body mb-4 line-clamp-3">Performative gratitude is exhausting. Let's talk about the kind that fuels your next reckless, wonderful decision—the kind that makes you demand more, not settle for less.</p>
+                        <a href="#" onclick="showSinglePost(2); return false;" class="text-wine uppercase text-sm font-bold border-b border-wine pb-1 link-gold-hover">Read More &rarr;</a>
+                    </div>
+                    <!-- Post 3: Is It Cheating If You Only Think About It? (Placeholder Content) -->
+                    <div class="bg-blush p-6 rounded-lg shadow-md border border-taupe/10">
+                         <img src="https://placehold.co/600x400/4A3C3D/CDA349?text=Notebook" alt="Muted image of messy notes and coffee." class="w-full h-40 object-cover rounded-md mb-4">
+                        <h3 class="text-2xl font-serif-display font-bold text-ink mb-1">Is It Cheating If You Only Think About It?</h3>
+                        <p class="text-xs text-taupe/70 mb-3">Oct 12, 2025 | Gossip</p>
+                        <p class="text-md font-sans-body mb-4 line-clamp-3">A deep dive into the gray areas of emotional fidelity and what silence does to a marriage. No judgment, just honesty about where the real line is drawn.</p>
+                        <a href="#" onclick="showSinglePost(3); return false;" class="text-wine uppercase text-sm font-bold border-b border-wine pb-1 link-gold-hover">Read More &rarr;</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Single Post View (Hidden by default) -->
+            <div id="single-post" class="max-w-3xl mx-auto p-8 rounded-lg hidden text-taupe fade-in-section">
+                <button onclick="navigate('blog')" class="mb-8 text-wine uppercase font-bold text-sm link-gold-hover">&larr; Back to Random Thoughts</button>
+                
+                <h1 id="post-title" class="text-5xl font-serif-display font-bold text-ink mb-2"></h1>
+                <p class="text-sm text-taupe/70 mb-8"><span id="post-date"></span> | <span id="post-category"></span></p>
+
+                <div id="post-body" class="text-lg leading-relaxed font-serif-display text-ink">
+                    <!-- Post content will be injected here -->
+                </div>
+
+                <div class="mt-12 pt-8 border-t border-taupe/20 text-center">
+                    <p class="text-xl font-serif-display text-ink italic mb-6">“Liked this post? Pour another glass.”</p>
+                    <a href="#" onclick="navigate('blog')" class="bg-wine text-blush uppercase font-bold tracking-wider px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105">
+                        Read More Posts &rarr;
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- End of RANDOM THOUGHTS View -->
+
+        <!-- --- ABOUT PAGE VIEW --- -->
+        <div id="about-page" class="hidden min-h-screen bg-blush py-16 px-6 md:py-24">
+            <div class="max-w-4xl mx-auto text-taupe fade-in-section" style="transition-delay: 0.1s;">
+                <h1 class="text-6xl font-serif-display font-bold mb-10 text-ink text-center">About Tessa.</h1>
+                
+                <div class="relative rounded-lg overflow-hidden shadow-2xl mb-12">
+                    <img src="https://placehold.co/800x450/1A1A1A/FAF5F3?text=Tessa+Reese+Working+Photo" alt="Tessa Reese, Author" class="w-full object-cover transition duration-500 opacity-95">
+                </div>
+
+                <!-- Bio Section -->
+                <div class="mb-12">
+                    <h2 class="uppercase text-sm tracking-widest text-wine mb-3">The Author</h2>
+                    <p class="text-4xl font-serif-display font-bold text-ink mb-4 leading-snug">
+                        “I’m Tessa. I write stories about women who swear, drink, and fall for men who don’t scare easy.”
+                    </p>
+                    <p class="text-lg font-sans-body leading-relaxed mb-6">
+                        Tessa Reese writes for the woman who knows the difference between a fairy tale and a fighting chance. Her work—whether it's a raw journal or a full-throttle romance novel—is confident, sensual, and brutally honest about what love truly costs. She believes in chaos, laughter, and that the best stories happen when the filter comes off.
+                    </p>
+                </div>
+
+                <!-- Philosophy Section -->
+                <div class="mb-12 border-l-4 border-wine pl-6">
+                    <h2 class="uppercase text-sm tracking-widest text-wine mb-3">The Philosophy</h2>
+                    <p class="text-4xl font-serif-display font-bold text-ink mb-4 leading-snug italic">
+                        “I don’t write fairy tales. I write what happens after the wedding, the kids, the bills, and the silence.”
+                    </p>
+                    <p class="text-lg font-sans-body leading-relaxed">
+                        Her books and prompts are designed for readers who've lived long enough to stop apologizing for their past, and are ready to demand more from their future. If you appreciate candlelight, chaos, and a dirty martini, you're in the right place.
+                    </p>
+                </div>
+
+                <!-- Press Kit Download -->
+                <div class="mt-12 pt-8 border-t border-taupe/20">
+                    <h2 class="uppercase text-sm tracking-widest text-wine mb-4">Press Kit & Media</h2>
+                    <p class="text-lg font-sans-body mb-6">For interviews, features, and media requests, please download the current press kit.</p>
+                    <a href="mailto:press@tessareese.com" class="bg-taupe text-blush uppercase font-bold tracking-wider px-8 py-3 rounded-md shadow-md hover:bg-ink transition duration-300 link-gold-hover">
+                        Email press@tessareese.com
+                    </a>
+                    <button class="bg-wine text-blush uppercase font-bold tracking-wider px-8 py-3 rounded-md shadow-md hover:shadow-xl transition duration-300 ml-4">
+                        Download Press Kit (PDF)
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- End of ABOUT View -->
+
+        <!-- --- CONTACT PAGE VIEW --- -->
+        <div id="contact-page" class="hidden min-h-screen bg-blush py-16 px-6 md:py-24">
+            <div class="max-w-xl mx-auto text-taupe fade-in-section" style="transition-delay: 0.1s;">
+                <h1 class="text-6xl font-serif-display font-bold mb-4 text-ink text-center">Get in Touch.</h1>
+                
+                <p class="text-xl mb-12 font-sans-body text-center">
+                    “For business inquiries, collaborations, or fan mail, hit send. I read it all (eventually).”
+                </p>
+
+                <!-- Contact Form -->
+                <form class="space-y-6 p-8 bg-taupe/5 rounded-lg shadow-inner border border-taupe/10">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-ink mb-2">Name</label>
+                        <input type="text" id="name" name="name" required class="w-full p-3 rounded-md border border-taupe/30 focus:border-wine bg-blush text-ink">
+                    </div>
+                    <div>
+                        <label for="email-contact" class="block text-sm font-medium text-ink mb-2">Email</label>
+                        <input type="email" id="email-contact" name="email" required class="w-full p-3 rounded-md border border-taupe/30 focus:border-wine bg-blush text-ink">
+                    </div>
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-ink mb-2">Message</label>
+                        <textarea id="message" name="message" rows="6" required class="w-full p-3 rounded-md border border-taupe/30 focus:border-wine bg-blush text-ink"></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-wine text-blush uppercase font-bold tracking-wider px-8 py-3 rounded-md shadow-md hover:bg-taupe transition duration-300 link-gold-hover">
+                        Hit Send
+                    </button>
+                </form>
+            </div>
+        </div>
+        <!-- End of CONTACT View -->
+
+    </div>
+
+    <!-- --- MAIN FOOTER (Dark) --- -->
+    <footer id="main-footer" class="bg-taupe text-blush py-10 px-6 md:py-16">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
+            
+            <!-- Left: Wordmark & Tagline -->
+            <div>
+                <h4 class="text-3xl font-serif-display font-bold mb-2 text-blush">TESSA REESE</h4>
+                <p class="text-lg font-sans-body tracking-wider italic text-gold">Romance. Reality. Reckoning.</p>
+            </div>
+
+            <!-- Right: Contact & Copyright -->
+            <div class="text-right md:text-left">
+                <h4 class="text-xl font-serif-display font-bold mb-4">Connect</h4>
+                <p class="mb-2">
+                    <a href="mailto:press@tessareese.com" class="text-blush hover-gold transition duration-200">press@tessareese.com</a>
+                </p>
+                
+                <!-- Social Icons -->
+                <div class="flex justify-end md:justify-start space-x-6 text-2xl mt-4">
+                    <!-- Instagram -->
+                    <a href="#" class="text-blush hover-gold transition duration-200" title="Instagram">
+                        <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M224.1 148.8c-.8.1-1.6.1-2.4.1s-1.6 0-2.4-.1C122.3 150 51.5 220.7 51.5 312c0 91.3 70.8 162 158.3 163.2 86.8 1.2 157.6-70 157.6-163.2 0-91.3-70.8-162-158.3-163.2zM277.6 150c-2.8 0-5.6-.1-8.4-.1-67.6 0-122.4 54.8-122.4 122.4 0 32.3 12.6 61.8 33.3 84.1 21.6 22.9 51.9 36.6 86.7 36.6 34.8 0 65.1-13.7 86.7-36.6 20.7-22.3 33.3-51.8 33.3-84.1 0-67.6-54.8-122.4-122.4-122.4zM321 347.8c0 30.6-24.8 55.4-55.4 55.4-30.6 0-55.4-24.8-55.4-55.4s24.8-55.4 55.4-55.4c30.6 0 55.4 24.8 55.4 55.4zm-7.6-88.6c0 10.7-8.7 19.4-19.4 19.4-10.7 0-19.4-8.7-19.4-19.4s8.7-19.4 19.4-19.4c10.7 0 19.4 8.7 19.4 19.4z"/></svg>
+                    </a>
+                    <!-- TikTok (using generic share icon as placeholder) -->
+                    <a href="#" class="text-blush hover-gold transition duration-200" title="TikTok">
+                         <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M416 32H32C14.3 32 0 46.3 0 64v384c0 17.7 14.3 32 32 32h384c17.7 0 32-14.3 32-32V64c0-17.7-14.3-32-32-32zM160 384H96V224h64v160zM256 384h-64V224h64v160zM352 384h-64V224h64v160z"/></svg>
+                    </a>
+                    <!-- Facebook -->
+                    <a href="#" class="text-blush hover-gold transition duration-200" title="Facebook">
+                        <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M279.1 288l14.2 92.5H231.5V512h-93.5V380.5H0V288h138V184.8c0-36.5 22.2-66.7 68.3-66.7 14.2 0 28.2 2.8 41.7 5.7V9.7h-49.3c-44.1 0-79.6 32-79.6 80.3v100H0v93.2h67.4V512h69.2V288h72.5L279.1 288z"/></svg>
+                    </a>
+                </div>
+
+                <div class="mt-8 text-sm text-blush/70 font-sans-body">
+                    &copy; 2025 Tessa Reese. All rights reserved. | Design: Suburban Rebellion.
+                </div>
+            </div>
+            
+        </div>
+    </footer>
+
+    <!-- --- JAVASCRIPT & NAVIGATION LOGIC --- -->
+    <script>
+        // --- DATA MODEL ---
+        const mockBooks = {
+            'midlife-awakening': {
+                id: 'midlife-awakening',
+                title: 'Midlife Awakening',
+                tagline: 'It\'s not a crisis. It\'s an explosion.',
+                synopsis: "Written for the woman who’s exhausted by performative gratitude, buried beneath mental load, and done with shrinking to survive, this large-print guided journal offers raw prompts, blackout poetry, and truth bombs sharp enough to cut through decades of silence.",
+                cover: 'https://placehold.co/400x600/B24A5A/FAF5F3?text=Midlife+Awakening+Journal',
+                amazonUrl: 'https://a.co/d/aUZejn8'
+            }
+        };
+
+        const mockPosts = {
+            1: {
+                title: 'How to Fall in Love After Divorce',
+                date: 'Oct 29, 2025',
+                category: 'Confession',
+                body: `<p class="mb-6">The rules change. The trust is gone. But the desire for connection is sharper than ever. Here's my raw truth on starting over, the first dates, and why you should always pay for your own dirty martini. It's about self-possession. It's about recognizing the red flags without feeling the need to apologize for seeing them.</p>
+                    <p class="mb-6">The men who don't scare easy are the only ones worth the fight. Don't settle for soft. Settle for real. Settle for the kind of man who meets your chaos with his own quiet confidence. That, my friends, is the beginning of a genuine reckoning.</p>
+                    <p>I found that the moment I stopped apologizing for my scars, was the moment I started attracting the kind of connection that actually mattered. Now go demand what you've earned.</p>`
+            },
+            2: {
+                 title: 'My Favorite Way to Weaponize Gratitude',
+                date: 'Oct 20, 2025',
+                category: 'Therapy',
+                body: `<p class="mb-6">Performative gratitude is exhausting. Let's talk about the kind that fuels your next reckless, wonderful decision—the kind that makes you demand more, not settle for less. Weaponizing gratitude means taking a hard look at everything you *do* have, and realizing that you are now strong enough to go after the things you *don't*.</p>
+                    <p class="mb-6">It's a power move. It's recognizing your worth and using that knowledge to blast through the mental load that's been burying you. Stop saying thank you for scraps. Start demanding a feast. That's the real therapy.</p>`
+            },
+            3: {
+                 title: 'Is It Cheating If You Only Think About It?',
+                date: 'Oct 12, 2025',
+                category: 'Gossip',
+                body: `<p class="mb-6">A deep dive into the gray areas of emotional fidelity and what silence does to a marriage. No judgment, just honesty about where the real line is drawn. It's not about the texts; it's about the emotional gap you've allowed to form.</p>
+                    <p class="mb-6">Silence is the real killer in any long-term relationship. The cheating starts long before the thought does—it starts when you stop talking. Come join me in the comments (if this were a real blog) and tell me your confession.</p>`
+            }
+        };
+
+        // --- NAVIGATION LOGIC ---
+        const views = {
+            'home': document.getElementById('home-view'),
+            'books': document.getElementById('books-view'),
+            'blog': document.getElementById('blog-view'),
+            'about': document.getElementById('about-page'),
+            'contact': document.getElementById('contact-page')
+        };
+        const blogIndex = document.getElementById('blog-index');
+        const singlePost = document.getElementById('single-post');
+
+        function navigate(viewName, postId = null) {
+            // Hide all views first
+            Object.values(views).forEach(view => {
+                view.classList.add('hidden');
+                view.scrollTop = 0; // Reset scroll position for hidden views
+            });
+            
+            // Show the requested view
+            const targetView = views[viewName];
+            if (targetView) {
+                targetView.classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to top
+                
+                // Handle specific sub-views for Blog
+                if (viewName === 'blog') {
+                    if (postId) {
+                        showSinglePost(postId);
+                    } else {
+                        blogIndex.classList.remove('hidden');
+                        singlePost.classList.add('hidden');
+                    }
+                }
+            }
+        }
+
+        // --- BOOKS LOGIC ---
+        const detailModal = document.getElementById('book-detail-modal');
+        const detailContent = document.getElementById('book-detail-content');
+
+        function showBookDetail(bookId) {
+            const book = mockBooks[bookId];
+            if (!book) return;
+
+            document.getElementById('detail-title').textContent = book.title;
+            document.getElementById('detail-tagline').textContent = book.tagline;
+            document.getElementById('detail-synopsis').textContent = book.synopsis;
+            document.getElementById('detail-cover').src = book.cover;
+            document.getElementById('detail-cover').alt = `Cover for ${book.title}`;
+            document.getElementById('detail-buy-amazon').href = book.amazonUrl;
+
+            // Display modal
+            detailModal.classList.remove('hidden');
+            // Trigger animation
+            setTimeout(() => {
+                detailContent.classList.remove('scale-90', 'opacity-0');
+                detailContent.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closeBookDetail() {
+            // Trigger reverse animation
+            detailContent.classList.remove('scale-100', 'opacity-100');
+            detailContent.classList.add('scale-90', 'opacity-0');
+            
+            // Hide modal after animation finishes
+            setTimeout(() => {
+                detailModal.classList.add('hidden');
+            }, 300);
+        }
+        
+        // --- BLOG LOGIC ---
+        function showSinglePost(postId) {
+            const post = mockPosts[postId];
+            if (!post) { navigate('blog'); return; }
+
+            document.getElementById('post-title').textContent = post.title;
+            document.getElementById('post-date').textContent = post.date;
+            document.getElementById('post-category').textContent = post.category;
+            document.getElementById('post-body').innerHTML = post.body;
+
+            blogIndex.classList.add('hidden');
+            singlePost.classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // --- INITIALIZATION & MOTION ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Initial view setup (Ensure Home is visible initially)
+            navigate('home');
+            
+            // 2. Observer for one-time fade-in effect (Image fade-in only once on load)
+            const sections = document.querySelectorAll('.fade-in-section');
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        observer.unobserve(entry.target); // Stop observing after fade-in
+                    }
+                });
+            }, {
+                rootMargin: '0px',
+                threshold: 0.1 // Trigger when 10% of the item is visible
+            });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+            
+            // 3. Smooth scroll for anchor links (for internal page jumps)
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const href = this.getAttribute('href');
+                    if (href.length > 1 && href.charAt(1) !== '-') { // Exclude specific internal link handling
+                         e.preventDefault();
+                         document.querySelector(href).scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
 
