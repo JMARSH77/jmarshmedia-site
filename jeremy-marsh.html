@@ -1,195 +1,263 @@
-header.classList.remove('bg-primary-bg', 'shadow-md');
-                }
-            };
-            window.addEventListener('scroll', handleScroll);
-            handleScroll(); // Check on load
+// ==============================================
+// START: DATA MOCKUP (Simulating Headless CMS)
+// ==============================================
+
+const BOOKS_DATA = [
+    {
+        slug: 'the-portal',
+        title: 'The Portal',
+        subtitle: 'A Novel',
+        year: 2025,
+        hook: 'A gripping tech-thriller of corporate surveillance, AR, and a man trying to buy back his past.',
+        coverUrl: 'images/books/Portal Digital Cover.svg',
+        synopsis: "Jacob Hastings thought he could escape the past, but his world is shattering. He returns to the towering corporate structure of Hastings Tower, where augmented reality, invasive AI, and fractured memory blur into a terrifying reality. In this atmospheric corporate drama, Marsh explores the morally fraught limits of technology and one man's attempt to use a surveillance-driven system to literally buy back a life he broke. A stunning debut that redefines the modern tech-thriller.",
+        reviews: [],
+        purchaseLinks: {
+            "Print (Amazon)": 'https://buy.link/portal-print',
+            "Kindle (Pre-Order)": 'https://a.co/d/frCVW2R',
+            "Audiobook": 'https://buy.link/portal-audio'
+        }
+    }
+];
+
+// BLOG_DATA is empty
+const BLOG_DATA = [];
+
+// ==============================================
+// END: DATA MOCKUP
+// ==============================================
+
+// ==============================================
+// START: JAVASCRIPT LOGIC (WITH DEBUGGING)
+// ==============================================
+
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM Content Loaded. Initializing SPA router.');
+    
+    // --- DOM ELEMENTS (Cached for performance) ---
+    const header = document.getElementById('sticky-header');
+    const drawer = document.getElementById('nav-drawer');
+    const openDrawerBtn = document.getElementById('open-drawer');
+    const closeDrawerBtn = document.getElementById('close-drawer');
+    const appBody = document.getElementById('app-body');
+    const pages = document.querySelectorAll('.page');
+    const booksGrid = document.getElementById('books-grid');
+    const blogList = document.getElementById('blog-list');
+    const bookDetailSection = document.getElementById('book-detail');
+    const blogPostDetailSection = document.getElementById('blog-post-detail');
 
 
-            // --- 2. Mobile Nav Drawer ---
-            const toggleDrawer = (open) => {
-                if (open) {
-                    drawer.classList.add('open');
-                    drawer.setAttribute('aria-hidden', 'false');
-                    appBody.style.overflow = 'hidden'; // Disable scroll on body
-                } else {
-                    drawer.classList.remove('open');
-                    drawer.setAttribute('aria-hidden', 'true');
-                    appBody.style.overflow = '';
-                }
+    // --- 1. Sticky Header Behavior ---
+    const handleScroll = () => {
+        if (window.scrollY > 50) {
+            header.classList.add('bg-primary-bg', 'shadow-md');
+        } else {
+            header.classList.remove('bg-primary-bg', 'shadow-md');
+        }
+    };
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Check on load
+
+
+    // --- 2. Mobile Nav Drawer ---
+    const toggleDrawer = (open) => {
+        if (open) {
+            drawer.classList.add('open');
+            drawer.setAttribute('aria-hidden', 'false');
+            appBody.style.overflow = 'hidden';
+            console.log('Mobile Drawer Opened');
+        } else {
+            drawer.classList.remove('open');
+            drawer.setAttribute('aria-hidden', 'true');
+            appBody.style.overflow = '';
+            console.log('Mobile Drawer Closed');
+        }
+    }
+
+    openDrawerBtn.addEventListener('click', () => toggleDrawer(true));
+    closeDrawerBtn.addEventListener('click', () => toggleDrawer(false));
+
+
+    // --- 3. Dynamic Content Rendering Functions (Internal) ---
+
+    const renderBooksIndex = () => {
+        if (booksGrid.children.length > 0) return;
+        console.log('Rendering Books Index...');
+        
+        booksGrid.innerHTML = BOOKS_DATA.map(book => `
+            <div class="book-card bg-white rounded-lg shadow-xl overflow-hidden cursor-pointer transition duration-300 hover:shadow-2xl border border-gray-200" onclick="window.location.hash = 'books/${book.slug}'">
+                <img src="${book.coverUrl}" alt="Cover of ${book.title}" class="w-full h-auto object-cover">
+                <div class="p-4 space-y-2">
+                    <h4 class="text-xl font-display text-text-dark">${book.title}</h4>
+                    <p class="text-sm text-gray-600 italic">${book.hook}</p>
+                    <a href="#books/${book.slug}" class="text-link font-medium pt-2 block">Details &rarr;</a>
+                </div>
+            </div>
+        `).join('');
+    };
+
+    const showBookDetail = (slug) => {
+        const book = BOOKS_DATA.find(b => b.slug === slug);
+        if (!book) {
+             // Standard "Not Found" message handling...
+            bookDetailSection.innerHTML = '<div class="text-center py-20"><h2 class="text-4xl font-display">Book Not Found</h2><p class="text-lg mt-4">The requested book could not be located.</p><a href="#books" class="text-link mt-4 block">Return to Books Index</a></div>';
+            return;
+        }
+
+        // Standard rendering logic...
+        bookDetailSection.innerHTML = `
+            <div class="grid md:grid-cols-3 gap-12">
+                <div class="md:col-span-1 space-y-6">
+                    <img src="${book.coverUrl}" alt="Large cover for ${book.title}" class="w-full h-auto object-cover rounded-lg shadow-2xl">
+                    <p class="section-label uppercase tracking-widest font-medium text-gray-500">${book.year}</p>
+                    <div class="pt-4 space-y-2">
+                        <h4 class="text-2xl font-display mb-3">Purchase Options</h4>
+                        <div class="flex flex-col space-y-3">
+                            ${Object.entries(book.purchaseLinks).map(([format, link]) => `
+                                <a href="${link}" target="_blank" class="btn-primary min-h-[40px] text-center">${format} Buy Link</a>
+                            `).join('')}
+                            <a href="downloads/book-samples/the-portal-sample.pdf" download class="btn-secondary min-h-[40px] text-center">Read a Sample</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md:col-span-2 space-y-8">
+                    <h1 class="text-5xl font-display text-text-dark">${book.title}</h1>
+                    <h2 class="text-3xl font-display text-gray-600">${book.subtitle}</h2>
+
+                    <div class="space-y-6">
+                        <h3 class="section-label uppercase tracking-widest font-medium text-accent">Synopsis</h3>
+                        <p class="text-xl leading-relaxed text-gray-700">${book.synopsis}</p>
+                    </div>
+
+                    <div class="space-y-6 pt-6 border-t border-gray-300">
+                        <h3 class="section-label uppercase tracking-widest font-medium text-accent">Praise & Reviews</h3>
+                        ${book.reviews.length > 0 ? book.reviews.map(quote => `
+                            <blockquote class="border-l-4 border-accent pl-4 text-lg italic text-gray-800">
+                                ${quote}
+                            </blockquote>
+                        `).join('') : `<p class="text-lg italic text-gray-500">Reviews coming soon!</p>`}
+                    </div>
+                    <a href="#books" class="btn-secondary inline-block mt-8">← Back to All Books</a>
+                </div>
+            </div>
+        `;
+    };
+
+    const renderBlogIndex = () => {
+        if (blogList.children.length > 0) return;
+        console.log('Rendering Blog Index...');
+
+        blogList.innerHTML = BLOG_DATA.map(post => `
+            <div class="blog-entry border-b border-gray-300 pb-8">
+                <p class="text-sm font-sans font-medium text-gray-500 section-label">${post.date}</p>
+                <a href="#blog/${post.slug}" class="text-3xl font-display text-text-dark hover:text-accent transition duration-200 mt-1 mb-3 block">${post.title}</a>
+                <p class="text-xl leading-relaxed text-gray-700">${post.excerpt}</p>
+                <a href="#blog/${post.slug}" class="text-link font-medium mt-3 block">Read more &rarr;</a>
+            </div>
+        `).join('');
+    };
+
+    const showBlogPostDetail = (slug) => {
+        const post = BLOG_DATA.find(p => p.slug === slug);
+        if (!post) {
+            // Standard "Post Not Found" message handling...
+            blogPostDetailSection.innerHTML = '<div class="text-center py-20"><h2 class="text-4xl font-display">Post Not Found</h2><p class="text-lg mt-4">The requested blog post could not be located.</p><a href="#blog-full" class="text-link mt-4 block">Return to Blog Archive</a></div>';
+            return;
+        }
+
+        // Standard rendering logic...
+        blogPostDetailSection.innerHTML = `
+            <div class="max-w-4xl mx-auto">
+                <a href="#blog-full" class="text-link mb-4 block">← Back to Archive</a>
+                <h1 class="text-5xl font-display text-text-dark leading-tight mb-4">${post.title}</h1>
+                <p class="text-lg font-sans font-medium text-gray-500 mb-8">${post.date}</p>
+
+                <div class="post-body-content text-xl leading-relaxed text-gray-800 max-w-3xl mx-auto">
+                    ${post.body}
+                </div>
+
+                <div class="mt-16 pt-8 border-t border-gray-300">
+                    <a href="#blog-full" class="btn-secondary inline-block">Read More Posts</a>
+                </div>
+            </div>
+        `;
+    };
+
+
+    // --- 4. Page Routing (Hash-based) - The Core Logic ---
+
+    const showSection = (hash) => {
+        // --- DEBUG CHECK 1: Confirm the router function runs ---
+        console.log(`Router triggered. Hash received: "${hash}"`);
+        
+        // 1. Close mobile drawer on any navigation event
+        toggleDrawer(false);
+
+        // 2. Determine the target section ID
+        let path = hash.substring(1); // Remove '#'
+        let targetId = path || 'home'; // Default to 'home'
+        let dynamicLoadNeeded = false;
+        let isAnchorScroll = false;
+
+        // Handle dynamic routes (books/slug and blog/slug)
+        if (path.startsWith('books/')) {
+            showBookDetail(path.substring(6));
+            targetId = 'book-detail';
+            dynamicLoadNeeded = true;
+        } else if (path.startsWith('blog/')) {
+            showBlogPostDetail(path.substring(5));
+            targetId = 'blog-post-detail';
+            dynamicLoadNeeded = true;
+        } else if (path.includes('-preview') || path.includes('-full') || path.includes('featured-book')) {
+            // Treat internal links on the home page as anchors for smooth scroll
+            isAnchorScroll = true;
+        }
+
+        // 3. Toggle page visibility
+        pages.forEach(page => {
+            const isActive = page.id === targetId;
+            page.classList.toggle('active', isActive);
+            page.setAttribute('aria-hidden', !isActive);
+
+            // 4. Render static dynamic pages only when activating
+            if (isActive && !dynamicLoadNeeded) {
+                if (targetId === 'books') renderBooksIndex();
+                if (targetId === 'blog-full') renderBlogIndex();
             }
-
-            openDrawerBtn.addEventListener('click', () => toggleDrawer(true));
-            closeDrawerBtn.addEventListener('click', () => toggleDrawer(false));
-
-
-            // --- 3. Dynamic Content Rendering Functions (Internal) ---
-
-            const renderBooksIndex = () => {
-                // Check if the grid is empty. If it has content, don't re-render.
-                if (booksGrid.children.length > 0) return;
-                
-                booksGrid.innerHTML = BOOKS_DATA.map(book => `
-                    <div class="book-card bg-white rounded-lg shadow-xl overflow-hidden cursor-pointer transition duration-300 hover:shadow-2xl border border-gray-200" onclick="window.location.hash = 'books/${book.slug}'">
-                        <img src="${book.coverUrl}" alt="Cover of ${book.title}" class="w-full h-auto object-cover">
-                        <div class="p-4 space-y-2">
-                            <h4 class="text-xl font-display text-text-dark">${book.title}</h4>
-                            <p class="text-sm text-gray-600 italic">${book.hook}</p>
-                            <a href="#books/${book.slug}" class="text-link font-medium pt-2 block">Details &rarr;</a>
-                        </div>
-                    </div>
-                `).join('');
-            };
-
-            const showBookDetail = (slug) => {
-                const book = BOOKS_DATA.find(b => b.slug === slug);
-                if (!book) {
-                    bookDetailSection.innerHTML = '<div class="text-center py-20"><h2 class="text-4xl font-display">Book Not Found</h2><p class="text-lg mt-4">The requested book could not be located.</p><a href="#books" class="text-link mt-4 block">Return to Books Index</a></div>';
-                    return;
-                }
-
-                bookDetailSection.innerHTML = `
-                    <div class="grid md:grid-cols-3 gap-12">
-                        <div class="md:col-span-1 space-y-6">
-                            <img src="${book.coverUrl}" alt="Large cover for ${book.title}" class="w-full h-auto object-cover rounded-lg shadow-2xl">
-                            <p class="section-label uppercase tracking-widest font-medium text-gray-500">${book.year}</p>
-                            <div class="pt-4 space-y-2">
-                                <h4 class="text-2xl font-display mb-3">Purchase Options</h4>
-                                <div class="flex flex-col space-y-3">
-                                    ${Object.entries(book.purchaseLinks).map(([format, link]) => `
-                                        <a href="${link}" target="_blank" class="btn-primary min-h-[40px] text-center">${format} Buy Link</a>
-                                    `).join('')}
-                                    <a href="downloads/book-samples/the-portal-sample.pdf" download class="btn-secondary min-h-[40px] text-center">Read a Sample</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="md:col-span-2 space-y-8">
-                            <h1 class="text-5xl font-display text-text-dark">${book.title}</h1>
-                            <h2 class="text-3xl font-display text-gray-600">${book.subtitle}</h2>
-
-                            <div class="space-y-6">
-                                <h3 class="section-label uppercase tracking-widest font-medium text-accent">Synopsis</h3>
-                                <p class="text-xl leading-relaxed text-gray-700">${book.synopsis}</p>
-                            </div>
-
-                            <div class="space-y-6 pt-6 border-t border-gray-300">
-                                <h3 class="section-label uppercase tracking-widest font-medium text-accent">Praise & Reviews</h3>
-                                ${book.reviews.length > 0 ? book.reviews.map(quote => `
-                                    <blockquote class="border-l-4 border-accent pl-4 text-lg italic text-gray-800">
-                                        ${quote}
-                                    </blockquote>
-                                `).join('') : `<p class="text-lg italic text-gray-500">Reviews coming soon!</p>`}
-                            </div>
-                            <a href="#books" class="btn-secondary inline-block mt-8">← Back to All Books</a>
-                        </div>
-                    </div>
-                `;
-            };
-
-            const renderBlogIndex = () => {
-                // The main blog index relies on BLOG_DATA, which is now empty.
-                // We show an empty list container and the static fallback in the HTML.
-                if (blogList.children.length > 0) return;
-
-                blogList.innerHTML = BLOG_DATA.map(post => `
-                    <div class="blog-entry border-b border-gray-300 pb-8">
-                        <p class="text-sm font-sans font-medium text-gray-500 section-label">${post.date}</p>
-                        <a href="#blog/${post.slug}" class="text-3xl font-display text-text-dark hover:text-accent transition duration-200 mt-1 mb-3 block">${post.title}</a>
-                        <p class="text-xl leading-relaxed text-gray-700">${post.excerpt}</p>
-                        <a href="#blog/${post.slug}" class="text-link font-medium mt-3 block">Read more &rarr;</a>
-                    </div>
-                `).join('');
-            };
-
-            const showBlogPostDetail = (slug) => {
-                const post = BLOG_DATA.find(p => p.slug === slug);
-                if (!post) {
-                    blogPostDetailSection.innerHTML = '<div class="text-center py-20"><h2 class="text-4xl font-display">Post Not Found</h2><p class="text-lg mt-4">The requested blog post could not be located.</p><a href="#blog-full" class="text-link mt-4 block">Return to Blog Archive</a></div>';
-                    return;
-                }
-
-                blogPostDetailSection.innerHTML = `
-                    <div class="max-w-4xl mx-auto">
-                        <a href="#blog-full" class="text-link mb-4 block">← Back to Archive</a>
-                        <h1 class="text-5xl font-display text-text-dark leading-tight mb-4">${post.title}</h1>
-                        <p class="text-lg font-sans font-medium text-gray-500 mb-8">${post.date}</p>
-
-                        <div class="post-body-content text-xl leading-relaxed text-gray-800 max-w-3xl mx-auto">
-                            ${post.body}
-                        </div>
-
-                        <div class="mt-16 pt-8 border-t border-gray-300">
-                            <a href="#blog-full" class="btn-secondary inline-block">Read More Posts</a>
-                        </div>
-                    </div>
-                `;
-            };
-
-
-            // --- 4. Page Routing (Hash-based) - The Core Logic ---
-
-            const showSection = (hash) => {
-                // 1. Close mobile drawer on any navigation event
-                toggleDrawer(false);
-
-                // 2. Determine the target section ID
-                let path = hash.substring(1); // Remove '#'
-                let targetId = path || 'home'; // Default to 'home'
-
-                let dynamicLoadNeeded = false;
-
-                // Handle dynamic routes (books/slug and blog/slug)
-                if (path.startsWith('books/')) {
-                    showBookDetail(path.substring(6));
-                    targetId = 'book-detail';
-                    dynamicLoadNeeded = true;
-                } else if (path.startsWith('blog/')) {
-                    // Because BLOG_DATA is empty, this check will lead to 'Post Not Found'
-                    showBlogPostDetail(path.substring(5));
-                    targetId = 'blog-post-detail';
-                    dynamicLoadNeeded = true;
-                }
-
-                // 3. Toggle page visibility
-                pages.forEach(page => {
-                    const isActive = page.id === targetId;
-                    page.classList.toggle('active', isActive);
-                    page.setAttribute('aria-hidden', !isActive);
-
-                    // 4. Render static dynamic pages only when activating
-                    if (isActive && !dynamicLoadNeeded) {
-                        if (targetId === 'books') renderBooksIndex();
-                        if (targetId === 'blog-full') renderBlogIndex();
-                    }
-                });
-                
-                // 5. If loading home, handle smooth scrolling for internal anchors 
-                //    (or scroll to top if no anchor exists)
-                if (targetId === 'home' && hash.includes('#')) {
-                    const anchor = hash.substring(hash.indexOf('#') + 1);
-                    const el = document.getElementById(anchor);
-                    if (el) {
-                        // Use a slight delay to ensure the page state is updated
-                        setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
-                    }
-                } else {
-                    // For all other main page transitions, scroll to the very top
-                    window.scrollTo(0, 0);
-                }
-            };
-
-
-            // --- 5. Initialization ---
-
-            // Listener for hash changes (used for navigation and back/forward buttons)
-            window.addEventListener('hashchange', () => showSection(window.location.hash));
-
-            // Run initial routing logic
-            showSection(window.location.hash);
-
-            // Replace Lucide icons after all content is rendered
-            lucide.createIcons();
         });
-    </script>
-</body>
-</html>
+        
+        // 5. Handle scrolling logic
+        if (isAnchorScroll || targetId === 'home') {
+            const anchor = hash.substring(hash.indexOf('#') + 1);
+            const el = document.getElementById(anchor);
+            if (el) {
+                console.log(`Scrolling to anchor: #${anchor}`);
+                // Use a slight delay to ensure the page state is updated
+                setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+            }
+        } else {
+            console.log(`Switching to page: #${targetId}. Scrolling to top.`);
+            window.scrollTo(0, 0);
+        }
+    };
+
+
+    // --- 5. Initialization ---
+
+    // Listener for hash changes (used for navigation and back/forward buttons)
+    // --- DEBUG CHECK 2: Confirm this listener is registered ---
+    window.addEventListener('hashchange', () => {
+        console.log(`Event: hashchange fired. URL hash is now: ${window.location.hash}`);
+        showSection(window.location.hash);
+    });
+
+    // Run initial routing logic
+    showSection(window.location.hash);
+
+    // Replace Lucide icons after all content is rendered
+    lucide.createIcons();
+});
+// ==============================================
+// END: JAVASCRIPT LOGIC (WITH DEBUGGING)
+// ==============================================
