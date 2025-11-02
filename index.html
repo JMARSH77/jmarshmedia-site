@@ -1,120 +1,571 @@
-// ... (rest of the HTML and CSS remain the same)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Title and Favicon -->
+    <title>J. Marsh Media</title>
+    <!-- <link rel="icon" href="path/to/favicon.ico"> -->
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            
-            // --- Mobile Menu Toggle ---
-            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const menuLinks = mobileMenu.querySelectorAll('a');
-            const menuIconOpen = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>`;
-            const menuIconClose = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>`;
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 
-            const toggleMobileMenu = () => {
-                const isOpen = mobileMenu.classList.toggle('hidden');
-                mobileMenuBtn.innerHTML = isOpen ? menuIconOpen : menuIconClose;
-            };
+    <style>
+        /*
+         * Base styles inspired by Apple & Videinfra
+         */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
 
-            mobileMenuBtn.addEventListener('click', toggleMobileMenu);
-            
-            // Close mobile menu when a link is clicked
-            menuLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    // Check if menu is open (not hidden) before closing
-                    if (!mobileMenu.classList.contains('hidden')) {
-                        toggleMobileMenu();
-                    }
-                });
-            });
+        /*
+         * Header: Apple-style translucent sticky nav
+         */
+        .header-nav {
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
 
-            // --- Talent Card Shuffling & Hiding Logic ---
-            const talentGrid = document.getElementById('talent-grid');
-            if (talentGrid) {
-                const talentCards = Array.from(talentGrid.children);
-                
-                // Separate Jeremy Marsh (first card) from the rest
-                const jeremyMarshCard = talentCards.shift();
-                const otherTalentCards = talentCards;
+        .nav-link {
+            color: #333;
+            transition: color 0.3s;
+        }
+        .nav-link:hover {
+            color: #000;
+        }
 
-                // Fisher-Yates shuffle algorithm for *other* talent
-                for (let i = otherTalentCards.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [otherTalentCards[i], otherTalentCards[j]] = [otherTalentCards[j], otherTalentCards[i]];
-                }
+        /*
+         * Typography: Large, bold headings
+         */
+        .hero-headline {
+            font-size: clamp(3rem, 10vw, 8rem);
+            line-height: 1;
+            font-weight: 800;
+            letter-spacing: -0.05em;
+        }
+        
+        .section-headline {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            line-height: 1.1;
+            font-weight: 700;
+            letter-spacing: -0.04em;
+        }
 
-                // Clear the grid (safer than innerHTML = '')
-                while (talentGrid.firstChild) {
-                    talentGrid.removeChild(talentGrid.firstChild);
-                }
-                
-                // Append Jeremy Marsh first (if it exists)
-                if (jeremyMarshCard) {
-                    // **MODIFICATION 1: Ensure it's not hidden (in case previous logic hid it)**
-                    jeremyMarshCard.classList.remove('hidden'); 
-                    talentGrid.appendChild(jeremyMarshCard);
-                }
-                
-                // Append the shuffled cards AND HIDE THEM
-                otherTalentCards.forEach(card => {
-                    // **MODIFICATION 2: Add the 'hidden' class to all other cards**
-                    card.classList.add('hidden');
-                    talentGrid.appendChild(card);
-                });
+        /*
+         * Scroll Animations: Smooth fade/slide-in
+         */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                        transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition-delay: 0.1s;
+        }
 
-                // **BONUS REFINEMENT:** Since we are now only showing ONE card, 
-                // we should update the grid layout class to center that single card.
-                // We'll change the parent `div` from `md:grid-cols-3` to a single column 
-                // to prevent an awkward left-aligned card in a 3-column layout.
-                talentGrid.classList.remove('md:grid-cols-3');
-                talentGrid.classList.add('md:grid-cols-1');
-            }
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-            // --- Scroll Animation Observer & Staggered Delay Injection ---
-            
-            // Refinement: Instead of selecting all `.scroll-reveal` and running a heavy
-            // `querySelectorAll` on DOM load, we will select parent groups using the
-            // new `data-stagger-group` attribute. This is cleaner and more scalable.
-            const groupsToStagger = document.querySelectorAll('[data-stagger-group]');
+        /* Staggered delay for grid items */
+        .scroll-reveal:nth-child(2) {
+            transition-delay: 0.2s;
+        }
+        .scroll-reveal:nth-child(3) {
+            transition-delay: 0.3s;
+        }
 
-            groupsToStagger.forEach(group => {
-                // Find all immediate children that are `scroll-reveal` elements
-                // NOTE: This includes the now-hidden talent cards, which is fine as 
-                // the `hidden` class prevents them from taking up space or being visible.
-                const items = Array.from(group.children).filter(el => el.classList.contains('scroll-reveal'));
-                
-                // Apply a staggered delay to each item *after* the DOM is ready (and shuffled)
-                items.forEach((item, index) => {
-                    // Set a staggered delay (0.1s base + 0.1s for each index)
-                    // The first item will be 0.1s, second 0.2s, etc.
-                    const delay = (index * 0.1) + 0.1;
-                    item.style.transitionDelay = `${delay}s`;
-                });
-            });
+        /*
+         * Project Grid: Clean, simple hover effect
+         */
+        .project-card {
+            background-color: #f5f5f7;
+            border-radius: 24px;
+            overflow: hidden;
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.07);
+        }
+        .project-card img {
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .project-card:hover img {
+            transform: scale(1.05);
+        }
 
+    </style>
+</head>
+<body class="bg-white text-black">
 
-            const revealElements = document.querySelectorAll('.scroll-reveal');
-            
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        // Check if the element is NOT hidden before revealing it.
-                        if (!entry.target.classList.contains('hidden')) {
-                            entry.target.classList.add('visible');
-                        }
-                        // Optional: Stop observing once revealed to save resources
-                        // observer.unobserve(entry.target); 
-                    }
-                });
-            }, { 
-                threshold: 0.2 
-            });
+    <header class="header-nav sticky top-0 z-50">
+        <nav class="container mx-auto flex justify-between items-center p-4 md:px-6">
+            <a href="#home" class="block">
+                <!-- Replaced text with img logo. Falls back to text if image fails. -->
+                <img src="images/logos/jmarshmedia-logo.svg" alt="J-Marsh Media Logo" class="h-8 w-auto" onerror="this.outerHTML='<span class=\'text-xl font-bold\'>J-Marsh Media</span>'">
+            </a>
+            <div class="hidden md:flex space-x-8 text-sm font-medium">
+                <a href="#talent" class="nav-link">Talent</a>
+                <a href="#story" class="nav-link">Our Story</a>
+                <a href="#media" class="nav-link">Media</a>
+                <a href="#press" class="nav-link">Press Room</a>
+                <a href="#social" class="nav-link">Social</a>
+                <a href="#store" class="nav-link">The Store</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+            <button id="mobile-menu-btn" class="md:hidden text-black">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden fixed inset-0 bg-white z-40 flex flex-col items-center justify-center space-y-8">
+            <a href="#talent" class="nav-link text-2xl font-medium">Talent</a>
+            <a href="#story" class="nav-link text-2xl font-medium">Our Story</a>
+            <a href="#media" class="nav-link text-2xl font-medium">Media</a>
+            <a href="#press" class="nav-link text-2xl font-medium">Press Room</a>
+            <a href="#social" class="nav-link text-2xl font-medium">Social</a>
+            <a href="#store" class="nav-link text-2xl font-medium">The Store</a>
+            <a href="#contact" class="nav-link text-2xl font-medium">Contact</a>
+        </div>
+    </header>
 
-            revealElements.forEach(el => {
-                observer.observe(el);
-            });
+    <main>
+        <!-- Section 1: Hero -->
+        <section id="home" class="min-h-screen flex items-center justify-center text-center px-4 py-24">
+            <div class="scroll-reveal">
+                <h1 class="hero-headline text-black">
+                    Control the Signal.
+                </h1>
+                <p class="text-lg md:text-xl max-w-2xl mx-auto mt-6 text-gray-700">
+                    Author-driven. Creator-owned. Audience-powered.
+                </p>
+            </div>
+        </section>
 
-        });
-    </script>
+        <!-- Section 2: Talent (NEW POSITION) -->
+        <section id="talent" class="bg-black text-white py-24 md:py-40">
+            <div class="container mx-auto px-4">
+                <div class="max-w-3xl mx-auto text-center scroll-reveal mb-16 md:mb-24">
+                    <h2 class="section-headline">
+                        Talent.
+                    </h2>
+                    <p class="text-lg md:text-xl max-w-xl mx-auto mt-6 text-gray-400">
+                        Representing the next generation of authors and creators.
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-8 md:gap-12">
+                    <!-- Talent 1 -->
+                    <div class="scroll-reveal">
+                        <a href="https://jmarshmedia.com/jeremy-marsh.html" class="project-card block">
+                            <img src="images/headshots/jeremy-marsh-headshot.jpg" alt="Jeremy Marsh" class="w-full h-auto aspect-square object-cover">
+                            <div class="p-8">
+                                <h3 class="text-xl font-bold text-black">Jeremy Marsh</h3>
+                                <p class="text-gray-600 mt-1">Author, Creator, Songwriter/Music Producer</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Talent 2 -->
+                    <div class="scroll-reveal">
+                        <a href="#" class="project-card block">
+                            <img src="https://placehold.co/800x800/f5f5f7/cccccc?text=Jacen+Michaels" alt="Jacen Michaels" class="w-full h-auto aspect-square object-cover">
+                            <div class="p-8">
+                                <h3 class="text-xl font-bold text-black">Jacen Michaels</h3>
+                                <p class="text-gray-600 mt-1">Author</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Talent 3 -->
+                    <div class="scroll-reveal">
+                        <a href="https://jmarshmedia.com/redwood-daniels.html" class="project-card block">
+                            <img src="images/headshots/redwood-daniels-headshot-a.jpg" alt="Redwood Daniels" class="w-full h-auto aspect-square object-cover">
+                            <div class="p-8">
+                                <h3 class="text-xl font-bold text-black">Redwood Daniels</h3>
+                                <p class="text-gray-600 mt-1">Author</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Talent 4 -->
+                    <div class="scroll-reveal">
+                        <a href="#" class="project-card block">
+                            <img src="https://placehold.co/800x800/f5f5f7/cccccc?text=Grayson+Holt" alt="Grayson Holt" class="w-full h-auto aspect-square object-cover">
+                            <div class="p-8">
+                                <h3 class="text-xl font-bold text-black">Grayson Holt</h3>
+                                <p class="text-gray-600 mt-1">Author</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Talent 5 -->
+                    <div class="scroll-reveal">
+                       <a href="tessa-resse.html" class="project-card block">
+                            <img src="images/headshots/tess-resse-headshot.jpg" alt="Tessa Reese" class="w-full h-auto aspect-square object-cover">
+                            <div class="p-8">
+                                <h3 class="text-xl font-bold text-black">Tessa Reese</h3>
+                                <p class="text-gray-600 mt-1">Author and Blogger</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Talent 6 -->
+                    <div class="scroll-reveal">
+                        <a href="#" class="project-card block">
+                            <img src="https://placehold.co/800x800/f5f5f7/cccccc?text=Reyna+Noire" alt="Reyna Noire" class="w-full h-auto aspect-square object-cover">
+                            <div class="p-8">
+                                <h3 class="text-xl font-bold text-black">Reyna Noire</h3>
+                                <p class="text-gray-600 mt-1">Author</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Talent 7 -->
+                    <div class="scroll-reveal">
+                        <a href="#" class="project-card block">
+                            <img src="https://placehold.co/800x800/f5f5f7/cccccc?text=Ellis+Jordan" alt="Ellis Jordan" class="w-full h-auto aspect-square object-cover">
+                            <div class="p-8">
+                                <h3 class="text-xl font-bold text-black">Ellis Jordan</h3>
+                                <p class="text-gray-600 mt-1">Author</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Talent 8 -->
+                    <div class="scroll-reveal">
+                        <a href="#" class="project-card block">
+                            <img src="https://placehold.co/800x800/f5f5f7/cccccc?text=Asha+Monroe" alt="Asha Monroe" class="w-full h-auto aspect-square object-cover">
+                            <div class="p-8">
+                                <h3 class="text-xl font-bold text-black">Asha Monroe</h3>
+                                <p class="text-gray-600 mt-1">Author</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Talent 9 -->
+                    <div class="scroll-reveal">
+                        <a href="#" class="project-card block">
+                            <img src="https://placehold.co/800x800/f5f5f7/cccccc?text=Damon+Walker" alt="Damon Walker" class="w-full h-auto aspect-square object-cover">
+                            <div class="p-8">
+                                <h3 class="text-xl font-bold text-black">Damon Walker</h3>
+                                <p class="text-gray-600 mt-1">Author</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Talent 10 -->
+                    <div class="scroll-reveal">
+                        <a href="#" class="project-card block">
+                            <img src="https://placehold.co/800x800/f5f5f7/cccccc?text=Reginald+Roberts" alt="Reginald Roberts" class="w-full h-auto aspect-square object-cover">
+                            <div class="p-8">
+                                <h3 class="text-xl font-bold text-black">Reginald Roberts</h3>
+                                <p class="text-gray-600 mt-1">Author</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Talent 11 -->
+                    <div class="scroll-reveal">
+                        <a href="#" class="project-card block">
+                            <img src="https://placehold.co/800x800/f5f5f7/cccccc?text=Miles+Reid" alt="Miles Reid" class="w-full h-auto aspect-square object-cover">
+                            <div class="p-8">
+                                <h3 class="text-xl font-bold text-black">Miles Reid</h3>
+                                <p class="text-gray-600 mt-1">Author</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Talent 12 -->
+                    <div class="scroll-reveal">
+                        <a href="#" class="project-card block">
+                            <img src="https://placehold.co/800x800/f5f5f7/cccccc?text=Miguel+Marisma" alt="Miguel Marisma" class="w-full h-auto aspect-square object-cover">
+                            <div class="p-8">
+                                <h3 class="text-xl font-bold text-black">Miguel Marisma</h3>
+                                <p class="text-gray-600 mt-1">Author</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Our Story (NEW POSITION) -->
+        <section id="story" class="bg-white text-black py-24 md:py-40">
+            <div class="container mx-auto px-4">
+                <div class="max-w-3xl mx-auto text-center scroll-reveal">
+                    <h2 class="section-headline">
+                        Our Story.
+                    </h2>
+                    <p class="text-lg md:text-xl max-w-xl mx-auto mt-6 text-gray-700">
+                        Founded on a passion for creative independence.
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-8 md:gap-12 mt-16 md:mt-24 text-center md:text-left">
+                    <div class="scroll-reveal">
+                        <h3 class="text-2xl font-bold mb-3">Author-Driven</h3>
+                        <p class="text-gray-600">
+                            We believe in the power of the original voice, putting authors at the forefront.
+                        </p>
+                    </div>
+                    <div class="scroll-reveal">
+                        <h3 class="text-2xl font-bold mb-3">Creator-Owned</h3>
+                        <p class="text-gray-600">
+                            Building a model where creators retain ownership and control of their narratives.
+                        </p>
+                    </div>
+                    <div class="scroll-reveal">
+                        <h3 class="text-2xl font-bold mb-3">Audience-Powered</h3>
+                        <p class="text-gray-600">
+                            Connecting stories directly with the communities that champion them.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Media (NEW POSITION) -->
+        <section id="media" class="bg-black text-white py-24 md:py-40">
+            <div class="container mx-auto px-4">
+                <div class="max-w-3xl mx-auto text-center scroll-reveal">
+                    <h2 class="section-headline">
+                        Media.
+                    </h2>
+                    <p class="text-lg md:text-xl max-w-xl mx-auto mt-6 text-gray-400">
+                        Podcasts, documentaries, and original series.
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-8 md:gap-12 mt-16 md:mt-24 text-center md:text-left">
+                    <div class="scroll-reveal">
+                        <h3 class="text-2xl font-bold mb-3">The Signal Podcast</h3>
+                        <p class="text-gray-400">
+                            Weekly interviews with industry-defining voices.
+                        </p>
+                    </div>
+                    <div class="scroll-reveal">
+                        <h3 class="text-2xl font-bold mb-3">New Origins</h3>
+                        <p class="text-gray-400">
+                            A documentary series on digital ownership.
+                        </p>
+                    </div>
+                    <div class="scroll-reveal">
+                        <h3 class="text-2xl font-bold mb-3">The Insider</h3>
+                        <p class="text-gray-400">
+                            Our monthly newsletter on creative independence.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Press Room (NEW POSITION) -->
+        <section id="press" class="bg-white text-black py-24 md:py-40">
+            <div class="container mx-auto px-4">
+                <div class="max-w-3xl mx-auto text-center scroll-reveal">
+                    <h2 class="section-headline">
+                        Press Room.
+                    </h2>
+                    <p class="text-lg md:text-xl max-w-xl mx-auto mt-6 text-gray-700">
+                        Media features, press kits, and news.
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-8 md:gap-12 mt-16 md:mt-24 text-center md:text-left">
+                    <div class="scroll-reveal">
+                        <h3 class="text-2xl font-bold mb-3">Feature: Forbes</h3>
+                        <p class="text-gray-600">
+                            "The New Wave of Creator-Owned Media."
+                        </p>
+                    </div>
+                    <div class="scroll-reveal">
+                        <h3 class="text-2xl font-bold mb-3">Announcement</h3>
+                        <p class="text-gray-600">
+                            "J-Marsh Media Launches 'The Signal' Platform."
+                        </p>
+                    </div>
+                    <div class="scroll-reveal">
+                        <h3 class="text-2xl font-bold mb-3">Press Kit</h3>
+                        <p class="text-gray-600">
+                            Download our official assets and brand guide.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Social (NEW POSITION) -->
+        <section id="social" class="bg-black text-white py-24 md:py-40">
+            <div class="container mx-auto px-4">
+                <div class="max-w-3xl mx-auto text-center scroll-reveal mb-16 md:mb-24">
+                    <h2 class="section-headline">
+                        Social.
+                    </h2>
+                    <p class="text-lg md:text-xl max-w-xl mx-auto mt-6 text-gray-400">
+                        Join the conversation.
+                    </p>
+                </div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                    <div class="scroll-reveal text-center">
+                        <a href="#" class="inline-block p-4 transition-transform hover:scale-110">
+                            <h3 class="text-xl font-bold">X (Twitter)</h3>
+                            <p class="text-gray-400 mt-1">@jmarshmedia</p>
+                        </a>
+                    </div>
+                    <div class="scroll-reveal text-center">
+                        <a href="#" class="inline-block p-4 transition-transform hover:scale-110">
+                            <h3 class="text-xl font-bold">Instagram</h3>
+                            <p class="text-gray-400 mt-1">@jmarshmedia</p>
+                        </a>
+                    </div>
+                    <div class="scroll-reveal text-center">
+                        <a href="#" class="inline-block p-4 transition-transform hover:scale-110">
+                            <h3 class="text-xl font-bold">LinkedIn</h3>
+                            <p class="text-gray-400 mt-1">J-Marsh Media</p>
+                        </a>
+                    </div>
+                    <div class="scroll-reveal text-center">
+                        <a href="#" class="inline-block p-4 transition-transform hover:scale-110">
+                            <h3 class="text-xl font-bold">Threads</h3>
+                            <p class="text-gray-400 mt-1">@jmarshmedia</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: The Store (NEW POSITION) -->
+        <section id="store" class="bg-white text-black py-24 md:py-40">
+            <div class="container mx-auto px-4">
+                <div class="max-w-3xl mx-auto text-center scroll-reveal mb-16 md:mb-24">
+                    <h2 class="section-headline">
+                        The Store.
+                    </h2>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-8 md:gap-12">
+                    <div class="scroll-reveal">
+                        <a href="#" class="project-card block">
+                            <img src="https://placehold.co/800x600/f5f5f7/cccccc?text=Product+One" alt="Product One" class="w-full h-auto">
+                            <div class="p-8">
+                                <h3 class="text-xl font-bold">Debut Collection</h3>
+                                <p class="text-gray-600 mt-1">Limited Edition Prints</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="scroll-reveal">
+                        <a href="#" class="project-card block">
+                            <img src="https://placehold.co/800x600/f5f5f7/cccccc?text=Product+Two" alt="Product Two" class="w-full h-auto">
+                            <div class="p-8">
+                                <h3 class="text-xl font-bold">The Signal Tee</h3>
+                                <p class="text-gray-600 mt-1">Apparel</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 8: Contact -->
+        <section id="contact" class="bg-black text-white py-24 md:py-40">
+            <div class="container mx-auto px-4">
+                <div class="max-w-3xl mx-auto text-center scroll-reveal">
+                    <h2 class="section-headline">
+                        Let's talk.
+                    </h2>
+                    <p class="text-lg md:text-xl max-w-xl mx-auto mt-6 text-gray-400">
+                        Have a project in mind? We'd love to hear about it.
+                    </p>
+                    <a href="mailto:hello@jmarsh.media" class="inline-block bg-white text-black font-medium py-3 px-8 rounded-full mt-10 transition-transform hover:scale-105">
+                        hello@jmarsh.media
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="text-center py-12 bg-white">
+        <div class="container mx-auto px-4 text-gray-500 text-sm">
+            <p>&copy; 2025 J-Marsh Media. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- Mobile Menu Toggle ---
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                // Optional: Toggle icon
+                if (mobileMenu.classList.contains('hidden')) {
+                    mobileMenuBtn.innerHTML = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>`;
+                } else {
+                    mobileMenuBtn.innerHTML = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>`;
+                }
+            });
+            
+            // Close mobile menu when a link is clicked
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenuBtn.innerHTML = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>`;
+                });
+            });
+
+            // --- Shuffle Talent Cards ---
+            const talentGrid = document.querySelector('#talent .grid');
+            if (talentGrid) {
+                const talentCards = Array.from(talentGrid.children);
+                
+                // Separate Jeremy Marsh (first card) from the rest
+                const jeremyMarshCard = talentCards.shift();
+                const otherTalentCards = talentCards;
+
+                // Fisher-Yates shuffle algorithm for *other* talent
+                for (let i = otherTalentCards.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [otherTalentCards[i], otherTalentCards[j]] = [otherTalentCards[j], otherTalentCards[i]];
+                }
+
+                // Clear the grid
+                talentGrid.innerHTML = '';
+                
+                // Append Jeremy Marsh first
+                if (jeremyMarshCard) {
+                    talentGrid.appendChild(jeremyMarshCard);
+                }
+                
+                // Append the shuffled cards
+                otherTalentCards.forEach(card => talentGrid.appendChild(card));
+            }
+
+            // --- Scroll Animation Observer ---
+            const revealElements = document.querySelectorAll('.scroll-reveal');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { 
+                threshold: 0.1 // Trigger when 10% of the element is visible
+            });
+
+            revealElements.forEach(el => {
+                observer.observe(el);
+            });
+
+        });
+    </script>
 
 </body>
 </html>
