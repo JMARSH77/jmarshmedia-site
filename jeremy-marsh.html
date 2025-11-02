@@ -4,27 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jeremy Marsh | Author Official Website</title>
-    <!-- SEO & Metadata -->
     <meta name="description" content="Official website for author Jeremy Marsh. Discover his new release, 'The Portal,' read his blog, and find upcoming appearances and media coverage.">
     <meta name="author" content="Jeremy Marsh">
     <meta name="keywords" content="Jeremy Marsh, author, book, novel, literary fiction, The Portal, blog, writer">
-    <!-- OpenGraph for Social Sharing -->
     <meta property="og:title" content="Jeremy Marsh | Official Website">
     <meta property="og:description" content="Author of 'Portal,' writing confident, grounded, and human stories.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://jmarshmedia.com/jeremy-marsh">
     <meta property="og:image" content="images/headshots/jeremy-marsh-headshot.jpg">
-    <!-- Load Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Load Lucide Icons for simplicity -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- Custom Tailwind Configuration for Brand and Fonts -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        'primary-bg': '#f9f9f6',
+                        'primary-bg': '#f9f9f9',
                         'secondary-bg': '#f0f0ed', /* Slightly darker tone for contrast strips */
                         'text-dark': '#111',
                         'accent': '#b1740f', /* Main brand color */
@@ -51,7 +46,7 @@
         .section-label { font-size: 0.75rem; /* 12px */ letter-spacing: 0.1em; }
 
         /* General Styling and Behavior */
-        .page-content { min-height: calc(100vh - 64px); } /* Ensure content pushes footer down */
+        .page-content { min-height: calc(100vh - 64px); }
         .btn-primary {
             min-height: 44px;
             @apply bg-accent text-white font-semibold py-3 px-8 rounded-lg shadow-md transition duration-200 ease-in-out hover:bg-opacity-90 hover:shadow-lg;
@@ -75,14 +70,13 @@
         .nav-drawer.open {
             transform: translateX(0);
         }
-        /* Hide all pages initially except for the active one */
+        /* Page Routing Management */
         .page { display: none; }
         .page.active { display: block; }
 
         /* Readability for Long Text */
         .post-body-content p { margin-bottom: 1.5rem; }
     </style>
-    <!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json">
         {
           "@context": "https://schema.org",
@@ -90,12 +84,14 @@
           "name": "Jeremy Marsh",
           "url": "https://jmarshmedia.com/jeremy-marsh",
           "sameAs": [
-            "jmarshmedia.com/jeremymarsh",
+            /* Removed jmarshmedia.com/jeremymarsh link */
             "https://instagram.com/jeremymarsh"
           ],
           "jobTitle": "Author",
           "alumniOf": "University Name (Mock)"
         }
+    </script>
+    <script type="application/ld+json">
         {
           "@context": "https://schema.org",
           "@type": "Book",
@@ -113,33 +109,29 @@
     </script>
 </head>
 <body class="bg-primary-bg text-text-dark font-sans" id="app-body">
-    <!-- Mobile Nav Drawer -->
     <div id="nav-drawer" class="nav-drawer fixed top-0 right-0 h-full w-full bg-primary-bg z-50 p-8 pt-20 shadow-xl" aria-hidden="true">
-        <button id="close-drawer" class="absolute top-6 right-6 p-2 rounded-full hover:bg-secondary-bg min-w-[44px] min-h-[44px]">
+        <button id="close-drawer" class="absolute top-6 right-6 p-2 rounded-full hover:bg-secondary-bg min-w-[44px] min-h-[44px]" aria-label="Close menu">
             <i data-lucide="x" class="w-6 h-6"></i>
         </button>
         <nav class="flex flex-col space-y-8 text-2xl font-display">
-            <a href="#home" class="hover:text-accent" onclick="document.getElementById('nav-drawer').classList.remove('open')">Home</a>
-            <a href="#books" class="hover:text-accent" onclick="document.getElementById('nav-drawer').classList.remove('open')">Books</a>
-            <a href="#about-full" class="hover:text-accent" onclick="document.getElementById('nav-drawer').classList.remove('open')">About</a>
-            <a href="#appearances-full" class="hover:text-accent" onclick="document.getElementById('nav-drawer').classList.remove('open')">Appearances</a>
-            <a href="#blog-full" class="hover:text-accent" onclick="document.getElementById('nav-drawer').classList.remove('open')">Blog</a>
-            <a href="#contact-full" class="hover:text-accent" onclick="document.getElementById('nav-drawer').classList.remove('open')">Contact</a>
+            <a href="#home" class="hover:text-accent">Home</a>
+            <a href="#books" class="hover:text-accent">Books</a>
+            <a href="#about-full" class="hover:text-accent">About</a>
+            <a href="#appearances-full" class="hover:text-accent">Appearances</a>
+            <a href="#blog-full" class="hover:text-accent">Blog</a>
+            <a href="#contact-full" class="hover:text-accent">Contact</a>
             <div class="pt-8">
                 <a href="#featured-book" class="btn-primary block text-center mt-4">Get the New Book</a>
             </div>
         </nav>
     </div>
 
-    <!-- Sticky Header [0] -->
     <header id="sticky-header" class="sticky-header fixed top-0 left-0 w-full z-40 h-16 flex items-center px-4 md:px-12">
         <div class="flex justify-between items-center w-full max-w-7xl mx-auto">
-            <!-- Logo link to site root -->
-            <a href="/" class="hover:opacity-80 transition duration-200" aria-label="Jeremy Marsh Home">
+            <a href="#home" class="hover:opacity-80 transition duration-200" aria-label="Jeremy Marsh Home">
                 <img src="images/logos/jmarshmedia-logo.svg" alt="J Marsh Media Logo" class="h-8 w-auto min-h-[32px]">
             </a>
 
-            <!-- Desktop Nav -->
             <nav class="hidden md:flex space-x-8 text-base font-sans font-medium">
                 <a href="#books" class="hover:text-accent transition duration-200">Books</a>
                 <a href="#about-full" class="hover:text-accent transition duration-200">About</a>
@@ -148,8 +140,7 @@
                 <a href="#contact-full" class="hover:text-accent transition duration-200">Contact</a>
             </nav>
 
-            <!-- Mobile Hamburger -->
-            <button id="open-drawer" class="md:hidden p-2 rounded-lg hover:bg-secondary-bg min-w-[44px] min-h-[44px]">
+            <button id="open-drawer" class="md:hidden p-2 rounded-lg hover:bg-secondary-bg min-w-[44px] min-h-[44px]" aria-label="Open menu">
                 <i data-lucide="menu" class="w-6 h-6"></i>
             </button>
         </div>
@@ -157,45 +148,39 @@
 
     <main class="max-w-7xl mx-auto px-4 md:px-12 pt-16">
 
-        <!-- Home Page (Default View) -->
         <section id="home" class="page active">
 
-            <!-- [1] Hero Section -->
             <div id="hero" class="py-20 md:py-32 grid md:grid-cols-2 gap-12 items-center min-h-screen-minus-header">
-                <!-- Left Column (Text Block) -->
                 <div class="space-y-6 md:space-y-10 order-2 md:order-1">
                     <h1 class="text-5xl md:text-6xl font-display text-text-dark leading-tight">Jeremy Marsh</h1>
                     <p class="text-2xl text-gray-700 leading-relaxed font-sans font-medium">
-                        Author of <span class="text-accent">'The Portal,'</span> writing intimate stories that, cut to the bone, where survival meets morali.
+                        Author of <span class="text-accent">'The Portal,'</span> writing intimate stories that, cut to the bone, where survival meets morality.
                     </p>
                     <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 pt-6">
                         <a href="#featured-book" class="btn-primary flex-1 sm:flex-none text-center">Get the New Book</a>
-                        <a href="#blog-preview" class="btn-secondary flex-1 sm:flex-none text-center">Read the Blog</a>
+                        <a href="#blog-full" class="btn-secondary flex-1 sm:flex-none text-center">Read the Blog</a>
                     </div>
                 </div>
 
-                <!-- Right Column (Image) -->
                 <div class="order-1 md:order-2">
                     <img src="images/headshots/Jeremy-marsh-headshot.jpg"
-                         alt="Candid black and white portrait of author Jeremy Marsh"
-                         class="w-full h-auto object-cover rounded-xl shadow-2xl grayscale">
+                              alt="Candid black and white portrait of author Jeremy Marsh"
+                              class="w-full h-auto object-cover rounded-xl shadow-2xl grayscale">
                 </div>
             </div>
 
-            <!-- [2] Featured Book Section -->
             <div id="featured-book" class="py-20 md:py-32 border-t border-gray-300 grid md:grid-cols-3 gap-12 items-start">
                 <div class="md:col-span-1">
                     <p class="section-label uppercase tracking-widest font-medium text-accent mb-4">DEBUT NOVEL</p>
                     <img src="images/books/Portal Digital Cover.svg"
-                         alt="Cover image for the debut novel The Portal by Jeremy Marsh"
-                         class="w-full h-auto object-cover shadow-2xl rounded-lg">
+                              alt="Cover image for the debut novel The Portal by Jeremy Marsh"
+                              class="w-full h-auto object-cover shadow-2xl rounded-lg">
                 </div>
                 <div class="md:col-span-2 space-y-6">
                     <h2 class="text-4xl font-display text-text-dark">The Portal</h2>
                     <p class="text-xl leading-relaxed text-gray-700">
-                        A haunting tech-thriller of grief, surveillance, and one man’s attempt to buy back a life he broke. Jacob Hastings returns to Hastings Tower where AR, AI, and memory blur. If you like atmospheric corporate drama, immersive-AR suspense, and morally fraught characters, open this now and step inside The Portal**.
+                        A haunting tech-thriller of grief, surveillance, and one man’s attempt to buy back a life he broke. Jacob Hastings returns to Hastings Tower where AR, AI, and memory blur. If you like atmospheric corporate drama, immersive-AR suspense, and morally fraught characters, open this now and step inside The Portal.
                     </p>
-                    <!-- CTA Block -->
                     <div class="pt-8 space-y-4">
                         <h3 class="text-2xl font-display">Buy Now</h3>
                         <div class="flex flex-wrap gap-4">
@@ -208,9 +193,7 @@
                 </div>
             </div>
 
-            <!-- [4] About Preview -->
             <div id="about-preview" class="py-20 md:py-32 grid md:grid-cols-2 gap-12 items-center">
-                <!-- Left Column (Text Block) -->
                 <div class="space-y-6 order-2 md:order-1">
                     <h2 class="section-label uppercase tracking-widest font-medium text-accent">About</h2>
                     <h3 class="text-3xl md:text-4xl font-display text-text-dark leading-tight">Confidence, Groundedness, Humanity.</h3>
@@ -223,32 +206,25 @@
                     <a href="#about-full" class="btn-secondary inline-block mt-4 text-center">Full Bio / Press Kit</a>
                 </div>
 
-                <!-- Right Column (Image) -->
                 <div class="order-1 md:order-2">
                     <img src="images/photos/promo/jeremy-marsh working.jpg"
-                         alt="Secondary image of Jeremy Marsh working at his writing desk, looking candid."
-                         class="w-full h-auto object-cover rounded-xl shadow-xl">
+                              alt="Secondary image of Jeremy Marsh working at his writing desk, looking candid."
+                              class="w-full h-auto object-cover rounded-xl shadow-xl">
                 </div>
             </div>
 
-            <!-- [5] Appearances / Media Section -->
             <div id="appearances-preview" class="py-20 md:py-32 border-t border-gray-300">
                 <h2 class="section-label uppercase tracking-widest font-medium text-accent mb-2">Live & Media</h2>
                 <h3 class="text-3xl md:text-4xl font-display text-text-dark mb-12">Schedule & Media Archive</h3>
 
-                <!-- Placeholder when no events or media highlights exist -->
                 <div class="p-8 rounded-lg text-center flex flex-col justify-center items-center bg-secondary-bg border border-gray-300">
                     <i data-lucide="calendar-off" class="w-8 h-8 text-accent mb-3"></i>
                     <p class="text-xl font-display text-text-dark">Schedule & Media Archive Coming Soon.</p>
                     <p class="text-base text-gray-700 mt-2">Jeremy is currently focused on writing and has no public events or media appearances to share.</p>
                     <a href="#appearances-full" class="text-link mt-4 block">View Appearances Page</a>
                 </div>
-
-                <!-- Removed View All Button as the content is now combined into the placeholder above -->
-
             </div>
 
-            <!-- [6] Latest from the Blog -->
             <div id="blog-preview" class="py-20 md:py-32 border-t border-gray-300">
                 <h2 class="section-label uppercase tracking-widest font-medium text-accent mb-2">From the Blog</h2>
                 <h3 class="text-3xl md:text-4xl font-display text-text-dark mb-4">Notes from the work.</h3>
@@ -256,9 +232,7 @@
                     Early pages, road stories, and what’s coming next from the writing desk.
                 </p>
 
-                <!-- Blog Post Grid -->
                 <div class="grid md:grid-cols-3 gap-8">
-                    <!-- Post 1 -->
                     <div class="space-y-3">
                         <a href="#blog/the-weight-of-the-north" class="text-2xl font-display text-text-dark hover:text-accent transition duration-200 block">The Weight of the North: Finding Silence in Setting</a>
                         <p class="text-sm font-sans font-medium text-gray-500">November 1, 2025</p>
@@ -267,7 +241,6 @@
                         </p>
                         <a href="#blog/the-weight-of-the-north" class="text-link font-medium block">Read more &rarr;</a>
                     </div>
-                    <!-- Post 2 -->
                     <div class="space-y-3">
                         <a href="#blog/drafting-secrets" class="text-2xl font-display text-text-dark hover:text-accent transition duration-200 block">Drafting Secrets: The Unexpected Pivot</a>
                         <p class="text-sm font-sans font-medium text-gray-500">October 15, 2025</p>
@@ -276,7 +249,6 @@
                         </p>
                         <a href="#blog/drafting-secrets" class="text-link font-medium block">Read more &rarr;</a>
                     </div>
-                    <!-- Post 3 -->
                     <div class="space-y-3">
                         <a href="#blog/tools-of-the-trade" class="text-2xl font-display text-text-dark hover:text-accent transition duration-200 block">Tools of the Trade: My Minimalist Writing Setup</a>
                         <p class="text-sm font-sans font-medium text-gray-500">September 28, 2025</p>
@@ -292,17 +264,12 @@
                 </div>
             </div>
 
-        </section> <!-- End of Home Section -->
-
-        <!-- [7] Footer / Contact Section (High Contrast) -->
-        <footer id="contact-footer" class="page bg-gray-900 text-primary-bg py-20 md:py-24 mt-20 md:mt-0 px-4 md:px-12 -mx-4 md:-mx-12">
+        </section> <footer id="contact-footer" class="page bg-gray-900 text-primary-bg py-20 md:py-24 mt-20 md:mt-0 px-4 md:px-12 -mx-4 md:-mx-12">
             <div class="max-w-7xl mx-auto">
                 <div class="grid md:grid-cols-2 gap-12 border-b border-gray-700 pb-12 mb-8">
-                    <!-- Left Column: Contact Details -->
                     <div class="space-y-6">
-                        <!-- Logo link to site root (inverted for dark background) -->
-                        <a href="/" class="hover:opacity-80 transition duration-200" aria-label="Jeremy Marsh Home">
-                            <img src="jmarshmedia-logo.svg" alt="J Marsh Media Logo" class="h-8 w-auto mb-4 invert min-h-[32px]">
+                        <a href="#home" class="hover:opacity-80 transition duration-200" aria-label="Jeremy Marsh Home">
+                            <img src="images/logos/jmarshmedia-logo.svg" alt="J Marsh Media Logo" class="h-8 w-auto mb-4 invert min-h-[32px]">
                         </a>
 
                         <p class="text-lg font-medium">Business / Rights / Media:</p>
@@ -310,7 +277,6 @@
                         <p class="text-sm text-gray-400 pt-4">Representation: The Foundry Literary Agency (Mock)</p>
                     </div>
 
-                    <!-- Right Column: Social Icons -->
                     <div class="space-y-6">
                         <h3 class="text-2xl font-display mb-4">Connect</h3>
                         <div class="flex space-x-6">
@@ -330,7 +296,6 @@
                     </div>
                 </div>
 
-                <!-- Footer Bottom Row -->
                 <div class="text-sm text-gray-500 flex justify-between flex-col sm:flex-row space-y-2 sm:space-y-0">
                     <p>Copyright &copy; 2025 Jeremy Marsh & J. Marsh Media. All Rights Reserved.</p>
                     <div class="space-x-4">
@@ -343,29 +308,19 @@
         </footer>
 
 
-        <!-- ============================================== -->
-        <!-- START OF INTERIOR PAGES (Hidden by default) -->
-        <!-- ============================================== -->
-
-        <!-- Book Detail Page (Dynamic Content) -->
         <section id="book-detail" class="page pt-24 pb-32">
-            <!-- Content will be injected here by JS -->
-        </section>
+            </section>
 
-        <!-- Books Page (Index) -->
         <section id="books" class="page pt-24 pb-32">
             <h2 class="text-4xl font-display mb-4">Full Body of Work</h2>
             <p class="text-xl leading-relaxed text-gray-700 mb-12">Discover all published titles, from new releases to backlist favorites.</p>
 
             <div id="books-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                <!-- Book Cards will be injected here by JS -->
-            </div>
+                </div>
         </section>
 
-        <!-- About Full Page -->
         <section id="about-full" class="page pt-24 pb-32 grid lg:grid-cols-4 gap-12">
             <div class="lg:col-span-3 space-y-12">
-                <!-- Official Biography (Third-Person) -->
                 <div class="space-y-6">
                     <h2 class="section-label uppercase tracking-widest font-medium text-accent">Official Biography</h2>
                     <h3 class="text-3xl font-display">Jeremy Marsh: A Writer of Resonance and Place</h3>
@@ -377,7 +332,6 @@
                     </p>
                 </div>
 
-                <!-- Origin Story (First-Person) -->
                 <div class="space-y-6 pt-6 border-t border-gray-300">
                     <h2 class="section-label uppercase tracking-widest font-medium text-accent">My Story</h2>
                     <h3 class="text-3xl font-display">Why I Write</h3>
@@ -390,7 +344,6 @@
                 </div>
             </div>
 
-            <!-- Press Kit Sidebar -->
             <div class="lg:col-span-1 space-y-8 bg-secondary-bg p-6 rounded-lg shadow-inner">
                 <h3 class="text-xl font-display border-b border-gray-400 pb-3">Press & Media Resources</h3>
                 <div class="space-y-4 text-lg">
@@ -414,7 +367,6 @@
             </div>
         </section>
 
-        <!-- Appearances Full Page -->
         <section id="appearances-full" class="page pt-24 pb-32">
             <h2 class="text-4xl font-display mb-4">Media Archive & Highlights</h2>
             <p class="text-xl leading-relaxed text-gray-700 mb-12">This page will host all upcoming event dates and an archive of past interviews. Please check back soon for updates!</p>
@@ -427,28 +379,22 @@
             </div>
         </section>
 
-        <!-- Blog Full Page (Archive) -->
         <section id="blog-full" class="page pt-24 pb-32">
             <h2 class="text-4xl font-display mb-4">The Complete Blog Archive</h2>
             <p class="text-xl leading-relaxed text-gray-700 mb-12">Essays, updates, and deep dives into the writing life and the themes that shape the work.</p>
 
             <div id="blog-list" class="space-y-10">
-                <!-- Blog List Items will be injected here by JS -->
-            </div>
+                </div>
         </section>
 
-        <!-- Single Blog Post Page (Dynamic Content) -->
         <section id="blog-post-detail" class="page pt-24 pb-32">
-            <!-- Content will be injected here by JS -->
-        </section>
+            </section>
 
-        <!-- Contact Full Page (Reader Form & Business Email) -->
         <section id="contact-full" class="page pt-24 pb-32">
             <h2 class="text-4xl font-display mb-4">Get In Touch</h2>
             <p class="text-xl leading-relaxed text-gray-700 mb-12">Channeling your message to the right place ensures a faster response. Please select your inquiry type below.</p>
 
             <div class="grid lg:grid-cols-2 gap-12">
-                <!-- Reader Contact Form -->
                 <div class="bg-white p-8 rounded-lg shadow-xl border-t-4 border-accent">
                     <h3 class="text-2xl font-display mb-4">For Readers & General Inquiries</h3>
                     <form action="https://your-serverless-function.com/submit" method="POST" class="space-y-6">
@@ -464,13 +410,11 @@
                             <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
                             <textarea id="message" name="message" rows="5" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-accent focus:border-accent"></textarea>
                         </div>
-                        <!-- Honeypot Field for basic spam prevention -->
                         <input type="text" name="hp_website" id="hp_website" style="display:none;" tabindex="-1" autocomplete="off">
                         <button type="submit" class="btn-primary w-full">Send Message</button>
                     </form>
                 </div>
 
-                <!-- Business Contact Panel -->
                 <div class="bg-secondary-bg p-8 rounded-lg shadow-xl">
                     <h3 class="text-2xl font-display mb-4">Media, Rights, & Speaking</h3>
                     <p class="text-xl leading-relaxed text-gray-700 mb-4">
@@ -502,17 +446,18 @@
                 subtitle: 'A Novel',
                 year: 2025,
                 hook: 'A gripping tech-thriller of corporate surveillance, AR, and a man trying to buy back his past.',
-                coverUrl: 'https://placehold.co/400x600/111111/47310f?text=THE+PORTAL+COVER',
+                coverUrl: 'images/books/Portal Digital Cover.svg', // Using local path for consistency
                 synopsis: "Jacob Hastings thought he could escape the past, but his world is shattering. He returns to the towering corporate structure of Hastings Tower, where augmented reality, invasive AI, and fractured memory blur into a terrifying reality. In this atmospheric corporate drama, Marsh explores the morally fraught limits of technology and one man's attempt to use a surveillance-driven system to literally buy back a life he broke. A stunning debut that redefines the modern tech-thriller.",
-                reviews: [], // Reviews removed as requested
+                reviews: [],
                 purchaseLinks: {
-                    Amazon Books: 'https://buy.link/portal-print',
-                    Kindle: 'https://a.co/d/frCVW2R',
-                    Audio: 'https://buy.link/portal-audio'
+                    "Print (Amazon)": 'https://buy.link/portal-print',
+                    "Kindle (Pre-Order)": 'https://a.co/d/frCVW2R',
+                    "Audiobook": 'https://buy.link/portal-audio'
                 }
             }
         ];
 
+        // Blog data is reversed so the most recent posts appear first in the index pages
         const BLOG_DATA = [
             {
                 slug: 'the-weight-of-the-north',
@@ -554,116 +499,65 @@
                     <p>The goal is not to have the 'best' tools, but the *fewest* tools, ensuring the only thing I'm interacting with is the prose itself.</p>
                 `
             },
-        ];
+        ].reverse(); 
 
         // ==============================================
         // END: DATA MOCKUP
         // ==============================================
 
         // ==============================================
-        // START: JAVASCRIPT LOGIC
+        // START: JAVASCRIPT LOGIC (CLEANED)
         // ==============================================
 
         document.addEventListener('DOMContentLoaded', () => {
+            // --- DOM ELEMENTS (Cached for performance) ---
             const header = document.getElementById('sticky-header');
             const drawer = document.getElementById('nav-drawer');
             const openDrawerBtn = document.getElementById('open-drawer');
             const closeDrawerBtn = document.getElementById('close-drawer');
             const appBody = document.getElementById('app-body');
             const pages = document.querySelectorAll('.page');
+            const booksGrid = document.getElementById('books-grid');
+            const blogList = document.getElementById('blog-list');
+            const bookDetailSection = document.getElementById('book-detail');
+            const blogPostDetailSection = document.getElementById('blog-post-detail');
+
 
             // --- 1. Sticky Header Behavior ---
             const handleScroll = () => {
+                // If scroll position is more than 50px, add background/shadow
                 if (window.scrollY > 50) {
                     header.classList.add('bg-primary-bg', 'shadow-md');
                 } else {
                     header.classList.remove('bg-primary-bg', 'shadow-md');
                 }
             };
-
             window.addEventListener('scroll', handleScroll);
             handleScroll(); // Check on load
 
 
             // --- 2. Mobile Nav Drawer ---
-            openDrawerBtn.addEventListener('click', () => {
-                drawer.classList.add('open');
-                drawer.setAttribute('aria-hidden', 'false');
-                appBody.style.overflow = 'hidden'; // Disable scroll on body
-            });
-
-            closeDrawerBtn.addEventListener('click', () => {
-                drawer.classList.remove('open');
-                drawer.setAttribute('aria-hidden', 'true');
-                appBody.style.overflow = '';
-            });
-
-            // --- 3. Page Routing (Hash-based) ---
-
-            const showSection = (hash) => {
-                // Determine the correct section ID based on the hash
-                let targetId = hash.substring(1) || 'home';
-                let contentLoaded = false;
-
-                // Handle dynamic routes first
-                if (targetId.startsWith('books/')) {
-                    showBookDetail(targetId.substring(6));
-                    targetId = 'book-detail';
-                    contentLoaded = true;
-                } else if (targetId.startsWith('blog/')) {
-                    showBlogPostDetail(targetId.substring(5));
-                    targetId = 'blog-post-detail';
-                    contentLoaded = true;
-                }
-
-                // Fallback to static pages
-                pages.forEach(page => {
-                    if (page.id === targetId) {
-                        page.classList.add('active');
-                        page.setAttribute('aria-hidden', 'false');
-                        // Ensure static content loads if it's the target page
-                        if (!contentLoaded) {
-                            if (targetId === 'books') renderBooksIndex();
-                            if (targetId === 'blog-full') renderBlogIndex();
-                        }
-                        // Scroll to top of the page content, accounting for fixed header
-                        setTimeout(() => window.scrollTo(0, 0), 0);
-                    } else {
-                        page.classList.remove('active');
-                        page.setAttribute('aria-hidden', 'true');
-                    }
-                });
-
-                // Close drawer if open
-                if (drawer.classList.contains('open')) {
+            const toggleDrawer = (open) => {
+                if (open) {
+                    drawer.classList.add('open');
+                    drawer.setAttribute('aria-hidden', 'false');
+                    appBody.style.overflow = 'hidden'; // Disable scroll on body
+                } else {
                     drawer.classList.remove('open');
+                    drawer.setAttribute('aria-hidden', 'true');
                     appBody.style.overflow = '';
                 }
+            }
 
-                // If loading home, ensure we scroll to the anchor if one exists
-                if (targetId === 'home' && hash.includes('#')) {
-                    const anchor = hash.substring(hash.indexOf('#') + 1);
-                    const el = document.getElementById(anchor);
-                    if (el) {
-                        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                }
-            };
-
-            // Listener for hash changes (internal navigation/browser back)
-            window.addEventListener('hashchange', () => showSection(window.location.hash));
-
-            // Initialize routing on load
-            showSection(window.location.hash);
+            openDrawerBtn.addEventListener('click', () => toggleDrawer(true));
+            closeDrawerBtn.addEventListener('click', () => toggleDrawer(false));
 
 
-            // --- 4. Dynamic Content Rendering ---
+            // --- 3. Dynamic Content Rendering Functions (Internal) ---
 
-            // Render Books Index
-            const booksGrid = document.getElementById('books-grid');
             const renderBooksIndex = () => {
-                // Check if content is already rendered. Only render if the current active page is the books index.
-                if (booksGrid.children.length > 0 && document.getElementById('books').classList.contains('active')) return;
+                // Check if the grid is empty. If it has content, don't re-render.
+                if (booksGrid.children.length > 0) return;
                 
                 booksGrid.innerHTML = BOOKS_DATA.map(book => `
                     <div class="book-card bg-white rounded-lg shadow-xl overflow-hidden cursor-pointer transition duration-300 hover:shadow-2xl border border-gray-200" onclick="window.location.hash = 'books/${book.slug}'">
@@ -677,8 +571,6 @@
                 `).join('');
             };
 
-            // Render Single Book Detail
-            const bookDetailSection = document.getElementById('book-detail');
             const showBookDetail = (slug) => {
                 const book = BOOKS_DATA.find(b => b.slug === slug);
                 if (!book) {
@@ -688,7 +580,6 @@
 
                 bookDetailSection.innerHTML = `
                     <div class="grid md:grid-cols-3 gap-12">
-                        <!-- Cover and Basic Info -->
                         <div class="md:col-span-1 space-y-6">
                             <img src="${book.coverUrl}" alt="Large cover for ${book.title}" class="w-full h-auto object-cover rounded-lg shadow-2xl">
                             <p class="section-label uppercase tracking-widest font-medium text-gray-500">${book.year}</p>
@@ -703,7 +594,6 @@
                             </div>
                         </div>
 
-                        <!-- Synopsis and Reviews -->
                         <div class="md:col-span-2 space-y-8">
                             <h1 class="text-5xl font-display text-text-dark">${book.title}</h1>
                             <h2 class="text-3xl font-display text-gray-600">${book.subtitle}</h2>
@@ -727,13 +617,11 @@
                 `;
             };
 
-            // Render Blog Index
-            const blogList = document.getElementById('blog-list');
             const renderBlogIndex = () => {
-                // Check if content is already rendered. Only render if the current active page is the blog index.
-                if (blogList.children.length > 0 && document.getElementById('blog-full').classList.contains('active')) return; 
+                // Check if the list is empty. If it has content, don't re-render.
+                if (blogList.children.length > 0) return;
 
-                blogList.innerHTML = BLOG_DATA.reverse().map(post => `
+                blogList.innerHTML = BLOG_DATA.map(post => `
                     <div class="blog-entry border-b border-gray-300 pb-8">
                         <p class="text-sm font-sans font-medium text-gray-500 section-label">${post.date}</p>
                         <a href="#blog/${post.slug}" class="text-3xl font-display text-text-dark hover:text-accent transition duration-200 mt-1 mb-3 block">${post.title}</a>
@@ -743,8 +631,6 @@
                 `).join('');
             };
 
-            // Render Single Blog Post Detail
-            const blogPostDetailSection = document.getElementById('blog-post-detail');
             const showBlogPostDetail = (slug) => {
                 const post = BLOG_DATA.find(p => p.slug === slug);
                 if (!post) {
@@ -769,17 +655,68 @@
                 `;
             };
 
-            // --- 5. Initial Rendering and Icon Replacement ---
 
-            // Call to replace Lucide icons (must happen after DOM is injected)
+            // --- 4. Page Routing (Hash-based) - The Core Logic ---
+
+            const showSection = (hash) => {
+                // 1. Close mobile drawer on any navigation event
+                toggleDrawer(false);
+
+                // 2. Determine the target section ID
+                let path = hash.substring(1); // Remove '#'
+                let targetId = path || 'home'; // Default to 'home'
+
+                let dynamicLoadNeeded = false;
+
+                // Handle dynamic routes (books/slug and blog/slug)
+                if (path.startsWith('books/')) {
+                    showBookDetail(path.substring(6));
+                    targetId = 'book-detail';
+                    dynamicLoadNeeded = true;
+                } else if (path.startsWith('blog/')) {
+                    showBlogPostDetail(path.substring(5));
+                    targetId = 'blog-post-detail';
+                    dynamicLoadNeeded = true;
+                }
+
+                // 3. Toggle page visibility
+                pages.forEach(page => {
+                    const isActive = page.id === targetId;
+                    page.classList.toggle('active', isActive);
+                    page.setAttribute('aria-hidden', !isActive);
+
+                    // 4. Render static dynamic pages only when activating
+                    if (isActive && !dynamicLoadNeeded) {
+                        if (targetId === 'books') renderBooksIndex();
+                        if (targetId === 'blog-full') renderBlogIndex();
+                    }
+                });
+
+                // 5. Handle smooth scrolling for internal anchors on the Home page
+                if (targetId === 'home' && hash.includes('#')) {
+                    const anchor = hash.substring(hash.indexOf('#') + 1);
+                    const el = document.getElementById(anchor);
+                    if (el) {
+                        // Use a slight delay to ensure the page state is updated
+                        setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+                    }
+                } else {
+                    // For all other main page transitions, scroll to the very top
+                    window.scrollTo(0, 0);
+                }
+            };
+
+
+            // --- 5. Initialization ---
+
+            // Listener for hash changes (used for navigation and back/forward buttons)
+            window.addEventListener('hashchange', () => showSection(window.location.hash));
+
+            // Run initial routing logic
+            showSection(window.location.hash);
+
+            // Replace Lucide icons after all content is rendered
             lucide.createIcons();
-
-            // Initial load of content for non-home pages if routed directly
-            const initialHash = window.location.hash.substring(1);
-            if (initialHash === 'books') renderBooksIndex();
-            if (initialHash === 'blog-full') renderBlogIndex();
-            if (initialHash.startsWith('books/')) showBookDetail(initialHash.substring(6));
-            if (initialHash.startsWith('blog/')) showBlogPostDetail(initialHash.substring(5));
         });
     </script>
 </body>
