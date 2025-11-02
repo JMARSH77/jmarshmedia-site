@@ -1,263 +1,685 @@
-// ==============================================
-// START: DATA MOCKUP (Simulating Headless CMS)
-// ==============================================
-
-const BOOKS_DATA = [
-    {
-        slug: 'the-portal',
-        title: 'The Portal',
-        subtitle: 'A Novel',
-        year: 2025,
-        hook: 'A gripping tech-thriller of corporate surveillance, AR, and a man trying to buy back his past.',
-        coverUrl: 'images/books/Portal Digital Cover.svg',
-        synopsis: "Jacob Hastings thought he could escape the past, but his world is shattering. He returns to the towering corporate structure of Hastings Tower, where augmented reality, invasive AI, and fractured memory blur into a terrifying reality. In this atmospheric corporate drama, Marsh explores the morally fraught limits of technology and one man's attempt to use a surveillance-driven system to literally buy back a life he broke. A stunning debut that redefines the modern tech-thriller.",
-        reviews: [],
-        purchaseLinks: {
-            "Print (Amazon)": 'https://buy.link/portal-print',
-            "Kindle (Pre-Order)": 'https://a.co/d/frCVW2R',
-            "Audiobook": 'https://buy.link/portal-audio'
+<!DOCTYPE html>
+<html lang="en" style="scroll-behavior: smooth;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeremy Marsh | Author Official Website</title>
+    <meta name="description" content="Official website for author Jeremy Marsh. Discover his new release, 'The Portal,' read his blog, and find upcoming appearances and media coverage.">
+    <meta name="author" content="Jeremy Marsh">
+    <meta name="keywords" content="Jeremy Marsh, author, book, novel, literary fiction, The Portal, blog, writer">
+    <meta property="og:title" content="Jeremy Marsh | Official Website">
+    <meta property="og:description" content="Author of 'Portal,' writing confident, grounded, and human stories.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://jmarshmedia.com/jeremy-marsh">
+    <meta property="og:image" content="images/headshots/jeremy-marsh-headshot.jpg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-bg': '#f9f9f9',
+                        'secondary-bg': '#f0f0ed', /* Slightly darker tone for contrast strips */
+                        'text-dark': '#111',
+                        'accent': '#b1740f', /* Main brand color */
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'Source Sans Pro', 'sans-serif'],
+                        display: ['Playfair Display', 'serif'],
+                    },
+                    fontSize: {
+                        'xl': '1.125rem', // Base body size ~18px
+                        '2xl': '1.5rem',
+                        '3xl': '1.875rem',
+                        '4xl': '2.25rem',
+                        '5xl': '3rem',
+                    },
+                }
+            }
         }
-    }
-];
+    </script>
+    <style>
+        /* Typography System Refinement */
+        .font-display { font-family: 'Playfair Display', serif; font-weight: 700; }
+        .font-sans { font-family: 'Inter', 'Source Sans Pro', 'sans-serif'; }
+        .section-label { font-size: 0.75rem; /* 12px */ letter-spacing: 0.1em; }
 
-// BLOG_DATA is empty
-const BLOG_DATA = [];
-
-// ==============================================
-// END: DATA MOCKUP
-// ==============================================
-
-// ==============================================
-// START: JAVASCRIPT LOGIC (WITH DEBUGGING)
-// ==============================================
-
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM Content Loaded. Initializing SPA router.');
-    
-    // --- DOM ELEMENTS (Cached for performance) ---
-    const header = document.getElementById('sticky-header');
-    const drawer = document.getElementById('nav-drawer');
-    const openDrawerBtn = document.getElementById('open-drawer');
-    const closeDrawerBtn = document.getElementById('close-drawer');
-    const appBody = document.getElementById('app-body');
-    const pages = document.querySelectorAll('.page');
-    const booksGrid = document.getElementById('books-grid');
-    const blogList = document.getElementById('blog-list');
-    const bookDetailSection = document.getElementById('book-detail');
-    const blogPostDetailSection = document.getElementById('blog-post-detail');
-
-
-    // --- 1. Sticky Header Behavior ---
-    const handleScroll = () => {
-        if (window.scrollY > 50) {
-            header.classList.add('bg-primary-bg', 'shadow-md');
-        } else {
-            header.classList.remove('bg-primary-bg', 'shadow-md');
+        /* General Styling and Behavior */
+        .page-content { min-height: calc(100vh - 64px); }
+        .btn-primary {
+            min-height: 44px;
+            @apply bg-accent text-white font-semibold py-3 px-8 rounded-lg shadow-md transition duration-200 ease-in-out hover:bg-opacity-90 hover:shadow-lg;
         }
-    };
-    window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Check on load
-
-
-    // --- 2. Mobile Nav Drawer ---
-    const toggleDrawer = (open) => {
-        if (open) {
-            drawer.classList.add('open');
-            drawer.setAttribute('aria-hidden', 'false');
-            appBody.style.overflow = 'hidden';
-            console.log('Mobile Drawer Opened');
-        } else {
-            drawer.classList.remove('open');
-            drawer.setAttribute('aria-hidden', 'true');
-            appBody.style.overflow = '';
-            console.log('Mobile Drawer Closed');
+        .btn-secondary {
+            min-height: 44px;
+            @apply bg-transparent text-text-dark font-medium py-3 px-8 rounded-lg border border-text-dark transition duration-200 ease-in-out hover:bg-secondary-bg hover:border-accent;
         }
-    }
+        .text-link {
+            @apply text-accent transition duration-200 ease-in-out hover:underline hover:text-opacity-80;
+        }
 
-    openDrawerBtn.addEventListener('click', () => toggleDrawer(true));
-    closeDrawerBtn.addEventListener('click', () => toggleDrawer(false));
+        /* Sticky Header Transition */
+        .sticky-header {
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+        .nav-drawer {
+            transition: transform 0.3s ease-out;
+            transform: translateX(100%);
+        }
+        .nav-drawer.open {
+            transform: translateX(0);
+        }
+        /* Page Routing Management */
+        .page { display: none; }
+        .page.active { display: block; }
 
+        /* Readability for Long Text */
+        .post-body-content p { margin-bottom: 1.5rem; }
+    </style>
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "Person",
+          "name": "Jeremy Marsh",
+          "url": "https://jmarshmedia.com/jeremy-marsh",
+          "sameAs": [
+            /* Removed jmarshmedia.com/jeremymarsh link */
+            "https://instagram.com/jeremymarsh"
+          ],
+          "jobTitle": "Author",
+          "alumniOf": "University Name (Mock)"
+        }
+    </script>
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "Book",
+          "name": "The Portal",
+          "author": {
+            "@type": "Person",
+            "name": "Jeremy Marsh"
+          },
+          "isbn": "978-0131495054",
+          "bookFormat": "https://schema.org/Hardcover",
+          "publisher": "J. Marsh Media",
+          "genre": "Literary Fiction",
+          "description": "A haunting tech-thriller of grief, surveillance, and one man’s attempt to buy back a life he broke, Jacob Hastings returns to Hastings Tower where AR, AI, and memory blur. If you like atmospheric corporate drama, immersive-AR suspense, and morally fraught characters, open this now and step inside The Portal. Buy today to unlock the truth."
+        }
+    </script>
+</head>
+<body class="bg-primary-bg text-text-dark font-sans" id="app-body">
+    <div id="nav-drawer" class="nav-drawer fixed top-0 right-0 h-full w-full bg-primary-bg z-50 p-8 pt-20 shadow-xl" aria-hidden="true">
+        <button id="close-drawer" class="absolute top-6 right-6 p-2 rounded-full hover:bg-secondary-bg min-w-[44px] min-h-[44px]" aria-label="Close menu">
+            <i data-lucide="x" class="w-6 h-6"></i>
+        </button>
+        <nav class="flex flex-col space-y-8 text-2xl font-display">
+            <a href="#home" class="hover:text-accent">Home</a>
+            <a href="#books" class="hover:text-accent">Books</a>
+            <a href="#about-full" class="hover:text-accent">About</a>
+            <a href="#appearances-full" class="hover:text-accent">Appearances</a>
+            <a href="#blog-full" class="hover:text-accent">Blog</a>
+            <a href="#contact-full" class="hover:text-accent">Contact</a>
+            <div class="pt-8">
+                <a href="#featured-book" class="btn-primary block text-center mt-4">Get the New Book</a>
+            </div>
+        </nav>
+    </div>
 
-    // --- 3. Dynamic Content Rendering Functions (Internal) ---
+    <header id="sticky-header" class="sticky-header fixed top-0 left-0 w-full z-40 h-16 flex items-center px-4 md:px-12">
+        <div class="flex justify-between items-center w-full max-w-7xl mx-auto">
+            <a href="#home" class="hover:opacity-80 transition duration-200" aria-label="Jeremy Marsh Home">
+                <img src="images/logos/jmarshmedia-logo.svg" alt="J Marsh Media Logo" class="h-8 w-auto min-h-[32px]">
+            </a>
 
-    const renderBooksIndex = () => {
-        if (booksGrid.children.length > 0) return;
-        console.log('Rendering Books Index...');
-        
-        booksGrid.innerHTML = BOOKS_DATA.map(book => `
-            <div class="book-card bg-white rounded-lg shadow-xl overflow-hidden cursor-pointer transition duration-300 hover:shadow-2xl border border-gray-200" onclick="window.location.hash = 'books/${book.slug}'">
-                <img src="${book.coverUrl}" alt="Cover of ${book.title}" class="w-full h-auto object-cover">
-                <div class="p-4 space-y-2">
-                    <h4 class="text-xl font-display text-text-dark">${book.title}</h4>
-                    <p class="text-sm text-gray-600 italic">${book.hook}</p>
-                    <a href="#books/${book.slug}" class="text-link font-medium pt-2 block">Details &rarr;</a>
+            <nav class="hidden md:flex space-x-8 text-base font-sans font-medium">
+                <a href="#books" class="hover:text-accent transition duration-200">Books</a>
+                <a href="#about-full" class="hover:text-accent transition duration-200">About</a>
+                <a href="#appearances-full" class="hover:text-accent transition duration-200">Appearances</a>
+                <a href="#blog-full" class="hover:text-accent transition duration-200">Blog</a>
+                <a href="#contact-full" class="hover:text-accent transition duration-200">Contact</a>
+            </nav>
+
+            <button id="open-drawer" class="md:hidden p-2 rounded-lg hover:bg-secondary-bg min-w-[44px] min-h-[44px]" aria-label="Open menu">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 md:px-12 pt-16">
+
+        <section id="home" class="page active">
+
+            <div id="hero" class="py-20 md:py-32 grid md:grid-cols-2 gap-12 items-center min-h-screen-minus-header">
+                <div class="space-y-6 md:space-y-10 order-2 md:order-1">
+                    <h1 class="text-5xl md:text-6xl font-display text-text-dark leading-tight">Jeremy Marsh</h1>
+                    <p class="text-2xl text-gray-700 leading-relaxed font-sans font-medium">
+                        Author of <span class="text-accent">'The Portal,'</span> writing intimate stories that, cut to the bone, where survival meets morality.
+                    </p>
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 pt-6">
+                        <a href="#featured-book" class="btn-primary flex-1 sm:flex-none text-center">Get the New Book</a>
+                        <a href="#blog-full" class="btn-secondary flex-1 sm:flex-none text-center">Read the Blog</a>
+                    </div>
+                </div>
+
+                <div class="order-1 md:order-2">
+                    <img src="images/headshots/Jeremy-marsh-headshot.jpg"
+                              alt="Candid black and white portrait of author Jeremy Marsh"
+                              class="w-full h-auto object-cover rounded-xl shadow-2xl grayscale">
                 </div>
             </div>
-        `).join('');
-    };
 
-    const showBookDetail = (slug) => {
-        const book = BOOKS_DATA.find(b => b.slug === slug);
-        if (!book) {
-             // Standard "Not Found" message handling...
-            bookDetailSection.innerHTML = '<div class="text-center py-20"><h2 class="text-4xl font-display">Book Not Found</h2><p class="text-lg mt-4">The requested book could not be located.</p><a href="#books" class="text-link mt-4 block">Return to Books Index</a></div>';
-            return;
-        }
+            <div id="featured-book" class="py-20 md:py-32 border-t border-gray-300 grid md:grid-cols-3 gap-12 items-start">
+                <div class="md:col-span-1">
+                    <p class="section-label uppercase tracking-widest font-medium text-accent mb-4">DEBUT NOVEL</p>
+                    <img src="images/books/Portal Digital Cover.svg"
+                              alt="Cover image for the debut novel The Portal by Jeremy Marsh"
+                              class="w-full h-auto object-cover shadow-2xl rounded-lg">
+                </div>
+                <div class="md:col-span-2 space-y-6">
+                    <h2 class="text-4xl font-display text-text-dark">The Portal</h2>
+                    <p class="text-xl leading-relaxed text-gray-700">
+                        A haunting tech-thriller of grief, surveillance, and one man’s attempt to buy back a life he broke. Jacob Hastings returns to Hastings Tower where AR, AI, and memory blur. If you like atmospheric corporate drama, immersive-AR suspense, and morally fraught characters, open this now and step inside The Portal.
+                    </p>
+                    <div class="pt-8 space-y-4">
+                        <h3 class="text-2xl font-display">Buy Now</h3>
+                        <div class="flex flex-wrap gap-4">
+                            <a href="https://buy.link/portal-print" target="_blank" class="btn-primary min-w-[120px] text-center">Print</a>
+                            <a href="https://a.co/d/frCVW2R" target="_blank" class="btn-primary min-w-[120px] text-center">Pre-Order Kindle</a>
+                            <a href="https://buy.link/portal-audio" target="_blank" class="btn-primary min-w-[120px] text-center">Audio</a>
+                            <a href="downloads/book-samples/the-portal-sample.pdf" download class="btn-secondary min-w-[120px] text-center">Read a Sample</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        // Standard rendering logic...
-        bookDetailSection.innerHTML = `
-            <div class="grid md:grid-cols-3 gap-12">
-                <div class="md:col-span-1 space-y-6">
-                    <img src="${book.coverUrl}" alt="Large cover for ${book.title}" class="w-full h-auto object-cover rounded-lg shadow-2xl">
-                    <p class="section-label uppercase tracking-widest font-medium text-gray-500">${book.year}</p>
-                    <div class="pt-4 space-y-2">
-                        <h4 class="text-2xl font-display mb-3">Purchase Options</h4>
-                        <div class="flex flex-col space-y-3">
-                            ${Object.entries(book.purchaseLinks).map(([format, link]) => `
-                                <a href="${link}" target="_blank" class="btn-primary min-h-[40px] text-center">${format} Buy Link</a>
-                            `).join('')}
-                            <a href="downloads/book-samples/the-portal-sample.pdf" download class="btn-secondary min-h-[40px] text-center">Read a Sample</a>
+            <div id="about-preview" class="py-20 md:py-32 grid md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6 order-2 md:order-1">
+                    <h2 class="section-label uppercase tracking-widest font-medium text-accent">About</h2>
+                    <h3 class="text-3xl md:text-4xl font-display text-text-dark leading-tight">Confidence, Groundedness, Humanity.</h3>
+                    <p class="text-xl leading-relaxed text-gray-700">
+                        Jeremy Marsh is an American novelist whose work blends emotional truth with cinematic grit. His stories cut to the bone, where survival meets morality and silence carries more weight than confession.
+                    </p>
+                    <p class="text-xl leading-relaxed text-gray-700 hidden sm:block">
+                        Drawing from small-town realism and big-screen pacing, he writes fiction about the price of redemption, the burden of guilt, and the fragile hope that lingers after the storm.
+                    </p>
+                    <a href="#about-full" class="btn-secondary inline-block mt-4 text-center">Full Bio / Press Kit</a>
+                </div>
+
+                <div class="order-1 md:order-2">
+                    <img src="images/photos/promo/jeremy-marsh working.jpg"
+                              alt="Secondary image of Jeremy Marsh working at his writing desk, looking candid."
+                              class="w-full h-auto object-cover rounded-xl shadow-xl">
+                </div>
+            </div>
+
+            <div id="appearances-preview" class="py-20 md:py-32 border-t border-gray-300">
+                <h2 class="section-label uppercase tracking-widest font-medium text-accent mb-2">Live & Media</h2>
+                <h3 class="text-3xl md:text-4xl font-display text-text-dark mb-12">Schedule & Media Archive</h3>
+
+                <div class="p-8 rounded-lg text-center flex flex-col justify-center items-center bg-secondary-bg border border-gray-300">
+                    <i data-lucide="calendar-off" class="w-8 h-8 text-accent mb-3"></i>
+                    <p class="text-xl font-display text-text-dark">Schedule & Media Archive Coming Soon.</p>
+                    <p class="text-base text-gray-700 mt-2">Jeremy is currently focused on writing and has no public events or media appearances to share.</p>
+                    <a href="#appearances-full" class="text-link mt-4 block">View Appearances Page</a>
+                </div>
+            </div>
+
+            <div id="blog-preview" class="py-20 md:py-32 border-t border-gray-300">
+                <h2 class="section-label uppercase tracking-widest font-medium text-accent mb-2">From the Blog</h2>
+                <h3 class="text-3xl md:text-4xl font-display text-text-dark mb-4">Notes from the work.</h3>
+                <p class="text-xl leading-relaxed text-gray-700 mb-12">
+                    Early pages, road stories, and what’s coming next from the writing desk.
+                </p>
+
+                <div class="p-8 rounded-lg text-center flex flex-col justify-center items-center bg-secondary-bg border border-gray-300">
+                    <i data-lucide="pen-tool" class="w-8 h-8 text-accent mb-3"></i>
+                    <p class="text-xl font-display text-text-dark">Blog Posts Coming Soon.</p>
+                    <p class="text-base text-gray-700 mt-2">Jeremy Marsh is currently focused on writing and will share updates from the desk soon.</p>
+                    <a href="#contact-full" class="text-link mt-4 block">Subscribe for Updates</a>
+                </div>
+
+                <div class="text-center pt-12">
+                    <a href="#blog-full" class="btn-primary text-center inline-block min-w-[200px]">View Archive</a>
+                </div>
+            </div>
+
+        </section> <footer id="contact-footer" class="page bg-gray-900 text-primary-bg py-20 md:py-24 mt-20 md:mt-0 px-4 md:px-12 -mx-4 md:-mx-12">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-12 border-b border-gray-700 pb-12 mb-8">
+                    <div class="space-y-6">
+                        <a href="#home" class="hover:opacity-80 transition duration-200" aria-label="Jeremy Marsh Home">
+                            <img src="images/logos/jmarshmedia-logo.svg" alt="J Marsh Media Logo" class="h-8 w-auto mb-4 invert min-h-[32px]">
+                        </a>
+
+                        <p class="text-lg font-medium">Business / Rights / Media:</p>
+                        <a href="mailto:jeremy.marsh.author@gmail.com" class="text-xl text-accent hover:text-white transition duration-200 block">jeremy.marsh.author@gmail.com</a>
+                        <p class="text-sm text-gray-400 pt-4">Representation: The Foundry Literary Agency (Mock)</p>
+                    </div>
+
+                    <div class="space-y-6">
+                        <h3 class="text-2xl font-display mb-4">Connect</h3>
+                        <div class="flex space-x-6">
+                            <a href="https://twitter.com/jeremymarsh" target="_blank" class="hover:text-accent transition duration-200" aria-label="Jeremy Marsh on X (Twitter)">
+                                <i data-lucide="twitter" class="w-6 h-6"></i>
+                            </a>
+                            <a href="https://instagram.com/jeremymarsh" target="_blank" class="hover:text-accent transition duration-200" aria-label="Jeremy Marsh on Instagram">
+                                <i data-lucide="instagram" class="w-6 h-6"></i>
+                            </a>
+                            <a href="https://goodreads.com/jeremymarsh" target="_blank" class="hover:text-accent transition duration-200" aria-label="Jeremy Marsh on Goodreads">
+                                <i data-lucide="book" class="w-6 h-6"></i>
+                            </a>
+                            <a href="https://facebook.com/jeremymarshauthor" target="_blank" class="hover:text-accent transition duration-200" aria-label="Jeremy Marsh on Facebook">
+                                <i data-lucide="facebook" class="w-6 h-6"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
 
-                <div class="md:col-span-2 space-y-8">
-                    <h1 class="text-5xl font-display text-text-dark">${book.title}</h1>
-                    <h2 class="text-3xl font-display text-gray-600">${book.subtitle}</h2>
-
-                    <div class="space-y-6">
-                        <h3 class="section-label uppercase tracking-widest font-medium text-accent">Synopsis</h3>
-                        <p class="text-xl leading-relaxed text-gray-700">${book.synopsis}</p>
+                <div class="text-sm text-gray-500 flex justify-between flex-col sm:flex-row space-y-2 sm:space-y-0">
+                    <p>Copyright &copy; 2025 Jeremy Marsh & J. Marsh Media. All Rights Reserved.</p>
+                    <div class="space-x-4">
+                        <a href="/privacy" class="hover:text-white">Privacy Policy</a>
+                        <span class="text-gray-600">|</span>
+                        <a href="/terms" class="hover:text-white">Terms of Use</a>
                     </div>
+                </div>
+            </div>
+        </footer>
 
-                    <div class="space-y-6 pt-6 border-t border-gray-300">
-                        <h3 class="section-label uppercase tracking-widest font-medium text-accent">Praise & Reviews</h3>
-                        ${book.reviews.length > 0 ? book.reviews.map(quote => `
-                            <blockquote class="border-l-4 border-accent pl-4 text-lg italic text-gray-800">
-                                ${quote}
-                            </blockquote>
-                        `).join('') : `<p class="text-lg italic text-gray-500">Reviews coming soon!</p>`}
+
+        <section id="book-detail" class="page pt-24 pb-32">
+            </section>
+
+        <section id="books" class="page pt-24 pb-32">
+            <h2 class="text-4xl font-display mb-4">Full Body of Work</h2>
+            <p class="text-xl leading-relaxed text-gray-700 mb-12">Discover all published titles, from new releases to backlist favorites.</p>
+
+            <div id="books-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                </div>
+        </section>
+
+        <section id="about-full" class="page pt-24 pb-32 grid lg:grid-cols-4 gap-12">
+            <div class="lg:col-span-3 space-y-12">
+                <div class="space-y-6">
+                    <h2 class="section-label uppercase tracking-widest font-medium text-accent">Official Biography</h2>
+                    <h3 class="text-3xl font-display">Jeremy Marsh: A Writer of Resonance and Place</h3>
+                    <p class="text-xl leading-relaxed text-gray-700">
+                        Jeremy Marsh is an American novelist whose work blends emotional truth with cinematic grit. His stories cut to the bone, where survival meets morality and silence carries more weight than confession. Drawing from small-town realism and big-screen pacing, he writes fiction about the price of redemption, the burden of guilt, and the fragile hope that lingers after the storm.
+                    </p>
+                    <p class="text-xl leading-relaxed text-gray-700">
+                        His debut novel, The Portal (2025), is a tech-thriller that established his voice, and he is widely praised for his confident prose and the emotional depth he brings to complex human dynamics.
+                    </p>
+                </div>
+
+                <div class="space-y-6 pt-6 border-t border-gray-300">
+                    <h2 class="section-label uppercase tracking-widest font-medium text-accent">My Story</h2>
+                    <h3 class="text-3xl font-display">Why I Write</h3>
+                    <p class="text-xl leading-relaxed text-gray-700 italic">
+                        "I build characters, put them under pressure, and watch what they do. That’s why I write. I’m not chasing perfect people or clean morals. I want the moment where someone has to choose between survival and who they thought they were. I care about consequence, about what it really costs to keep going after you’ve already screwed something up. The story comes from that: take a person, break the comfort, make it real, and see if they can live with what they did."
+                    </p>
+                    <p class="text-xl leading-relaxed text-gray-700">
+                        — Jeremy Marsh
+                    </p>
+                </div>
+            </div>
+
+            <div class="lg:col-span-1 space-y-8 bg-secondary-bg p-6 rounded-lg shadow-inner">
+                <h3 class="text-xl font-display border-b border-gray-400 pb-3">Press & Media Resources</h3>
+                <div class="space-y-4 text-lg">
+                    <p class="font-medium">Download Assets:</p>
+                    <a href="/assets/presskit-full.zip" class="text-link flex items-center space-x-2" download>
+                        <i data-lucide="download" class="w-5 h-5"></i>
+                        <span>Full Press Kit Bundle (ZIP)</span>
+                    </a>
+                    <a href="/assets/headshot-hires.webp" class="text-link flex items-center space-x-2" download>
+                        <i data-lucide="download" class="w-5 h-5"></i>
+                        <span>Approved Hi-Res Headshots</span>
+                    </a>
+                    <a href="/assets/cover-silent-shore.webp" class="text-link flex items-center space-x-2" download>
+                        <i data-lucide="download" class="w-5 h-5"></i>
+                        <span>Book Cover (High-Res)</span>
+                    </a>
+                </div>
+                <div class="pt-4 border-t border-gray-400">
+                    <a href="#contact-full" class="btn-primary w-full text-center">Inquire for Speaking</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="appearances-full" class="page pt-24 pb-32">
+            <h2 class="text-4xl font-display mb-4">Media Archive & Highlights</h2>
+            <p class="text-xl leading-relaxed text-gray-700 mb-12">This page will host all upcoming event dates and an archive of past interviews. Please check back soon for updates!</p>
+
+            <div class="p-12 rounded-lg text-center bg-secondary-bg border border-gray-300">
+                <i data-lucide="mic-off" class="w-10 h-10 text-accent mx-auto mb-4"></i>
+                <h3 class="text-3xl font-display mb-2">No Public Activity to Report Yet</h3>
+                <p class="text-lg text-gray-700">The media archive is currently empty as Jeremy Marsh is focused on completing his next book. Please check back after the launch of *The Portal* for interviews and event dates.</p>
+                <a href="#contact-full" class="btn-primary inline-block mt-8">Inquire for Media/Speaking</a>
+            </div>
+        </section>
+
+        <section id="blog-full" class="page pt-24 pb-32">
+            <h2 class="text-4xl font-display mb-4">The Complete Blog Archive</h2>
+            <p class="text-xl leading-relaxed text-gray-700 mb-12">Essays, updates, and deep dives into the writing life and the themes that shape the work.</p>
+
+            <div id="blog-list" class="space-y-10">
+                </div>
+            
+            <div class="mt-12 p-8 rounded-lg text-center bg-secondary-bg border border-gray-300">
+                <i data-lucide="book-open-text" class="w-8 h-8 text-accent mx-auto mb-3"></i>
+                <p class="text-xl font-display text-text-dark">The Archive is Empty</p>
+                <p class="text-base text-gray-700 mt-2">Check back soon for new posts from the author's desk.</p>
+            </div>
+        </section>
+
+        <section id="blog-post-detail" class="page pt-24 pb-32">
+            </section>
+
+        <section id="contact-full" class="page pt-24 pb-32">
+            <h2 class="text-4xl font-display mb-4">Get In Touch</h2>
+            <p class="text-xl leading-relaxed text-gray-700 mb-12">Channeling your message to the right place ensures a faster response. Please select your inquiry type below.</p>
+
+            <div class="grid lg:grid-cols-2 gap-12">
+                <div class="bg-white p-8 rounded-lg shadow-xl border-t-4 border-accent">
+                    <h3 class="text-2xl font-display mb-4">For Readers & General Inquiries</h3>
+                    <form action="https://your-serverless-function.com/submit" method="POST" class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                            <input type="text" id="name" name="name" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-accent focus:border-accent">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                            <input type="email" id="email" name="email" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-accent focus:border-accent">
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                            <textarea id="message" name="message" rows="5" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-accent focus:border-accent"></textarea>
+                        </div>
+                        <input type="text" name="hp_website" id="hp_website" style="display:none;" tabindex="-1" autocomplete="off">
+                        <button type="submit" class="btn-primary w-full">Send Message</button>
+                    </form>
+                </div>
+
+                <div class="bg-secondary-bg p-8 rounded-lg shadow-xl">
+                    <h3 class="text-2xl font-display mb-4">Media, Rights, & Speaking</h3>
+                    <p class="text-xl leading-relaxed text-gray-700 mb-4">
+                        For all professional inquiries, including media interviews, book rights, foreign translation, and speaking engagements, please use the direct email below.
+                    </p>
+                    <a href="mailto:jeremy.marsh.author@gmail.com" class="text-2xl font-semibold text-accent hover:text-text-dark transition duration-200 block mt-6">
+                        jeremy.marsh.author@gmail.com
+                    </a>
+                    <div class="mt-8 pt-4 border-t border-gray-400">
+                        <p class="text-base text-gray-600">
+                            Please note: General reader mail sent to this address may not receive a reply. We encourage readers to use the form to ensure a response.
+                        </p>
                     </div>
-                    <a href="#books" class="btn-secondary inline-block mt-8">← Back to All Books</a>
                 </div>
             </div>
-        `;
-    };
+        </section>
 
-    const renderBlogIndex = () => {
-        if (blogList.children.length > 0) return;
-        console.log('Rendering Blog Index...');
+    </main>
 
-        blogList.innerHTML = BLOG_DATA.map(post => `
-            <div class="blog-entry border-b border-gray-300 pb-8">
-                <p class="text-sm font-sans font-medium text-gray-500 section-label">${post.date}</p>
-                <a href="#blog/${post.slug}" class="text-3xl font-display text-text-dark hover:text-accent transition duration-200 mt-1 mb-3 block">${post.title}</a>
-                <p class="text-xl leading-relaxed text-gray-700">${post.excerpt}</p>
-                <a href="#blog/${post.slug}" class="text-link font-medium mt-3 block">Read more &rarr;</a>
-            </div>
-        `).join('');
-    };
+    <script>
+        // ==============================================
+        // START: DATA MOCKUP (Simulating Headless CMS)
+        // ==============================================
 
-    const showBlogPostDetail = (slug) => {
-        const post = BLOG_DATA.find(p => p.slug === slug);
-        if (!post) {
-            // Standard "Post Not Found" message handling...
-            blogPostDetailSection.innerHTML = '<div class="text-center py-20"><h2 class="text-4xl font-display">Post Not Found</h2><p class="text-lg mt-4">The requested blog post could not be located.</p><a href="#blog-full" class="text-link mt-4 block">Return to Blog Archive</a></div>';
-            return;
-        }
-
-        // Standard rendering logic...
-        blogPostDetailSection.innerHTML = `
-            <div class="max-w-4xl mx-auto">
-                <a href="#blog-full" class="text-link mb-4 block">← Back to Archive</a>
-                <h1 class="text-5xl font-display text-text-dark leading-tight mb-4">${post.title}</h1>
-                <p class="text-lg font-sans font-medium text-gray-500 mb-8">${post.date}</p>
-
-                <div class="post-body-content text-xl leading-relaxed text-gray-800 max-w-3xl mx-auto">
-                    ${post.body}
-                </div>
-
-                <div class="mt-16 pt-8 border-t border-gray-300">
-                    <a href="#blog-full" class="btn-secondary inline-block">Read More Posts</a>
-                </div>
-            </div>
-        `;
-    };
-
-
-    // --- 4. Page Routing (Hash-based) - The Core Logic ---
-
-    const showSection = (hash) => {
-        // --- DEBUG CHECK 1: Confirm the router function runs ---
-        console.log(`Router triggered. Hash received: "${hash}"`);
-        
-        // 1. Close mobile drawer on any navigation event
-        toggleDrawer(false);
-
-        // 2. Determine the target section ID
-        let path = hash.substring(1); // Remove '#'
-        let targetId = path || 'home'; // Default to 'home'
-        let dynamicLoadNeeded = false;
-        let isAnchorScroll = false;
-
-        // Handle dynamic routes (books/slug and blog/slug)
-        if (path.startsWith('books/')) {
-            showBookDetail(path.substring(6));
-            targetId = 'book-detail';
-            dynamicLoadNeeded = true;
-        } else if (path.startsWith('blog/')) {
-            showBlogPostDetail(path.substring(5));
-            targetId = 'blog-post-detail';
-            dynamicLoadNeeded = true;
-        } else if (path.includes('-preview') || path.includes('-full') || path.includes('featured-book')) {
-            // Treat internal links on the home page as anchors for smooth scroll
-            isAnchorScroll = true;
-        }
-
-        // 3. Toggle page visibility
-        pages.forEach(page => {
-            const isActive = page.id === targetId;
-            page.classList.toggle('active', isActive);
-            page.setAttribute('aria-hidden', !isActive);
-
-            // 4. Render static dynamic pages only when activating
-            if (isActive && !dynamicLoadNeeded) {
-                if (targetId === 'books') renderBooksIndex();
-                if (targetId === 'blog-full') renderBlogIndex();
+        const BOOKS_DATA = [
+            {
+                slug: 'the-portal',
+                title: 'The Portal',
+                subtitle: 'A Novel',
+                year: 2025,
+                hook: 'A gripping tech-thriller of corporate surveillance, AR, and a man trying to buy back his past.',
+                coverUrl: 'images/books/Portal Digital Cover.svg', 
+                synopsis: "Jacob Hastings thought he could escape the past, but his world is shattering. He returns to the towering corporate structure of Hastings Tower, where augmented reality, invasive AI, and fractured memory blur into a terrifying reality. In this atmospheric corporate drama, Marsh explores the morally fraught limits of technology and one man's attempt to use a surveillance-driven system to literally buy back a life he broke. A stunning debut that redefines the modern tech-thriller.",
+                reviews: [],
+                purchaseLinks: {
+                    "Print (Amazon)": 'https://buy.link/portal-print',
+                    "Kindle (Pre-Order)": 'https://a.co/d/frCVW2R',
+                    "Audiobook": 'https://buy.link/portal-audio'
+                }
             }
+        ];
+
+        // BLOG_DATA is empty as requested
+        const BLOG_DATA = [];
+
+        // ==============================================
+        // END: DATA MOCKUP
+        // ==============================================
+
+        // ==============================================
+        // START: JAVASCRIPT LOGIC (WITH DEBUGGING)
+        // ==============================================
+
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOM Content Loaded. Initializing SPA router.');
+            
+            // --- DOM ELEMENTS (Cached for performance) ---
+            const header = document.getElementById('sticky-header');
+            const drawer = document.getElementById('nav-drawer');
+            const openDrawerBtn = document.getElementById('open-drawer');
+            const closeDrawerBtn = document.getElementById('close-drawer');
+            const appBody = document.getElementById('app-body');
+            const pages = document.querySelectorAll('.page');
+            const booksGrid = document.getElementById('books-grid');
+            const blogList = document.getElementById('blog-list');
+            const bookDetailSection = document.getElementById('book-detail');
+            const blogPostDetailSection = document.getElementById('blog-post-detail');
+
+
+            // --- 1. Sticky Header Behavior ---
+            const handleScroll = () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('bg-primary-bg', 'shadow-md');
+                } else {
+                    header.classList.remove('bg-primary-bg', 'shadow-md');
+                }
+            };
+            window.addEventListener('scroll', handleScroll);
+            handleScroll(); // Check on load
+
+
+            // --- 2. Mobile Nav Drawer ---
+            const toggleDrawer = (open) => {
+                if (open) {
+                    drawer.classList.add('open');
+                    drawer.setAttribute('aria-hidden', 'false');
+                    appBody.style.overflow = 'hidden';
+                    console.log('Mobile Drawer Opened');
+                } else {
+                    drawer.classList.remove('open');
+                    drawer.setAttribute('aria-hidden', 'true');
+                    appBody.style.overflow = '';
+                    console.log('Mobile Drawer Closed');
+                }
+            }
+
+            openDrawerBtn.addEventListener('click', () => toggleDrawer(true));
+            closeDrawerBtn.addEventListener('click', () => toggleDrawer(false));
+
+
+            // --- 3. Dynamic Content Rendering Functions (Internal) ---
+
+            const renderBooksIndex = () => {
+                // Check if the grid is empty. If it has content, don't re-render.
+                if (booksGrid.children.length > 0) return;
+                console.log('Rendering Books Index...');
+                
+                booksGrid.innerHTML = BOOKS_DATA.map(book => `
+                    <div class="book-card bg-white rounded-lg shadow-xl overflow-hidden cursor-pointer transition duration-300 hover:shadow-2xl border border-gray-200" onclick="window.location.hash = 'books/${book.slug}'">
+                        <img src="${book.coverUrl}" alt="Cover of ${book.title}" class="w-full h-auto object-cover">
+                        <div class="p-4 space-y-2">
+                            <h4 class="text-xl font-display text-text-dark">${book.title}</h4>
+                            <p class="text-sm text-gray-600 italic">${book.hook}</p>
+                            <a href="#books/${book.slug}" class="text-link font-medium pt-2 block">Details &rarr;</a>
+                        </div>
+                    </div>
+                `).join('');
+            };
+
+            const showBookDetail = (slug) => {
+                const book = BOOKS_DATA.find(b => b.slug === slug);
+                if (!book) {
+                    bookDetailSection.innerHTML = '<div class="text-center py-20"><h2 class="text-4xl font-display">Book Not Found</h2><p class="text-lg mt-4">The requested book could not be located.</p><a href="#books" class="text-link mt-4 block">Return to Books Index</a></div>';
+                    return;
+                }
+
+                bookDetailSection.innerHTML = `
+                    <div class="grid md:grid-cols-3 gap-12">
+                        <div class="md:col-span-1 space-y-6">
+                            <img src="${book.coverUrl}" alt="Large cover for ${book.title}" class="w-full h-auto object-cover rounded-lg shadow-2xl">
+                            <p class="section-label uppercase tracking-widest font-medium text-gray-500">${book.year}</p>
+                            <div class="pt-4 space-y-2">
+                                <h4 class="text-2xl font-display mb-3">Purchase Options</h4>
+                                <div class="flex flex-col space-y-3">
+                                    ${Object.entries(book.purchaseLinks).map(([format, link]) => `
+                                        <a href="${link}" target="_blank" class="btn-primary min-h-[40px] text-center">${format} Buy Link</a>
+                                    `).join('')}
+                                    <a href="downloads/book-samples/the-portal-sample.pdf" download class="btn-secondary min-h-[40px] text-center">Read a Sample</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="md:col-span-2 space-y-8">
+                            <h1 class="text-5xl font-display text-text-dark">${book.title}</h1>
+                            <h2 class="text-3xl font-display text-gray-600">${book.subtitle}</h2>
+
+                            <div class="space-y-6">
+                                <h3 class="section-label uppercase tracking-widest font-medium text-accent">Synopsis</h3>
+                                <p class="text-xl leading-relaxed text-gray-700">${book.synopsis}</p>
+                            </div>
+
+                            <div class="space-y-6 pt-6 border-t border-gray-300">
+                                <h3 class="section-label uppercase tracking-widest font-medium text-accent">Praise & Reviews</h3>
+                                ${book.reviews.length > 0 ? book.reviews.map(quote => `
+                                    <blockquote class="border-l-4 border-accent pl-4 text-lg italic text-gray-800">
+                                        ${quote}
+                                    </blockquote>
+                                `).join('') : `<p class="text-lg italic text-gray-500">Reviews coming soon!</p>`}
+                            </div>
+                            <a href="#books" class="btn-secondary inline-block mt-8">← Back to All Books</a>
+                        </div>
+                    </div>
+                `;
+            };
+
+            const renderBlogIndex = () => {
+                // The main blog index relies on BLOG_DATA, which is now empty.
+                if (blogList.children.length > 0) return;
+                console.log('Rendering Blog Index...');
+
+                // This will render an empty string since BLOG_DATA is []
+                blogList.innerHTML = BLOG_DATA.map(post => `
+                    <div class="blog-entry border-b border-gray-300 pb-8">
+                        <p class="text-sm font-sans font-medium text-gray-500 section-label">${post.date}</p>
+                        <a href="#blog/${post.slug}" class="text-3xl font-display text-text-dark hover:text-accent transition duration-200 mt-1 mb-3 block">${post.title}</a>
+                        <p class="text-xl leading-relaxed text-gray-700">${post.excerpt}</p>
+                        <a href="#blog/${post.slug}" class="text-link font-medium mt-3 block">Read more &rarr;</a>
+                    </div>
+                `).join('');
+            };
+
+            const showBlogPostDetail = (slug) => {
+                const post = BLOG_DATA.find(p => p.slug === slug);
+                if (!post) {
+                    blogPostDetailSection.innerHTML = '<div class="text-center py-20"><h2 class="text-4xl font-display">Post Not Found</h2><p class="text-lg mt-4">The requested blog post could not be located.</p><a href="#blog-full" class="text-link mt-4 block">Return to Blog Archive</a></div>';
+                    return;
+                }
+
+                blogPostDetailSection.innerHTML = `
+                    <div class="max-w-4xl mx-auto">
+                        <a href="#blog-full" class="text-link mb-4 block">← Back to Archive</a>
+                        <h1 class="text-5xl font-display text-text-dark leading-tight mb-4">${post.title}</h1>
+                        <p class="text-lg font-sans font-medium text-gray-500 mb-8">${post.date}</p>
+
+                        <div class="post-body-content text-xl leading-relaxed text-gray-800 max-w-3xl mx-auto">
+                            ${post.body}
+                        </div>
+
+                        <div class="mt-16 pt-8 border-t border-gray-300">
+                            <a href="#blog-full" class="btn-secondary inline-block">Read More Posts</a>
+                        </div>
+                    </div>
+                `;
+            };
+
+
+            // --- 4. Page Routing (Hash-based) - The Core Logic ---
+
+            const showSection = (hash) => {
+                // --- DEBUG CHECK 1: Confirm the router function runs ---
+                console.log(`Router triggered. Hash received: "${hash}"`);
+                
+                // 1. Close mobile drawer on any navigation event
+                toggleDrawer(false);
+
+                // 2. Determine the target section ID
+                let path = hash.substring(1); // Remove '#'
+                let targetId = path || 'home'; // Default to 'home'
+
+                let dynamicLoadNeeded = false;
+                let isAnchorScroll = false;
+
+                // Handle dynamic routes (books/slug and blog/slug)
+                if (path.startsWith('books/')) {
+                    showBookDetail(path.substring(6));
+                    targetId = 'book-detail';
+                    dynamicLoadNeeded = true;
+                } else if (path.startsWith('blog/')) {
+                    showBlogPostDetail(path.substring(5));
+                    targetId = 'blog-post-detail';
+                    dynamicLoadNeeded = true;
+                } else if (path.includes('-preview') || path.includes('-full') || path.includes('featured-book')) {
+                    // Treat internal links on the home page as anchors for smooth scroll
+                    isAnchorScroll = true;
+                }
+
+                // 3. Toggle page visibility
+                pages.forEach(page => {
+                    const isActive = page.id === targetId;
+                    page.classList.toggle('active', isActive);
+                    page.setAttribute('aria-hidden', !isActive);
+
+                    // 4. Render static dynamic pages only when activating
+                    if (isActive && !dynamicLoadNeeded) {
+                        if (targetId === 'books') renderBooksIndex();
+                        if (targetId === 'blog-full') renderBlogIndex();
+                    }
+                });
+                
+                // 5. Handle scrolling logic
+                if (isAnchorScroll || targetId === 'home') {
+                    const anchor = hash.substring(hash.indexOf('#') + 1);
+                    const el = document.getElementById(anchor);
+                    if (el) {
+                        console.log(`Scrolling to anchor: #${anchor}`);
+                        // Use a slight delay to ensure the page state is updated
+                        setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+                    }
+                } else {
+                    console.log(`Switching to page: #${targetId}. Scrolling to top.`);
+                    window.scrollTo(0, 0);
+                }
+            };
+
+
+            // --- 5. Initialization ---
+
+            // Listener for hash changes (used for navigation and back/forward buttons)
+            window.addEventListener('hashchange', () => {
+                console.log(`Event: hashchange fired. URL hash is now: ${window.location.hash}`);
+                showSection(window.location.hash);
+            });
+
+            // Run initial routing logic
+            showSection(window.location.hash);
+
+            // Replace Lucide icons after all content is rendered
+            lucide.createIcons();
         });
-        
-        // 5. Handle scrolling logic
-        if (isAnchorScroll || targetId === 'home') {
-            const anchor = hash.substring(hash.indexOf('#') + 1);
-            const el = document.getElementById(anchor);
-            if (el) {
-                console.log(`Scrolling to anchor: #${anchor}`);
-                // Use a slight delay to ensure the page state is updated
-                setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
-            }
-        } else {
-            console.log(`Switching to page: #${targetId}. Scrolling to top.`);
-            window.scrollTo(0, 0);
-        }
-    };
-
-
-    // --- 5. Initialization ---
-
-    // Listener for hash changes (used for navigation and back/forward buttons)
-    // --- DEBUG CHECK 2: Confirm this listener is registered ---
-    window.addEventListener('hashchange', () => {
-        console.log(`Event: hashchange fired. URL hash is now: ${window.location.hash}`);
-        showSection(window.location.hash);
-    });
-
-    // Run initial routing logic
-    showSection(window.location.hash);
-
-    // Replace Lucide icons after all content is rendered
-    lucide.createIcons();
-});
-// ==============================================
-// END: JAVASCRIPT LOGIC (WITH DEBUGGING)
-// ==============================================
+    </script>
+</body>
+</html>
