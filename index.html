@@ -7,70 +7,57 @@
     <title>J. Marsh Media</title>
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    
+    <!-- OG Share Image (1200x630 JPG, <=300KB) -->
+    <meta property="og:title" content="J-Marsh Media: Author-Driven. Creator-Owned. Audience-Powered."/>
+    <meta property="og:description" content="Representing the next generation of authors and creators in narrative fiction, music, and media."/>
+    <meta property="og:image" content="/assets/og-image-1200x630.jpg"/>
+
+    <script src="https://unpkg.com/lite-youtube-embed@0.2.0/src/lite-youtube.js"></script>
 
     <style>
-        /*
-         * Base styles inspired by Apple & Videinfra
-         */
-        html {
-            /* Enables smooth scrolling for in-page links (e.g., navigation) */
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
         
-        body {
-            /* Sets the Google Font for the whole page and ensures clean text rendering */
-            font-family: 'Inter', sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+        body { 
+            font-family: 'Inter', sans-serif; 
+            -webkit-font-smoothing: antialiased; 
+            -moz-osx-font-smoothing: grayscale; 
         }
 
-        /*
-         * Header: Apple-style translucent sticky nav
-         */
-        .header-nav {
-            /* Defines the translucent, blurred background effect */
-            background-color: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        .header-nav { 
+            background-color: rgba(255, 255, 255, 0.8); 
+            backdrop-filter: blur(12px); 
+            -webkit-backdrop-filter: blur(12px); 
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05); 
         }
 
-        .nav-link {
-            /* Defines link color and hover transition */
-            color: #333;
-            transition: color 0.3s;
+        .nav-link { 
+            color: #333; 
+            transition: color 0.3s; 
         }
-        .nav-link:hover {
-            color: #000;
+        .nav-link:hover { 
+            color: #000; 
         }
 
-        /*
-         * Typography: Large, bold headings
-         */
         .hero-headline {
-            /* Responsive, large font size for the main headline */
-            font-size: clamp(3rem, 10vw, 8rem);
-            line-height: 1;
-            font-weight: 800;
-            letter-spacing: -0.05em;
+            font-size: clamp(3rem, 10vw, 8rem); 
+            line-height: 1; 
+            font-weight: 800; 
+            letter-spacing: -0.05em; 
         }
         
         .section-headline {
-            /* Responsive font size for section headings */
-            font-size: clamp(2.5rem, 8vw, 5rem);
-            line-height: 1.1;
-            font-weight: 700;
-            letter-spacing: -0.04em;
+            font-size: clamp(2.5rem, 8vw, 5rem); 
+            line-height: 1.1; 
+            font-weight: 700; 
+            letter-spacing: -0.04em; 
         }
 
-        /*
-         * Scroll Animations: Smooth fade/slide-in
-         */
         .scroll-reveal {
             opacity: 0;
             transform: translateY(40px);
-            /* Consolidated transition properties */
             transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
@@ -79,27 +66,33 @@
             transform: translateY(0);
         }
 
-        /*
-         * Project Grid: Clean, simple hover effect
-         */
         .project-card {
             background-color: #f5f5f7;
             border-radius: 24px;
             overflow: hidden;
-            /* Defines the hover transition for the card container */
-            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                        box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
         .project-card:hover {
             transform: translateY(-8px);
             box-shadow: 0 20px 30px rgba(0, 0, 0, 0.07);
         }
         .project-card img {
-            /* Defines the hover transition for the image */
             transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
         .project-card:hover img {
             transform: scale(1.05);
+        }
+
+        .aspect-4\/5 { padding-bottom: 125%; height: 0; position: relative; }
+        .aspect-4\/5 img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+
+        lite-youtube {
+            display: block;
+            position: relative;
+            cursor: pointer;
+            border-radius: 16px;
+            overflow: hidden;
+            background-color: #000;
         }
 
     </style>
@@ -109,15 +102,14 @@
     <header class="header-nav sticky top-0 z-50">
         <nav class="container mx-auto flex justify-between items-center p-4 md:px-6">
             <a href="#home">
-                <img src="images/logos/jmarshmedia-logo.svg" alt="J-Marsh Media Logo" class="h-8 w-auto" onerror="this.outerHTML='<span class=\'text-xl font-bold\'>J-Marsh Media</span>'">
+                <span class="text-xl font-bold">J-Marsh Media</span>
             </a>
-            <div class="hidden md:flex space-x-8 text-sm font-medium">
+            <div class="hidden md:flex space-x-8 text-sm font-semibold">
+                <a href="#spotlight" class="nav-link">Author Spotlight</a>
                 <a href="#talent" class="nav-link">Talent</a>
+                <a href="#listen-watch" class="nav-link">Listen & Watch</a>
                 <a href="#story" class="nav-link">Our Story</a>
-                <a href="#media" class="nav-link">Media</a>
-                <a href="#press" class="nav-link">Press Room</a>
                 <a href="#social" class="nav-link">Social</a>
-                <a href="#store" class="nav-link">The Store</a>
                 <a href="#contact" class="nav-link">Contact</a>
             </div>
             <button id="mobile-menu-btn" class="md:hidden text-black">
@@ -125,155 +117,203 @@
             </button>
         </nav>
         <div id="mobile-menu" class="hidden md:hidden fixed inset-0 bg-white/90 backdrop-blur-md z-40 flex flex-col items-center justify-center space-y-8">
+            <a href="#spotlight" class="nav-link text-2xl font-medium">Author Spotlight</a>
             <a href="#talent" class="nav-link text-2xl font-medium">Talent</a>
+            <a href="#listen-watch" class="nav-link text-2xl font-medium">Listen & Watch</a>
             <a href="#story" class="nav-link text-2xl font-medium">Our Story</a>
-            <a href="#media" class="nav-link text-2xl font-medium">Media</a>
-            <a href="#press" class="nav-link text-2xl font-medium">Press Room</a>
             <a href="#social" class="nav-link text-2xl font-medium">Social</a>
-            <a href="#store" class="nav-link text-2xl font-medium">The Store</a>
             <a href="#contact" class="nav-link text-2xl font-medium">Contact</a>
         </div>
     </header>
 
     <main>
-        <section id="home" class="min-h-screen flex items-center justify-center text-center px-4 py-24">
+        <!-- HERO SECTION -->
+        <section id="home" class="min-h-screen flex flex-col items-center justify-center text-center px-4 py-24 bg-gray-50">
             <div class="scroll-reveal">
-                <h1 class="hero-headline text-black">
-                    Control the Signal.
-                </h1>
-                <p class="text-lg md:text-xl max-w-2xl mx-auto mt-6 text-gray-700">
+                <h1 class="hero-headline text-black max-w-5xl mx-auto">
                     Author-driven. Creator-owned. Audience-powered.
+                </h1>
+                <p class="text-xl md:text-2xl max-w-2xl mx-auto mt-6 text-gray-700 font-medium">
+                    The new narrative model.
                 </p>
+                
+                <div class="flex flex-col sm:flex-row justify-center gap-4 mt-10">
+                    <a href="#listen-watch" id="listen-watch-cta" class="bg-black text-white font-semibold py-3 px-8 rounded-lg shadow-lg transition-all duration-300 hover:scale-[1.03] hover:bg-gray-800">
+                        LISTEN & WATCH
+                    </a>
+                    <a href="#spotlight" class="bg-transparent border border-black text-black font-semibold py-3 px-8 rounded-lg transition-all duration-300 hover:scale-[1.03] hover:bg-gray-100">
+                        Author Spotlight
+                    </a>
+                </div>
             </div>
         </section>
 
+        <!-- AUTHOR SPOTLIGHT -->
+        <section id="spotlight" class="py-24 md:py-40 bg-white">
+            <div class="container mx-auto px-4 max-w-6xl">
+                <div class="max-w-3xl mx-auto text-center scroll-reveal mb-16 md:mb-24">
+                    <h2 class="section-headline">
+                        Featured Author.
+                    </h2>
+                </div>
+                <div class="flex flex-col md:flex-row gap-12 items-center md:items-start">
+                    
+                    <div class="w-full md:w-5/12 mx-auto md:mx-0 scroll-reveal">
+                        <div class="rounded-3xl shadow-xl overflow-hidden aspect-4/5">
+                            <picture>
+                                <source srcset="/assets/headshots/jeremy-marsh-headshot.webp" type="image/webp">
+                                <img src="/images/headshots/jeremy-marsh-headshot.jpg" alt="Jeremy Marsh Portrait" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://placehold.co/800x1000/000000/ffffff?text=Jeremy+Marsh'">
+                            </picture>
+                        </div>
+                    </div>
+
+                    <div class="w-full md:w-7/12 mt-8 md:mt-0">
+                        <div class="scroll-reveal" data-stagger-group="spotlight">
+                            <h3 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">Jeremy Marsh</h3>
+                            <p class="text-xl text-gray-700 mb-8">Author, Creator, Songwriter/Music Producer</p>
+                            
+                            <p class="text-lg mb-8">
+                                A relentless storyteller working across multiple disciplines, Jeremy Marsh is the engine behind J-Marsh Media. His work focuses on themes of grief, hope, and the human search for identity.
+                            </p>
+
+                            <div class="grid grid-cols-3 gap-4 text-center border-y border-gray-200 py-6 mb-10">
+                                <div>
+                                    <p class="text-2xl font-extrabold">2025</p>
+                                    <p class="text-sm text-gray-500">Debut Novel</p>
+                                </div>
+                                <div>
+                                    <p class="text-2xl font-extrabold">Songs</p>
+                                    <p class="text-sm text-gray-500">Modern Americana</p>
+                                </div>
+                                <div>
+                                    <p class="text-2xl font-extrabold">Themes</p>
+                                    <p class="text-sm text-gray-500">Grief • Loyalty • Grace</p>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-wrap gap-4">
+                                <a href="https://www.youtube.com/@theMidnight_Frequency" target="_blank" rel="noopener noreferrer" class="bg-black text-white font-semibold py-3 px-6 rounded-full transition-transform hover:scale-105 hover:bg-gray-800 text-sm">
+                                    <span class="inline-block align-middle mr-2">
+                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-1.332-6.6-1.332-10.204 0C5.811 4.516 3.011 7.217 3.011 10.5v3c0 3.283 2.8 5.984 6.4 7.316 3.604 1.332 6.6 1.332 10.204 0 3.604-1.332 6.4-4.033 6.4-7.316v-3c0-3.283-2.8-5.984-6.4-7.316zm-5.415 8.169l-4.148-2.394c-.161-.093-.36-.093-.521 0-.16.093-.266.26-.266.447v4.787c0 .187.106.354.266.447.161.093.36.093.521 0l4.148-2.394c.16-.093.266-.26.266-.447s-.106-.354-.266-.447z"/></svg>
+                                    </span>
+                                    YouTube Channel
+                                </a>
+                                <a href="/press/jeremy-marsh-press-kit.pdf" target="_blank" class="bg-gray-100 text-black font-semibold py-3 px-6 rounded-full transition-transform hover:scale-105 hover:bg-gray-200 text-sm">
+                                    Press Kit
+                                </a>
+                                <a href="#portal" class="bg-gray-100 text-black font-semibold py-3 px-6 rounded-full transition-transform hover:scale-105 hover:bg-gray-200 text-sm">
+                                    The Portal
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TALENT SECTION -->
         <section id="talent" class="bg-black text-white py-24 md:py-40">
             <div class="container mx-auto px-4">
                 <div class="max-w-3xl mx-auto text-center scroll-reveal mb-16 md:mb-24">
-                    <h2 class="section-headline">
-                        Talent.
+                    <h2 class="section-headline text-white">
+                        Talent Roster.
                     </h2>
                     <p class="text-lg md:text-xl max-w-xl mx-auto mt-6 text-gray-400">
-                        Representing the next generation of authors and creators.
+                        Our growing roster of creators who control their signal.
+                        <br>
+                        (Only authors with finished work are currently listed.)
                     </p>
                 </div>
                 
-                <div id="talent-grid" class="grid md:grid-cols-3 gap-8 md:gap-12">
-                    <div class="scroll-reveal" data-stagger-group="talent">
-                        <a href="https://jmarshmedia.com/jeremy-marsh.html" class="project-card">
-                            <img src="images/headshots/jeremy-marsh-headshot.jpg" alt="Jeremy Marsh" class="w-full h-auto aspect-square object-cover">
+                <div id="talent-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+                    <!-- The Jeremy Marsh card is intentionally placed in the center column visually -->
+                    <div class="md:col-start-2 scroll-reveal" data-stagger-group="talent">
+                        <a href="#spotlight" class="project-card">
+                            <div class="aspect-4/5">
+                                <picture>
+                                    <source srcset="/assets/headshots/jeremy-marsh-headshot.webp" type="image/webp">
+                                    <img src="/images/headshots/jeremy-marsh-headshot.jpg" alt="Jeremy Marsh" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://placehold.co/800x1000/f5f5f7/cccccc?text=Jeremy+Marsh'">
+                                </picture>
+                            </div>
                             <div class="p-8">
                                 <h3 class="text-xl font-bold text-black">Jeremy Marsh</h3>
-                                <p class="text-gray-600 mt-1">Author, Creator, Songwriter/Music Producer</p>
+                                <p class="text-gray-600 mt-1">Author, Creator</p>
                             </div>
                         </a>
                     </div>
-                    <div class="scroll-reveal" data-stagger-group="talent">
-                        <a href="#" class="project-card">
-                            <img src="https://placehold.co/800x800/f5f5f7/cccccc?text=Jacen+Michaels" alt="Jacen Michaels" class="w-full h-auto aspect-square object-cover">
+                    <!-- Future author cards will be added here -->
+                    <!-- Example of a future hidden card: 
+                    <div class="scroll-reveal hidden" data-stagger-group="talent">
+                        <a href="/authors/jacen-michaels/index.html" class="project-card">
+                             <div class="aspect-4/5">
+                                 <img src="https://placehold.co/800x1000/f5f5f7/cccccc?text=Jacen+Michaels" alt="Jacen Michaels" class="w-full h-full object-cover">
+                             </div>
                             <div class="p-8">
                                 <h3 class="text-xl font-bold text-black">Jacen Michaels</h3>
                                 <p class="text-gray-600 mt-1">Author</p>
                             </div>
                         </a>
                     </div>
-                    <div class="scroll-reveal" data-stagger-group="talent">
-                        <a href="https://jmarshmedia.com/redwood-daniels.html" class="project-card">
-                            <img src="images/headshots/redwood-daniels-headshot-a.jpg" alt="Redwood Daniels" class="w-full h-auto aspect-square object-cover">
-                            <div class="p-8">
-                                <h3 class="text-xl font-bold text-black">Redwood Daniels</h3>
-                                <p class="text-gray-600 mt-1">Author</p>
-                            </div>
+                    -->
+                </div>
+            </div>
+        </section>
+
+        <!-- LISTEN & WATCH SECTION -->
+        <section id="listen-watch" class="bg-white text-black py-24 md:py-40">
+            <div class="container mx-auto px-4 max-w-5xl">
+                <div class="max-w-3xl mx-auto text-center scroll-reveal mb-16 md:mb-24">
+                    <h2 class="section-headline">
+                        Listen & Watch.
+                    </h2>
+                    <p class="text-lg md:text-xl max-w-xl mx-auto mt-6 text-gray-700">
+                        Immediate proof of work from our creators.
+                    </p>
+                </div>
+                
+                <!-- FEATURED VIDEO: The Signal Podcast Teaser -->
+                <div class="scroll-reveal mb-20">
+                    <h3 class="text-3xl font-bold mb-4">The Signal Podcast</h3>
+                    <lite-youtube videoid="Z6Jy0S6wgLA" playlabel="Play The Signal Podcast Teaser" style="background-image: url('https://placehold.co/1920x1080/000000/cccccc?text=The+Signal+Podcast+Teaser');"></lite-youtube>
+                    <div class="text-center mt-6">
+                        <a href="http://www.youtube.com/@theMidnight_Frequency" target="_blank" rel="noopener noreferrer" class="inline-block bg-black text-white font-semibold py-3 px-8 rounded-full transition-transform hover:scale-105 hover:bg-gray-800">
+                            Watch on YouTube
                         </a>
                     </div>
-                    <div class="scroll-reveal" data-stagger-group="talent">
-                        <a href="#" class="project-card">
-                            <img src="https://placehold.co/800x800/f5f5f7/cccccc?text=Grayson+Holt" alt="Grayson Holt" class="w-full h-auto aspect-square object-cover">
-                            <div class="p-8">
-                                <h3 class="text-xl font-bold text-black">Grayson Holt</h3>
-                                <p class="text-gray-600 mt-1">Author</p>
+                </div>
+
+                <!-- PROJECT: THE PORTAL (BOOK TEASER) -->
+                <div id="portal" class="scroll-reveal bg-black text-white rounded-3xl p-8 md:p-12">
+                    <div class="flex flex-col md:flex-row gap-8 items-center">
+                        <div class="w-full md:w-1/3 flex-shrink-0">
+                            <div class="rounded-lg overflow-hidden shadow-2xl">
+                                <picture>
+                                    <source srcset="/images/books/Portal Digital Cover.svg" type="image/svg+xml">
+                                    <img src="/images/books/Portal Digital Cover.svg" alt="The Portal Book Cover" class="w-full h-auto" onerror="this.onerror=null; this.src='https://placehold.co/800x1000/f5f5f7/cccccc?text=The+Portal'">
+                                </picture>
                             </div>
-                        </a>
-                    </div>
-                    <div class="scroll-reveal" data-stagger-group="talent">
-                       <a href="tessa-resse.html" class="project-card">
-                            <img src="images/headshots/tess-resse-headshot.jpg" alt="Tessa Reese" class="w-full h-auto aspect-square object-cover">
-                            <div class="p-8">
-                                <h3 class="text-xl font-bold text-black">Tessa Reese</h3>
-                                <p class="text-gray-600 mt-1">Author and Blogger</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="scroll-reveal" data-stagger-group="talent">
-                        <a href="#" class="project-card">
-                            <img src="https://placehold.co/800x800/f5f5f7/cccccc?text=Reyna+Noire" alt="Reyna Noire" class="w-full h-auto aspect-square object-cover">
-                            <div class="p-8">
-                                <h3 class="text-xl font-bold text-black">Reyna Noire</h3>
-                                <p class="text-gray-600 mt-1">Author</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="scroll-reveal" data-stagger-group="talent">
-                        <a href="#" class="project-card">
-                            <img src="https://placehold.co/800x800/f5f5f7/cccccc?text=Ellis+Jordan" alt="Ellis Jordan" class="w-full h-auto aspect-square object-cover">
-                            <div class="p-8">
-                                <h3 class="text-xl font-bold text-black">Ellis Jordan</h3>
-                                <p class="text-gray-600 mt-1">Author</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="scroll-reveal" data-stagger-group="talent">
-                        <a href="#" class="project-card">
-                            <img src="https://placehold.co/800x800/f5f5f7/cccccc?text=Asha+Monroe" alt="Asha Monroe" class="w-full h-auto aspect-square object-cover">
-                            <div class="p-8">
-                                <h3 class="text-xl font-bold text-black">Asha Monroe</h3>
-                                <p class="text-gray-600 mt-1">Author</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="scroll-reveal" data-stagger-group="talent">
-                        <a href="#" class="project-card">
-                            <img src="https://placehold.co/800x800/f5f5f7/cccccc?text=Damon+Walker" alt="Damon Walker" class="w-full h-auto aspect-square object-cover">
-                            <div class="p-8">
-                                <h3 class="text-xl font-bold text-black">Damon Walker</h3>
-                                <p class="text-gray-600 mt-1">Author</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="scroll-reveal" data-stagger-group="talent">
-                        <a href="#" class="project-card">
-                            <img src="https://placehold.co/800x800/f5f5f7/cccccc?text=Reginald+Roberts" alt="Reginald Roberts" class="w-full h-auto aspect-square object-cover">
-                            <div class="p-8">
-                                <h3 class="text-xl font-bold text-black">Reginald Roberts</h3>
-                                <p class="text-gray-600 mt-1">Author</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="scroll-reveal" data-stagger-group="talent">
-                        <a href="#" class="project-card">
-                            <img src="https://placehold.co/800x800/f5f5f7/cccccc?text=Miles+Reid" alt="Miles Reid" class="w-full h-auto aspect-square object-cover">
-                            <div class="p-8">
-                                <h3 class="text-xl font-bold text-black">Miles Reid</h3>
-                                <p class="text-gray-600 mt-1">Author</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="scroll-reveal" data-stagger-group="talent">
-                        <a href="#" class="project-card">
-                            <img src="https://placehold.co/800x800/f5f5f7/cccccc?text=Miguel+Marisma" alt="Miguel Marisma" class="w-full h-auto aspect-square object-cover">
-                            <div class="p-8">
-                                <h3 class="text-xl font-bold text-black">Miguel Marisma</h3>
-                                <p class="text-gray-600 mt-1">Author</p>
-                            </div>
-                        </a>
+                        </div>
+                        <div class="w-full md:w-2/3">
+                            <h3 class="text-4xl font-extrabold tracking-tight mb-4">The Portal</h3>
+                            <p class="text-xl text-gray-300 mb-6">
+                                The debut novel from Jeremy Marsh, coming 2025.
+                            </p>
+                            <p class="text-gray-400 mb-8">
+                                A narrative rooted in grief, loyalty, and the hidden costs of modern society. Get ready to experience narrative fiction written with a songwriter's heart.
+                            </p>
+                            <a href="#spotlight" class="inline-block bg-white text-black font-semibold py-3 px-6 rounded-full transition-transform hover:scale-105 hover:bg-gray-100">
+                                Meet the Author
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="story" class="bg-white text-black py-24 md:py-40">
+        <!-- OUR STORY SECTION -->
+        <section id="story" class="bg-gray-50 text-black py-24 md:py-40">
             <div class="container mx-auto px-4">
-                <div class="max-w-3xl mx-auto text-center scroll-reveal">
+                <div class="max-w-3xl mx-auto text-center scroll-reveal mb-16 md:mb-24">
                     <h2 class="section-headline">
                         Our Story.
                     </h2>
@@ -282,129 +322,62 @@
                     </p>
                 </div>
                 
-                <div class="grid md:grid-cols-3 gap-8 md:gap-12 mt-16 md:mt-24 text-center md:text-left" data-stagger-group="story">
+                <div class="grid md:grid-cols-3 gap-8 md:gap-12 mt-16 md:mt-24 text-center" data-stagger-group="story">
                     <div class="scroll-reveal">
                         <h3 class="text-2xl font-bold mb-3">Author-Driven</h3>
                         <p class="text-gray-600">
-                            We believe in the power of the original voice, putting authors at the forefront.
+                            One voice owns the work.
                         </p>
                     </div>
                     <div class="scroll-reveal">
                         <h3 class="text-2xl font-bold mb-3">Creator-Owned</h3>
                         <p class="text-gray-600">
-                            Building a model where creators retain ownership and control of their narratives.
+                            Rights stay with the creator.
                         </p>
                     </div>
                     <div class="scroll-reveal">
                         <h3 class="text-2xl font-bold mb-3">Audience-Powered</h3>
                         <p class="text-gray-600">
-                            Connecting stories directly with the communities that champion them.
+                            If it doesn’t connect, it doesn’t ship.
                         </p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="media" class="bg-black text-white py-24 md:py-40">
-            <div class="container mx-auto px-4">
-                <div class="max-w-3xl mx-auto text-center scroll-reveal">
-                    <h2 class="section-headline">
-                        Media.
-                    </h2>
-                    <p class="text-lg md:text-xl max-w-xl mx-auto mt-6 text-gray-400">
-                        Podcasts, documentaries, and original series.
-                    </p>
-                </div>
-                
-                <div class="grid md:grid-cols-3 gap-8 md:gap-12 mt-16 md:mt-24 text-center md:text-left" data-stagger-group="media">
-                    <div class="scroll-reveal">
-                        <h3 class="text-2xl font-bold mb-3">The Signal Podcast</h3>
-                        <p class="text-gray-400">
-                            Weekly interviews with industry-defining voices.
-                        </p>
-                    </div>
-                    <div class="scroll-reveal">
-                        <h3 class="text-2xl font-bold mb-3">New Origins</h3>
-                        <p class="text-gray-400">
-                            A documentary series on digital ownership.
-                        </p>
-                    </div>
-                    <div class="scroll-reveal">
-                        <h3 class="text-2xl font-bold mb-3">The Insider</h3>
-                        <p class="text-gray-400">
-                            Our monthly newsletter on creative independence.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="press" class="bg-white text-black py-24 md:py-40">
-            <div class="container mx-auto px-4">
-                <div class="max-w-3xl mx-auto text-center scroll-reveal">
-                    <h2 class="section-headline">
-                        Press Room.
-                    </h2>
-                    <p class="text-lg md:text-xl max-w-xl mx-auto mt-6 text-gray-700">
-                        Media features, press kits, and news.
-                    </p>
-                </div>
-                
-                <div class="grid md:grid-cols-3 gap-8 md:gap-12 mt-16 md:mt-24 text-center md:text-left" data-stagger-group="press">
-                    <div class="scroll-reveal">
-                        <h3 class="text-2xl font-bold mb-3">Feature: Forbes</h3>
-                        <p class="text-gray-600">
-                            "The New Wave of Creator-Owned Media."
-                        </p>
-                    </div>
-                    <div class="scroll-reveal">
-                        <h3 class="text-2xl font-bold mb-3">Announcement</h3>
-                        <p class="text-gray-600">
-                            "J-Marsh Media Launches The Portal"
-                        </p>
-                    </div>
-                    <div class="scroll-reveal">
-                        <h3 class="text-2xl font-bold mb-3">Press Kit</h3>
-                        <p class="text-gray-600">
-                            Download our official assets and brand guide.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="social" class="bg-black text-white py-24 md:py-40">
+        <!-- SOCIAL SECTION (Hidden by default) -->
+        <section id="social" class="bg-black text-white py-24 md:py-40 hidden" aria-hidden="true">
             <div class="container mx-auto px-4">
                 <div class="max-w-3xl mx-auto text-center scroll-reveal mb-16 md:mb-24">
                     <h2 class="section-headline">
                         Social.
                     </h2>
                     <p class="text-lg md:text-xl max-w-xl mx-auto mt-6 text-gray-400">
-                        Join the conversation.
+                        Join the conversation and connect with our creators.
                     </p>
                 </div>
                 
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-8" data-stagger-group="social">
                     <div class="scroll-reveal text-center">
-                        <a href="#" class="inline-block p-4 transition-transform hover:scale-110">
+                        <a href="https://twitter.com/jmarshmedia" target="_blank" rel="noopener noreferrer" class="inline-block p-4 transition-transform hover:scale-110">
                             <h3 class="text-xl font-bold">X (Twitter)</h3>
                             <p class="text-gray-400 mt-1">@jmarshmedia</p>
                         </a>
                     </div>
                     <div class="scroll-reveal text-center">
-                        <a href="#" class="inline-block p-4 transition-transform hover:scale-110">
+                        <a href="https://instagram.com/jmarshmedia" target="_blank" rel="noopener noreferrer" class="inline-block p-4 transition-transform hover:scale-110">
                             <h3 class="text-xl font-bold">Instagram</h3>
                             <p class="text-gray-400 mt-1">@jmarshmedia</p>
                         </a>
                     </div>
                     <div class="scroll-reveal text-center">
-                        <a href="#" class="inline-block p-4 transition-transform hover:scale-110">
+                        <a href="https://linkedin.com/company/j-marsh-media" target="_blank" rel="noopener noreferrer" class="inline-block p-4 transition-transform hover:scale-110">
                             <h3 class="text-xl font-bold">LinkedIn</h3>
                             <p class="text-gray-400 mt-1">J-Marsh Media</p>
                         </a>
                     </div>
                     <div class="scroll-reveal text-center">
-                        <a href="#" class="inline-block p-4 transition-transform hover:scale-110">
+                        <a href="https://threads.net/@jmarshmedia" target="_blank" rel="noopener noreferrer" class="inline-block p-4 transition-transform hover:scale-110">
                             <h3 class="text-xl font-bold">Threads</h3>
                             <p class="text-gray-400 mt-1">@jmarshmedia</p>
                         </a>
@@ -413,47 +386,17 @@
             </div>
         </section>
 
-        <section id="store" class="bg-white text-black py-24 md:py-40">
-            <div class="container mx-auto px-4">
-                <div class="max-w-3xl mx-auto text-center scroll-reveal mb-16 md:mb-24">
-                    <h2 class="section-headline">
-                        The Store.
-                    </h2>
-                </div>
-                
-                <div class="grid md:grid-cols-2 gap-8 md:gap-12" data-stagger-group="store">
-                    <div class="scroll-reveal">
-                        <a href="#" class="project-card">
-                            <img src="https://placehold.co/800x600/f5f5f7/cccccc?text=Product+One" alt="Product One" class="w-full h-auto">
-                            <div class="p-8">
-                                <h3 class="text-xl font-bold">Debut Collection</h3>
-                                <p class="text-gray-600 mt-1">Limited Edition Prints</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="scroll-reveal">
-                        <a href="#" class="project-card">
-                            <img src="https://placehold.co/800x600/f5f5f7/cccccc?text=Product+Two" alt="Product Two" class="w-full h-auto">
-                            <div class="p-8">
-                                <h3 class="text-xl font-bold">The Portal Tee</h3>
-                                <p class="text-gray-600 mt-1">Apparel</p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact" class="bg-black text-white py-24 md:py-40">
+        <!-- CONTACT SECTION (Hidden by default) -->
+        <section id="contact" class="bg-white text-black py-24 md:py-40 hidden" aria-hidden="true">
             <div class="container mx-auto px-4">
                 <div class="max-w-3xl mx-auto text-center scroll-reveal">
                     <h2 class="section-headline">
                         Let's talk.
                     </h2>
-                    <p class="text-lg md:text-xl max-w-xl mx-auto mt-6 text-gray-400">
-                        Have a project in mind? We'd love to hear about it.
+                    <p class="text-lg md:text-xl max-w-xl mx-auto mt-6 text-gray-700">
+                        For project inquiries, partnership proposals, or media requests.
                     </p>
-                    <a href="jeremy.marsh.author@gmail.com" class="inline-block bg-white text-black font-medium py-3 px-8 rounded-full mt-10 transition-transform hover:scale-105">
+                    <a href="mailto:hello@jmarsh.media" class="inline-block bg-black text-white font-semibold py-3 px-8 rounded-full mt-10 transition-transform hover:scale-105 hover:bg-gray-800">
                         hello@jmarsh.media
                     </a>
                 </div>
@@ -461,7 +404,7 @@
         </section>
     </main>
 
-    <footer class="text-center py-12 bg-white">
+    <footer class="text-center py-12 bg-white border-t border-gray-100">
         <div class="container mx-auto px-4 text-gray-500 text-sm">
             <p>&copy; 2025 J-Marsh Media. All rights reserved.</p>
         </div>
@@ -487,92 +430,42 @@
             // Close mobile menu when a link is clicked
             menuLinks.forEach(link => {
                 link.addEventListener('click', () => {
-                    // Check if menu is open (not hidden) before closing
                     if (!mobileMenu.classList.contains('hidden')) {
                         toggleMobileMenu();
                     }
                 });
             });
 
-            // --- Talent Card Shuffling & Hiding Logic ---
-            const talentGrid = document.getElementById('talent-grid');
-            if (talentGrid) {
-                const talentCards = Array.from(talentGrid.children);
-                
-                // Separate Jeremy Marsh (first card) from the rest
-                const jeremyMarshCard = talentCards.shift();
-                const otherTalentCards = talentCards;
-
-                // Fisher-Yates shuffle algorithm for *other* talent
-                for (let i = otherTalentCards.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [otherTalentCards[i], otherTalentCards[j]] = [otherTalentCards[j], otherTalentCards[i]];
-                }
-
-                // Clear the grid (safer than innerHTML = '')
-                while (talentGrid.firstChild) {
-                    talentGrid.removeChild(talentGrid.firstChild);
-                }
-                
-                // Append Jeremy Marsh first (if it exists)
-                if (jeremyMarshCard) {
-                    // Ensure the primary card is NOT hidden
-                    jeremyMarshCard.classList.remove('hidden'); 
-                    talentGrid.appendChild(jeremyMarshCard);
-                }
-                
-                // Append the shuffled cards AND HIDE THEM
-                otherTalentCards.forEach(card => {
-                    // Add the 'hidden' class to all other cards
-                    card.classList.add('hidden');
-                    talentGrid.appendChild(card);
-                });
-
-                // BONUS REFINEMENT: Since only one card is visible, change the grid to a single column for centering.
-                talentGrid.classList.remove('md:grid-cols-3');
-                talentGrid.classList.add('md:grid-cols-1');
-            }
-
             // --- Scroll Animation Observer & Staggered Delay Injection ---
             
-            // Get all containers marked for staggered animation
             const groupsToStagger = document.querySelectorAll('[data-stagger-group]');
 
             groupsToStagger.forEach(group => {
-                // Find all immediate children that are `scroll-reveal` elements
                 const items = Array.from(group.children).filter(el => el.classList.contains('scroll-reveal'));
                 
-                // Apply a staggered delay to each item
                 items.forEach((item, index) => {
-                    // Set a staggered delay (0.1s base + 0.1s for each index)
                     const delay = (index * 0.1) + 0.1;
                     item.style.transitionDelay = `${delay}s`;
                 });
             });
-
 
             const revealElements = document.querySelectorAll('.scroll-reveal');
             
             const observer = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        // Only reveal the element if it hasn't been explicitly hidden (like the talent cards)
                         if (!entry.target.classList.contains('hidden')) {
                             entry.target.classList.add('visible');
                         }
-                        // Optional: Stop observing once revealed to save resources
-                        // observer.unobserve(entry.target); 
                     }
                 });
             }, { 
-                // Trigger when 20% of the element is visible
                 threshold: 0.2 
             });
 
             revealElements.forEach(el => {
                 observer.observe(el);
             });
-
         });
     </script>
 
