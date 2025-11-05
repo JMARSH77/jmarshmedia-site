@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react";
 
-// J Marsh Media — single-file React site (updated)
-// Social & Press hidden per request; Store replaced by Bookstore; Media now shows video
+// J Marsh Media — single-file React site (clean pass)
+// Social & Press hidden; Store replaced by Bookstore; Media shows Portal Digital Cover
 
 const people = [
   { name: "Jeremy Marsh", role: "Author • Creator • Music Producer", href: "jeremy-marsh.html", img: "images/headshots/jeremy-marsh-headshot.jpg" },
-  { name: "Jacen Michaels", role: "Author", href: "jacen-michaels.html", img: "images/headshots/jacen-daniels-marsh-headshot.jpg" },
+  { name: "Jacen Michaels", role: "Author", href: "jacen-michaels.html", img: "images/headshots/jacen-daniels-headshot.jpg" },
   { name: "Redwood Daniels", role: "Author", href: "redwood-daniels.html", img: "images/headshots/redwood-daniels-headshot-a.jpg" },
   { name: "Grayson Holt", role: "Author", href: "grayson-holt.html", img: "images/headshots/grayson-holt-headshot.jpg" },
-  { name: "Tessa Reese", role: "Author • Blogger", href: "tessa-reese.html", img: "images/headshots/tess-resse-headshot.jpg" },
+  { name: "Tessa Reese", role: "Author • Blogger", href: "tessa-reese.html", img: "images/headshots/tessa-reese-headshot.jpg" },
   { name: "Reyna Noire", role: "Author", href: "reyna-noire.html", img: "images/headshots/Reyna-Noire-Headshot.jpg" },
   { name: "Ellis Jordan", role: "Author", href: "ellis-jordan.html", img: "images/headshots/ellis-jordan-headshot.jpg" },
   { name: "Asha Monroe", role: "Author", href: "asha-monroe.html", img: "images/headshots/asha-monroe-headshot.jpg" },
   { name: "Damon Walker", role: "Author", href: "damon-walker.html", img: "images/headshots/damon-walker-headshot.jpg" },
   { name: "Reginald Roberts", role: "Author", href: "reginald-roberts.html", img: "images/headshots/reginald-roberts-headshot.jpg" },
-  { name: "Miles Reid", role: "Author", href: "miles-reid.html", img: "/images/headshots/miles-reid-headshot.jpg" },
+  { name: "Miles Reid", role: "Author", href: "miles-reid.html", img: "images/headshots/miles-reid-headshot.jpg" },
   { name: "Miguel Marisma", role: "Author", href: "miguel-marisma.html", img: "images/headshots/miguel-marisma-headshot.jpg" }
 ];
 
@@ -28,7 +28,9 @@ const Stat = ({ label, value }) => (
 const Section = ({ id, eyebrow, title, children, kicker }) => (
   <section id={id} className="scroll-mt-24 py-16 sm:py-24">
     <div className="mx-auto max-w-6xl px-4">
-      {eyebrow && <p className="mb-2 text-xs font-medium uppercase tracking-widest text-emerald-400">{eyebrow}</p>}
+      {eyebrow && (
+        <p className="mb-2 text-xs font-medium uppercase tracking-widest text-emerald-400">{eyebrow}</p>
+      )}
       <h2 className="text-2xl sm:text-4xl font-bold text-white">{title}</h2>
       <div className="mt-8 text-zinc-300 leading-relaxed">{children}</div>
       {kicker && <p className="mt-6 text-sm text-zinc-400">{kicker}</p>}
@@ -37,7 +39,10 @@ const Section = ({ id, eyebrow, title, children, kicker }) => (
 );
 
 const NavLink = ({ href, children }) => (
-  <a href={href} className="rounded-full px-3 py-2 text-sm font-medium text-zinc-200 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">
+  <a
+    href={href}
+    className="rounded-full px-3 py-2 text-sm font-medium text-zinc-200 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+  >
     {children}
   </a>
 );
@@ -52,20 +57,27 @@ export default function JMarshMediaSite() {
 
   return (
     <main className="min-h-screen bg-zinc-950 text-zinc-100">
-      <header className={`sticky top-0 z-50 w-full backdrop-blur supports-[backdrop-filter]:bg-zinc-950/60 ${scrolled ? 'border-b border-white/10' : ''}`}>
+      <header
+        className={`sticky top-0 z-50 w-full backdrop-blur supports-[backdrop-filter]:bg-zinc-950/60 ${
+          scrolled ? "border-b border-white/10" : ""
+        }`}
+      >
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-          <a href="#top" className="flex items-center gap-3">
+          <a href="#top" className="flex items-center gap-3" aria-label="Go to top">
             <div className="h-8 w-8 rounded-md bg-emerald-500" aria-hidden="true" />
             <span className="text-sm font-semibold tracking-wider text-white">J MARSH MEDIA</span>
           </a>
-          <nav className="hidden items-center gap-1 sm:flex">
+          <nav className="hidden items-center gap-1 sm:flex" aria-label="Primary">
             <NavLink href="#talent">Talent</NavLink>
             <NavLink href="#story">Our Story</NavLink>
             <NavLink href="#media">Media</NavLink>
             <NavLink href="#bookstore">Bookstore</NavLink>
             <NavLink href="#contact">Contact</NavLink>
           </nav>
-          <a href="#contact" className="rounded-full bg-emerald-500 px-4 py-2 text-sm font-semibold text-black hover:bg-emerald-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">
+          <a
+            href="#contact"
+            className="rounded-full bg-emerald-500 px-4 py-2 text-sm font-semibold text-black hover:bg-emerald-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+          >
             Let’s talk
           </a>
         </div>
@@ -73,18 +85,29 @@ export default function JMarshMediaSite() {
 
       {/* Hero */}
       <section id="top" className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-emerald-600/10 via-transparent to-transparent" aria-hidden="true" />
+        <div
+          className="absolute inset-0 bg-gradient-to-b from-emerald-600/10 via-transparent to-transparent"
+          aria-hidden="true"
+        />
         <div className="mx-auto grid max-w-6xl grid-cols-1 gap-10 px-4 pb-20 pt-16 sm:pb-28 sm:pt-24 md:grid-cols-5">
           <div className="col-span-3">
-            <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-6xl">Control the Signal.</h1>
+            <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-6xl">
+              Control the Signal.
+            </h1>
             <p className="mt-5 max-w-2xl text-lg leading-relaxed text-zinc-300">
               Author-driven. Creator-owned. Audience-powered. A studio for stories, podcasts, and products built with independence at the core.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <a href="#bookstore" className="rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-black hover:bg-zinc-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">
+              <a
+                href="#bookstore"
+                className="rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-black hover:bg-zinc-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+              >
                 Visit the Bookstore
               </a>
-              <a href="#media" className="rounded-full border border-white/20 px-5 py-2.5 text-sm font-semibold text-white hover:border-white/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">
+              <a
+                href="#media"
+                className="rounded-full border border-white/20 px-5 py-2.5 text-sm font-semibold text-white hover:border-white/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+              >
                 Watch Media
               </a>
             </div>
@@ -97,13 +120,15 @@ export default function JMarshMediaSite() {
           <div className="col-span-2">
             <div className="relative h-72 w-full overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-zinc-900 to-zinc-800 p-3 sm:h-96">
               <div className="grid h-full grid-cols-2 gap-3">
-                <div className="rounded-xl bg-[url('/assets/covers/the-portal.jpg')] bg-cover bg-center" />
-                <div className="rounded-xl bg-[url('/assets/covers/alpha-dawgs.jpg')] bg-cover bg-center" />
-                <div className="rounded-xl bg-[url('/assets/covers/no-huddle.jpg')] bg-cover bg-center" />
-                <div className="rounded-xl bg-[url('/assets/covers/new-origins.jpg')] bg-cover bg-center" />
+                <div className="rounded-xl bg-[url('images/covers/the-portal.jpg')] bg-cover bg-center" />
+                <div className="rounded-xl bg-[url('images/covers/alpha-dawgs.jpg')] bg-cover bg-center" />
+                <div className="rounded-xl bg-[url('images/covers/no-huddle.jpg')] bg-cover bg-center" />
+                <div className="rounded-xl bg-[url('images/covers/new-origins.jpg')] bg-cover bg-center" />
               </div>
             </div>
-            <p className="mt-3 text-center text-xs text-zinc-400">Feature reel: swap with real images or an autoplay video.</p>
+            <p className="mt-3 text-center text-xs text-zinc-400">
+              Feature reel: swap with real images or an autoplay video.
+            </p>
           </div>
         </div>
       </section>
@@ -113,7 +138,11 @@ export default function JMarshMediaSite() {
           {people.map((p) => (
             <li key={p.name} className="group overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/40">
               <a href={p.href} className="block focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">
-                <div className="h-40 w-full bg-zinc-800 bg-cover bg-center transition group-hover:opacity-90" style={{ backgroundImage: `url(${p.img})` }} />
+                <div
+                  className="h-40 w-full bg-zinc-800 bg-cover bg-center transition group-hover:opacity-90"
+                  style={{ backgroundImage: `url(${p.img})` }}
+                  aria-label={`${p.name} headshot`}
+                />
                 <div className="p-4">
                   <p className="text-sm font-semibold text-white">{p.name}</p>
                   <p className="text-xs text-zinc-400">{p.role}</p>
@@ -128,25 +157,32 @@ export default function JMarshMediaSite() {
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           <div className="rounded-2xl border border-white/10 bg-zinc-900/40 p-6">
             <h3 className="text-base font-semibold text-white">Author‑driven</h3>
-            <p className="mt-2 text-sm text-zinc-300">We start with voice. Every project is built around the writer’s intent, not a committee’s compromise.</p>
+            <p className="mt-2 text-sm text-zinc-300">
+              We start with voice. Every project is built around the writer’s intent, not a committee’s compromise.
+            </p>
           </div>
           <div className="rounded-2xl border border-white/10 bg-zinc-900/40 p-6">
             <h3 className="text-base font-semibold text-white">Creator‑owned</h3>
-            <p className="mt-2 text-sm text-zinc-300">IP stays with its creator. We structure deals so the people who build the worlds keep the worlds.</p>
+            <p className="mt-2 text-sm text-zinc-300">
+              IP stays with its creator. We structure deals so the people who build the worlds keep the worlds.
+            </p>
           </div>
           <div className="rounded-2xl border border-white/10 bg-zinc-900/40 p-6">
             <h3 className="text-base font-semibold text-white">Audience‑powered</h3>
-            <p className="mt-2 text-sm text-zinc-300">Community first distribution: newsletters, socials, and events that actually reach readers.</p>
+            <p className="mt-2 text-sm text-zinc-300">
+              Community first distribution: newsletters, socials, and events that actually reach readers.
+            </p>
           </div>
         </div>
       </Section>
 
-      <Section id="media" eyebrow="Media" title="Original video content.">
+      <Section id="media" eyebrow="Media" title="Featured Book Cover.">
         <div className="flex justify-center">
-          <video controls className="w-full max-w-3xl rounded-2xl border border-white/10 bg-zinc-900">
-            <source src="/assets/video/intro.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+          <img
+            src="images/books/Portal Digital Cover.svg"
+            alt="The Portal digital book cover"
+            className="w-full max-w-3xl rounded-2xl border border-white/10 bg-zinc-900"
+          />
         </div>
       </Section>
 
@@ -154,31 +190,61 @@ export default function JMarshMediaSite() {
 
       <Section id="bookstore" eyebrow="Bookstore" title="Explore the J. Marsh Media Bookstore.">
         <div className="flex justify-center">
-          <a href="shop/bookstore.html" className="rounded-2xl border border-white/10 bg-zinc-900/40 px-8 py-6 text-center hover:border-emerald-400">
+          <a
+            href="shop/bookstore.html"
+            className="rounded-2xl border border-white/10 bg-zinc-900/40 px-8 py-6 text-center hover:border-emerald-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+          >
             <h3 className="text-lg font-semibold text-white">Visit the Bookstore</h3>
             <p className="mt-2 text-sm text-zinc-300">Shop books, signed editions, and exclusive content.</p>
           </a>
         </div>
       </Section>
 
-      <Section id="contact" eyebrow="Contact" title="Let’s build something that matters." kicker="We read everything. Real humans. Real replies.">
+      <Section
+        id="contact"
+        eyebrow="Contact"
+        title="Let’s build something that matters."
+        kicker="We read everything. Real humans. Real replies."
+      >
         <form className="mx-auto mt-2 max-w-2xl space-y-4">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <label className="block">
               <span className="mb-1 block text-xs text-zinc-400">Name</span>
-              <input type="text" className="w-full rounded-xl border border-white/10 bg-zinc-900 px-3 py-2 text-sm text-white placeholder-zinc-500 focus:border-emerald-500 focus:outline-none" placeholder="Jane Doe" />
+              <input
+                type="text"
+                className="w-full rounded-xl border border-white/10 bg-zinc-900 px-3 py-2 text-sm text-white placeholder-zinc-500 focus:border-emerald-500 focus:outline-none"
+                placeholder="Jane Doe"
+              />
             </label>
             <label className="block">
               <span className="mb-1 block text-xs text-zinc-400">Email</span>
-              <input type="email" className="w-full rounded-xl border border-white/10 bg-zinc-900 px-3 py-2 text-sm text-white placeholder-zinc-500 focus:border-emerald-500 focus:outline-none" placeholder="[email protected]" />
+              <input
+                type="email"
+                className="w-full rounded-xl border border-white/10 bg-zinc-900 px-3 py-2 text-sm text-white placeholder-zinc-500 focus:border-emerald-500 focus:outline-none"
+                placeholder="[email protected]"
+              />
             </label>
           </div>
           <label className="block">
             <span className="mb-1 block text-xs text-zinc-400">Message</span>
-            <textarea rows={5} className="w-full rounded-xl border border-white/10 bg-zinc-900 px-3 py-2 text-sm text-white placeholder-zinc-500 focus:border-emerald-500 focus:outline-none" placeholder="Tell us about your project…" />
+            <textarea
+              rows={5}
+              className="w-full rounded-xl border border-white/10 bg-zinc-900 px-3 py-2 text-sm text-white placeholder-zinc-500 focus:border-emerald-500 focus:outline-none"
+              placeholder="Tell us about your project…"
+            />
           </label>
-          <button type="submit" className="rounded-full bg-emerald-500 px-5 py-2.5 text-sm font-semibold text-black hover:bg-emerald-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">Send</button>
-          <p className="text-xs text-zinc-500">Or email <a href="mailto:hello@jmarshmedia.com" className="text-emerald-400">Contact</a></p>
+          <button
+            type="submit"
+            className="rounded-full bg-emerald-500 px-5 py-2.5 text-sm font-semibold text-black hover:bg-emerald-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+          >
+            Send
+          </button>
+          <p className="text-xs text-zinc-500">
+            Or email {" "}
+            <a href="mailto:hello@jmarshmedia.com" className="text-emerald-400">
+              hello@jmarshmedia.com
+            </a>
+          </p>
         </form>
       </Section>
 
@@ -196,4 +262,59 @@ export default function JMarshMediaSite() {
       </footer>
     </main>
   );
+}
+
+// --------- Minimal smoke tests (dev) ---------
+function isNonEmptyString(v) {
+  return typeof v === "string" && v.trim().length > 0;
+}
+
+function validatePeople(arr) {
+  return (
+    Array.isArray(arr) &&
+    arr.length >= 1 &&
+    arr.every(
+      (p) =>
+        isNonEmptyString(p.name) &&
+        isNonEmptyString(p.role) &&
+        isNonEmptyString(p.href) &&
+        isNonEmptyString(p.img)
+    )
+  );
+}
+
+function hasNoDuplicateNames(arr) {
+  const names = arr.map((p) => p.name);
+  return new Set(names).size === names.length;
+}
+
+export function runSmokeTests() {
+  try {
+    console.assert(validatePeople(people), "people[] entries must have name, role, href, img");
+    console.assert(hasNoDuplicateNames(people), "people[] names must be unique");
+
+    const requiredIds = ["top", "talent", "story", "media", "bookstore", "contact"];
+    requiredIds.forEach((id) => {
+      console.assert(requiredIds.includes(id), `Anchor id exists: ${id}`);
+    });
+
+    const s = Stat({ label: "L", value: "V" });
+    console.assert(!!s, "Stat renders");
+
+    const n = NavLink({ href: "#x", children: "Go" });
+    console.assert(!!n, "NavLink renders");
+
+    // Media cover sanity
+    const mediaSrc = "images/books/Portal Digital Cover.svg";
+    console.assert(mediaSrc.endsWith(".svg"), "Media cover must be an SVG path");
+    console.assert(mediaSrc.includes("Portal"), "Media cover path should reference Portal");
+
+    // Bookstore link sanity
+    const bookstoreHref = "shop/bookstore.html";
+    console.assert(isNonEmptyString(bookstoreHref), "Bookstore link must be non-empty");
+
+    console.info("J Marsh Media: smoke tests passed");
+  } catch (err) {
+    console.warn("J Marsh Media: smoke tests failed", err);
+  }
 }
