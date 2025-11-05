@@ -46,7 +46,8 @@
         }
 
         .hero-headline {
-            font-size: clamp(3rem, 10vw, 8rem); 
+            /* Adjusted for smaller maximum size */
+            font-size: clamp(2.5rem, 8vw, 6rem); 
             line-height: 1; 
             font-weight: 800; 
             letter-spacing: -0.05em; 
@@ -110,7 +111,7 @@
     <header class="header-nav sticky top-0 z-50">
         <nav class="container mx-auto flex justify-between items-center p-4 md:px-6">
             <a href="#home">
-                <span class="text-xl font-bold">J-Marsh Media</span>
+                <img src="/images/logos/jmarshmedia-logo.svg" alt="J-Marsh Media Logo" class="h-8 w-auto" onerror="this.outerHTML='<span class=\'text-xl font-bold\'>J-Marsh Media</span>'">
             </a>
             <div class="hidden md:flex space-x-8 text-sm font-semibold">
                 <a href="#spotlight" class="nav-link">Author Spotlight</a>
@@ -200,11 +201,12 @@
                             </div>
 
                             <div class="flex flex-wrap gap-4">
-                                <a href="https://youtu.be/m2wWuWBDiBk?si=EjNfRHqnCChr1mPJ" target="_blank" rel="noopener noreferrer" class="bg-black text-white font-semibold py-3 px-6 rounded-full transition-transform hover:scale-105 hover:bg-gray-800 text-sm">
+                                <a href="https://www.youtube.com/@Jeremy_Marsh_Official
+" target="_blank" rel="noopener noreferrer" class="bg-black text-white font-semibold py-3 px-6 rounded-full transition-transform hover:scale-105 hover:bg-gray-800 text-sm">
                                     <span class="inline-block align-middle mr-2">
                                         <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-1.332-6.6-1.332-10.204 0C5.811 4.516 3.011 7.217 3.011 10.5v3c0 3.283 2.8 5.984 6.4 7.316 3.604 1.332 6.6 1.332 10.204 0 3.604-1.332 6.4-4.033 6.4-7.316v-3c0-3.283-2.8-5.984-6.4-7.316zm-5.415 8.169l-4.148-2.394c-.161-.093-.36-.093-.521 0-.16.093-.266.26-.266.447v4.787c0 .187.106.354.266.447.161.093.36.093.521 0l4.148-2.394c.16-.093.266-.26.266-.447s-.106-.354-.266-.447z"/></svg>
                                     </span>
-                                    YouTube Channel
+                                    Official YouTube Channel
                                 </a>
                                 <a href="/press/jeremy-marsh-press-kit.pdf" target="_blank" class="bg-gray-100 text-black font-semibold py-3 px-6 rounded-full transition-transform hover:scale-105 hover:bg-gray-200 text-sm">
                                     Press Kit
@@ -387,7 +389,7 @@
                     <div class="scroll-reveal text-center">
                         <a href="https://threads.net/@jmarshmedia" target="_blank" rel="noopener noreferrer" class="inline-block p-4 transition-transform hover:scale-110">
                             <h3 class="text-xl font-bold">Threads</h3>
-                            <p class="text-gray-400 mt-1">@jmarshmedia</p>
+                            <p class="text-gray-400 mt-1">https://www.threads.com/@jeremy_marsh_official</p>
                         </a>
                     </div>
                 </div>
@@ -414,7 +416,7 @@
 
     <footer class="text-center py-12 bg-white border-t border-gray-100">
         <div class="container mx-auto px-4 text-gray-500 text-sm">
-            <p>&copy; 2025 J-Marsh Media. All rights reserved.</p>
+            <p>&copy; 2025 J.Marsh Media. All rights reserved.</p>
         </div>
     </footer>
 
