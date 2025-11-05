@@ -5,7 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>J. Marsh Media</title>
+    
+    <!-- Custom Tailwind Config to Enable Class-based Dark Mode -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
     
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
@@ -31,10 +38,16 @@
         }
 
         .header-nav { 
+            /* Light Mode */
             background-color: rgba(255, 255, 255, 0.8); 
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05); 
+            /* Dark Mode */
             backdrop-filter: blur(12px); 
             -webkit-backdrop-filter: blur(12px); 
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05); 
+        }
+        .dark .header-nav {
+            background-color: rgba(17, 24, 39, 0.85); /* Dark Gray/Blue */
+            border-bottom-color: rgba(255, 255, 255, 0.1);
         }
 
         .nav-link { 
@@ -44,9 +57,14 @@
         .nav-link:hover { 
             color: #000; 
         }
+        .dark .nav-link {
+            color: #ccc;
+        }
+        .dark .nav-link:hover {
+            color: #fff;
+        }
 
         .hero-headline {
-            /* Adjusted for smaller maximum size */
             font-size: clamp(2.5rem, 8vw, 6rem); 
             line-height: 1; 
             font-weight: 800; 
@@ -85,6 +103,9 @@
             transform: translateY(-8px);
             box-shadow: 0 20px 30px rgba(0, 0, 0, 0.07);
         }
+        .dark .project-card {
+            background-color: #1f2937; /* Gray 800 */
+        }
         .project-card img {
             transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
@@ -106,7 +127,7 @@
 
     </style>
 </head>
-<body class="bg-white text-black">
+<body class="bg-white text-black transition-colors duration-500 dark:bg-gray-950 dark:text-white">
 
     <header class="header-nav sticky top-0 z-50">
         <nav class="container mx-auto flex justify-between items-center p-4 md:px-6">
@@ -118,39 +139,37 @@
                 <a href="#talent" class="nav-link">Talent</a>
                 <a href="#listen-watch" class="nav-link">Listen & Watch</a>
                 <a href="#story" class="nav-link">Our Story</a>
-                <a href="#social" class="nav-link">Social</a>
                 <a href="#contact" class="nav-link">Contact</a>
             </div>
-            <button id="mobile-menu-btn" class="md:hidden text-black">
+            <button id="mobile-menu-btn" class="md:hidden text-black dark:text-white">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
             </button>
         </nav>
-        <div id="mobile-menu" class="hidden md:hidden fixed inset-0 bg-white/90 backdrop-blur-md z-40 flex flex-col items-center justify-center space-y-8">
+        <div id="mobile-menu" class="hidden md:hidden fixed inset-0 bg-white/90 backdrop-blur-md z-40 flex flex-col items-center justify-center space-y-8 dark:bg-gray-950/90 dark:text-white">
             <a href="#spotlight" class="nav-link text-2xl font-medium">Author Spotlight</a>
             <a href="#talent" class="nav-link text-2xl font-medium">Talent</a>
             <a href="#listen-watch" class="nav-link text-2xl font-medium">Listen & Watch</a>
             <a href="#story" class="nav-link text-2xl font-medium">Our Story</a>
-            <a href="#social" class="nav-link text-2xl font-medium">Social</a>
             <a href="#contact" class="nav-link text-2xl font-medium">Contact</a>
         </div>
     </header>
 
     <main>
         <!-- HERO SECTION -->
-        <section id="home" class="min-h-screen flex flex-col items-center justify-center text-center px-4 py-24 bg-gray-50">
+        <section id="home" class="min-h-screen flex flex-col items-center justify-center text-center px-4 py-24 bg-gray-50 dark:bg-gray-900">
             <div class="scroll-reveal">
-                <h1 class="hero-headline text-black max-w-5xl mx-auto">
+                <h1 class="hero-headline text-black dark:text-white max-w-5xl mx-auto">
                     Author-driven. Creator-owned. Audience-powered.
                 </h1>
-                <p class="hero-subtext max-w-2xl mx-auto mt-6 text-gray-700 font-medium">
+                <p class="hero-subtext max-w-2xl mx-auto mt-6 text-gray-700 dark:text-gray-300 font-medium">
                     The new narrative model.
                 </p>
                 
                 <div class="flex flex-col sm:flex-row justify-center gap-4 mt-10">
-                    <a href="#listen-watch" id="listen-watch-cta" class="bg-black text-white font-semibold py-3 px-8 rounded-lg shadow-lg transition-all duration-300 hover:scale-[1.03] hover:bg-gray-800">
+                    <a href="#listen-watch" id="listen-watch-cta" class="bg-black text-white font-semibold py-3 px-8 rounded-lg shadow-lg transition-all duration-300 hover:scale-[1.03] hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200">
                         LISTEN & WATCH
                     </a>
-                    <a href="#spotlight" class="bg-transparent border border-black text-black font-semibold py-3 px-8 rounded-lg transition-all duration-300 hover:scale-[1.03] hover:bg-gray-100">
+                    <a href="#spotlight" class="bg-transparent border border-black text-black font-semibold py-3 px-8 rounded-lg transition-all duration-300 hover:scale-[1.03] hover:bg-gray-100 dark:border-white dark:text-white dark:hover:bg-gray-800">
                         Author Spotlight
                     </a>
                 </div>
@@ -158,10 +177,10 @@
         </section>
 
         <!-- AUTHOR SPOTLIGHT -->
-        <section id="spotlight" class="py-24 md:py-40 bg-white">
+        <section id="spotlight" class="py-24 md:py-40 bg-white dark:bg-gray-950">
             <div class="container mx-auto px-4 max-w-6xl">
                 <div class="max-w-3xl mx-auto text-center scroll-reveal mb-16 md:mb-24">
-                    <h2 class="section-headline">
+                    <h2 class="section-headline text-black dark:text-white">
                         Featured Author.
                     </h2>
                 </div>
@@ -178,40 +197,39 @@
 
                     <div class="w-full md:w-7/12 mt-8 md:mt-0">
                         <div class="scroll-reveal" data-stagger-group="spotlight">
-                            <h3 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">Jeremy Marsh</h3>
-                            <p class="text-xl text-gray-700 mb-8">Author, Creator, Songwriter/Music Producer</p>
+                            <h3 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-black dark:text-white">Jeremy Marsh</h3>
+                            <p class="text-xl text-gray-700 dark:text-gray-300 mb-8">Author, Creator, Songwriter/Music Producer</p>
                             
-                            <p class="text-lg mb-8">
+                            <p class="text-lg mb-8 text-black dark:text-gray-200">
                                 A relentless storyteller working across multiple disciplines, Jeremy Marsh is the engine behind J-Marsh Media. His work focuses on themes of grief, hope, and the human search for identity.
                             </p>
 
-                            <div class="grid grid-cols-3 gap-4 text-center border-y border-gray-200 py-6 mb-10">
+                            <div class="grid grid-cols-3 gap-4 text-center border-y border-gray-200 dark:border-gray-800 py-6 mb-10">
                                 <div>
-                                    <p class="text-2xl font-extrabold">2025</p>
-                                    <p class="text-sm text-gray-500">Debut Novel</p>
+                                    <p class="text-2xl font-extrabold text-black dark:text-white">2025</p>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">Debut Novel</p>
                                 </div>
                                 <div>
-                                    <p class="text-2xl font-extrabold">Songs</p>
-                                    <p class="text-sm text-gray-500">Modern Americana</p>
+                                    <p class="text-2xl font-extrabold text-black dark:text-white">Songs</p>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">Modern Americana</p>
                                 </div>
                                 <div>
-                                    <p class="text-2xl font-extrabold">Themes</p>
-                                    <p class="text-sm text-gray-500">Grief • Loyalty • Grace</p>
+                                    <p class="text-2xl font-extrabold text-black dark:text-white">Themes</p>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">Grief • Loyalty • Grace</p>
                                 </div>
                             </div>
 
                             <div class="flex flex-wrap gap-4">
-                                <a href="https://www.youtube.com/@Jeremy_Marsh_Official
-" target="_blank" rel="noopener noreferrer" class="bg-black text-white font-semibold py-3 px-6 rounded-full transition-transform hover:scale-105 hover:bg-gray-800 text-sm">
+                                <a href="https://www.youtube.com/@theMidnight_Frequency" target="_blank" rel="noopener noreferrer" class="bg-black text-white font-semibold py-3 px-6 rounded-full transition-transform hover:scale-105 hover:bg-gray-800 text-sm">
                                     <span class="inline-block align-middle mr-2">
                                         <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-1.332-6.6-1.332-10.204 0C5.811 4.516 3.011 7.217 3.011 10.5v3c0 3.283 2.8 5.984 6.4 7.316 3.604 1.332 6.6 1.332 10.204 0 3.604-1.332 6.4-4.033 6.4-7.316v-3c0-3.283-2.8-5.984-6.4-7.316zm-5.415 8.169l-4.148-2.394c-.161-.093-.36-.093-.521 0-.16.093-.266.26-.266.447v4.787c0 .187.106.354.266.447.161.093.36.093.521 0l4.148-2.394c.16-.093.266-.26.266-.447s-.106-.354-.266-.447z"/></svg>
                                     </span>
-                                    Official YouTube Channel
+                                    The Midnight Frequency
                                 </a>
-                                <a href="/press/jeremy-marsh-press-kit.pdf" target="_blank" class="bg-gray-100 text-black font-semibold py-3 px-6 rounded-full transition-transform hover:scale-105 hover:bg-gray-200 text-sm">
+                                <a href="/press/jeremy-marsh-press-kit.pdf" target="_blank" class="bg-gray-100 text-black font-semibold py-3 px-6 rounded-full transition-transform hover:scale-105 hover:bg-gray-200 text-sm dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700">
                                     Press Kit
                                 </a>
-                                <a href="#portal" class="bg-gray-100 text-black font-semibold py-3 px-6 rounded-full transition-transform hover:scale-105 hover:bg-gray-200 text-sm">
+                                <a href="#portal" class="bg-gray-100 text-black font-semibold py-3 px-6 rounded-full transition-transform hover:scale-105 hover:bg-gray-200 text-sm dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700">
                                     The Portal
                                 </a>
                             </div>
@@ -222,7 +240,7 @@
         </section>
 
         <!-- TALENT SECTION -->
-        <section id="talent" class="bg-black text-white py-24 md:py-40">
+        <section id="talent" class="bg-black text-white py-24 md:py-40 dark:bg-gray-900">
             <div class="container mx-auto px-4">
                 <div class="max-w-3xl mx-auto text-center scroll-reveal mb-16 md:mb-24">
                     <h2 class="section-headline text-white">
@@ -241,13 +259,13 @@
                         <a href="#spotlight" class="project-card">
                             <div class="aspect-4/5">
                                 <picture>
-                                    <source srcset="/assets/headshots/jeremy-marsh-headshot.webp" type="image/webp">
+                                    <source srcset="images/headshots/jeremy-marsh-headshot.jpg" type="image/jpg">
                                     <img src="images/headshots/jeremy-marsh-headshot.jpg" alt="Jeremy Marsh" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://placehold.co/800x1000/f5f5f7/cccccc?text=Jeremy+Marsh'">
                                 </picture>
                             </div>
                             <div class="p-8">
-                                <h3 class="text-xl font-bold text-black">Jeremy Marsh</h3>
-                                <p class="text-gray-600 mt-1">Author, Creator</p>
+                                <h3 class="text-xl font-bold text-black dark:text-white">Jeremy Marsh</h3>
+                                <p class="text-gray-600 dark:text-gray-400 mt-1">Author, Creator</p>
                             </div>
                         </a>
                     </div>
@@ -270,24 +288,24 @@
         </section>
 
         <!-- LISTEN & WATCH SECTION -->
-        <section id="listen-watch" class="bg-white text-black py-24 md:py-40">
+        <section id="listen-watch" class="bg-white text-black py-24 md:py-40 dark:bg-gray-950">
             <div class="container mx-auto px-4 max-w-5xl">
                 <div class="max-w-3xl mx-auto text-center scroll-reveal mb-16 md:mb-24">
-                    <h2 class="section-headline">
+                    <h2 class="section-headline text-black dark:text-white">
                         Listen & Watch.
                     </h2>
-                    <p class="text-lg md:text-xl max-w-xl mx-auto mt-6 text-gray-700">
+                    <p class="text-lg md:text-xl max-w-xl mx-auto mt-6 text-gray-700 dark:text-gray-300">
                         Immediate proof of work from our creators.
                     </p>
                 </div>
                 
-                <!-- FEATURED VIDEO: The Signal Podcast Teaser -->
+                <!-- FEATURED VIDEO: The Portal Teaser Trailer -->
                 <div class="scroll-reveal mb-20">
-                    <h3 class="text-3xl font-bold mb-4">The Signal Podcast</h3>
-                    <lite-youtube videoid="Z6Jy0S6wgLA" playlabel="Play The Signal Podcast Teaser" style="background-image: url('https://placehold.co/1920x1080/000000/cccccc?text=The+Signal+Podcast+Teaser');"></lite-youtube>
+                    <h3 class="text-3xl font-bold mb-4 text-black dark:text-white">The Portal Teaser Trailer</h3>
+                    <lite-youtube videoid="Z6Jy0S6wgLA" playlabel="Play The Portal Teaser Trailer" style="background-image: url(images/books/Portal Digital Cover.svg);"></lite-youtube>
                     <div class="text-center mt-6">
-                        <a href="http://www.youtube.com/@theMidnight_Frequency" target="_blank" rel="noopener noreferrer" class="inline-block bg-black text-white font-semibold py-3 px-8 rounded-full transition-transform hover:scale-105 hover:bg-gray-800">
-                            Watch on YouTube
+                        <a href="https://www.youtube.com/@theMidnight_Frequency" target="_blank" rel="noopener noreferrer" class="inline-block bg-black text-white font-semibold py-3 px-8 rounded-full transition-transform hover:scale-105 hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200">
+                            Watch on The Midnight Frequency
                         </a>
                     </div>
                 </div>
@@ -321,33 +339,33 @@
         </section>
 
         <!-- OUR STORY SECTION -->
-        <section id="story" class="bg-gray-50 text-black py-24 md:py-40">
+        <section id="story" class="bg-gray-50 text-black py-24 md:py-40 dark:bg-gray-900">
             <div class="container mx-auto px-4">
                 <div class="max-w-3xl mx-auto text-center scroll-reveal mb-16 md:mb-24">
-                    <h2 class="section-headline">
+                    <h2 class="section-headline text-black dark:text-white">
                         Our Story.
                     </h2>
-                    <p class="text-lg md:text-xl max-w-xl mx-auto mt-6 text-gray-700">
+                    <p class="text-lg md:text-xl max-w-xl mx-auto mt-6 text-gray-700 dark:text-gray-300">
                         Founded on a passion for creative independence.
                     </p>
                 </div>
                 
                 <div class="grid md:grid-cols-3 gap-8 md:gap-12 mt-16 md:mt-24 text-center" data-stagger-group="story">
                     <div class="scroll-reveal">
-                        <h3 class="text-2xl font-bold mb-3">Author-Driven</h3>
-                        <p class="text-gray-600">
+                        <h3 class="text-2xl font-bold mb-3 text-black dark:text-white">Author-Driven</h3>
+                        <p class="text-gray-600 dark:text-gray-400">
                             One voice owns the work.
                         </p>
                     </div>
                     <div class="scroll-reveal">
-                        <h3 class="text-2xl font-bold mb-3">Creator-Owned</h3>
-                        <p class="text-gray-600">
+                        <h3 class="text-2xl font-bold mb-3 text-black dark:text-white">Creator-Owned</h3>
+                        <p class="text-gray-600 dark:text-gray-400">
                             Rights stay with the creator.
                         </p>
                     </div>
                     <div class="scroll-reveal">
-                        <h3 class="text-2xl font-bold mb-3">Audience-Powered</h3>
-                        <p class="text-gray-600">
+                        <h3 class="text-2xl font-bold mb-3 text-black dark:text-white">Audience-Powered</h3>
+                        <p class="text-gray-600 dark:text-gray-400">
                             If it doesn’t connect, it doesn’t ship.
                         </p>
                     </div>
@@ -355,7 +373,7 @@
             </div>
         </section>
 
-        <!-- SOCIAL SECTION (Hidden by default) -->
+        <!-- SOCIAL SECTION (Hidden) -->
         <section id="social" class="bg-black text-white py-24 md:py-40 hidden" aria-hidden="true">
             <div class="container mx-auto px-4">
                 <div class="max-w-3xl mx-auto text-center scroll-reveal mb-16 md:mb-24">
@@ -396,17 +414,17 @@
             </div>
         </section>
 
-        <!-- CONTACT SECTION (Hidden by default) -->
-        <section id="contact" class="bg-white text-black py-24 md:py-40 hidden" aria-hidden="true">
+        <!-- CONTACT SECTION -->
+        <section id="contact" class="bg-white text-black py-24 md:py-40 dark:bg-gray-950">
             <div class="container mx-auto px-4">
                 <div class="max-w-3xl mx-auto text-center scroll-reveal">
-                    <h2 class="section-headline">
+                    <h2 class="section-headline text-black dark:text-white">
                         Let's talk.
                     </h2>
-                    <p class="text-lg md:text-xl max-w-xl mx-auto mt-6 text-gray-700">
+                    <p class="text-lg md:text-xl max-w-xl mx-auto mt-6 text-gray-700 dark:text-gray-300">
                         For project inquiries, partnership proposals, or media requests.
                     </p>
-                    <a href="mailto:hello@jmarsh.media" class="inline-block bg-black text-white font-semibold py-3 px-8 rounded-full mt-10 transition-transform hover:scale-105 hover:bg-gray-800">
+                    <a href="mailto:hello@jmarsh.media" class="inline-block bg-black text-white font-semibold py-3 px-8 rounded-full mt-10 transition-transform hover:scale-105 hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200">
                         hello@jmarsh.media
                     </a>
                 </div>
@@ -414,13 +432,30 @@
         </section>
     </main>
 
-    <footer class="text-center py-12 bg-white border-t border-gray-100">
-        <div class="container mx-auto px-4 text-gray-500 text-sm">
-            <p>&copy; 2025 J.Marsh Media. All rights reserved.</p>
+    <footer class="text-center py-12 bg-white border-t border-gray-100 dark:bg-gray-950 dark:border-gray-800">
+        <div class="container mx-auto px-4 text-gray-500 dark:text-gray-400 text-sm">
+            <p>&copy; 2025 J. Marsh Media. All rights reserved.</p>
         </div>
     </footer>
 
     <script>
+        // Automatic Dark Mode detection and application
+        const applySystemTheme = () => {
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (prefersDark) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        };
+
+        // Apply theme on initial load
+        applySystemTheme();
+
+        // Listen for changes in system preference
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applySystemTheme);
+
+
         document.addEventListener('DOMContentLoaded', () => {
             
             // --- Mobile Menu Toggle ---
@@ -432,7 +467,9 @@
 
             const toggleMobileMenu = () => {
                 const isOpen = mobileMenu.classList.toggle('hidden');
+                // Toggle the icon based on the menu state
                 mobileMenuBtn.innerHTML = isOpen ? menuIconOpen : menuIconClose;
+                // Add/remove a class to body to prevent scrolling when menu is open (optional)
             };
 
             mobileMenuBtn.addEventListener('click', toggleMobileMenu);
