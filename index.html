@@ -6,7 +6,678 @@
     
     <!-- 16. SEO & Meta -->
     <title>J. Marsh Media | Authors, Books, and Original Media.</title>
-    <meta name="description" content="J. Marsh Media is a modern home for authors. We connect compelling stories with global audiences across books, film, and original media.">
+    <meta name="descripti<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- 
+      CRITICAL: This meta tag ensures the page is mobile-first 
+      and scales correctly on all devices.
+    --><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>J. Marsh Media - Dynamic Minimalist Page</title>
+    
+    <!-- 
+      OPTIONAL: Add a modern font from Google Fonts. 
+      We'll use Inter for this design.
+    --><link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- 1. Resets & Global Styles --- */
+
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+
+        html {
+            /* NEW: Enables smooth scrolling when nav links are clicked */
+            scroll-behavior: smooth;
+        }
+
+        html, body {
+          height: 100%;
+        }
+
+        body {
+          /* Use the "Inter" font stack */
+          font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, 
+                       Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+          color: #ffffff;
+          
+          /* TECHNIQUE 1: The Animated Gradient Background 
+            We define a large background and animate its position.
+            This gives a "living" feel without any JS.
+            UPDATED: Warmer color tones.
+          */
+          background: linear-gradient(-45deg, #FF7E5F, #FEB47B, #FFD194, #FF9C7B); /* Warmer gradient */
+          background-size: 400% 400%;
+          animation: gradientDrift 15s ease infinite;
+          
+          /* Ensures the gradient is fixed during scroll */
+          background-attachment: fixed;
+        }
+
+        ul {
+          list-style: none;
+        }
+
+        a {
+          text-decoration: none;
+          color: inherit;
+        }
+
+        /* --- 2. Header & Navigation --- */
+        .header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem 2rem;
+            z-index: 100;
+            opacity: 0; /* Start hidden for animation */
+            animation: fadeDown 0.8s ease-out 0.2s forwards;
+            
+            /* Add a subtle glass effect to the header on scroll */
+            position: fixed;
+            background: rgba(0, 0, 0, 0.1);
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px; /* Constrain nav width on large screens */
+            margin: 0 auto;
+        }
+
+        .nav-logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+            transition: opacity 0.3s ease;
+        }
+        .nav-logo:hover {
+            opacity: 0.7;
+        }
+
+        .nav-toggle-checkbox {
+            display: none; /* Hide the actual checkbox */
+        }
+
+        .nav-toggle-label {
+            width: 30px;
+            height: 22px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+        }
+
+        .nav-toggle-label span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: #ffffff;
+            border-radius: 3px;
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
+
+        .nav-menu {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 70%;
+            max-width: 300px;
+            height: 100vh;
+            background: rgba(25, 25, 25, 0.7); /* Dark glass */
+            
+            /* Glassmorphism */
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px); 
+            
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2.5rem; /* Space out links */
+            
+            transform: translateX(100%); /* Hide off-screen */
+            transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+
+        .nav-menu a {
+            font-size: 1.25rem;
+            font-weight: 700;
+            transition: opacity 0.3s ease;
+            white-space: nowrap; /* Ensures nav links do not wrap */
+        }
+        .nav-menu a:hover {
+            opacity: 0.7;
+        }
+
+        /* --- Mobile Menu Toggle Logic --- */
+        .nav-toggle-checkbox:checked ~ .nav-menu {
+            transform: translateX(0); /* Slide menu in */
+        }
+        
+        /* Animate hamburger icon to an 'X' */
+        .nav-toggle-checkbox:checked + .nav-toggle-label span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .nav-toggle-checkbox:checked + .nav-toggle-label span:nth-child(2) {
+            opacity: 0;
+        }
+        .nav-toggle-checkbox:checked + .nav-toggle-label span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+
+        /* --- 3. Layout (Mobile-First Hero) --- */
+
+        .content-wrapper {
+          min-height: 100vh; /* Full vertical height */
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          padding: 20px; /* Some padding for small screen edges */
+          /* Add padding-top to account for fixed header */
+          padding-top: 80px; 
+        }
+
+        /* --- 4. Content & Typography --- */
+
+        .headline {
+          font-size: clamp(2.5rem, 8vw, 5rem);
+          font-weight: 700;
+          line-height: 1.1;
+          margin-bottom: 1.5rem;
+        }
+
+        .support-text {
+          font-size: clamp(1rem, 2.5vw, 1.25rem);
+          font-weight: 400;
+          line-height: 1.5;
+          margin-bottom: 2.5rem;
+          max-width: 600px;
+        }
+        
+        /* --- 5. Talent Grid Section --- */
+        
+        #talent-section {
+            padding: 4rem 0; /* Vertical padding */
+            /* Add a semi-transparent dark layer over the gradient */
+            background: rgba(0, 0, 0, 0.2); 
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            color: #fff; /* Ensure text is visible */
+        }
+        
+        .section-title {
+            font-size: clamp(2rem, 6vw, 3rem);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+        
+        /* Responsive CSS grid for talent cards */
+        .carousel-wrapper {
+            display: grid;
+            /* Auto-fit cards, ensuring a minimum width of 200px. They will wrap naturally. */
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+            
+            gap: 1.5rem; 
+            padding: 0 2rem; /* Horizontal padding for the content */
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .author-card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 16px;
+            padding: 1.5rem; /* Slightly smaller padding for better fit */
+            text-align: center;
+            transition: transform 0.3s ease, background 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .author-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .author-card-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%; /* Makes the image circular */
+            object-fit: cover; /* Ensures image fills the circle */
+            margin-bottom: 1rem; /* Slightly reduced margin */
+            border: 2px solid rgba(255, 255, 255, 0.5); /* Subtle border */
+        }
+        
+        .author-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .author-card p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 1rem; /* Slightly reduced margin */
+            word-wrap: break-word; 
+            max-width: 100%;
+        }
+        
+        .author-card-link {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 0.75rem 1.5rem;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: background 0.3s ease;
+        }
+        
+        .author-card-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* --- 6. Our Story Section --- */
+        #our-story-section {
+            padding: 4rem 2rem; /* Vertical and horizontal padding */
+            /* Consistent glass background */
+            background: rgba(0, 0, 0, 0.2); 
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            color: #fff;
+        }
+
+        .story-card-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: stretch; /* Makes cards same height */
+            flex-wrap: wrap; /* Allows cards to wrap on mobile */
+            gap: 1.5rem; /* Space between cards */
+            max-width: 1200px;
+            margin: 0 auto; /* Center the wrapper */
+        }
+
+        .story-card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: left;
+            flex-basis: 320px; /* Base width for each card */
+            flex-grow: 1; /* Allows cards to grow and fill space */
+            max-width: 400px; /* Max width for each card */
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .story-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .story-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .story-card p {
+            font-size: 1rem;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        /* --- 7. Contact Section --- */
+        #contact-section {
+            padding: 4rem 2rem;
+            background: rgba(0, 0, 0, 0.2); 
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            color: #fff;
+        }
+
+        .contact-wrapper {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            text-align: left; /* Align labels/inputs */
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            padding: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s ease, background-color 0.3s ease;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: #FEB47B; /* Highlight color from warm palette */
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+        
+        /* Styling for the form submission button (reusing CTA hover effects) */
+        .contact-form button {
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #ffffff;
+            /* Using a slightly more opaque background for the primary button */
+            background: linear-gradient(45deg, rgba(255, 126, 95, 0.8), rgba(254, 180, 123, 0.8)); 
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+            align-self: center; /* Center the button in the form */
+            width: 100%;
+            max-width: 200px;
+        }
+
+        .contact-form button:hover,
+        .contact-form button:focus {
+            transform: translateY(-4px); 
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); 
+            background: linear-gradient(45deg, #FF7E5F, #FEB47B); /* Solid color on hover */
+            outline: none;
+        }
+
+        .contact-info p {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.8;
+            text-align: center;
+        }
+
+        .contact-email {
+            font-size: 1.5rem;
+            font-weight: 700;
+            transition: color 0.3s ease;
+            display: block; /* Make the email a block element for spacing */
+            margin-top: 10px;
+        }
+        
+        .contact-email:hover {
+            color: #FFD194; /* Light highlight */
+        }
+
+
+        /* --- 8. Animations --- */
+
+        /* The @keyframes for the gradient background */
+        @keyframes gradientDrift {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+
+        /* The @keyframes for the content fade-up */
+        @keyframes fadeUp {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        /* The @keyframes for the header fade-down */
+        @keyframes fadeDown {
+          from {
+            opacity: 0;
+            transform: translateY(-20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        /* Staggered Load Animation */
+        /* Header animation is in .header block */
+        .headline {
+          animation: fadeUp 0.8s ease-out 0.5s forwards; /* Delayed */
+          opacity: 0; /* Start hidden */
+        }
+
+        .support-text {
+          animation: fadeUp 0.8s ease-out 0.8s forwards; /* Delayed */
+          opacity: 0; /* Start hidden */
+        }
+        
+        /* --- 9. Desktop & Tablet Styles --- */
+        
+        @media (min-width: 768px) {
+            .nav-toggle-label {
+                display: none; /* Hide hamburger on desktop */
+            }
+            
+            .nav-menu {
+                position: static; /* Reset from fixed */
+                transform: none; /* Reset from hidden */
+                flex-direction: row;
+                width: auto;
+                height: auto;
+                background: none;
+                backdrop-filter: none;
+                gap: 2rem;
+            }
+            
+            .nav-menu a {
+                font-size: 1rem;
+                font-weight: 400; /* Less bold for desktop links */
+            }
+            
+            /* Center the carousel on desktop and add padding */
+            .carousel-wrapper {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 2rem;
+            }
+        }
+    </style>
+
+</head>
+<body>
+
+    <header class="header">
+        <nav class="nav">
+            <a href="https://jmarshmedia.com" class="nav-logo">J. Marsh Media</a>
+            
+            <!-- Mobile Menu Toggle (Checkbox Hack) --><input type="checkbox" id="nav-toggle" class="nav-toggle-checkbox">
+            <label for="nav-toggle" class="nav-toggle-label">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+            
+            <!-- Navigation Menu --><ul class="nav-menu">
+                <li><a href="#talent-section">Talent</a></li>
+                <li><a href="#our-story-section">Our Story</a></li>
+                
+                <!-- NEW LINKS ADDED BELOW -->
+                <li><a href="shop/bookstore.html">Bookstore</a></li>
+                <li><a href="music.html">Watch & Listen</a></li>
+                
+                <!-- UPDATED: Link to the new section --><li><a href="#contact-section">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="content-wrapper">
+        <h1 class="headline">Control the Signal</h1>
+        <p class="support-text">Author-Driven. Creator-Owned. Audience-Powered.</p>
+    </main>
+    
+    <section id="talent-section">
+        <h2 class="section-title">Our Talent</h2>
+        
+        <!-- This is a responsive grid, not a scrolling carousel --><div class="carousel-wrapper">
+            <!-- Card 1: Jeremy Marsh --><div class="author-card">
+                <!-- Placeholder Image - Replace with actual image path --><img src="https://via.placeholder.com/100x100/FF7E5F/ffffff?text=JM" alt="Jeremy Marsh" class="author-card-img">
+                <h3>Jeremy Marsh</h3>
+                <!-- UPDATED: Role description --><p>Author, Songwriter, Creative Director</p>
+                <a href="jeremy-marsh.html" class="author-card-link">View Profile</a>
+            </div>
+            
+            <!-- Card 2: Redwood Daniels --><div class="author-card">
+                <img src="https://via.placeholder.com/100x100/FEB47B/ffffff?text=RD" alt="Redwood Daniels" class="author-card-img">
+                <h3>Redwood Daniels</h3>
+                <p>Author</p>
+                <a href="redwood-daniels.html" class="author-card-link">View Profile</a>
+            </div>
+            
+            <!-- Card 3: Tessa Reese --><div class="author-card">
+                <img src="https://via.placeholder.com/100x100/FFD194/ffffff?text=TR" alt="Tessa Reese" class="author-card-img">
+                <h3>Tessa Reese</h3>
+                <p>Author</p>
+                <a href="tessa-reese.html" class="author-card-link">View Profile</a>
+            </div>
+            
+            <!-- Card 4: Grayson Holt --><div class="author-card">
+                <img src="https://via.placeholder.com/100x100/FF9C7B/ffffff?text=GH" alt="Grayson Holt" class="author-card-img">
+                <h3>Grayson Holt</h3>
+                <p>Author</p>
+                <a href="grayson-holt.html" class="author-card-link">View Profile</a>
+            </div>
+            
+            <!-- Card 5: Asha Monroe --><div class="author-card">
+                <img src="https://via.placeholder.com/100x100/FF7E5F/ffffff?text=AM" alt="Asha Monroe" class="author-card-img">
+                <h3>Asha Monroe</h3>
+                <p>Author</p>
+                <a href="asha-monroe.html" class="author-card-link">View Profile</a>
+            </div>
+            
+            <!-- Card 6: Ellis Jordan --><div class="author-card">
+                <img src="https://via.placeholder.com/100x100/FEB47B/ffffff?text=EJ" alt="Ellis Jordan" class="author-card-img">
+                <h3>Ellis Jordan</h3>
+                <p>Author</p>
+                <a href="ellis-jordan.html" class="author-card-link">View Profile</a>
+            </div>
+            
+            <!-- Card 7: Miguel Marisma --><div class="author-card">
+                <img src="https://via.placeholder.com/100x100/FFD194/ffffff?text=MM" alt="Miguel Marisma" class="author-card-img">
+                <h3>Miguel Marisma</h3>
+                <p>Author</p>
+                <a href="miguel-marisma.html" class="author-card-link">View Profile</a>
+            </div>
+            
+            <!-- Card 8: Miles Reid --><div class="author-card">
+                <img src="https://via.placeholder.com/100x100/FF9C7B/ffffff?text=MR" alt="Miles Reid" class="author-card-img">
+                <h3>Miles Reid</h3>
+                <p>Author</p>
+                <a href="miles-reid.html" class="author-card-link">View Profile</a>
+            </div>
+            
+            <!-- Card 9: Reyna Noire --><div class="author-card">
+                <img src="https://via.placeholder.com/100x100/FF7E5F/ffffff?text=RN" alt="Reyna Noire" class="author-card-img">
+                <h3>Reyna Noire</h3>
+                <p>Author</p>
+                <a href="reyna-noire.html" class="author-card-link">View Profile</a>
+            </div>
+            
+            <!-- Card 10: Reginald Roberts --><div class="author-card">
+                <img src="https://via.placeholder.com/100x100/FEB47B/ffffff?text=RR" alt="Reginald Roberts" class="author-card-img">
+                <h3>Reginald Roberts</h3>
+                <p>Author</p>
+                <a href="reginald-roberts.html" class="author-card-link">View Profile</a>
+            </div>
+            
+            <!-- Card 11: Jacen Michaels --><div class="author-card">
+                <img src="https://via.placeholder.com/100x100/FFD194/ffffff?text=JM" alt="Jacen Michaels" class="author-card-img">
+                <h3>Jacen Michaels</h3>
+                <p>Author</p>
+                <a href="jacen-michales.html" class="author-card-link">View Profile</a>
+            </div>
+            
+            <!-- Card 12: Damon Walker --><div class="author-card">
+                <img src="https://via.placeholder.com/100x100/FF9C7B/ffffff?text=DW" alt="Damon Walker" class="author-card-img">
+                <h3>Damon Walker</h3>
+                <p>Author</p>
+                <a href="damon-walker.html" class="author-card-link">View Profile</a>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- Our Story Section -->
+    <section id="our-story-section">
+        <h2 class="section-title">Our Story</h2>
+        <div class="story-card-wrapper">
+            
+            <div class="story-card">
+                <h3>Author-Driven</h3>
+                <p>We start with voice. Every project is built around the writer’s intent, not a committee’s compromise.</p>
+            </div>
+            
+            <div class="story-card">
+                <h3>Creator-Owned</h3>
+                <p>IP stays with its creator. We structure deals so the people who build the worlds keep the worlds.</p>
+            </div>
+            
+            <div class="story-card">
+                <h3>Audience-Powered</h3>
+                <p>We connect creators directly with their audience, building communities that are engaged, supportive, and truly invested in the journey. The signal flows both ways.</p>
+            </div>
+
+        </div>
+    </section>
+    
+    <!-- NEW: Contact Section -->
+    <section id="contact-section">
+        <h2 class="section-title">Get in Touch</h2>
+        <div class="contact-wrapper">
+            <form action="https://formspree.io/f/mdkpqkrw" method="POST" class="contact-form">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="_replyto" placeholder="Your Email" required>
+                <textarea name="message" placeholder="Your Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+            
+            <div class="contact-info">
+                <p>Or email us directly:</p>
+                <!-- FIXED: Changed link text to the full email address --><a href="mailto:hello@jmarshmedia.com" class="contact-email">@jmarshmedia.com</a>
+            </div>
+        </div>
+    </section>
+    
+</body>
+</html>on" content="J. Marsh Media is a modern home for authors. We connect compelling stories with global audiences across books, film, and original media.">
     
     <!-- 16. Open Graph -->
     <meta property="og:site_name" content="J. Marsh Media">
