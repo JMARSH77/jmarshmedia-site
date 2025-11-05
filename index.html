@@ -1,500 +1,199 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>J. Marsh Media</title>
-    
-    <!-- Custom Tailwind Config to Enable Class-based Dark Mode -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-        }
-    </script>
-    
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    
-    <!-- OG Share Image (1200x630 JPG, <=300KB) -->
-    <meta property="og:title" content="J-Marsh Media: Author-Driven. Creator-Owned. Audience-Powered."/>
-    <meta property="og:description" content="Representing the next generation of authors and creators in narrative fiction, music, and media."/>
-    <meta property="og:image" content="/assets/og-image-1200x630.jpg"/>
+import React, { useEffect, useState } from "react";
 
-    <style>
-        :root {
-            --t-hero: clamp(32px, 4.2vw, 48px); 
-        }
+// J Marsh Media — single-file React site (updated)
+// Social & Press hidden per request; Store replaced by Bookstore; Media now shows video
 
-        html { scroll-behavior: smooth; }
-        
-        body { 
-            font-family: 'Inter', sans-serif; 
-            -webkit-font-smoothing: antialiased; 
-            -moz-osx-font-smoothing: grayscale; 
-        }
+const people = [
+  { name: "Jeremy Marsh", role: "Author • Creator • Music Producer", href: "jeremy-marsh.html", img: "images/headshots/jeremy-marsh-headshot.jpg" },
+  { name: "Jacen Michaels", role: "Author", href: "jacen-michaels.html", img: "images/headshots/jacen-daniels-marsh-headshot.jpg" },
+  { name: "Redwood Daniels", role: "Author", href: "redwood-daniels.html", img: "images/headshots/redwood-daniels-headshot-a.jpg" },
+  { name: "Grayson Holt", role: "Author", href: "grayson-holt.html", img: "images/headshots/grayson-holt-headshot.jpg" },
+  { name: "Tessa Reese", role: "Author • Blogger", href: "tessa-reese.html", img: "images/headshots/tess-resse-headshot.jpg" },
+  { name: "Reyna Noire", role: "Author", href: "reyna-noire.html", img: "images/headshots/Reyna-Noire-Headshot.jpg" },
+  { name: "Ellis Jordan", role: "Author", href: "ellis-jordan.html", img: "images/headshots/ellis-jordan-headshot.jpg" },
+  { name: "Asha Monroe", role: "Author", href: "asha-monroe.html", img: "images/headshots/asha-monroe-headshot.jpg" },
+  { name: "Damon Walker", role: "Author", href: "damon-walker.html", img: "images/headshots/damon-walker-headshot.jpg" },
+  { name: "Reginald Roberts", role: "Author", href: "reginald-roberts.html", img: "images/headshots/reginald-roberts-headshot.jpg" },
+  { name: "Miles Reid", role: "Author", href: "miles-reid.html", img: "/images/headshots/miles-reid-headshot.jpg" },
+  { name: "Miguel Marisma", role: "Author", href: "miguel-marisma.html", img: "images/headshots/miguel-marisma-headshot.jpg" }
+];
 
-        .header-nav { 
-            /* Light Mode */
-            background-color: rgba(255, 255, 255, 0.8); 
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05); 
-            /* Dark Mode Backdrop */
-            backdrop-filter: blur(12px); 
-            -webkit-backdrop-filter: blur(12px); 
-        }
-        .dark .header-nav {
-            background-color: rgba(17, 24, 39, 0.85);
-            border-bottom-color: rgba(255, 255, 255, 0.1);
-        }
+const Stat = ({ label, value }) => (
+  <div className="flex flex-col items-center rounded-2xl border border-zinc-800/40 bg-zinc-900/40 p-4">
+    <span className="text-3xl font-semibold tracking-tight text-white">{value}</span>
+    <span className="text-sm text-zinc-400">{label}</span>
+  </div>
+);
 
-        .nav-link { 
-            color: #333; 
-            transition: color 0.3s; 
-        }
-        .nav-link:hover { 
-            color: #000; 
-        }
-        .dark .nav-link {
-            color: #ccc;
-        }
-        .dark .nav-link:hover {
-            color: #fff;
-        }
+const Section = ({ id, eyebrow, title, children, kicker }) => (
+  <section id={id} className="scroll-mt-24 py-16 sm:py-24">
+    <div className="mx-auto max-w-6xl px-4">
+      {eyebrow && <p className="mb-2 text-xs font-medium uppercase tracking-widest text-emerald-400">{eyebrow}</p>}
+      <h2 className="text-2xl sm:text-4xl font-bold text-white">{title}</h2>
+      <div className="mt-8 text-zinc-300 leading-relaxed">{children}</div>
+      {kicker && <p className="mt-6 text-sm text-zinc-400">{kicker}</p>}
+    </div>
+  </section>
+);
 
-        .hero-headline {
-            /* Reduced Max size for better balance */
-            font-size: clamp(2.5rem, 8vw, 6rem); 
-            line-height: 1; 
-            font-weight: 800; 
-            letter-spacing: -0.05em; 
-        }
+const NavLink = ({ href, children }) => (
+  <a href={href} className="rounded-full px-3 py-2 text-sm font-medium text-zinc-200 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">
+    {children}
+  </a>
+);
 
-        .hero-subtext {
-            font-size: var(--t-hero);
-        }
-        
-        .section-headline {
-            font-size: clamp(2.5rem, 8vw, 5rem); 
-            line-height: 1.1; 
-            font-weight: 700; 
-            letter-spacing: -0.04em; 
-        }
+export default function JMarshMediaSite() {
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
-        .scroll-reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        .scroll-reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .project-card {
-            background-color: #f5f5f7;
-            border-radius: 24px;
-            overflow: hidden;
-            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        .project-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.07);
-        }
-        .dark .project-card {
-            background-color: #1f2937;
-        }
-        .project-card img {
-            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        .project-card:hover img {
-            transform: scale(1.05);
-        }
-
-        .aspect-4\/5 { padding-bottom: 125%; height: 0; position: relative; }
-        .aspect-4\/5 img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
-    </style>
-</head>
-<body class="bg-white text-black transition-colors duration-500 dark:bg-gray-950 dark:text-white">
-
-    <header class="header-nav sticky top-0 z-50">
-        <nav class="container mx-auto flex justify-between items-center p-4 md:px-6">
-            <a href="#home">
-                <img src="/images/logos/jmarshmedia-logo.svg" alt="J-Marsh Media Logo" class="h-8 w-auto" onerror="this.outerHTML='<span class=\'text-xl font-bold\'>J-Marsh Media</span>'">
-            </a>
-            <div class="hidden md:flex space-x-8 text-sm font-semibold">
-                <a href="#spotlight" class="nav-link">Author Spotlight</a>
-                <a href="#talent" class="nav-link">Talent</a>
-                <a href="#listen-watch" class="nav-link">Listen & Watch</a>
-                <a href="#story" class="nav-link">Our Story</a>
-                <a href="bookstore.html" class="nav-link">Bookstore</a>
-                <a href="#contact" class="nav-link">Contact</a>
-            </div>
-            <button id="mobile-menu-btn" class="md:hidden text-black dark:text-white">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-            </button>
-        </nav>
-        <div id="mobile-menu" class="hidden md:hidden fixed inset-0 bg-white/90 backdrop-blur-md z-40 flex flex-col items-center justify-center space-y-8 dark:bg-gray-950/90 dark:text-white">
-            <a href="#spotlight" class="nav-link text-2xl font-medium">Author Spotlight</a>
-            <a href="#talent" class="nav-link text-2xl font-medium">Talent</a>
-            <a href="#listen-watch" class="nav-link text-2xl font-medium">Listen & Watch</a>
-            <a href="#story" class="nav-link text-2xl font-medium">Our Story</a>
-            <a href="bookstore.html" class="nav-link text-2xl font-medium">Bookstore</a>
-            <a href="#contact" class="nav-link text-2xl font-medium">Contact</a>
+  return (
+    <main className="min-h-screen bg-zinc-950 text-zinc-100">
+      <header className={`sticky top-0 z-50 w-full backdrop-blur supports-[backdrop-filter]:bg-zinc-950/60 ${scrolled ? 'border-b border-white/10' : ''}`}>
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
+          <a href="#top" className="flex items-center gap-3">
+            <div className="h-8 w-8 rounded-md bg-emerald-500" aria-hidden="true" />
+            <span className="text-sm font-semibold tracking-wider text-white">J MARSH MEDIA</span>
+          </a>
+          <nav className="hidden items-center gap-1 sm:flex">
+            <NavLink href="#talent">Talent</NavLink>
+            <NavLink href="#story">Our Story</NavLink>
+            <NavLink href="#media">Media</NavLink>
+            <NavLink href="#bookstore">Bookstore</NavLink>
+            <NavLink href="#contact">Contact</NavLink>
+          </nav>
+          <a href="#contact" className="rounded-full bg-emerald-500 px-4 py-2 text-sm font-semibold text-black hover:bg-emerald-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">
+            Let’s talk
+          </a>
         </div>
-    </header>
+      </header>
 
-    <main>
-        <!-- HERO SECTION -->
-        <section id="home" class="min-h-screen flex flex-col items-center justify-center text-center px-4 py-24 bg-gray-50 dark:bg-gray-900">
-            <div class="scroll-reveal">
-                <h1 class="hero-headline text-black dark:text-white max-w-5xl mx-auto">
-                    Author-driven. Creator-owned. Audience-powered.
-                </h1>
-                <p class="hero-subtext max-w-2xl mx-auto mt-6 text-gray-700 dark:text-gray-300 font-medium">
-                    The new narrative model.
-                </p>
-                
-                <div class="flex flex-col sm:flex-row justify-center gap-4 mt-10">
-                    <a href="#listen-watch" id="listen-watch-cta" class="bg-black text-white font-semibold py-3 px-8 rounded-lg shadow-lg transition-all duration-300 hover:scale-[1.03] hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200">
-                        LISTEN & WATCH
-                    </a>
-                    <a href="#spotlight" class="bg-transparent border border-black text-black font-semibold py-3 px-8 rounded-lg transition-all duration-300 hover:scale-[1.03] hover:bg-gray-100 dark:border-white dark:text-white dark:hover:bg-gray-800">
-                        Author Spotlight
-                    </a>
-                </div>
+      {/* Hero */}
+      <section id="top" className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-emerald-600/10 via-transparent to-transparent" aria-hidden="true" />
+        <div className="mx-auto grid max-w-6xl grid-cols-1 gap-10 px-4 pb-20 pt-16 sm:pb-28 sm:pt-24 md:grid-cols-5">
+          <div className="col-span-3">
+            <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-6xl">Control the Signal.</h1>
+            <p className="mt-5 max-w-2xl text-lg leading-relaxed text-zinc-300">
+              Author-driven. Creator-owned. Audience-powered. A studio for stories, podcasts, and products built with independence at the core.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a href="#bookstore" className="rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-black hover:bg-zinc-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">
+                Visit the Bookstore
+              </a>
+              <a href="#media" className="rounded-full border border-white/20 px-5 py-2.5 text-sm font-semibold text-white hover:border-white/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">
+                Watch Media
+              </a>
             </div>
-        </section>
-
-        <!-- AUTHOR SPOTLIGHT -->
-        <section id="spotlight" class="py-24 md:py-40 bg-white dark:bg-gray-950">
-            <div class="container mx-auto px-4 max-w-6xl">
-                <div class="max-w-3xl mx-auto text-center scroll-reveal mb-16 md:mb-24">
-                    <h2 class="section-headline text-black dark:text-white">
-                        Featured Author.
-                    </h2>
-                </div>
-                <div class="flex flex-col md:flex-row gap-12 items-center md:items-start">
-                    
-                    <div class="w-full md:w-5/12 mx-auto md:mx-0 scroll-reveal">
-                        <div class="rounded-3xl shadow-xl overflow-hidden aspect-4/5">
-                            <picture>
-                                <source srcset="images/headshots/jeremy-marsh-headshot.jpg" type="image/jpg">
-                                <img src="images/headshots/jeremy-marsh-headshot.jpg" alt="Jeremy Marsh Portrait" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://placehold.co/800x1000/000000/ffffff?text=Jeremy+Marsh'">
-                            </picture>
-                        </div>
-                    </div>
-
-                    <div class="w-full md:w-7/12 mt-8 md:mt-0">
-                        <div class="scroll-reveal" data-stagger-group="spotlight">
-                            <h3 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-black dark:text-white">Jeremy Marsh</h3>
-                            <p class="text-xl text-gray-700 dark:text-gray-300 mb-8">Author, Creator, Songwriter/Music Producer</p>
-                            
-                            <p class="text-lg mb-8 text-black dark:text-gray-200">
-                                A relentless storyteller working across multiple disciplines, Jeremy Marsh is the engine behind J-Marsh Media. His work focuses on themes of grief, hope, and the human search for identity.
-                            </p>
-
-                            <div class="grid grid-cols-3 gap-4 text-center border-y border-gray-200 dark:border-gray-800 py-6 mb-10">
-                                <div>
-                                    <p class="text-2xl font-extrabold text-black dark:text-white">2025</p>
-                                    <p class="text-sm text-gray-500 dark:text-gray-400">Debut Novel</p>
-                                </div>
-                                <div>
-                                    <p class="text-2xl font-extrabold text-black dark:text-white">Songs</p>
-                                    <p class="text-sm text-gray-500 dark:text-gray-400">Modern Americana</p>
-                                </div>
-                                <div>
-                                    <p class="text-2xl font-extrabold text-black dark:text-white">Themes</p>
-                                    <p class="text-sm text-gray-500 dark:text-gray-400">Grief • Loyalty • Grace</p>
-                                </div>
-                            </div>
-
-                            <div class="flex flex-wrap gap-4">
-                                <a href="www.youtube.com/@Jeremy_Marsh_Official" target="_blank" rel="noopener noreferrer" class="bg-black text-white font-semibold py-3 px-6 rounded-full transition-transform hover:scale-105 hover:bg-gray-800 text-sm dark:bg-white dark:text-black dark:hover:bg-gray-200">
-                                    <span class="inline-block align-middle mr-2">
-                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-1.332-6.6-1.332-10.204 0C5.811 4.516 3.011 7.217 3.011 10.5v3c0 3.283 2.8 5.984 6.4 7.316 3.604 1.332 6.6 1.332 10.204 0 3.604-1.332 6.4-4.033 6.4-7.316v-3c0-3.283-2.8-5.984-6.4-7.316zm-5.415 8.169l-4.148-2.394c-.161-.093-.36-.093-.521 0-.16.093-.266.26-.266.447v4.787c0 .187.106.354.266.447.161.093.36.093.521 0l4.148-2.394c.16-.093.266-.26.266-.447s-.106-.354-.266-.447z"/></svg>
-                                    </span>
-                                    The Official YouTube Channel
-                                </a>
-                                <a href="/press/jeremy-marsh-press-kit.pdf" target="_blank" class="bg-gray-100 text-black font-semibold py-3 px-6 rounded-full transition-transform hover:scale-105 hover:bg-gray-200 text-sm dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700">
-                                    Press Kit
-                                </a>
-                                <a href="#portal" class="bg-gray-100 text-black font-semibold py-3 px-6 rounded-full transition-transform hover:scale-105 hover:bg-gray-200 text-sm dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700">
-                                    The Portal
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div className="mt-12 grid grid-cols-3 gap-3 sm:max-w-md">
+              <Stat label="Authors" value="12" />
+              <Stat label="Series" value="20+" />
+              <Stat label="Shows" value="6" />
             </div>
-        </section>
-
-        <!-- TALENT SECTION -->
-        <section id="talent" class="bg-black text-white py-24 md:py-40 dark:bg-gray-900">
-            <div class="container mx-auto px-4">
-                <div class="max-w-3xl mx-auto text-center scroll-reveal mb-16 md:mb-24">
-                    <h2 class="section-headline text-white">
-                        Talent Roster.
-                    </h2>
-                    <p class="text-lg md:text-xl max-w-xl mx-auto mt-6 text-gray-400">
-                        Our growing roster of creators who control their signal.
-                        <br>
-                        (Only authors with finished work are currently listed.)
-                    </p>
-                </div>
-                
-                <div id="talent-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-                    <!-- The Jeremy Marsh card is intentionally placed in the center column visually -->
-                    <div class="md:col-start-2 scroll-reveal" data-stagger-group="talent">
-                        <a href="/authors/jeremy-marsh/index.html" class="project-card">
-                            <div class="aspect-4/5">
-                                <picture>
-                                    <source srcset="images/headshots/jeremy-marsh-headshot.jpg" type="image/jpg">
-                                    <img src="images/headshots/jeremy-marsh-headshot.jpg" alt="Jeremy Marsh" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://placehold.co/800x1000/f5f5f7/cccccc?text=Jeremy+Marsh'">
-                                </picture>
-                            </div>
-                            <div class="p-8">
-                                <h3 class="text-xl font-bold text-black dark:text-white">Jeremy Marsh</h3>
-                                <p class="text-gray-600 dark:text-gray-400 mt-1">Author, Creator</p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
+          </div>
+          <div className="col-span-2">
+            <div className="relative h-72 w-full overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-zinc-900 to-zinc-800 p-3 sm:h-96">
+              <div className="grid h-full grid-cols-2 gap-3">
+                <div className="rounded-xl bg-[url('/assets/covers/the-portal.jpg')] bg-cover bg-center" />
+                <div className="rounded-xl bg-[url('/assets/covers/alpha-dawgs.jpg')] bg-cover bg-center" />
+                <div className="rounded-xl bg-[url('/assets/covers/no-huddle.jpg')] bg-cover bg-center" />
+                <div className="rounded-xl bg-[url('/assets/covers/new-origins.jpg')] bg-cover bg-center" />
+              </div>
             </div>
-        </section>
+            <p className="mt-3 text-center text-xs text-zinc-400">Feature reel: swap with real images or an autoplay video.</p>
+          </div>
+        </div>
+      </section>
 
-        <!-- LISTEN & WATCH SECTION -->
-        <section id="listen-watch" class="bg-white text-black py-24 md:py-40 dark:bg-gray-950">
-            <div class="container mx-auto px-4 max-w-5xl">
-                <div class="max-w-3xl mx-auto text-center scroll-reveal mb-16 md:mb-24">
-                    <h2 class="section-headline text-black dark:text-white">
-                        Listen & Watch.
-                    </h2>
-                    <p class="text-lg md:text-xl max-w-xl mx-auto mt-6 text-gray-700 dark:text-gray-300">
-                        Immediate proof of work from our creators.
-                    </p>
+      <Section id="talent" eyebrow="Talent" title="Representing the next generation of authors and creators.">
+        <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
+          {people.map((p) => (
+            <li key={p.name} className="group overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/40">
+              <a href={p.href} className="block focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">
+                <div className="h-40 w-full bg-zinc-800 bg-cover bg-center transition group-hover:opacity-90" style={{ backgroundImage: `url(${p.img})` }} />
+                <div className="p-4">
+                  <p className="text-sm font-semibold text-white">{p.name}</p>
+                  <p className="text-xs text-zinc-400">{p.role}</p>
                 </div>
-                
-                <!-- FEATURED VIDEO: The Portal Teaser Trailer -->
-                <div class="scroll-reveal mb-20">
-                    <h3 class="text-3xl font-bold mb-4 text-black dark:text-white">The Portal Teaser Trailer</h3>
-                    
-                    <div class="relative w-full overflow-hidden rounded-xl shadow-xl" style="padding-top: 56.25%">
-                        <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/Z6Jy0S6wgLA?si=72h1Tut_E-P3r4zR" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    </div>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </Section>
 
-                    <div class="text-center mt-6">
-                        <a href="https://www.youtube.com/@theMidnight_Frequency" target="_blank" rel="noopener noreferrer" class="inline-block bg-black text-white font-semibold py-3 px-8 rounded-full transition-transform hover:scale-105 hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200">
-                            Watch on The Midnight Frequency
-                        </a>
-                    </div>
-                </div>
+      <Section id="story" eyebrow="Our Story" title="Independent by design.">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+          <div className="rounded-2xl border border-white/10 bg-zinc-900/40 p-6">
+            <h3 className="text-base font-semibold text-white">Author‑driven</h3>
+            <p className="mt-2 text-sm text-zinc-300">We start with voice. Every project is built around the writer’s intent, not a committee’s compromise.</p>
+          </div>
+          <div className="rounded-2xl border border-white/10 bg-zinc-900/40 p-6">
+            <h3 className="text-base font-semibold text-white">Creator‑owned</h3>
+            <p className="mt-2 text-sm text-zinc-300">IP stays with its creator. We structure deals so the people who build the worlds keep the worlds.</p>
+          </div>
+          <div className="rounded-2xl border border-white/10 bg-zinc-900/40 p-6">
+            <h3 className="text-base font-semibold text-white">Audience‑powered</h3>
+            <p className="mt-2 text-sm text-zinc-300">Community first distribution: newsletters, socials, and events that actually reach readers.</p>
+          </div>
+        </div>
+      </Section>
 
-                <!-- PROJECT: THE PORTAL (BOOK TEASER) -->
-                <div id="portal" class="scroll-reveal bg-black text-white rounded-3xl p-8 md:p-12">
-                    <div class="flex flex-col md:flex-row gap-8 items-center">
-                        <div class="w-full md:w-1/3 flex-shrink-0">
-                            <div class="rounded-lg overflow-hidden shadow-2xl">
-                                <picture>
-                                    <source srcset="/images/books/Portal Digital Cover.svg" type="image/svg+xml">
-                                    <img src="images/books/Portal Digital Cover.svg" alt="The Portal Book Cover" class="w-full h-auto" onerror="this.onerror=null; this.src='https://placehold.co/800x1000/f5f5f7/cccccc?text=The+Portal'">
-                                </picture>
-                            </div>
-                        </div>
-                        <div class="w-full md:w-2/3">
-                            <h3 class="text-4xl font-extrabold tracking-tight mb-4">The Portal</h3>
-                            <p class="text-xl text-gray-300 mb-6">
-                                The debut novel from Jeremy Marsh, coming 2025.
-                            </p>
-                            <p class="text-gray-400 mb-8">
-                                A narrative rooted in grief, loyalty, and the hidden costs of modern society. Get ready to experience narrative fiction written with a songwriter's heart.
-                            </p>
-                            <a href="#spotlight" class="inline-block bg-white text-black font-semibold py-3 px-6 rounded-full transition-transform hover:scale-105 hover:bg-gray-100">
-                                Meet the Author
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+      <Section id="media" eyebrow="Media" title="Original video content.">
+        <div className="flex justify-center">
+          <video controls className="w-full max-w-3xl rounded-2xl border border-white/10 bg-zinc-900">
+            <source src="/assets/video/intro.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </Section>
 
-        <!-- OUR STORY SECTION -->
-        <section id="story" class="bg-gray-50 text-black py-24 md:py-40 dark:bg-gray-900">
-            <div class="container mx-auto px-4">
-                <div class="max-w-3xl mx-auto text-center scroll-reveal mb-16 md:mb-24">
-                    <h2 class="section-headline text-black dark:text-white">
-                        Our Story.
-                    </h2>
-                    <p class="text-lg md:text-xl max-w-xl mx-auto mt-6 text-gray-700 dark:text-gray-300">
-                        Founded on a passion for creative independence.
-                    </p>
-                </div>
-                
-                <div class="grid md:grid-cols-3 gap-8 md:gap-12 mt-16 md:mt-24 text-center" data-stagger-group="story">
-                    <div class="scroll-reveal">
-                        <h3 class="text-2xl font-bold mb-3 text-black dark:text-white">Author-Driven</h3>
-                        <p class="text-gray-600 dark:text-gray-400">
-                            One voice owns the work.
-                        </p>
-                    </div>
-                    <div class="scroll-reveal">
-                        <h3 class="text-2xl font-bold mb-3 text-black dark:text-white">Creator-Owned</h3>
-                        <p class="text-gray-600 dark:text-gray-400">
-                            Rights stay with the creator.
-                        </p>
-                    </div>
-                    <div class="scroll-reveal">
-                        <h3 class="text-2xl font-bold mb-3 text-black dark:text-white">Audience-Powered</h3>
-                        <p class="text-gray-600 dark:text-gray-400">
-                            If it doesn’t connect, it doesn’t ship.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
+      {/* Press hidden */}
 
-        <!-- SOCIAL SECTION (Hidden) -->
-        <section id="social" class="bg-black text-white py-24 md:py-40 hidden" aria-hidden="true">
-            <div class="container mx-auto px-4">
-                <div class="max-w-3xl mx-auto text-center scroll-reveal mb-16 md:mb-24">
-                    <h2 class="section-headline">
-                        Social.
-                    </h2>
-                    <p class="text-lg md:text-xl max-w-xl mx-auto mt-6 text-gray-400">
-                        Join the conversation and connect with our creators.
-                    </or>
-                </div>
-                
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-8" data-stagger-group="social">
-                    <div class="scroll-reveal text-center">
-                        <a href="https://twitter.com/jmarshmedia" target="_blank" rel="noopener noreferrer" class="inline-block p-4 transition-transform hover:scale-110">
-                            <h3 class="text-xl font-bold">X (Twitter)</h3>
-                            <p class="text-gray-400 mt-1">@jmarshmedia</p>
-                        </a>
-                    </div>
-                    <div class="scroll-reveal text-center">
-                        <a href="https://instagram.com/jmarshmedia" target="_blank" rel="noopener noreferrer" class="inline-block p-4 transition-transform hover:scale-110">
-                            <h3 class="text-xl font-bold">Instagram</h3>
-                            <p class="text-gray-400 mt-1">@jmarshmedia</p>
-                        </a>
-                    </div>
-                    <div class="scroll-reveal text-center">
-                        <a href="https://linkedin.com/company/j-marsh-media" target="_blank" rel="noopener noreferrer" class="inline-block p-4 transition-transform hover:scale-110">
-                            <h3 class="text-xl font-bold">LinkedIn</h3>
-                            <p class="text-gray-400 mt-1">J-Marsh Media</p>
-                        </a>
-                    </div>
-                    <div class="scroll-reveal text-center">
-                        <a href="httpsNext.js" target="_blank" rel="noopener noreferrer" class="inline-block p-4 transition-transform hover:scale-110">
-                            <h3 class="text-xl font-bold">Threads</h3>
-                            <p class="text-gray-400 mt-1">https://www.threads.com/@jeremy_marsh_official</p>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
+      <Section id="bookstore" eyebrow="Bookstore" title="Explore the J. Marsh Media Bookstore.">
+        <div className="flex justify-center">
+          <a href="shop/bookstore.html" className="rounded-2xl border border-white/10 bg-zinc-900/40 px-8 py-6 text-center hover:border-emerald-400">
+            <h3 className="text-lg font-semibold text-white">Visit the Bookstore</h3>
+            <p className="mt-2 text-sm text-zinc-300">Shop books, signed editions, and exclusive content.</p>
+          </a>
+        </div>
+      </Section>
 
-        <!-- CONTACT SECTION -->
-        <section id="contact" class="bg-white text-black py-24 md:py-40 dark:bg-gray-950">
-            <div class="container mx-auto px-4">
-                <div class="max-w-3xl mx-auto text-center scroll-reveal">
-                    <h2 class="section-headline text-black dark:text-white">
-                        Let's talk.
-                    </h2>
-                    <p class="text-lg md:text-xl max-w-xl mx-auto mt-6 text-gray-700 dark:text-gray-300">
-                        For project inquiries, partnership proposals, or media requests.
-                    </p>
-                    <a href="mailto:hello@jmarsh.media" class="inline-block bg-black text-white font-semibold py-3 px-8 rounded-full mt-10 transition-transform hover:scale-105 hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200">
-                        hello@jmarsh.media
-                    </a>
-                </div>
-            </div>
-        </section>
+      <Section id="contact" eyebrow="Contact" title="Let’s build something that matters." kicker="We read everything. Real humans. Real replies.">
+        <form className="mx-auto mt-2 max-w-2xl space-y-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <label className="block">
+              <span className="mb-1 block text-xs text-zinc-400">Name</span>
+              <input type="text" className="w-full rounded-xl border border-white/10 bg-zinc-900 px-3 py-2 text-sm text-white placeholder-zinc-500 focus:border-emerald-500 focus:outline-none" placeholder="Jane Doe" />
+            </label>
+            <label className="block">
+              <span className="mb-1 block text-xs text-zinc-400">Email</span>
+              <input type="email" className="w-full rounded-xl border border-white/10 bg-zinc-900 px-3 py-2 text-sm text-white placeholder-zinc-500 focus:border-emerald-500 focus:outline-none" placeholder="[email protected]" />
+            </label>
+          </div>
+          <label className="block">
+            <span className="mb-1 block text-xs text-zinc-400">Message</span>
+            <textarea rows={5} className="w-full rounded-xl border border-white/10 bg-zinc-900 px-3 py-2 text-sm text-white placeholder-zinc-500 focus:border-emerald-500 focus:outline-none" placeholder="Tell us about your project…" />
+          </label>
+          <button type="submit" className="rounded-full bg-emerald-500 px-5 py-2.5 text-sm font-semibold text-black hover:bg-emerald-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">Send</button>
+          <p className="text-xs text-zinc-500">Or email <a href="mailto:hello@jmarshmedia.com" className="text-emerald-400">Contact</a></p>
+        </form>
+      </Section>
+
+      <footer className="border-t border-white/10 py-10">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 px-4 sm:flex-row">
+          <p className="text-xs text-zinc-500">© {new Date().getFullYear()} J. Marsh Media. All rights reserved.</p>
+          <div className="flex flex-wrap items-center gap-3 text-xs">
+            <a href="/privacy" className="text-zinc-400 hover:text-zinc-200">Privacy</a>
+            <span className="text-zinc-700">•</span>
+            <a href="/terms" className="text-zinc-400 hover:text-zinc-200">Terms</a>
+            <span className="text-zinc-700">•</span>
+            <a href="#top" className="text-zinc-400 hover:text-zinc-200">Back to top</a>
+          </div>
+        </div>
+      </footer>
     </main>
-
-    <footer class="text-center py-12 bg-white border-t border-gray-100 dark:bg-gray-950 dark:border-gray-800">
-        <div class="container mx-auto px-4 text-gray-500 dark:text-gray-400 text-sm">
-            <p>&copy; 2025 J. Marsh Media. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <script>
-        // Automatic Dark Mode detection and application
-        const applySystemTheme = () => {
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            if (prefersDark) {
-                document.documentElement.classList.add('dark');
-            } else {
-                document.documentElement.classList.remove('dark');
-            }
-        };
-
-        // Apply theme on initial load
-        applySystemTheme();
-
-        // Listen for changes in system preference
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applySystemTheme);
-
-
-        document.addEventListener('DOMContentLoaded', () => {
-            
-            // --- Mobile Menu Toggle ---
-            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const menuLinks = mobileMenu.querySelectorAll('a');
-            const menuIconOpen = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>`;
-            const menuIconClose = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>`;
-
-            const toggleMobileMenu = () => {
-                const isOpen = mobileMenu.classList.toggle('hidden');
-                // Toggle the icon based on the menu state
-                mobileMenuBtn.innerHTML = isOpen ? menuIconOpen : menuIconClose;
-            };
-
-            mobileMenuBtn.addEventListener('click', toggleMobileMenu);
-            
-            // Close mobile menu when a link is clicked
-            menuLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    if (!mobileMenu.classList.contains('hidden')) {
-                        toggleMobileMenu();
-                    }
-                });
-            });
-
-            // --- Scroll Animation Observer & Staggered Delay Injection ---
-            
-            const groupsToStagger = document.querySelectorAll('[data-stagger-group]');
-
-            groupsToStagger.forEach(group => {
-                const items = Array.from(group.children).filter(el => el.classList.contains('scroll-reveal'));
-                
-                items.forEach((item, index) => {
-                    const delay = (index * 0.1) + 0.1;
-                    item.style.transitionDelay = `${delay}s`;
-                });
-            });
-
-            const revealElements = document.querySelectorAll('.scroll-reveal');
-            
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        if (!entry.target.classList.contains('hidden')) {
-                            entry.target.classList.add('visible');
-                        }
-                    }
-                });
-            }, { 
-                threshold: 0.2 
-            });
-
-            revealElements.forEach(el => {
-                observer.observe(el);
-            });
-        });
-    </script>
-
-</body>
-</html>
+  );
+}
