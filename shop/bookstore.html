@@ -1,1 +1,260 @@
+import React, { useMemo, useState } from "react";
+
+// J. Marsh Media Bookstore — minimalist page borrowing only the visual style of jmarshmedia.com
+// Aesthetic: black on white, quiet gray rules, small-caps nav, tight leading, generous whitespace.
+// Framework: React + Tailwind. Includes a minimalist search field to find books by title, author, or description.
+
+// ==========================
+// SAMPLE DATA
+// ==========================
+const BOOKS = [
+  {
+    id: "portal",
+    title: "The Portal",
+    author: "Jeremy Marsh",
+    series: "Standalone",
+    releaseDate: "2025-11-25",
+    blurb:
+      `Jacob Hale has spent the past year drowning in the silence his daughter left behind. Every room in the house reminds him of who she was and of who he cannot be without her. When a breakthrough virtual interface called The Portal promises the impossible, a chance to see her again, to hear her voice, to relive the moments grief has taken, Jacob becomes one of the earliest test subjects.
+
+Inside The Portal, memory can be rebuilt. The past can be replayed. Love can be re-experienced in perfect detail. But every visit weakens the boundary between remembrance and reality. The more time Jacob spends inside, the harder it becomes to return to the world that kept moving without her.
+
+As the technology spreads and corporate interests tighten their grip, Jacob is forced to face the truth he has been avoiding. The Portal is not helping him heal. It is teaching him how to disappear.
+
+The Portal is a near-future story about grief, identity, and the dangerous comfort of worlds we create to avoid the pain we cannot face. It is a haunting and emotional exploration of love, loss, and the price of refusing to let go.`,
+    cover: "images/books/Portal Digital Cover.svg",
+    links: [
+      { label: "Amazon", href: "https://a.co/d/2yW5fhn" },
+      { label: "Apple Books", href: "#" },
+      { label: "Google Play Books", href: "#" },
+    ],
+  },
+];
+
+// ==========================
+// UI PRIMITIVES
+// ==========================
+const Container = ({ children }) => (
+  <div className="mx-auto w-full max-w-5xl px-4">{children}</div>
+);
+
+const Rule = () => <hr className="my-10 border-neutral-200" />;
+
+const ButtonLink = ({ href, children }) => (
+  <a
+    href={href}
+    className="inline-flex items-center justify-center rounded-lg border border-neutral-300 px-3 py-2 text-sm font-medium text-neutral-900 hover:border-neutral-900 hover:bg-neutral-50"
+  >
+    {children}
+  </a>
+);
+
+const Select = ({ id, value, onChange, children, ariaLabel }) => (
+  <select
+    id={id}
+    aria-label={ariaLabel}
+    value={value}
+    onChange={(e) => onChange(e.target.value)}
+    className="h-8 rounded-md border border-neutral-300 bg-white px-2 text-xs text-neutral-800 focus:border-neutral-900"
+  >
+    {children}
+  </select>
+);
+
+// ==========================
+// SEARCH & FILTERS
+// ==========================
+function SearchBar({ query, setQuery }) {
+  return (
+    <form
+      role="search"
+      className="sticky top-[56px] z-30 border-b border-neutral-200 bg-white/80 backdrop-blur"
+      onSubmit={(e) => e.preventDefault()}
+    >
+      <Container>
+        <div className="flex items-center gap-3 py-2">
+          <input
+            type="search"
+            inputMode="search"
+            aria-label="Search books"
+            placeholder="Search…"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            className="w-full md:w-64 rounded-md border border-neutral-300 px-2 py-1.5 text-[13px] outline-none placeholder:text-neutral-400 focus:border-neutral-900"
+          />
+        </div>
+      </Container>
+    </form>
+  );
+}
+
+function Filters({ author, setAuthor, series, setSeries, year, setYear, facets }) {
+  return (
+    <div className="border-b border-neutral-200 bg-white/80">
+      <Container>
+        <div className="flex flex-wrap items-center gap-2 py-3">
+          <label htmlFor="author-select" className="text-[11px] tracking-wide text-neutral-500">Author</label>
+          <Select id="author-select" ariaLabel="Filter by author" value={author} onChange={setAuthor}>
+            <option value="">All</option>
+            {facets.authors.map((a) => (
+              <option key={a} value={a}>{a}</option>
+            ))}
+          </Select>
+
+          <label htmlFor="series-select" className="ml-4 text-[11px] tracking-wide text-neutral-500">Series</label>
+          <Select id="series-select" ariaLabel="Filter by series" value={series} onChange={setSeries}>
+            <option value="">All</option>
+            {facets.series.map((s) => (
+              <option key={s} value={s}>{s}</option>
+            ))}
+          </Select>
+
+          <label htmlFor="year-select" className="ml-4 text-[11px] tracking-wide text-neutral-500">Release</label>
+          <Select id="year-select" ariaLabel="Filter by release year" value={year} onChange={setYear}>
+            <option value="">All years</option>
+            {facets.years.map((y) => (
+              <option key={y} value={y}>{y}</option>
+            ))}
+          </Select>
+        </div>
+      </Container>
+    </div>
+  );
+}
+
+
+// ==========================
+// SECTIONS
+// ==========================
+function Header() {
+  return (
+    <header className="sticky top-0 z-40 border-b border-neutral-200 bg-white/80 backdrop-blur">
+      <Container>
+        <div className="flex h-14 items-center justify-start">
+          <a href="https://jmarshmedia.com/bookstore.html" className="flex items-center gap-3" aria-label="J. Marsh Media">
+            <img src="images/logos/jmarshmedia-logo.svg" alt="J. Marsh Media logo" className="h-7 w-7" />
+            <div className="text-[13px] font-semibold tracking-[0.12em] text-neutral-900">
+              J. MARSH MEDIA
+            </div>
+          </a>
+        </div>
+      </Container>
+    </header>
+  );
+}
+
+function Intro() {
+  return (
+    <section className="bg-white">
+      <Container>
+        <div className="py-14">
+          <h1 className="text-3xl font-semibold tracking-tight text-neutral-900">The J. Marsh Media Bookstore</h1>
+          <p className="mt-3 max-w-prose text-neutral-600">
+            Home to all of the books from the J. Marsh family of writers
+          </p>
+        </div>
+      </Container>
+      <Rule />
+    </section>
+  );
+}
+
+function BookRow({ book, first }) {
+  return (
+    <article className={first ? "" : "pt-10"}>
+      <div className="grid grid-cols-1 items-start gap-6 md:grid-cols-12">
+        <div className="md:col-span-4">
+          <div className="relative aspect-[3/4] w-full overflow-hidden rounded-xl border border-neutral-200 bg-neutral-50">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={book.cover}
+              alt={`${book.title} cover`}
+              className="h-full w-full object-cover object-center"
+            />
+          </div>
+        </div>
+        <div className="md:col-span-8">
+          <h2 className="text-2xl font-semibold tracking-tight text-neutral-900">{book.title}</h2>
+          <p className="mt-1 text-sm tracking-wide text-neutral-500">By {book.author}</p>
+          <p className="mt-4 max-w-prose text-neutral-700">{book.blurb}</p>
+          {book.links?.length > 0 && (
+            <div className="mt-4 flex flex-wrap gap-2">
+              {book.links.map((l) => (
+                <ButtonLink key={l.label} href={l.href}>
+                  {l.label}
+                </ButtonLink>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+      <Rule />
+    </article>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="bg-white">
+      <Container>
+        <div className="py-10 text-sm text-neutral-500">
+          <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+            <p>© {new Date().getFullYear()} J. Marsh Media. All rights reserved.</p>
+            <div className="flex items-center gap-4">
+              <a href="/privacy" className="hover:text-neutral-800">Privacy</a>
+              <a href="/terms" className="hover:text-neutral-800">Terms</a>
+              <a href="mailto:hello@jmarshmedia.com" className="hover:text-neutral-800">Contact Us</a>
+            </div>
+          </div>
+        </div>
+      </Container>
+    </footer>
+  );
+}
+
+// ==========================
+// PAGE
+// ==========================
+export default function BookstorePage() {
+  const [query, setQuery] = useState("");
+  const [author, setAuthor] = useState("");
+  const [series, setSeries] = useState("");
+  const [year, setYear] = useState("");
+
+  const facets = useMemo(() => {
+    const authors = Array.from(new Set(BOOKS.map(b => b.author))).sort();
+    const series = Array.from(new Set(BOOKS.map(b => b.series).filter(Boolean))).sort();
+    const years = Array.from(new Set(BOOKS.map(b => (b.releaseDate ? new Date(b.releaseDate).getFullYear() : null)).filter(Boolean))).sort((a,b)=>b-a);
+    return { authors, series, years };
+  }, []);
+
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    return BOOKS.filter((b) => {
+      const matchesText = !q || [b.title, b.author, b.blurb].filter(Boolean).join(" ").toLowerCase().includes(q);
+      const matchesAuthor = !author || b.author === author;
+      const matchesSeries = !series || b.series === series;
+      const matchesYear = !year || (b.releaseDate && new Date(b.releaseDate).getFullYear().toString() === year.toString());
+      return matchesText && matchesAuthor && matchesSeries && matchesYear;
+    });
+  }, [query, author, series, year]);
+
+  return (
+    <div className="min-h-screen bg-white text-neutral-900">
+      <Header />
+      <Intro />
+      <SearchBar query={query} setQuery={setQuery} />
+      <Filters author={author} setAuthor={setAuthor} series={series} setSeries={setSeries} year={year} setYear={setYear} facets={facets} />
+      <Container>
+        {filtered.length === 0 && (
+          <div className="py-16 text-center text-neutral-500">No books match your search.</div>
+        )}
+        {filtered.map((b, i) => (
+          <BookRow key={b.id} book={b} first={i === 0} />
+        ))}
+      </Container>
+      <Footer />
+    </div>
+  );
+}
 
