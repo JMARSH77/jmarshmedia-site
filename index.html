@@ -1,380 +1,581 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from 'react';
+import { 
+  ArrowUp, 
+  Book, 
+  Feather, 
+  Users, 
+  PlayCircle, 
+  Youtube, 
+  Mail, 
+  Twitter, 
+  Instagram, 
+  Linkedin, 
+  AtSign, // Using AtSign for Threads
+  ChevronLeft,
+  ChevronRight
+} from 'lucide-react';
 
-// J Marsh Media — single-file React site (clean pass)
-// Social & Press hidden; Store replaced by Bookstore; Media shows Portal Digital Cover
+// --- 1. DATA CONFIGURATION ---
+const LINKS = {
+  bookstore: '/bookstore.html',
+  authorProfile: '/authors/jeremy-marsh',
+  shopPortal: '/books/the-portal',
+  trailer: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', // Placeholder
+  channel: 'https://www.youtube.com/c/MidnightFrequency', // Placeholder
+  contactEmail: 'mailto:hello@jmarshmedia.com',
+  social: {
+    x: 'https://x.com/jmarshmedia',
+    instagram: 'https://instagram.com/jmarshmedia',
+    linkedin: 'https://linkedin.com/company/jmarshmedia',
+    threads: 'https://threads.net/jmarshmedia',
+  },
+  legal: {
+    privacy: '/privacy-policy',
+    terms: '/terms-of-service',
+  }
+};
 
 const people = [
-  { name: "Jeremy Marsh", role: "Author • Creator • Music Producer", href: "jeremy-marsh.html", img: "images/headshots/jeremy-marsh-headshot.jpg" },
-  { name: "Jacen Michaels", role: "Author", href: "jacen-michaels.html", img: "images/headshots/jacen-daniels-headshot.jpg" },
-  { name: "Redwood Daniels", role: "Author", href: "redwood-daniels.html", img: "images/headshots/redwood-daniels-headshot-a.jpg" },
-  { name: "Grayson Holt", role: "Author", href: "grayson-holt.html", img: "images/headshots/grayson-holt-headshot.jpg" },
-  { name: "Tessa Reese", role: "Author • Blogger", href: "tessa-reese.html", img: "images/headshots/tessa-reese-headshot.jpg" },
-  { name: "Reyna Noire", role: "Author", href: "reyna-noire.html", img: "images/headshots/Reyna-Noire-Headshot.jpg" },
-  { name: "Ellis Jordan", role: "Author", href: "ellis-jordan.html", img: "images/headshots/ellis-jordan-headshot.jpg" },
-  { name: "Asha Monroe", role: "Author", href: "asha-monroe.html", img: "images/headshots/asha-monroe-headshot.jpg" },
-  { name: "Damon Walker", role: "Author", href: "damon-walker.html", img: "images/headshots/damon-walker-headshot.jpg" },
-  { name: "Reginald Roberts", role: "Author", href: "reginald-roberts.html", img: "images/headshots/reginald-roberts-headshot.jpg" },
-  { name: "Miles Reid", role: "Author", href: "miles-reid.html", img: "images/headshots/miles-reid-headshot.jpg" },
-  { name: "Miguel Marisma", role: "Author", href: "miguel-marisma.html", img: "images/headshots/miguel-marisma-headshot.jpg" }
+  {
+    id: 'jeremy-marsh',
+    name: 'Jeremy Marsh',
+    role: 'Author, Creative Director',
+    imageUrl: 'images/headshots/jeremy-marsh-headshot.jpg',
+    // Updated fallback to a light-mode default
+    fallbackUrl: 'https://placehold.co/600x600/e4e4e7/18181b?text=J.Marsh', 
+    link: '/jeremy-marsh',
+    finished: true,
+    bio: 'Lead author and world-builder, specializing in character driven narratives.'
+  },
+  {
+    id: 'placeholder-author',
+    name: 'Jane Doe',
+    role: 'Author, Project Chimera',
+    imageUrl: 'httpsfs://placehold.co/600x600/e4e4e7/18181b?text=J.Doe',
+    // Updated fallback to a light-mode default
+    fallbackUrl: 'https://placehold.co/600x600/e4e4e7/18181b?text=J.Doe', 
+    link: '/authors/jane-doe',
+    finished: true,
+    bio: 'Author of the upcoming Project Chimera, a cyberpunk thriller exploring identity and consciousness.'
+  },
+  {
+    id: 'wip-author',
+    name: 'John Smith',
+    role: 'Author, In Development',
+    imageUrl: 'httpsfs://placehold.co/600x600/e4e4e7/18181b?text=J.Smith',
+    // Updated fallback to a light-mode default
+    fallbackUrl: 'https://placehold.co/600x600/e4e4e7/18181b?text=J.Smith', 
+    link: '/authors/john-smith',
+    finished: false,
+    bio: 'In development.'
+  }
 ];
 
-const Stat = ({ label, value }) => (
-  <div className="flex flex-col items-center rounded-2xl border border-zinc-800/40 bg-zinc-900/40 p-4">
-    <span className="text-3xl font-semibold tracking-tight text-white">{value}</span>
-    <span className="text-sm text-zinc-400">{label}</span>
-  </div>
-);
+// --- 2. REUSABLE COMPONENTS ---
 
-const Section = ({ id, eyebrow, title, children, kicker }) => (
-  <section id={id} className="scroll-mt-24 py-16 sm:py-24">
-    <div className="mx-auto max-w-6xl px-4">
-      {eyebrow && (
-        <p className="mb-2 text-xs font-medium uppercase tracking-widest text-emerald-400">{eyebrow}</p>
-      )}
-      <h2 className="text-2xl sm:text-4xl font-bold text-white">{title}</h2>
-      <div className="mt-8 text-zinc-300 leading-relaxed">{children}</div>
-      {kicker && <p className="mt-6 text-sm text-zinc-400">{kicker}</p>}
-    </div>
-  </section>
-);
-
-const NavLink = ({ href, children }) => (
-  <a
-    href={href}
-    className="rounded-full px-3 py-2 text-sm font-medium text-zinc-200 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
-  >
-    {children}
-  </a>
-);
-
-export default function JMarshMediaSite() {
-  const [scrolled, setScrolled] = useState(false);
+function Section({ id, eyebrow, title, kicker, children, className = '', fullWidth = false }) {
+  const contentWidth = fullWidth ? 'mx-auto' : 'mx-auto max-w-6xl px-4';
   
-  // --- MODIFICATION: Added state for the contact form ---
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-  // --- END MODIFICATION ---
+  return (
+    <section
+      id={id}
+      aria-label={title || eyebrow}
+      className={`relative py-16 sm:py-24 scroll-mt-24 ${className}`}
+    >
+      <div className={contentWidth}>
+        {(eyebrow || title || kicker) && (
+          <div className="max-w-3xl mx-auto text-center px-4">
+            {kicker && (
+              <p className="text-4xl sm:text-5xl font-serif font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
+                {kicker}
+              </p>
+            )}
+            {eyebrow && (
+              <p className="text-xs sm:text-sm font-semibold uppercase tracking-widest text-emerald-600 dark:text-emerald-400">
+                {eyebrow}
+              </p>
+            )}
+            {title && (
+              <h2 className="mt-2 text-3xl sm:text-4xl font-serif font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
+                {title}
+              </h2>
+            )}
+          </div>
+        )}
+        
+        <div className={(eyebrow || title || kicker) ? 'mt-12 sm:mt-16' : ''}>
+          {children}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function NavLink({ href, children }) {
+  return (
+    <a
+      href={href}
+      className="rounded-full px-4 py-1.5 text-sm font-medium text-zinc-600 dark:text-zinc-300 
+                 transition-colors hover:text-zinc-900 dark:hover:text-zinc-100 
+                 focus:outline-none focus:ring-2 focus:ring-emerald-500 
+                 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-zinc-950"
+    >
+      {children}
+    </a>
+  );
+}
+
+function Button({ href, variant = 'primary', children, className = '', ...props }) {
+  const baseStyle = 'inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-zinc-950';
+  
+  const variants = {
+    primary: 'bg-emerald-600 text-white hover:bg-emerald-500 dark:bg-emerald-500 dark:text-zinc-950 dark:hover:bg-emerald-400',
+    secondary: 'bg-transparent border-2 border-zinc-300 text-zinc-700 hover:border-zinc-500 hover:text-zinc-900 dark:border-white/10 dark:text-zinc-300 dark:hover:text-zinc-100 dark:hover:border-zinc-300'
+  };
+
+  return (
+    <a href={href} className={`${baseStyle} ${variants[variant]} ${className}`} {...props}>
+      {children}
+    </a>
+  );
+}
+
+function Card({ children, className = '' }) {
+  return (
+    <div className={`rounded-2xl border border-zinc-200 dark:border-white/10 bg-white/50 dark:bg-zinc-900/50 p-8 ${className}`}>
+      {children}
+    </div>
+  );
+}
+
+function ImgWithFallback({ src, fallback, alt, ...props }) {
+  return (
+    <img 
+      src={src} 
+      alt={alt} 
+      onError={(e) => { e.currentTarget.src = fallback; }}
+      {...props} 
+    />
+  );
+}
+
+// --- 3. LAYOUT COMPONENTS ---
+
+function Header() {
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 10);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-  
-  // --- MODIFICATION: Added submit handler for the form ---
-  const handleSubmit = (e) => {
-    e.preventDefault(); // Prevent full page reload
-    const formData = { name, email, message };
-    console.log("Form submitted:", formData);
-    // In a real app, you'd send this data to a server or email service here.
-    
-    // Clear the form
-    setName("");
-    setEmail("");
-    setMessage("");
-  };
-  // --- END MODIFICATION ---
+
+  const navigation = [
+    { name: 'Author', href: '#author' },
+    { name: 'Talent', href: '#talent' },
+    { name: 'Media', href: '#media' },
+    { name: 'Story', href: '#story' },
+    { name: 'Contact', href: '#contact' },
+  ];
 
   return (
-    <main className="min-h-screen bg-zinc-950 text-zinc-100">
-      <header
-        className={`sticky top-0 z-50 w-full backdrop-blur supports-[backdrop-filter]:bg-zinc-950/60 ${
-          scrolled ? "border-b border-white/10" : ""
+    <header 
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300
+        ${isScrolled 
+          ? 'bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md border-b border-zinc-200 dark:border-white/10' 
+          : 'bg-transparent border-b border-transparent'
         }`}
-      >
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-          <a href="#top" className="flex items-center gap-3" aria-label="Go to top">
-            <div className="h-8 w-8 rounded-md bg-emerald-500" aria-hidden="true" />
-            <span className="text-sm font-semibold tracking-wider text-white">J MARSH MEDIA</span>
-          </a>
-          <nav className="hidden items-center gap-1 sm:flex" aria-label="Primary">
-            <NavLink href="#talent">Talent</NavLink>
-            <NavLink href="#story">Our Story</NavLink>
-            <NavLink href="#media">Media</NavLink>
-            <NavLink href="#bookstore">Bookstore</NavLink>
-            <NavLink href="#contact">Contact</NavLink>
-          </nav>
-          <a
-            href="#contact"
-            className="rounded-full bg-emerald-500 px-4 py-2 text-sm font-semibold text-black hover:bg-emerald-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
-          >
-            Let’s talk
-          </a>
-        </div>
-      </header>
+    >
+      <nav className="mx-auto max-w-6xl px-4 h-20 flex items-center justify-between">
+        <a href="#top" className="text-xl font-serif font-bold text-zinc-900 dark:text-zinc-100" aria-label="J. Marsh Media Home">
+          J. Marsh <span className="text-emerald-600 dark:text-emerald-500">Media</span>
+        </a>
 
-      {/* Hero */}
-      <section id="top" className="relative overflow-hidden">
-        <div
-          className="absolute inset-0 bg-gradient-to-b from-emerald-600/10 via-transparent to-transparent"
-          aria-hidden="true"
-        />
-        <div className="mx-auto grid max-w-6xl grid-cols-1 gap-10 px-4 pb-20 pt-16 sm:pb-28 sm:pt-24 md:grid-cols-5">
-          <div className="col-span-3">
-            <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-6xl">
-              Control the Signal.
-            </h1>
-            <p className="mt-5 max-w-2xl text-lg leading-relaxed text-zinc-300">
-              Author-driven. Creator-owned. Audience-powered. A studio for stories, podcasts, and products built with independence at the core.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <a
-                href="#bookstore"
-                className="rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-black hover:bg-zinc-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
-              >
-                Visit the Bookstore
-              </a>
-              <a
-                href="#media"
-                className="rounded-full border border-white/20 px-5 py-2.5 text-sm font-semibold text-white hover:border-white/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
-              >
-                Watch Media
-              </a>
-            </div>
-            <div className="mt-12 grid grid-cols-3 gap-3 sm:max-w-md">
-              <Stat label="Authors" value="12" />
-              <Stat label="Series" value="20+" />
-              <Stat label="Shows" value="6" />
-            </div>
-          </div>
-          <div className="col-span-2">
-            <div className="relative h-72 w-full overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-zinc-900 to-zinc-800 p-3 sm:h-96">
-              <div className="grid h-full grid-cols-2 gap-3">
-                {/* --- MODIFICATION: Added accessibility roles/labels --- */}
-                <div 
-                  role="img"
-                  aria-label="The Portal book cover"
-                  className="rounded-xl bg-[url('images/covers/the-portal.jpg')] bg-cover bg-center" 
-                />
-                <div 
-                  role="img"
-                  aria-label="Alpha Dawgs book cover"
-                  className="rounded-xl bg-[url('images/covers/alpha-dawgs.jpg')] bg-cover bg-center" 
-                />
-                <div 
-                  role="img"
-                  aria-label="No Huddle book cover"
-                  className="rounded-xl bg-[url('images/covers/no-huddle.jpg')] bg-cover bg-center" 
-                />
-                <div 
-                  role="img"
-                  aria-label="New Origins book cover"
-                  className="rounded-xl bg-[url('images/covers/new-origins.jpg')] bg-cover bg-center" 
-                />
-                {/* --- END MODIFICATION --- */}
-              </div>
-            </div>
-            <p className="mt-3 text-center text-xs text-zinc-400">
-              Feature reel: swap with real images or an autoplay video.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <Section id="talent" eyebrow="Talent" title="Representing the next generation of authors and creators.">
-        <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
-          {people.map((p) => (
-            <li key={p.name} className="group overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/40">
-              <a href={p.href} className="block focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">
-                <div
-                  className="h-40 w-full bg-zinc-800 bg-cover bg-center transition group-hover:opacity-90"
-                  style={{ backgroundImage: `url(${p.img})` }}
-                  aria-label={`${p.name} headshot`}
-                />
-                <div className="p-4">
-                  <p className="text-sm font-semibold text-white">{p.name}</p>
-                  <p className="text-xs text-zinc-400">{p.role}</p>
-                </div>
-              </a>
-            </li>
+        <div className="hidden sm:flex items-center gap-2">
+          {navigation.map((item) => (
+            <NavLink key={item.name} href={item.href}>
+              {item.name}
+            </NavLink>
           ))}
-        </ul>
-      </Section>
+          <Button href={LINKS.bookstore} variant="primary" className="ml-4 !px-5 !py-2">
+            Bookstore
+          </Button>
+        </div>
+        
+        <div className="sm:hidden">
+          <button className="p-2 text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-zinc-100">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" /></svg>
+          </button>
+        </div>
+      </nav>
+    </header>
+  );
+}
 
-      <Section id="story" eyebrow="Our Story" title="Independent by design.">
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-          <div className="rounded-2xl border border-white/10 bg-zinc-900/40 p-6">
-            <h3 className="text-base font-semibold text-white">Author‑driven</h3>
-            <p className="mt-2 text-sm text-zinc-300">
-              We start with voice. Every project is built around the writer’s intent, not a committee’s compromise.
+function Footer() {
+  const currentYear = new Date().getFullYear();
+
+  return (
+    <footer className="border-t border-zinc-200 dark:border-white/10">
+      <div className="mx-auto max-w-6xl px-4 py-12 flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div className="text-sm text-zinc-600 dark:text-zinc-300 text-center sm:text-left">
+          &copy; {currentYear} J. Marsh Media. All rights reserved.
+        </div>
+        
+        <div className="flex items-center gap-6">
+          <a href={LINKS.legal.terms} className="text-sm text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-zinc-100">
+            Terms
+          </a>
+          <a href={LINKS.legal.privacy} className="text-sm text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-zinc-100">
+            Privacy
+          </a>
+        </div>
+
+        <a 
+          href="#top"
+          className="group rounded-full p-2 transition-colors
+                     hover:bg-zinc-100 dark:hover:bg-zinc-900/50 
+                     focus:outline-none focus:ring-2 focus:ring-emerald-500 
+                     focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-zinc-950"
+          aria-label="Back to top"
+        >
+          <ArrowUp className="w-5 h-5 text-zinc-600 dark:text-zinc-300 group-hover:text-zinc-900 dark:group-hover:text-zinc-100" />
+        </a>
+      </div>
+    </footer>
+  );
+}
+
+
+// --- 4. CONTENT SECTIONS ---
+
+function Hero() {
+  return (
+    <Section id="top" className="pt-32 sm:pt-48 pb-16 sm:pb-24" fullWidth={true}>
+      <div className="mx-auto max-w-6xl px-4">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
+              Author-driven. <br />
+              Creator-owned. <br />
+              Audience-powered.
+            </h1>
+            <p className="mt-6 text-lg sm:text-xl text-zinc-600 dark:text-zinc-300">
+              The new narrative model.
             </p>
-          </div>
-          <div className="rounded-2xl border border-white/10 bg-zinc-900/40 p-6">
-            <h3 className="text-base font-semibold text-white">Creator‑owned</h3>
-            <p className="mt-2 text-sm text-zinc-300">
-              IP stays with its creator. We structure deals so the people who build the worlds keep the worlds.
-            </p>
-          </div>
-          <div className="rounded-2xl border border-white/10 bg-zinc-900/40 p-6">
-            <h3 className="text-base font-semibold text-white">Audience‑powered</h3>
-            <p className="mt-2 text-sm text-zinc-300">
-              Community first distribution: newsletters, socials, and events that actually reach readers.
-            </D>
+            <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Button href="#author" variant="primary">
+                Author Spotlight
+              </Button>
+              <Button href="#media" variant="secondary">
+                Listen & Watch
+              </Button>
+            </div>
           </div>
         </div>
-      </Section>
+      </div>
+    </Section>
+  );
+}
 
-      <Section id="media" eyebrow="Media" title="Featured Book Cover.">
-        <div className="flex justify-center">
-          <img
-            src="images/books/Portal Digital Cover.svg"
-            alt="The Portal digital book cover"
-            className="w-full max-w-3xl rounded-2xl border border-white/10 bg-zinc-900"
+function AuthorSpotlight() {
+  const featuredAuthor = people.find(p => p.id === 'jeremy-marsh');
+  if (!featuredAuthor) return null;
+
+  return (
+    <Section id="author" eyebrow="Author Spotlight" title="Jeremy Marsh" className="bg-zinc-50 dark:bg-zinc-900">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-center">
+        <div className="md:col-span-1">
+          <ImgWithFallback
+            src={featuredAuthor.imageUrl}
+            fallback={featuredAuthor.fallbackUrl}
+            alt="Portrait of Jeremy Marsh"
+            className="rounded-2xl w-full aspect-square object-cover shadow-2xl"
           />
         </div>
-      </Section>
+        <div className="md:col-span-2 text-center md:text-left">
+          <h3 className="text-2xl sm:text-3xl font-serif font-bold text-zinc-900 dark:text-zinc-100">
+            Lead Author & World-Builder
+          </h3>
+          <p className="mt-4 text-lg text-zinc-600 dark:text-zinc-300">
+            {featuredAuthor.bio}
+          </p>
+          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4">
+            <Button href={LINKS.authorProfile} variant="secondary">
+              Read Profile
+            </Button>
+            <Button href={LINKS.bookstore} variant="primary">
+              View Bookstore
+            </Button>
+          </div>
+        </div>
+      </div>
+    </Section>
+  );
+}
 
-      {/* Press hidden */}
+function Talent() {
+  const finishedTalent = people.filter(p => p.finished);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-      <Section id="bookstore" eyebrow="Bookstore" title="Explore the J. Marsh Media Bookstore.">
-        <div className="flex justify-center">
-          <a
-            href="shop/bookstore.html"
-            className="rounded-2xl border border-white/10 bg-zinc-900/40 px-8 py-6 text-center hover:border-emerald-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+  const prevSlide = () => {
+    const isFirstSlide = currentIndex === 0;
+    const newIndex = isFirstSlide ? finishedTalent.length - 1 : currentIndex - 1;
+    setCurrentIndex(newIndex);
+  };
+
+  const nextSlide = () => {
+    const isLastSlide = currentIndex === finishedTalent.length - 1;
+    const newIndex = isLastSlide ? 0 : currentIndex + 1;
+    setCurrentIndex(newIndex);
+  };
+
+  if (finishedTalent.length === 0) {
+    return null;
+  }
+  
+  const activeAuthor = finishedTalent[currentIndex];
+
+  return (
+    <Section id="talent" eyebrow="Our Talent" title="Approved Authors">
+      <div className="relative max-w-4xl mx-auto">
+        <Card className="overflow-hidden">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+            <div className="md:col-span-1">
+              <ImgWithFallback
+                src={activeAuthor.imageUrl}
+                fallback={activeAuthor.fallbackUrl}
+                alt={`Portrait of ${activeAuthor.name}`}
+                className="w-full aspect-square object-cover rounded-lg"
+              />
+            </div>
+            <div className="md:col-span-2 text-center md:text-left">
+              <h3 className="text-2xl sm:text-3xl font-serif font-bold text-zinc-900 dark:text-zinc-100">
+                {activeAuthor.name}
+              </h3>
+              <p className="mt-2 text-lg text-emerald-600 dark:text-emerald-400">
+                {activeAuthor.role}
+              </p>
+              <p className="mt-4 text-base text-zinc-600 dark:text-zinc-300">
+                {activeAuthor.bio}
+              </p>
+              <div className="mt-8">
+                <Button href={activeAuthor.link} variant="secondary">
+                  Visit {activeAuthor.name}'s Page
+                </Button>
+              </div>
+            </div>
+          </div>
+        </Card>
+        
+        <button
+          onClick={prevSlide}
+          className="absolute top-1/2 -translate-y-1/2 left-0 -translate-x-full p-2 group rounded-full
+                     focus:outline-none focus:ring-2 focus:ring-emerald-500 
+                     focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-zinc-950"
+          aria-label="Previous Author"
+        >
+          <ChevronLeft className="w-10 h-10 text-zinc-500 dark:text-zinc-300 group-hover:text-zinc-800 dark:group-hover:text-zinc-100 transition-colors" />
+        </button>
+        <button
+          onClick={nextSlide}
+          className="absolute top-1/2 -translate-y-1/2 right-0 translate-x-full p-2 group rounded-full
+                     focus:outline-none focus:ring-2 focus:ring-emerald-500 
+                     focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-zinc-950"
+          aria-label="Next Author"
+        >
+          <ChevronRight className="w-10 h-10 text-zinc-500 dark:text-zinc-300 group-hover:text-zinc-800 dark:group-hover:text-zinc-100 transition-colors" />
+        </button>
+      </div>
+    </Section>
+  );
+}
+
+function ListenWatch() {
+  return (
+    <Section id="media" eyebrow="Listen & Watch" title="Featured Media Teaser" className="bg-zinc-50 dark:bg-zinc-900">
+      <div className="relative aspect-video w-full max-w-4xl mx-auto rounded-2xl overflow-hidden border border-zinc-200 dark:border-white/10 bg-zinc-200 dark:bg-black shadow-2xl">
+        <img
+          src="https://placehold.co/1280x720/e4e4e7/18181b?text=Media+Teaser"
+          alt="Featured Media Teaser Placeholder"
+          className="w-full h-full object-cover dark:hidden" // Light mode image
+        />
+        <img
+          src="https://placehold.co/1280x720/09090b/e4e4e7?text=Media+Teaser"
+          alt="Featured Media Teaser Placeholder"
+          className="w-full h-full object-cover hidden dark:block" // Dark mode image
+        />
+        <div className="absolute inset-0 flex items-center justify-center">
+          <a 
+            href={LINKS.trailer} 
+            target="_blank" 
+            rel="noreferrer"
+            className="group rounded-full bg-white/50 dark:bg-zinc-950/50 p-6 backdrop-blur-sm 
+                       transition-all hover:scale-110 hover:bg-emerald-600/80 dark:hover:bg-emerald-500/80"
+            aria-label="Play Trailer"
           >
-            <h3 className="text-lg font-semibold text-white">Visit the Bookstore</h3>
-            <p className="mt-2 text-sm text-zinc-300">Shop books, signed editions, and exclusive content.</p>
+            <PlayCircle className="w-16 h-16 text-zinc-900 dark:text-white transition-all group-hover:text-white dark:group-hover:text-zinc-950" />
           </a>
         </div>
-      </Section>
-
-      <Section
-        id="contact"
-        eyebrow="Contact"
-        title="Let’s build something that matters."
-        kicker="We read everything. Real humans. Real replies."
-      >
-        {/* --- MODIFICATION: Hooked up form to state and submit handler --- */}
-        <form onSubmit={handleSubmit} className="mx-auto mt-2 max-w-2xl space-y-4">
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <label className="block">
-              <span className="mb-1 block text-xs text-zinc-400">Name</span>
-              <input
-                type="text"
-                name="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="w-full rounded-xl border border-white/10 bg-zinc-900 px-3 py-2 text-sm text-white placeholder-zinc-500 focus:border-emerald-500 focus:outline-none"
-                placeholder="Jane Doe"
-                required
-              />
-            </label>
-            <label className="block">
-              <span className="mb-1 block text-xs text-zinc-400">Email</span>
-              <input
-                type="email"
-                name="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full rounded-xl border border-white/10 bg-zinc-900 px-3 py-2 text-sm text-white placeholder-zinc-500 focus:border-emerald-500 focus:outline-none"
-                placeholder="[email protected]"
-                required
-              />
-            </label>
-          </div>
-          <label className="block">
-            <span className="mb-1 block text-xs text-zinc-400">Message</span>
-            <textarea
-              name="message"
-              rows={5}
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              className="w-full rounded-xl border border-white/10 bg-zinc-900 px-3 py-2 text-sm text-white placeholder-zinc-500 focus:border-emerald-500 focus:outline-none"
-              placeholder="Tell us about your project…"
-              required
-            />
-          </label>
-          <button
-            type="submit"
-            className="rounded-full bg-emerald-500 px-5 py-2.5 text-sm font-semibold text-black hover:bg-emerald-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
-          >
-            Send
-          </button>
-          <p className="text-xs text-zinc-500">
-            Or email{" "}
-            <a href="mailto:hello@jmarshmedia.com" className="text-emerald-400">
-              hello@jmarshmedia.com
-            </a>
-          </p>
-        </form>
-        {/* --- END MODIFICATION --- */}
-      </Section>
-
-      <footer className="border-t border-white/10 py-10">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 px-4 sm:flex-row">
-          <p className="text-xs text-zinc-500">© {new Date().getFullYear()} J. Marsh Media. All rights reserved.</p>
-          <div className="flex flex-wrap items-center gap-3 text-xs">
-            <a href="/privacy" className="text-zinc-400 hover:text-zinc-200">Privacy</a>
-            <span className="text-zinc-700">•</span>
-            <a href="/terms" className="text-zinc-400 hover:text-zinc-200">Terms</a>
-            <span className="text-zinc-700">•</span>
-            <a href="#top" className="text-zinc-400 hover:text-zinc-200">Back to top</a>
-          </div>
-        </div>
-      </footer>
-    </main>
+      </div>
+      <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <Button href={LINKS.trailer} variant="primary" target="_blank" rel="noreferrer">
+          <PlayCircle className="w-5 h-5 mr-2" />
+          Watch Trailer
+        </Button>
+        <Button href={LINKS.channel} variant="secondary" target="_blank" rel="noreferrer">
+          <Youtube className="w-5 h-5 mr-2" />
+          The Midnight Frequency
+        </Button>
+      </div>
+    </Section>
   );
 }
 
-// --------- Minimal smoke tests (dev) ---------
-function isNonEmptyString(v) {
-  return typeof v === "string" && v.trim().length > 0;
-}
+function OurStory() {
+  const pillars = [
+    { title: 'Author-driven', description: 'Our creators are the center of our universe. We build worlds around their vision, not the other way around.', icon: Feather },
+    { title: 'Creator-owned', description: 'Artists retain ownership. We provide the platform and support, but the intellectual property remains with its creator.', icon: Book },
+    { title: 'Audience-powered', description: 'We build in public, listening to our community to shape the stories, characters, and worlds we create together.', icon: Users },
+  ];
 
-function validatePeople(arr) {
   return (
-    Array.isArray(arr) &&
-    arr.length >= 1 &&
-    arr.every(
-      (p) =>
-        isNonEmptyString(p.name) &&
-        isNonEmptyString(p.role) &&
-        isNonEmptyString(p.href) &&
-        isNonEmptyString(p.img)
-    )
+    <Section id="story" eyebrow="Our Philosophy" title="The New Narrative Model">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {pillars.map((pillar) => (
+          <Card key={pillar.title} className="text-center">
+            <div className="w-16 h-16 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-6 border-2 border-emerald-500">
+              <pillar.icon className="w-8 h-8 text-emerald-600 dark:text-emerald-500" />
+            </div>
+            <h3 className="text-xl font-serif font-bold text-zinc-900 dark:text-zinc-100">
+              {pillar.title}
+            </h3>
+            <p className="mt-2 text-zinc-600 dark:text-zinc-300">{pillar.description}</p>
+          </Card>
+        ))}
+      </div>
+    </Section>
   );
 }
 
-function hasNoDuplicateNames(arr) {
-  const names = arr.map((p) => p.name);
-  return new Set(names).size === names.length;
+function BookstoreCTA() {
+  return (
+    <Section id="bookstore" className="bg-zinc-50 dark:bg-zinc-900">
+      <div className="text-center">
+        <h2 className="text-3xl sm:text-4xl font-serif font-bold text-zinc-900 dark:text-zinc-100">
+          Enter The Bookstore
+        </h2>
+        <p className="mt-4 max-w-2xl mx-auto text-lg text-zinc-600 dark:text-zinc-300">
+          Shop books, signed editions, and exclusive content from the J. Marsh Media collective.
+        </p>
+        <div className="mt-8">
+          <Button href={LINKS.bookstore} variant="primary">
+            Browse All Books
+          </Button>
+        </div>
+      </div>
+    </Section>
+  );
 }
 
-export function runSmokeTests() {
-  try {
-    console.assert(validatePeople(people), "people[] entries must have name, role, href, img");
-    console.assert(hasNoDuplicateNames(people), "people[] names must be unique");
+function Contact() {
+  return (
+    <Section id="contact" eyebrow="Get In Touch" title="Contact Us">
+      <div className="text-center max-w-2xl mx-auto">
+        <p className="text-lg text-zinc-600 dark:text-zinc-300">
+          For business inquiries, media requests, or other questions, please reach out. We are not currently accepting unsolicited submissions.
+        </p>
+        <div className="mt-8">
+          <Button href={LINKS.contactEmail} variant="primary">
+            <Mail className="w-5 h-5 mr-2" />
+            hello@jmarshmedia.com
+          </Button>
+        </div>
+      </div>
+    </Section>
+  );
+}
 
-    const requiredIds = ["top", "talent", "story", "media", "bookstore", "contact"];
+function Social() {
+  const socialLinks = [
+    { name: 'X (Twitter)', href: LINKS.social.x, icon: Twitter },
+    { name: 'Instagram', href: LINKS.social.instagram, icon: Instagram },
+    { name: 'LinkedIn', href: LINKS.social.linkedin, icon: Linkedin },
+    { name: 'Threads', href: LINKS.social.threads, icon: AtSign },
+  ];
+
+  return (
+    <Section id="social" className="bg-zinc-50 dark:bg-zinc-900 !py-12">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {socialLinks.map((link) => (
+          <a
+            key={link.name}
+            href={link.href}
+            target="_blank"
+            rel="noreferrer"
+            className="group flex items-center justify-center gap-3 rounded-2xl 
+                       border border-zinc-200 dark:border-white/10 
+                       bg-white dark:bg-zinc-900/50 p-6
+                       transition-colors hover:border-emerald-500 hover:bg-emerald-50 dark:hover:bg-emerald-500/10"
+          >
+            <link.icon className="w-6 h-6 text-zinc-500 dark:text-zinc-300 transition-colors group-hover:text-emerald-600 dark:group-hover:text-emerald-500" />
+            <span className="text-sm font-medium text-zinc-900 dark:text-zinc-100 hidden sm:inline">{link.name}</span>
+          </a>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
+/**
+ * Hook to detect system theme preference
+ */
+function useThemeDetector() {
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     
-    // --- MODIFICATION: Corrected test logic to query the DOM ---
-    // This function must be run in the browser console after the page has loaded.
-    requiredIds.forEach((id) => {
-      console.assert(
-        document.getElementById(id), 
-        `Anchor id exists: #${id}`
-      );
-    });
-    // --- END MODIFICATION ---
+    const applyTheme = (e) => {
+      if (e.matches) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    };
 
-    const s = Stat({ label: "L", value: "V" });
-    console.assert(!!s, "Stat renders");
+    // Apply theme on initial load
+    applyTheme(mediaQuery);
 
-    const n = NavLink({ href: "#x", children: "Go" });
-    console.assert(!!n, "NavLink renders");
-
-    // Media cover sanity
-    const mediaSrc = "images/books/Portal Digital Cover.svg";
-    console.assert(mediaSrc.endsWith(".svg"), "Media cover must be an SVG path");
-    console.assert(mediaSrc.includes("Portal"), "Media cover path should reference Portal");
-
-    // Bookstore link sanity
-    const bookstoreHref = "shop/bookstore.html";
-    console.assert(isNonEmptyString(bookstoreHref), "Bookstore link must be non-empty");
-
-    console.info("J Marsh Media: smoke tests passed");
-  } catch (err) {
-    console.warn("J Marsh Media: smoke tests failed", err);
-  }
+    // Listen for changes
+    mediaQuery.addEventListener('change', applyTheme);
+    return () => mediaQuery.removeEventListener('change', applyTheme);
+  }, []);
 }
+
+
+// --- 5. MAIN APP ASSEMBLY ---
+function App() {
+  // Run the theme detector hook
+  useThemeDetector();
+
+  return (
+    <div className="bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 transition-colors duration-200">
+      <Header />
+      <main>
+        <Hero />
+        <AuthorSpotlight />
+        <Talent />
+        <ListenWatch />
+        <OurStory />
+        <BookstoreCTA />
+        <Contact />
+        <Social />
+      </main>
+      <Footer />
+    </div>
+  );
+}
+
+export default App;
