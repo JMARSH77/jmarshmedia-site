@@ -22,8 +22,6 @@
     <meta property="og:description" content="Representing the next generation of authors and creators in narrative fiction, music, and media."/>
     <meta property="og:image" content="/assets/og-image-1200x630.jpg"/>
 
-    <script src="https://unpkg.com/lite-youtube-embed@0.2.0/src/lite-youtube.js"></script>
-
     <style>
         :root {
             --t-hero: clamp(32px, 4.2vw, 48px); 
@@ -115,16 +113,6 @@
 
         .aspect-4\/5 { padding-bottom: 125%; height: 0; position: relative; }
         .aspect-4\/5 img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
-
-        lite-youtube {
-            display: block;
-            position: relative;
-            cursor: pointer;
-            border-radius: 16px;
-            overflow: hidden;
-            background-color: #000;
-        }
-
     </style>
 </head>
 <body class="bg-white text-black transition-colors duration-500 dark:bg-gray-950 dark:text-white">
@@ -189,7 +177,7 @@
                     <div class="w-full md:w-5/12 mx-auto md:mx-0 scroll-reveal">
                         <div class="rounded-3xl shadow-xl overflow-hidden aspect-4/5">
                             <picture>
-                                <source srcset="/assets/headshots/jeremy-marsh-headshot.webp" type="image/webp">
+                                <source srcset="images/headshots/jeremy-marsh-headshot.jpg" type="image/jpg">
                                 <img src="images/headshots/jeremy-marsh-headshot.jpg" alt="Jeremy Marsh Portrait" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://placehold.co/800x1000/000000/ffffff?text=Jeremy+Marsh'">
                             </picture>
                         </div>
@@ -302,7 +290,12 @@
                 <!-- FEATURED VIDEO: The Portal Teaser Trailer -->
                 <div class="scroll-reveal mb-20">
                     <h3 class="text-3xl font-bold mb-4 text-black dark:text-white">The Portal Teaser Trailer</h3>
-                    <lite-youtube videoid="Z6Jy0S6wgLA" playlabel="Play The Portal Teaser Trailer" style="background-image: url(images/books/Portal Digital Cover.svg);"></lite-youtube>
+                    
+                    <!-- Replaced Lite YouTube with responsive IFRAME -->
+                    <div class="relative w-full overflow-hidden rounded-xl shadow-xl" style="padding-top: 56.25%">
+                        <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/Z6Jy0S6wgLA?si=72h1Tut_E-P3r4zR" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
+
                     <div class="text-center mt-6">
                         <a href="https://www.youtube.com/@theMidnight_Frequency" target="_blank" rel="noopener noreferrer" class="inline-block bg-black text-white font-semibold py-3 px-8 rounded-full transition-transform hover:scale-105 hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200">
                             Watch on The Midnight Frequency
