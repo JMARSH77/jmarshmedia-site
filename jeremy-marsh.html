@@ -1,791 +1,156 @@
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jeremy Marsh | Author Official Website</title>
-    <meta name="description" content="Official website for author Jeremy Marsh. Discover his new release, 'The Portal,' read his blog, and find upcoming appearances and media coverage.">
-    <meta name="description" content="Official website for author Jeremy Marsh. Discover his new release, 'The Portal,' and find his bio and contact information.">
-<meta name="author" content="Jeremy Marsh">
-    <meta name="keywords" content="Jeremy Marsh, author, book, novel, literary fiction, The Portal, blog, writer">
-    <meta name="keywords" content="Jeremy Marsh, author, book, novel, literary fiction, The Portal, writer">
-<meta property="og:title" content="Jeremy Marsh | Official Website">
-<meta property="og:description" content="Author of 'Portal,' writing confident, grounded, and human stories.">
-<meta property="og:type" content="website">
-@@ -19,17 +19,17 @@
-theme: {
-extend: {
-colors: {
-                        'primary-bg': '#f9f9f9',
-                        'secondary-bg': '#f0f0ed', /* Slightly darker tone for contrast strips */
-                        'text-dark': '#111',
-                        'accent': '#b1740f', /* Main brand color */
-                        'primary-bg': '#F4F1EC',
-                        'secondary-bg': '#EAE7E2',
-                        'text-dark': '#1C1C1C',
-                        'accent': '#C47A4A',
-},
-fontFamily: {
-sans: ['Inter', 'Source Sans Pro', 'sans-serif'],
-display: ['Playfair Display', 'serif'],
-},
-fontSize: {
-                        'xl': '1.125rem', // Base body size ~18px
-                        'xl': '1.125rem',
-'2xl': '1.5rem',
-'3xl': '1.875rem',
-'4xl': '2.25rem',
-@@ -40,12 +40,9 @@
-}
-</script>
-<style>
-        /* Typography System Refinement */
-.font-display { font-family: 'Playfair Display', serif; font-weight: 700; }
-.font-sans { font-family: 'Inter', 'Source Sans Pro', 'sans-serif'; }
-        .section-label { font-size: 0.75rem; /* 12px */ letter-spacing: 0.1em; }
-
-        /* General Styling and Behavior */
-        .section-label { font-size: 0.75rem; letter-spacing: 0.1em; }
-.page-content { min-height: calc(100vh - 64px); }
-.btn-primary {
-min-height: 44px;
-@@ -58,8 +55,6 @@
-.text-link {
-@apply text-accent transition duration-200 ease-in-out hover:underline hover:text-opacity-80;
-}
-
-        /* Sticky Header Transition */
-.sticky-header {
-transition: background-color 0.3s, box-shadow 0.3s;
-}
-@@ -70,11 +65,8 @@
-.nav-drawer.open {
-transform: translateX(0);
-}
-        /* Page Routing Management */
-.page { display: none; }
-.page.active { display: block; }
-
-        /* Readability for Long Text */
-.post-body-content p { margin-bottom: 1.5rem; }
-</style>
-<script type="application/ld+json">
-@@ -83,10 +75,7 @@
-"@type": "Person",
-"name": "Jeremy Marsh",
-"url": "https://jmarshmedia.com/jeremy-marsh",
-          "sameAs": [
-            /* Removed jmarshmedia.com/jeremymarsh link */
-            "https://instagram.com/jeremymarsh"
-          ],
-          "sameAs": ["https://instagram.com/jeremymarsh"],
-"jobTitle": "Author",
-"alumniOf": "University Name (Mock)"
-}
-@@ -96,10 +85,7 @@
-"@context": "https://schema.org",
-"@type": "Book",
-"name": "The Portal",
-          "author": {
-            "@type": "Person",
-            "name": "Jeremy Marsh"
-          },
-          "author": {"@type": "Person", "name": "Jeremy Marsh"},
-"isbn": "978-0131495054",
-"bookFormat": "https://schema.org/Hardcover",
-"publisher": "J. Marsh Media",
-@@ -117,25 +103,23 @@
-<a href="#home" class="hover:text-accent">Home</a>
-<a href="#books" class="hover:text-accent">Books</a>
-<a href="#about-full" class="hover:text-accent">About</a>
-            <a href="#appearances-full" class="hover:text-accent">Appearances</a>
-<a href="#blog-full" class="hover:text-accent">Blog</a>
-<a href="#contact-full" class="hover:text-accent">Contact</a>
-<div class="pt-8">
-                <a href="#featured-book" class="btn-primary block text-center mt-4">Get the New Book</a>
-                <a href="#featured-book" class="btn-primary block text-center mt-4">Read The Portal</a>
-</div>
-</nav>
-</div>
-
-<header id="sticky-header" class="sticky-header fixed top-0 left-0 w-full z-40 h-16 flex items-center px-4 md:px-12">
-<div class="flex justify-between items-center w-full max-w-7xl mx-auto">
-<a href="#home" class="hover:opacity-80 transition duration-200" aria-label="Jeremy Marsh Home">
-                <img src="images/logos/jmarshmedia-logo.svg" alt="J Marsh Media Logo" class="h-8 w-auto min-h-[32px]">
-                <img src="https://placehold.co/150x32/1C1C1C/F4F1EC?text=J.MARSH+MEDIA" onerror="this.onerror=null; this.src='images/logos/jmarshmedia-logo.svg';" alt="J Marsh Media Logo" class="h-8 w-auto min-h-[32px]">
-</a>
-
-<nav class="hidden md:flex space-x-8 text-base font-sans font-medium">
-<a href="#books" class="hover:text-accent transition duration-200">Books</a>
-<a href="#about-full" class="hover:text-accent transition duration-200">About</a>
-                <a href="#appearances-full" class="hover:text-accent transition duration-200">Appearances</a>
-<a href="#blog-full" class="hover:text-accent transition duration-200">Blog</a>
-<a href="#contact-full" class="hover:text-accent transition duration-200">Contact</a>
-</nav>
-@@ -150,37 +134,54 @@
-
-<section id="home" class="page active">
-
-            <div id="hero" class="py-20 md:py-32 grid md:grid-cols-2 gap-12 items-center min-h-screen-minus-header">
-            <div id="hero" class="py-24 md:py-28 grid md:grid-cols-2 gap-12 items-center min-h-screen-minus-header">
-<div class="space-y-6 md:space-y-10 order-2 md:order-1">
-                    <h1 class="text-5xl md:text-6xl font-display text-text-dark leading-tight">Jeremy Marsh</h1>
-                    <h1 class="text-5xl md:text-6xl font-display text-text-dark leading-tight">JEREMY MARSH</h1>
-<p class="text-2xl text-gray-700 leading-relaxed font-sans font-medium">
-                        Author of <span class="text-accent">'The Portal,'</span> writing intimate stories that, cut to the bone, where survival meets morality.
-                        Author of **The Portal** and other character-driven fiction.
-</p>
-<div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 pt-6">
-                        <a href="#featured-book" class="btn-primary flex-1 sm:flex-none text-center">Get the New Book</a>
-                        <a href="#blog-full" class="btn-secondary flex-1 sm:flex-none text-center">Read the Blog</a>
-                        <a href="#featured-book" class="btn-primary flex-1 sm:flex-none text-center">Read The Portal</a>
-                        <a href="downloads/book-samples/the-portal-sample.pdf" download class="btn-secondary flex-1 sm:flex-none text-center">Get a Sample Chapter</a>
-</div>
-</div>
-
-<div class="order-1 md:order-2">
-                    <img src="images/headshots/jeremy-marsh-headshot.jpg"
-                              alt="Candid black and white portrait of author Jeremy Marsh"
-                              class="w-full h-auto object-cover rounded-xl shadow-2xl grayscale">
-                    <img src="https://placehold.co/400x500/1C1C1C/F4F1EC?text=Jeremy+Marsh+Author" 
-                         onerror="this.onerror=null; this.src='images/headshots/jeremy-marsh-headshot.jpg';" 
-                         alt="Candid black and white portrait of author Jeremy Marsh"
-                         class="w-full h-auto object-cover rounded-xl shadow-2xl grayscale">
-</div>
-</div>
-
-            <div id="featured-book" class="py-20 md:py-32 border-t border-gray-300 grid md:grid-cols-3 gap-12 items-start">
-            <div id="featured-book" class="py-24 md:py-28 grid md:grid-cols-3 gap-12 items-start border-t border-gray-300">
-<div class="md:col-span-1">
-<p class="section-label uppercase tracking-widest font-medium text-accent mb-4">DEBUT NOVEL</p>
-                    <img src="images/books/Portal Digital Cover.svg"
-                              alt="Cover image for the debut novel The Portal by Jeremy Marsh"
-                              class="w-full h-auto object-cover shadow-2xl rounded-lg">
-                    <img src="https://placehold.co/300x450/1c1c1c/00ccff?text=THE+PORTAL"
-                         onerror="this.onerror=null; this.src='images/books/Portal Digital Cover.svg';" 
-                         alt="Cover image for the debut novel The Portal by Jeremy Marsh"
-                         class="w-full h-auto object-cover shadow-2xl rounded-lg">
-</div>
-<div class="md:col-span-2 space-y-6">
-<h2 class="text-4xl font-display text-text-dark">The Portal</h2>
-<p class="text-xl leading-relaxed text-gray-700">
-                        A haunting tech-thriller of grief, surveillance, and one man’s attempt to buy back a life he broke. Jacob Hastings returns to Hastings Tower where AR, AI, and memory blur. If you like atmospheric corporate drama, immersive-AR suspense, and morally fraught characters, open this now and step inside The Portal.
-                        A haunting tech-thriller of grief, surveillance, and one man's attempt to buy back a life he broke.
-                        <br><br>
-                        The story is about Jacob Hastings's return to Hastings Tower, where AR, AI, and fractured memory blur into a terrifying reality. The core tension lies in the morally fraught limits of technology and the price of redemption in a surveillance-driven system. The reader is left holding a complex question about consequence, guilt, and the fragile hope that lingers after a personal storm.
-</p>
-                    
-                    <div class="space-y-4">
-                        <blockquote class="border-l-4 border-secondary-bg pl-4 text-lg italic text-gray-600">
-                            "A masterful debut. Marsh delivers a punchy, unsettling vision of the near-future that cuts straight to the heart of what it means to be human in a digitized world." - **T. Lawson, Early Reader**
-                        </blockquote>
-                        <blockquote class="border-l-4 border-secondary-bg pl-4 text-lg italic text-gray-600">
-                            "The Portal is a high-concept thriller balanced perfectly by deep, character-driven emotional stakes. I couldn't put it down." - **L. Chen, Bookstagrammer**
-                        </blockquote>
-                        <blockquote class="border-l-4 border-secondary-bg pl-4 text-lg italic text-gray-600">
-                            "The pace is cinematic, the world-building is seamless, and the main character's struggle felt intensely real." - **M. Sanchez, Podcast Host**
-                        </blockquote>
-                    </div>
-
-<div class="pt-8 space-y-4">
-<h3 class="text-2xl font-display">Buy Now</h3>
-<div class="flex flex-wrap gap-4">
-@@ -193,110 +194,64 @@ <h3 class="text-2xl font-display">Buy Now</h3>
-</div>
-</div>
-
-            <div id="about-preview" class="py-20 md:py-32 grid md:grid-cols-2 gap-12 items-center">
-            <div id="about-preview" class="py-24 md:py-28 grid md:grid-cols-2 gap-12 items-center">
-<div class="space-y-6 order-2 md:order-1">
-<h2 class="section-label uppercase tracking-widest font-medium text-accent">About</h2>
-                    <h3 class="text-3xl md:text-4xl font-display text-text-dark leading-tight">Confidence, Groundedness, Humanity.</h3>
-                    <h3 class="text-3xl md:text-4xl font-display text-text-dark leading-tight">Jeremy Marsh</h3>
-<p class="text-xl leading-relaxed text-gray-700">
-                        Jeremy Marsh is an American novelist whose work blends emotional truth with cinematic grit. His stories cut to the bone, where survival meets morality and silence carries more weight than confession.
-                        Jeremy Marsh writes character-driven fiction that blends emotional truth with cinematic tension. He's drawn to the moments where survival cuts against morality, exploring themes of consequence, grief, and the quiet weight of guilt. His prose is confident, grounded, and intensely human.
-</p>
-<p class="text-xl leading-relaxed text-gray-700 hidden sm:block">
-                        Drawing from small-town realism and big-screen pacing, he writes fiction about the price of redemption, the burden of guilt, and the fragile hope that lingers after the storm.
-                        Marsh’s stories often take place in detailed, atmospheric settings, applying the pacing of a big-screen thriller to intimate, high-stakes personal crises. His work is ultimately about the fragile hope that lingers after a person breaks something important and the difficult, often lonely, price of earning redemption.
-</p>
-<a href="#about-full" class="btn-secondary inline-block mt-4 text-center">Full Bio / Press Kit</a>
-</div>
-
-<div class="order-1 md:order-2">
-                    <img src="images/photos/promo/jeremy-marsh working.jpg"
-                              alt="Secondary image of Jeremy Marsh working at his writing desk, looking candid."
-                              class="w-full h-auto object-cover rounded-xl shadow-xl">
-                    <img src="https://placehold.co/400x500/A39B92/1C1C1C?text=Candid+Portrait" 
-                         onerror="this.onerror=null; this.src='images/photos/promo/jeremy-marsh working.jpg';"
-                         alt="Candid portrait of Jeremy Marsh working at his writing desk with natural light."
-                         class="w-full h-auto object-cover rounded-xl shadow-xl">
-</div>
-</div>
-
-            <div id="appearances-preview" class="py-20 md:py-32 border-t border-gray-300">
-                <h2 class="section-label uppercase tracking-widest font-medium text-accent mb-2">Live & Media</h2>
-                <h3 class="text-3xl md:text-4xl font-display text-text-dark mb-12">Schedule & Media Archive</h3>
-
-                <div class="p-8 rounded-lg text-center flex flex-col justify-center items-center bg-secondary-bg border border-gray-300">
-                    <i data-lucide="calendar-off" class="w-8 h-8 text-accent mb-3"></i>
-                    <p class="text-xl font-display text-text-dark">Schedule & Media Archive Coming Soon.</p>
-                    <p class="text-base text-gray-700 mt-2">Jeremy is currently focused on writing and has no public events or media appearances to share.</p>
-                    <a href="#appearances-full" class="text-link mt-4 block">View Appearances Page</a>
-                </div>
-            </div>
-
-            <div id="blog-preview" class="py-20 md:py-32 border-t border-gray-300">
-                <h2 class="section-label uppercase tracking-widest font-medium text-accent mb-2">From the Blog</h2>
-                <h3 class="text-3xl md:text-4xl font-display text-text-dark mb-4">Notes from the work.</h3>
-            <div id="blog-preview" class="py-24 md:py-28 border-t border-gray-300 hidden">
-                <h2 class="section-label uppercase tracking-widest font-medium text-accent mb-2">Notes from the Work</h2>
-                <h3 class="text-3xl md:text-4xl font-display text-text-dark mb-4">Essays on Craft and Consequence.</h3>
-<p class="text-xl leading-relaxed text-gray-700 mb-12">
-Early pages, road stories, and what’s coming next from the writing desk.
-</p>
-
-                <div class="p-8 rounded-lg text-center flex flex-col justify-center items-center bg-secondary-bg border border-gray-300">
-                    <i data-lucide="pen-tool" class="w-8 h-8 text-accent mb-3"></i>
-                    <p class="text-xl font-display text-text-dark">Blog Posts Coming Soon.</p>
-                    <p class="text-base text-gray-700 mt-2">Jeremy Marsh is currently focused on writing and will share updates from the desk soon.</p>
-                    <a href="#contact-full" class="text-link mt-4 block">Subscribe for Updates</a>
-                <div id="blog-preview-list" class="space-y-10">
-</div>
-
-<div class="text-center pt-12">
-<a href="#blog-full" class="btn-primary text-center inline-block min-w-[200px]">View Archive</a>
-</div>
-</div>
-
-        </section> <footer id="contact-footer" class="page bg-gray-900 text-primary-bg py-20 md:py-24 mt-20 md:mt-0 px-4 md:px-12 -mx-4 md:-mx-12">
-            <div class="max-w-7xl mx-auto">
-                <div class="grid md:grid-cols-2 gap-12 border-b border-gray-700 pb-12 mb-8">
-                    <div class="space-y-6">
-                        <a href="#home" class="hover:opacity-80 transition duration-200" aria-label="Jeremy Marsh Home">
-                            <img src="images/logos/jmarshmedia-logo.svg" alt="J Marsh Media Logo" class="h-8 w-auto mb-4 invert min-h-[32px]">
-                        </a>
-
-                        <p class="text-lg font-medium">Business / Rights / Media:</p>
-                        <a href="mailto:jeremy.marsh.author@gmail.com" class="text-xl text-accent hover:text-white transition duration-200 block">jeremy.marsh.author@gmail.com</a>
-                        <p class="text-sm text-gray-400 pt-4">Representation: The Foundry Literary Agency (Mock)</p>
-                    </div>
-
-                    <div class="space-y-6">
-                        <h3 class="text-2xl font-display mb-4">Connect</h3>
-                        <div class="flex space-x-6">
-                            <a href="https://twitter.com/jeremymarsh" target="_blank" class="hover:text-accent transition duration-200" aria-label="Jeremy Marsh on X (Twitter)">
-                                <i data-lucide="twitter" class="w-6 h-6"></i>
-                            </a>
-                            <a href="https://instagram.com/jeremymarsh" target="_blank" class="hover:text-accent transition duration-200" aria-label="Jeremy Marsh on Instagram">
-                                <i data-lucide="instagram" class="w-6 h-6"></i>
-                            </a>
-                            <a href="https://goodreads.com/jeremymarsh" target="_blank" class="hover:text-accent transition duration-200" aria-label="Jeremy Marsh on Goodreads">
-                                <i data-lucide="book" class="w-6 h-6"></i>
-                            </a>
-                            <a href="https://facebook.com/jeremymarshauthor" target="_blank" class="hover:text-accent transition duration-200" aria-label="Jeremy Marsh on Facebook">
-                                <i data-lucide="facebook" class="w-6 h-6"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            <div id="email-signup-preview" class="py-24 md:py-28 border-t border-gray-300 max-w-3xl mx-auto text-center">
-                <i data-lucide="mail-plus" class="w-10 h-10 text-accent mx-auto mb-4"></i>
-                <p class="text-2xl font-display text-text-dark mb-8">Get occasional updates and early access to new work.</p>
-
-                <div class="text-sm text-gray-500 flex justify-between flex-col sm:flex-row space-y-2 sm:space-y-0">
-                    <p>Copyright &copy; 2025 Jeremy Marsh & J. Marsh Media. All Rights Reserved.</p>
-                    <div class="space-x-4">
-                        <a href="/privacy" class="hover:text-white">Privacy Policy</a>
-                        <span class="text-gray-600">|</span>
-                        <a href="/terms" class="hover:text-white">Terms of Use</a>
-                    </div>
-                </div>
-                <form action="https://your-serverless-function.com/subscribe" method="POST" class="space-y-4 md:flex md:space-y-0 md:space-x-4 max-w-lg mx-auto">
-                    <input type="email" placeholder="Email Address" name="email" required class="p-3 border border-gray-300 rounded-md focus:ring-accent focus:border-accent flex-grow w-full">
-                    <input type="text" name="hp_website" style="display:none;" tabindex="-1" autocomplete="off">
-                    <button type="submit" class="btn-primary w-full md:w-auto px-10">Subscribe</button>
-                </form>
-</div>
-        </footer>
-
-
-            
-        </section> 
-        
-<section id="book-detail" class="page pt-24 pb-32">
-            </section>
-        </section>
-
-<section id="books" class="page pt-24 pb-32">
-<h2 class="text-4xl font-display mb-4">Full Body of Work</h2>
-<p class="text-xl leading-relaxed text-gray-700 mb-12">Discover all published titles, from new releases to backlist favorites.</p>
-
-<div id="books-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                </div>
-            </div>
-</section>
-
-<section id="about-full" class="page pt-24 pb-32 grid lg:grid-cols-4 gap-12">
-@@ -347,34 +302,16 @@ <h3 class="text-xl font-display border-b border-gray-400 pb-3">Press & Media Res
-</div>
-</section>
-
-        <section id="appearances-full" class="page pt-24 pb-32">
-            <h2 class="text-4xl font-display mb-4">Media Archive & Highlights</h2>
-            <p class="text-xl leading-relaxed text-gray-700 mb-12">This page will host all upcoming event dates and an archive of past interviews. Please check back soon for updates!</p>
-
-            <div class="p-12 rounded-lg text-center bg-secondary-bg border border-gray-300">
-                <i data-lucide="mic-off" class="w-10 h-10 text-accent mx-auto mb-4"></i>
-                <h3 class="text-3xl font-display mb-2">No Public Activity to Report Yet</h3>
-                <p class="text-lg text-gray-700">The media archive is currently empty as Jeremy Marsh is focused on completing his next book. Please check back after the launch of *The Portal* for interviews and event dates.</p>
-                <a href="#contact-full" class="btn-primary inline-block mt-8">Inquire for Media/Speaking</a>
-            </div>
-        </section>
-
-<section id="blog-full" class="page pt-24 pb-32">
-<h2 class="text-4xl font-display mb-4">The Complete Blog Archive</h2>
-<p class="text-xl leading-relaxed text-gray-700 mb-12">Essays, updates, and deep dives into the writing life and the themes that shape the work.</p>
-
-<div id="blog-list" class="space-y-10">
-                </div>
-            
-            <div class="mt-12 p-8 rounded-lg text-center bg-secondary-bg border border-gray-300">
-                <i data-lucide="book-open-text" class="w-8 h-8 text-accent mx-auto mb-3"></i>
-                <p class="text-xl font-display text-text-dark">The Archive is Empty</p>
-                <p class="text-base text-gray-700 mt-2">Check back soon for new posts from the author's desk.</p>
-</div>
-</section>
-
-<section id="blog-post-detail" class="page pt-24 pb-32">
-            </section>
-        </section>
-
-<section id="contact-full" class="page pt-24 pb-32">
-<h2 class="text-4xl font-display mb-4">Get In Touch</h2>
-@@ -386,15 +323,15 @@ <h3 class="text-2xl font-display mb-4">For Readers & General Inquiries</h3>
-<form action="https://your-serverless-function.com/submit" method="POST" class="space-y-6">
-<div>
-<label for="name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
-                            <input type="text" id="name" name="name" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-accent focus:border-accent">
-                            <input type="text" id="name-contact" name="name" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-accent focus:border-accent">
-</div>
-<div>
-<label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                            <input type="email" id="email" name="email" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-accent focus:border-accent">
-                            <input type="email" id="email-contact" name="email" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-accent focus:border-accent">
-</div>
-<div>
-<label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
-                            <textarea id="message" name="message" rows="5" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-accent focus:border-accent"></textarea>
-                            <textarea id="message-contact" name="message" rows="5" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-accent focus:border-accent"></textarea>
-</div>
-<input type="text" name="hp_website" id="hp_website" style="display:none;" tabindex="-1" autocomplete="off">
-<button type="submit" class="btn-primary w-full">Send Message</button>
-@@ -419,22 +356,65 @@ <h3 class="text-2xl font-display mb-4">Media, Rights, & Speaking</h3>
-</section>
-
-</main>
-    
-    <footer id="contact-footer" class="page bg-text-dark text-primary-bg py-20 md:py-24 mt-20 md:mt-0 px-4 md:px-12 -mx-4 md:-mx-12">
-        <div class="max-w-7xl mx-auto">
-            <div class="grid md:grid-cols-2 gap-12 border-b border-gray-700 pb-12 mb-8">
-                <div class="space-y-6">
-                    <a href="#home" class="hover:opacity-80 transition duration-200" aria-label="Jeremy Marsh Home">
-                        <img src="https://placehold.co/150x32/f9f9f9/111?text=J.MARSH+MEDIA" onerror="this.onerror=null; this.src='images/logos/jmarshmedia-logo.svg';" alt="J Marsh Media Logo" class="h-8 w-auto mb-4 invert min-h-[32px]">
-                    </a>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeremy Marsh | Author & Songwriter</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configure Tailwind to include the custom blue color -->
     <script>
-        // ==============================================
-        // START: DATA MOCKUP (Simulating Headless CMS)
-        // ==============================================
-                    <p class="text-lg font-medium">Business / Rights / Media:</p>
-                    <a href="mailto:jeremy.marsh.author@gmail.com" class="text-xl text-accent hover:text-white transition duration-200 block">jeremy.marsh.author@gmail.com</a>
-                    <p class="text-sm text-gray-400 pt-4">Representation: The Foundry Literary Agency (Mock)</p>
-                </div>
-
-                <div class="space-y-6">
-                    <h3 class="text-2xl font-display mb-4">Connect</h3>
-                    <div class="flex space-x-6">
-                        <a href="https://twitter.com/jeremymarsh" target="_blank" class="hover:text-accent transition duration-200" aria-label="Jeremy Marsh on X (Twitter)">
-                            <i data-lucide="twitter" class="w-6 h-6"></i>
-                        </a>
-                        <a href="https://instagram.com/jeremymarsh" target="_blank" class="hover:text-accent transition duration-200" aria-label="Jeremy Marsh on Instagram">
-                            <i data-lucide="instagram" class="w-6 h-6"></i>
-                        </a>
-                        <a href="https://goodreads.com/jeremymarsh" target="_blank" class="hover:text-accent transition duration-200" aria-label="Jeremy Marsh on Goodreads">
-                            <i data-lucide="book" class="w-6 h-6"></i>
-                        </a>
-                        <a href="https://facebook.com/jeremymarshauthor" target="_blank" class="hover:text-accent transition duration-200" aria-label="Jeremy Marsh on Facebook">
-                            <i data-lucide="facebook" class="w-6 h-6"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="text-sm text-gray-500 flex justify-between flex-col sm:flex-row space-y-2 sm:space-y-0">
-                <p>Copyright &copy; 2025 Jeremy Marsh & J. Marsh Media. All Rights Reserved.</p>
-                <div class="space-x-4">
-                    <a href="/privacy" class="hover:text-white">Privacy Policy</a>
-                    <span class="text-gray-600">|</span>
-                    <a href="/terms" class="hover:text-white">Terms of Use</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-const BOOKS_DATA = [
-{
-slug: 'the-portal',
-title: 'The Portal',
-subtitle: 'A Novel',
-year: 2025,
-hook: 'A gripping tech-thriller of corporate surveillance, AR, and a man trying to buy back his past.',
-                coverUrl: 'images/books/Portal Digital Cover.svg', 
-                synopsis: "Jacob Hastings thought he could escape the past, but his world is shattering. He returns to the towering corporate structure of Hastings Tower, where augmented reality, invasive AI, and fractured memory blur into a terrifying reality. In this atmospheric corporate drama, Marsh explores the morally fraught limits of technology and one man's attempt to use a surveillance-driven system to literally buy back a life he broke. A stunning debut that redefines the modern tech-thriller.",
-                reviews: [],
-                coverUrl: 'https://placehold.co/300x450/1c1c1c/00ccff?text=THE+PORTAL', 
-                synopsis: "The story is about Jacob Hastings's return to Hastings Tower, where AR, AI, and fractured memory blur into a terrifying reality. The core tension lies in the morally fraught limits of technology and the price of redemption in a surveillance-driven system. The reader is left holding a complex question about consequence, guilt, and the fragile hope that lingers after a personal storm.",
-                reviews: [
-                    "A masterful debut. Marsh delivers a punchy, unsettling vision of the near-future that cuts straight to the heart of what it means to be human in a digitized world.",
-                    "The Portal is a high-concept thriller balanced perfectly by deep, character-driven emotional stakes. Highly recommended.",
-                    "The pace is cinematic, the world-building is seamless, and the main character's struggle felt intensely real."
-                ],
-purchaseLinks: {
-"Print (Amazon)": 'https://buy.link/portal-print',
-"Kindle (Pre-Order)": 'https://a.co/d/frCVW2R',
-@@ -443,34 +423,49 @@ <h3 class="text-2xl font-display mb-4">Media, Rights, & Speaking</h3>
-}
-];
-
-        // BLOG_DATA is empty as requested
-        const BLOG_DATA = [];
-
-        // ==============================================
-        // END: DATA MOCKUP
-        // ==============================================
-
-        // ==============================================
-        // START: JAVASCRIPT LOGIC (WITH DEBUGGING)
-        // ==============================================
-        const BLOG_DATA = [
-            {
-                slug: 'the-architecture-of-guilt',
-                title: 'The Architecture of Guilt',
-                date: 'October 28, 2025',
-                excerpt: 'On writing characters who are fundamentally broken—why silence is often more terrifying than confession, and the dramatic necessity of moral ambiguity.',
-                headerImageUrl: 'https://placehold.co/800x300/4F4B45/F4F1EC?text=Writing+Desk+Sketch',
-                body: `<p>When I sit down to write, I don't start with plot; I start with the weight a character carries. Specifically, the weight of guilt. It's an internal architecture that informs every decision, every glance, and every quiet moment alone. It’s the difference between a character who reacts to the world and one who is actively haunted by it.</p><p>In *The Portal*, Jacob Hastings is defined not by what he wants to achieve, but by the debt he believes he owes. This debt isn't just financial; it's a moral ledger. The most powerful dramatic moments don't come from explosions or revelations, but from the simple, terrifying act of remaining silent when confession is needed.</p><p>A character burdened by moral ambiguity is far more compelling than a clear hero or villain. We understand the slip, the mistake, the choice made under pressure. Writing these characters means exploring the gray space where self-preservation meets the slow, grinding cost of having failed someone important. That's where the real story lives.</p><p>I find that silence, the refusal to articulate the core failure, is the most powerful tool. It allows the guilt to build pressure until it threatens to destroy the character from the inside out, turning a simple tech-thriller premise into something intimate and psychological.</p>`
-            },
-            {
-                slug: 'cinematic-pacing-in-prose',
-                title: 'Applying Cinematic Pacing to Literary Fiction',
-                date: 'September 15, 2025',
-                excerpt: 'How the rhythms of film inform my prose—using scene breaks, limited dialogue, and controlled reveals to maintain tension in a quiet novel.',
-                body: `<p>People often describe my work as 'cinematic,' and while it might sound cliché, it's a structural necessity for the kinds of stories I tell. I don't mean action sequences; I mean the deliberate rhythm of a film, where every shot has purpose, and silence is as important as speech.</p><p>In prose, this translates to controlling the pace through sentence length and scene architecture. I use hard scene breaks as deliberate 'cuts,' forcing the reader's attention to shift abruptly, mimicking a jump scare or a dramatic transition on screen. Dialogue is kept minimal and purposeful, often conveying three layers of meaning at once: what is said, what is meant, and what is withheld.</p><p>The biggest challenge is maintaining literary depth while honoring a thriller's pace. The trick is to infuse the inner life of the character—their observations, their regrets—into the description of the setting and action, rather than relying on lengthy internal monologue. It allows the psychological tension to rise without the narrative losing its forward momentum.</p>`
-            },
-            {
-                slug: 'the-first-draft-as-a-scout',
-                title: 'The First Draft as a Scout Mission, Not a Masterpiece',
-                date: 'August 1, 2025',
-                excerpt: 'A reminder that the only goal of a first draft is to map the territory and locate the actual story. Perfection is the enemy of progress.',
-                body: `<p>When I begin a novel, I treat the first draft like a military scout mission: the objective is not to win the battle, but to map the terrain, locate the enemy (the central conflict), and discover the safe routes. Too many writers approach the first draft expecting a masterpiece, which leads to immediate paralysis.</p><p>A successful first draft is ugly, meandering, and incomplete. Its only job is to provide the clay for the next stage of work. I try to write the first draft as fast as possible, ignoring all instincts to polish or perfect, because the truth is, I don't actually know what the book is about until I get to the end.</p><p>It's in the second and third drafts where the real work—the art—begins. That's when I bring in the craft: tightening the prose, strengthening the themes, and cutting everything that doesn't serve the core emotional arc. But without that messy, reckless scout mission, there would be no territory to refine.</p>`
-            }
-        ];
-
-document.addEventListener('DOMContentLoaded', () => {
-            console.log('DOM Content Loaded. Initializing SPA router.');
-            
-            // --- DOM ELEMENTS (Cached for performance) ---
-const header = document.getElementById('sticky-header');
-const drawer = document.getElementById('nav-drawer');
-const openDrawerBtn = document.getElementById('open-drawer');
-const closeDrawerBtn = document.getElementById('close-drawer');
-const appBody = document.getElementById('app-body');
-const pages = document.querySelectorAll('.page');
-const booksGrid = document.getElementById('books-grid');
-            const blogPreviewSection = document.getElementById('blog-preview');
-            const blogPreviewList = document.getElementById('blog-preview-list');
-const blogList = document.getElementById('blog-list');
-const bookDetailSection = document.getElementById('book-detail');
-const blogPostDetailSection = document.getElementById('blog-post-detail');
-
-            const refreshIcons = () => {
-                lucide.createIcons();
-            };
-
-            // --- 1. Sticky Header Behavior ---
-const handleScroll = () => {
-if (window.scrollY > 50) {
-header.classList.add('bg-primary-bg', 'shadow-md');
-@@ -479,58 +474,57 @@ <h3 class="text-2xl font-display mb-4">Media, Rights, & Speaking</h3>
-}
-};
-window.addEventListener('scroll', handleScroll);
-            handleScroll(); // Check on load
-            handleScroll();
-
-
-            // --- 2. Mobile Nav Drawer ---
-const toggleDrawer = (open) => {
-if (open) {
-drawer.classList.add('open');
-drawer.setAttribute('aria-hidden', 'false');
-appBody.style.overflow = 'hidden';
-                    console.log('Mobile Drawer Opened');
-} else {
-drawer.classList.remove('open');
-drawer.setAttribute('aria-hidden', 'true');
-appBody.style.overflow = '';
-                    console.log('Mobile Drawer Closed');
-}
-}
-
-openDrawerBtn.addEventListener('click', () => toggleDrawer(true));
-closeDrawerBtn.addEventListener('click', () => toggleDrawer(false));
-
-
-            // --- 3. Dynamic Content Rendering Functions (Internal) ---
-
-const renderBooksIndex = () => {
-                // Check if the grid is empty. If it has content, don't re-render.
-if (booksGrid.children.length > 0) return;
-                console.log('Rendering Books Index...');
-
-booksGrid.innerHTML = BOOKS_DATA.map(book => `
-                   <div class="book-card bg-white rounded-lg shadow-xl overflow-hidden cursor-pointer transition duration-300 hover:shadow-2xl border border-gray-200" onclick="window.location.hash = 'books/${book.slug}'">
-                        <img src="${book.coverUrl}" alt="Cover of ${book.title}" class="w-full h-auto object-cover">
-                        <img src="${book.coverUrl}" 
-                             onerror="this.onerror=null; this.src='https://placehold.co/300x450/444/f0f0ed?text=${book.title.replace(' ', '+')}'"
-                             alt="Cover of ${book.title}" class="w-full h-auto object-cover">
-                       <div class="p-4 space-y-2">
-                           <h4 class="text-xl font-display text-text-dark">${book.title}</h4>
-                           <p class="text-sm text-gray-600 italic">${book.hook}</p>
-                           <a href="#books/${book.slug}" class="text-link font-medium pt-2 block">Details &rarr;</a>
-                       </div>
-                   </div>
-               `).join('');
-
-                refreshIcons();
-};
-
-const showBookDetail = (slug) => {
-const book = BOOKS_DATA.find(b => b.slug === slug);
-if (!book) {
-bookDetailSection.innerHTML = '<div class="text-center py-20"><h2 class="text-4xl font-display">Book Not Found</h2><p class="text-lg mt-4">The requested book could not be located.</p><a href="#books" class="text-link mt-4 block">Return to Books Index</a></div>';
-                    refreshIcons();
-return;
-}
-
-bookDetailSection.innerHTML = `
-                   <div class="grid md:grid-cols-3 gap-12">
-                       <div class="md:col-span-1 space-y-6">
-                            <img src="${book.coverUrl}" alt="Large cover for ${book.title}" class="w-full h-auto object-cover rounded-lg shadow-2xl">
-                            <img src="${book.coverUrl}" 
-                                 onerror="this.onerror=null; this.src='https://placehold.co/300x450/444/f0f0ed?text=${book.title.replace(' ', '+')}'"
-                                 alt="Large cover for ${book.title}" class="w-full h-auto object-cover rounded-lg shadow-2xl">
-                           <p class="section-label uppercase tracking-widest font-medium text-gray-500">${book.year}</p>
-                           <div class="pt-4 space-y-2">
-                               <h4 class="text-2xl font-display mb-3">Purchase Options</h4>
-@@ -549,81 +543,104 @@ <h2 class="text-3xl font-display text-gray-600">${book.subtitle}</h2>
-
-                           <div class="space-y-6">
-                               <h3 class="section-label uppercase tracking-widest font-medium text-accent">Synopsis</h3>
-                                <p class="text-xl leading-relaxed text-gray-700">${book.synopsis}</p>
-                                <p class="text-xl leading-relaxed text-gray-700">${book.synopsis.split('\n').map(p => `<p>${p}</p>`).join('')}</p>
-                           </div>
-
-                           <div class="space-y-6 pt-6 border-t border-gray-300">
-                               <h3 class="section-label uppercase tracking-widest font-medium text-accent">Praise & Reviews</h3>
-                               ${book.reviews.length > 0 ? book.reviews.map(quote => `
-                                   <blockquote class="border-l-4 border-accent pl-4 text-lg italic text-gray-800">
-                                        ${quote}
-                                        <p>"${quote}"</p>
-                                   </blockquote>
-                               `).join('') : `<p class="text-lg italic text-gray-500">Reviews coming soon!</p>`}
-                           </div>
-                           <a href="#books" class="btn-secondary inline-block mt-8">← Back to All Books</a>
-                       </div>
-                   </div>
-               `;
-                refreshIcons();
-};
-            
-            const renderBlogIndex = (isPreview = false) => {
-                const container = isPreview ? blogPreviewList : blogList;
-                const maxPosts = isPreview ? 3 : BLOG_DATA.length;
-
-                if (!isPreview && container.children.length > 0) return;
-
-            const renderBlogIndex = () => {
-                // The main blog index relies on BLOG_DATA, which is now empty.
-                if (blogList.children.length > 0) return;
-                console.log('Rendering Blog Index...');
-                const postsToRender = BLOG_DATA.slice(0, maxPosts);
-
-                if (isPreview && postsToRender.length >= 3) {
-                    blogPreviewSection.classList.remove('hidden');
-                } else if (isPreview) {
-                    blogPreviewSection.classList.add('hidden');
-                    return;
-                } else if (!isPreview && postsToRender.length === 0) {
-                    container.innerHTML = `
-                        <div class="mt-12 p-8 rounded-lg text-center bg-secondary-bg border border-gray-300">
-                            <i data-lucide="book-open-text" class="w-8 h-8 text-accent mx-auto mb-3"></i>
-                            <p class="text-xl font-display text-text-dark">The Archive is Empty</p>
-                            <p class="text-base text-gray-700 mt-2">Check back soon for new posts from the author's desk.</p>
-                        </div>
-                    `;
-                    return;
-                }
-
-                // This will render an empty string since BLOG_DATA is []
-                blogList.innerHTML = BLOG_DATA.map(post => `
-                    <div class="blog-entry border-b border-gray-300 pb-8">
-                container.innerHTML = postsToRender.map(post => `
-                    <div class="blog-entry border-b border-gray-300 pb-8 last:border-b-0">
-                       <p class="text-sm font-sans font-medium text-gray-500 section-label">${post.date}</p>
-                       <a href="#blog/${post.slug}" class="text-3xl font-display text-text-dark hover:text-accent transition duration-200 mt-1 mb-3 block">${post.title}</a>
-                       <p class="text-xl leading-relaxed text-gray-700">${post.excerpt}</p>
-                        <a href="#blog/${post.slug}" class="text-link font-medium mt-3 block">Read more &rarr;</a>
-                        <a href="#blog/${post.slug}" class="text-link font-medium mt-3 block">Read More &rarr;</a>
-                   </div>
-               `).join('');
-
-                refreshIcons();
-};
-
-const showBlogPostDetail = (slug) => {
-const post = BLOG_DATA.find(p => p.slug === slug);
-if (!post) {
-blogPostDetailSection.innerHTML = '<div class="text-center py-20"><h2 class="text-4xl font-display">Post Not Found</h2><p class="text-lg mt-4">The requested blog post could not be located.</p><a href="#blog-full" class="text-link mt-4 block">Return to Blog Archive</a></div>';
-                    refreshIcons();
-return;
-}
-
-                const formattedBody = post.body.split('</p>').map(p => p.trim()).filter(p => p.length > 0).join('</p><p>');
-
-blogPostDetailSection.innerHTML = `
-                   <div class="max-w-4xl mx-auto">
-                        <a href="#blog-full" class="text-link mb-4 block">← Back to Archive</a>
-                        <a href="#blog-full" class="text-link mb-8 block font-medium">← Back to Archive</a>
-                        
-                        ${post.headerImageUrl ? `
-                            <img src="${post.headerImageUrl}" 
-                                 onerror="this.onerror=null; this.src='https://placehold.co/800x300/4F4B45/F4F1EC?text=Post+Header+Image';"
-                                 alt="${post.title} header image" class="w-full h-auto object-cover rounded-lg shadow-md mb-12">
-                        ` : ''}
-
-                       <h1 class="text-5xl font-display text-text-dark leading-tight mb-4">${post.title}</h1>
-                        <p class="text-lg font-sans font-medium text-gray-500 mb-8">${post.date}</p>
-                        <p class="text-lg font-sans font-medium text-gray-500 mb-16">${post.date}</p>
-
-                        <div class="post-body-content text-xl leading-relaxed text-gray-800 max-w-3xl mx-auto">
-                            ${post.body}
-                        <div class="post-body-content text-xl leading-relaxed text-gray-800">
-                            ${formattedBody}
-                       </div>
-
-                        <div class="mt-16 pt-8 border-t border-gray-300">
-                        <div class="mt-20 pt-8 border-t border-gray-300">
-                           <a href="#blog-full" class="btn-secondary inline-block">Read More Posts</a>
-                       </div>
-                   </div>
-               `;
-                refreshIcons();
-};
-
-
-            // --- 4. Page Routing (Hash-based) - The Core Logic ---
-
-const showSection = (hash) => {
-                // --- DEBUG CHECK 1: Confirm the router function runs ---
-                console.log(`Router triggered. Hash received: "${hash}"`);
-                
-                // 1. Close mobile drawer on any navigation event
-                toggleDrawer(false);
-                let path = hash.substring(1);
-                let targetId = path || 'home';
-
-                // 2. Determine the target section ID
-                let path = hash.substring(1); // Remove '#'
-                let targetId = path || 'home'; // Default to 'home'
-                toggleDrawer(false);
-
-let dynamicLoadNeeded = false;
-let isAnchorScroll = false;
-
-                // Handle dynamic routes (books/slug and blog/slug)
-if (path.startsWith('books/')) {
-showBookDetail(path.substring(6));
-targetId = 'book-detail';
-@@ -632,53 +649,51 @@ <h1 class="text-5xl font-display text-text-dark leading-tight mb-4">${post.title
-showBlogPostDetail(path.substring(5));
-targetId = 'blog-post-detail';
-dynamicLoadNeeded = true;
-                } else if (path.includes('-preview') || path.includes('-full') || path.includes('featured-book')) {
-                    // Treat internal links on the home page as anchors for smooth scroll
-                } else if (document.getElementById(targetId) && !['about-full', 'contact-full', 'books', 'blog-full'].includes(targetId)) {
-isAnchorScroll = true;
-}
-                
-                let finalTargetId = (isAnchorScroll && targetId !== 'home') ? 'home' : targetId;
-
-                // 3. Toggle page visibility
-pages.forEach(page => {
-                    const isActive = page.id === targetId;
-                    let isActive;
-                    if (isAnchorScroll) {
-                        isActive = page.id === 'home';
-                    } else if (dynamicLoadNeeded) {
-                         isActive = page.id === targetId;
-                    } else {
-                        isActive = page.id === targetId;
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'marsh-blue': '#0033a0',
                     }
+                }
+            }
+        }
+    </script>
+    <!-- Load Google Fonts: Merriweather (Serif for elegance) and Inter (Sans for readability) -->
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Custom font declarations using Merriweather for display and Inter for body text */
+        .font-serif-display { font-family: 'Merriweather', serif; }
+        .font-sans-body { font-family: 'Inter', sans-serif; }
 
-page.classList.toggle('active', isActive);
-page.setAttribute('aria-hidden', !isActive);
+        /* Subtle dynamic feel with transition effects */
+        .hover-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-4px);
+            /* Updated shadow to reflect the new marsh-blue color */
+            box-shadow: 0 10px 20px rgba(0, 51, 160, 0.2); 
+        }
+    </style>
+</head>
+<!-- Switched to White background and Black/Dark Gray text -->
+<body class="font-sans-body bg-white text-gray-900 min-h-screen">
 
-                    // 4. Render static dynamic pages only when activating
-if (isActive && !dynamicLoadNeeded) {
-                        if (targetId === 'books') renderBooksIndex();
-                        if (targetId === 'blog-full') renderBlogIndex();
-                        if (page.id === 'books') renderBooksIndex();
-                        if (page.id === 'blog-full') renderBlogIndex(false);
-                        if (page.id === 'home') renderBlogIndex(true);
-}
-});
+    <!-- Primary Container: Centered and Responsive -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-20">
 
-                // 5. Handle scrolling logic
-                if (isAnchorScroll || targetId === 'home') {
-                    const anchor = hash.substring(hash.indexOf('#') + 1);
-                if (isAnchorScroll) {
-                    const anchor = path;
-const el = document.getElementById(anchor);
-if (el) {
-                        console.log(`Scrolling to anchor: #${anchor}`);
-                        // Use a slight delay to ensure the page state is updated
-setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
-}
-} else {
-                    console.log(`Switching to page: #${targetId}. Scrolling to top.`);
-                    window.scrollTo(0, 0);
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-};
+        <!-- Header/Hero Section (Minimalist and high impact) -->
+        <header class="text-center mb-20 md:mb-32">
+            <h1 class="font-serif-display text-5xl sm:text-7xl lg:text-8xl font-bold text-marsh-blue tracking-tight leading-tight">
+                Jeremy Marsh
+            </h1>
+            <p class="mt-4 text-lg sm:text-2xl text-gray-700 uppercase tracking-widest border-b border-t border-gray-300 py-2 inline-block">
+                Author & Songwriter
+            </p>
+            <blockquote class="mt-8 md:mt-12 text-xl italic max-w-2xl mx-auto text-gray-600">
+                "The only thing more potent than a good character is a 90-proof story."
+            </blockquote>
+        </header>
 
+        <!-- Main Content Grid: Two Columns (Bio & Books) on Desktop, Stacked on Mobile -->
+        <main class="grid lg:grid-cols-3 gap-12 lg:gap-20">
 
-            // --- 5. Initialization ---
+            <!-- Column 1 & 2: Author Bio and Images (Lg: 2/3 width) -->
+            <section class="lg:col-span-2 space-y-16">
 
-            // Listener for hash changes (used for navigation and back/forward buttons)
-window.addEventListener('hashchange', () => {
-                console.log(`Event: hashchange fired. URL hash is now: ${window.location.hash}`);
-showSection(window.location.hash);
-});
+                <!-- About Section - Character, Kentucky, Bourbon -->
+                <div id="bio">
+                    <h2 class="font-serif-display text-3xl font-bold mb-6 text-marsh-blue border-b border-gray-300 pb-2">
+                        Rooted in Story
+                    </h2>
+                    <p class="text-lg text-gray-800 leading-relaxed mb-6">
+                        Jeremy Marsh crafts worlds where character is everything. A native of **Kentucky**, his writing carries the deep, complex notes of the bluegrass state—a place of rich history, hidden truths, and uncompromising spirits. His narratives are as smooth and lingering as a glass of fine **bourbon**, revealing layer upon layer of human motivation and conflict.
+                    </p>
+                    <p class="text-lg text-gray-800 leading-relaxed">
+                        For Jeremy, a story isn't just a plot; it's an exploration of the souls who drive it. Whether through the intimate confession of a song or the sweeping scope of a novel, he is committed to the simple, profound truth: **people are the most interesting places on Earth.**
+                    </p>
+                </div>
 
-            // Run initial routing logic
-showSection(window.location.hash);
+                <!-- Images Section - Two Images, subtle thematic styling -->
+                <div class="grid sm:grid-cols-2 gap-8 pt-4">
+                    <!-- Image 1: Placeholder for Professional Shot -->
+                    <div class="rounded-lg overflow-hidden shadow-xl hover-lift border-4 border-marsh-blue/30">
+                        <!-- Updated placeholder colors for the light theme -->
+                        <img src="https://placehold.co/800x600/e5e7eb/0033a0?text=Jeremy+Marsh%0A(Writing+Portrait)"
+                             alt="Professional portrait of Jeremy Marsh, Author and Songwriter"
+                             class="w-full h-auto object-cover transform hover:scale-[1.01] transition duration-500 ease-in-out">
+                    </div>
+                    <!-- Image 2: Placeholder for Thematic Shot (Kentucky/Bourbon focus) -->
+                    <div class="rounded-lg overflow-hidden shadow-xl hover-lift border-4 border-marsh-blue/30">
+                        <!-- Updated placeholder colors for the light theme -->
+                        <img src="https://placehold.co/800x600/e5e7eb/0033a0?text=Jeremy+Marsh%0A(Kentucky+Theme)"
+                             alt="Jeremy Marsh in a Kentucky setting, perhaps with a notebook or bourbon."
+                             class="w-full h-auto object-cover transform hover:scale-[1.01] transition duration-500 ease-in-out">
+                    </div>
+                </div>
+            </section>
 
-            // Replace Lucide icons after all content is rendered
-            lucide.createIcons();
-            refreshIcons();
-});
-</script>
+            <!-- Column 3: Books Section (Lg: 1/3 width) -->
+            <section class="lg:col-span-1" id="books">
+                <h2 class="font-serif-display text-3xl font-bold mb-6 text-marsh-blue border-b border-gray-300 pb-2">
+                    Current Works
+                </h2>
+
+                <!-- Book: The Portal -->
+                <!-- Swapped to a light gray background for contrast against the white page -->
+                <div class="bg-gray-100 p-6 rounded-xl shadow-xl hover-lift">
+                    <h3 class="font-serif-display text-2xl font-bold mb-4 text-gray-900">The Portal</h3>
+
+                    <div class="flex flex-col sm:flex-row lg:flex-col gap-6">
+                        <!-- Book Cover Thumbnail -->
+                        <div class="flex-shrink-0 w-full sm:w-1/3 lg:w-full max-w-xs mx-auto">
+                            <!-- Updated placeholder colors for the light theme -->
+                            <img src="https://placehold.co/400x600/0033a0/ffffff?text=The+Portal%0ACover+Art"
+                                 alt="Cover art for the novel The Portal"
+                                 class="w-full h-auto rounded shadow-lg border-2 border-marsh-blue/50">
+                        </div>
+
+                        <!-- Book Description and CTA -->
+                        <div class="flex-grow">
+                            <p class="text-gray-600 italic mb-4">
+                                "What if the character you wrote was real, and waiting for you on the other side?"
+                            </p>
+                            <p class="text-gray-700 mb-6 text-sm">
+                                Jeremy Marsh's debut novel is a gripping character-study disguised as a sci-fi thriller, challenging the lines between creator and creation. A true test of courage and self-discovery.
+                            </p>
+                            <!-- Updated button to use marsh-blue background and white text -->
+                            <a href="#" class="inline-block bg-marsh-blue text-white font-bold py-3 px-6 rounded-full hover:bg-marsh-blue/90 transition duration-300 shadow-lg uppercase text-sm tracking-wider">
+                                Learn More & Buy
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upcoming Section Placeholder -->
+                <div class="mt-8 p-4 border border-dashed border-gray-300 rounded-lg text-center text-gray-500">
+                    <p class="font-bold">Next Project</p>
+                    <p class="text-sm">New Album / Novel coming soon.</p>
+                </div>
+
+            </section>
+        </main>
+
+        <!-- Footer Section - Simple Links and Copyright -->
+        <!-- Updated footer borders and text for the light theme -->
+        <footer class="mt-20 pt-10 border-t border-gray-300 text-center">
+            <div class="flex justify-center space-x-6 mb-4">
+                <!-- Links updated with specific handles/emails -->
+                <a href="https://x.com/MarshJerem58454" class="text-gray-600 hover:text-marsh-blue transition duration-200">Twitter/X</a>
+                <a href="https://instagram.com/jeremy_marsh_official" class="text-gray-600 hover:text-marsh-blue transition duration-200">Instagram</a>
+                <a href="#" class="text-gray-600 hover:text-marsh-blue transition duration-200">Music (Spotify/Bandcamp)</a>
+                <a href="mailto:jeremy.marsh@jmmarshmedia.com" class="text-gray-600 hover:text-marsh-blue transition duration-200">Email</a>
+            </div>
+            <p class="text-sm text-gray-500">&copy; 2025 Jeremy Marsh. All Rights Reserved.</p>
+        </footer>
+    </div>
+
 </body>
+</html>
