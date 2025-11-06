@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jeremy Marsh | Author & Songwriter</title>
-    <!-- Load Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Configure Tailwind to include the custom blue color -->
-    <script>
+    <!-- Load Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configure Tailwind to include the custom blue color --><script>
         tailwind.config = {
             theme: {
                 extend: {
@@ -18,8 +16,7 @@
             }
         }
     </script>
-    <!-- Load Google Fonts: Merriweather (Serif for elegance) and Inter (Sans for readability) -->
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Load Google Fonts: Merriweather (Serif for elegance) and Inter (Sans for readability) --><link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         /* Custom font declarations using Merriweather for display and Inter for body text */
         .font-serif-display { font-family: 'Merriweather', serif; }
@@ -36,14 +33,14 @@
         }
     </style>
 </head>
-<!-- Switched to White background and Black/Dark Gray text -->
-<body class="font-sans-body bg-white text-gray-900 min-h-screen">
+<!-- Switched to White background and Black/Dark Gray text --><body class="font-sans-body bg-white text-gray-900 min-h-screen">
 
-    <!-- Primary Container: Centered and Responsive -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-20">
+    <!-- Primary Container: Centered and Responsive --><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-20">
 
-        <!-- Header/Hero Section (Minimalist and high impact) -->
-        <header class="text-center mb-20 md:mb-32">
+        <!-- Header/Hero Section (Minimalist and high impact) --><header class="text-center mb-20 md:mb-32">
+            
+            <!-- Removed: Brand Logo Link from Header -->
+
             <h1 class="font-serif-display text-5xl sm:text-7xl lg:text-8xl font-bold text-marsh-blue tracking-tight leading-tight">
                 Jeremy Marsh
             </h1>
@@ -51,18 +48,15 @@
                 Author & Songwriter
             </p>
             <blockquote class="mt-8 md:mt-12 text-xl italic max-w-2xl mx-auto text-gray-600">
-                "The only thing more potent than a good character is a 90-proof story."
+                "The only thing more potent than a good character is a 100-proof story."
             </blockquote>
         </header>
 
-        <!-- Main Content Grid: Two Columns (Bio & Books) on Desktop, Stacked on Mobile -->
-        <main class="grid lg:grid-cols-3 gap-12 lg:gap-20">
+        <!-- Main Content Grid: Two Columns (Bio & Books) on Desktop, Stacked on Mobile --><main class="grid lg:grid-cols-3 gap-12 lg:gap-20">
 
-            <!-- Column 1 & 2: Author Bio and Images (Lg: 2/3 width) -->
-            <section class="lg:col-span-2 space-y-16">
+            <!-- Column 1 & 2: Author Bio and Images (Lg: 2/3 width) --><section class="lg:col-span-2 space-y-16">
 
-                <!-- About Section - Character, Kentucky, Bourbon -->
-                <div id="bio">
+                <!-- About Section - Character, Kentucky, Bourbon --><div id="bio">
                     <h2 class="font-serif-display text-3xl font-bold mb-6 text-marsh-blue border-b border-gray-300 pb-2">
                         Rooted in Story
                     </h2>
@@ -74,54 +68,35 @@
                     </p>
                 </div>
 
-                <!-- Images Section - Two Images, subtle thematic styling -->
-                <div class="grid sm:grid-cols-2 gap-8 pt-4">
-                    <!-- Image 1: Placeholder for Professional Shot -->
-                    <div class="rounded-lg overflow-hidden shadow-xl hover-lift border-4 border-marsh-blue/30">
-                        <!-- Updated placeholder colors for the light theme -->
-                        <img src="images/headshots/jeremy-marsh-headshot.jpg"
+                <!-- Images Section - Now only one image, centered and taking full width --><div class="flex justify-center pt-4"> <!-- Centering the single image --><!-- Image 1: Placeholder for Professional Shot --><div class="rounded-lg overflow-hidden shadow-xl hover-lift border-4 border-marsh-blue/30 max-w-lg w-full"> <!-- Added max-w-lg and w-full for sizing --><img src="https://placehold.co/800x600/e5e7eb/0033a0?text=Jeremy+Marsh%0A(Writing+Portrait)"
                              alt="Professional portrait of Jeremy Marsh, Author and Songwriter"
-                             class="w-full h-auto object-cover transform hover:scale-[1.01] transition duration-500 ease-in-out">
-                    </div>
-                    <!-- Image 2: Placeholder for Thematic Shot (Kentucky/Bourbon focus) -->
-                    <div class="rounded-lg overflow-hidden shadow-xl hover-lift border-4 border-marsh-blue/30">
-                        <!-- Updated placeholder colors for the light theme -->
-                        <img src="images/photos/promo/jeremy-marsh working.jpg"
-                             alt="Jeremy Marsh in a Kentucky setting, perhaps with a notebook or bourbon."
                              class="w-full h-auto object-cover transform hover:scale-[1.01] transition duration-500 ease-in-out">
                     </div>
                 </div>
             </section>
 
-            <!-- Column 3: Books Section (Lg: 1/3 width) -->
-            <section class="lg:col-span-1" id="books">
+            <!-- Column 3: Books Section (Lg: 1/3 width) --><section class="lg:col-span-1" id="books">
                 <h2 class="font-serif-display text-3xl font-bold mb-6 text-marsh-blue border-b border-gray-300 pb-2">
                     Current Works
                 </h2>
 
-                <!-- Book: The Portal -->
-                <!-- Swapped to a light gray background for contrast against the white page -->
-                <div class="bg-gray-100 p-6 rounded-xl shadow-xl hover-lift">
+                <!-- Book: The Portal --><div class="bg-gray-100 p-6 rounded-xl shadow-xl hover-lift">
                     <h3 class="font-serif-display text-2xl font-bold mb-4 text-gray-900">The Portal</h3>
 
                     <div class="flex flex-col sm:flex-row lg:flex-col gap-6">
-                        <!-- Book Cover Thumbnail -->
-                        <div class="flex-shrink-0 w-full sm:w-1/3 lg:w-full max-w-xs mx-auto">
-                            <!-- Updated placeholder colors for the light theme -->
-                            <img src="images/books/Portal Digital Cover.svg"
+                        <!-- Book Cover Thumbnail --><div class="flex-shrink-0 w-full sm:w-1/3 lg:w-full max-w-xs mx-auto">
+                            <img src="https://placehold.co/400x600/0033a0/ffffff?text=The+Portal%0ACover+Art"
                                  alt="Cover art for the novel The Portal"
                                  class="w-full h-auto rounded shadow-lg border-2 border-marsh-blue/50">
                         </div>
 
-                        <!-- Book Description and CTA -->
-                        <div class="flex-grow">
+                        <!-- Book Description and CTA --><div class="flex-grow">
                             <p class="text-gray-600 italic mb-4">
                                 "What if the character you wrote was real, and waiting for you on the other side?"
                             </p>
                             <p class="text-gray-700 mb-6 text-sm">
                                 Jeremy Marsh's debut novel is a gripping character-study disguised as a sci-fi thriller, challenging the lines between creator and creation. A true test of courage and self-discovery.
                             </p>
-                            <!-- Updated button to use marsh-blue background and white text -->
                             <a href="#" class="inline-block bg-marsh-blue text-white font-bold py-3 px-6 rounded-full hover:bg-marsh-blue/90 transition duration-300 shadow-lg uppercase text-sm tracking-wider">
                                 Learn More & Buy
                             </a>
@@ -129,8 +104,7 @@
                     </div>
                 </div>
 
-                <!-- Upcoming Section Placeholder -->
-                <div class="mt-8 p-4 border border-dashed border-gray-300 rounded-lg text-center text-gray-500">
+                <!-- Upcoming Section Placeholder --><div class="mt-8 p-4 border border-dashed border-gray-300 rounded-lg text-center text-gray-500">
                     <p class="font-bold">Next Project</p>
                     <p class="text-sm">New Album / Novel coming soon.</p>
                 </div>
@@ -138,14 +112,21 @@
             </section>
         </main>
 
-        <!-- Footer Section - Simple Links and Copyright -->
-        <!-- Updated footer borders and text for the light theme -->
-        <footer class="mt-20 pt-10 border-t border-gray-300 text-center">
+        <!-- Footer Section - Simple Links and Copyright --><footer class="mt-20 pt-10 border-t border-gray-300 text-center">
+            
+            <!-- Brand Logo Link for J. Marsh Media (Centered) -->
+            <div class="mb-6"> <!-- Adjusted margin for footer context -->
+                <a href="https://jmarshmedia.com" target="_blank" class="inline-block hover:opacity-80 transition duration-200">
+                    <!-- NOTE: Replace the src below with the actual SVG path: images/logos/jmarshmedia-logo.svg -->
+                    <img src="https://placehold.co/150x40/0033a0/ffffff?text=J.MARSH+MEDIA" 
+                         alt="J. Marsh Media Logo" 
+                         class="h-10 w-auto">
+                </a>
+            </div>
+
             <div class="flex justify-center space-x-6 mb-4">
-                <!-- Links updated with specific handles/emails -->
                 <a href="https://x.com/MarshJerem58454" class="text-gray-600 hover:text-marsh-blue transition duration-200">Twitter/X</a>
                 <a href="https://instagram.com/jeremy_marsh_official" class="text-gray-600 hover:text-marsh-blue transition duration-200">Instagram</a>
-                <a href="#" class="text-gray-600 hover:text-marsh-blue transition duration-200">Music (Spotify/Bandcamp)</a>
                 <a href="mailto:jeremy.marsh@jmmarshmedia.com" class="text-gray-600 hover:text-marsh-blue transition duration-200">Email</a>
             </div>
             <p class="text-sm text-gray-500">&copy; 2025 Jeremy Marsh. All Rights Reserved.</p>
