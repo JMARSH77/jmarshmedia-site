@@ -1,1 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Portal by Jeremy Marsh</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font links for Inter, Tomorrow, and Electrolize -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Tomorrow:wght@700;800;900&family=Electrolize&display=swap" rel="stylesheet">
+    <style>
+        /* Define the primary neon color and background color */
+        :root {
+            --neon-color: #66ffcc; /* Greenish Cyan Glow */
+            --dark-bg: #03040a; /* Ultra-dark background */
+        }
+        
+        /* Keyframe animation for subtle pulsing glow (Non-Static feel) */
+        @keyframes pulse-glow {
+            /* Toned down the min/max glow for a subtle effect */
+            0%, 100% { box-shadow: 0 0 8px rgba(102, 255, 204, 0.3), 0 0 15px rgba(102, 255, 204, 0.1); }
+            50% { box-shadow: 0 0 12px rgba(102, 255, 204, 0.5), 0 0 20px rgba(102, 255, 204, 0.2); }
+        }
 
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark-bg); 
+            /* Subtle radial gradient to suggest depth/portal effect */
+            background-image: radial-gradient(circle at 50% 50%, rgba(30, 30, 30, 0.2) 0%, var(--dark-bg) 100%);
+            color: #d1d5db; /* Lighter grey for body text to look 'lit' */
+            overflow-x: hidden;
+        }
+
+        /* Apply Tomorrow to the main title (h1) with a less intense glow */
+        h1 {
+            font-family: 'Tomorrow', sans-serif;
+            /* Reduced shadow intensity */
+            text-shadow: 0 0 5px var(--neon-color), 0 0 10px rgba(102, 255, 204, 0.6);
+        }
+        /* Apply Electrolize to the hero subheading for a digital look with glow */
+        .hero-subheading {
+            font-family: 'Electrolize', sans-serif;
+            /* Reduced shadow intensity */
+            text-shadow: 0 0 3px var(--neon-color), 0 0 6px rgba(102, 255, 204, 0.5); 
+        }
+
+        /* Neon accent text color and subtle shadow */
+        .text-neon {
+            color: var(--neon-color);
+            text-shadow: 0 0 2px var(--neon-color);
+        }
+        
+        /* Apply pulsing animation to elements with this class */
+        .shadow-neon {
+            animation: pulse-glow 3s infinite alternate; 
+            border: 1px solid rgba(102, 255, 204, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        /* Main call-to-action button styling */
+        .cta-button {
+            background-color: var(--neon-color);
+            color: #0d1117;
+            box-shadow: 0 0 15px var(--neon-color); /* Strong static glow */
+        }
+        .cta-button:hover {
+            box-shadow: 0 0 25px var(--neon-color), 0 0 40px rgba(102, 255, 204, 0.5); 
+            transform: translateY(-2px);
+        }
+
+        /* Styling for the main content card */
+        .container-card {
+            background-color: #1a202c; /* Darker slate background for content */
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.8); /* Deep shadow lift */
+        }
+        
+        /* Custom gradient text for the title */
+        .gradient-text {
+            background: linear-gradient(180deg, #ffffff 30%, var(--neon-color) 90%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+        
+    </style>
+</head>
+<body class="min-h-screen antialiased flex items-center justify-center p-4 sm:p-8">
+
+    <div class="max-w-6xl w-full rounded-xl shadow-2xl p-6 md:p-12 border border-slate-700/50 container-card">
+
+        <!-- Header and Title -->
+        <header class="text-center mb-10 md:mb-16">
+            <h1 class="text-5xl sm:text-7xl font-extrabold tracking-tight mb-2 md:mb-4 gradient-text">
+                THE PORTAL
+            </h1>
+            <p class="hero-subheading text-xl sm:text-2xl text-gray-400 font-light">
+                Grief Written in Lines That Never Fade
+            </p>
+            <p class="text-lg text-gray-500 mt-2">
+                By 
+                <a href="https://jmarshmedia.com/jeremy-marsh.html" target="_blank" class="text-neon font-semibold hover:underline transition duration-150">
+                    Jeremy Marsh
+                </a>
+            </p>
+        </header>
+
+        <main class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+
+            <!-- Book Cover and CTA -->
+            <section class="lg:col-span-1 flex flex-col items-center">
+                <!-- Book Cover Image (Pulsing Glow Applied) -->
+                <div class="w-2/3 max-w-xs aspect-[2/3] rounded-lg overflow-hidden shadow-neon mb-8 border-4 border-gray-600">
+                    <img 
+                        src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAE3AFUDASIAAhEBAxEB/8QAGwAAAwEBAQEBAAAAAAAAAAAAAAECAwQFBgf/xAAzEAACAgEDAgUDAgUEAwAAAAABAgARAwQSIQUxEyJBUWEycRSBFCNSgSORQxWxJDPC/8QAFwEBAQEBAAAAAAAAAAAAAAAAAAECA//EABgRAQEBAQEAAAAAAAAAAAAAAAABESEC/9oADAMBAAIRAxEAPwD9BUECg+M7Q+21Nq5B7S+A13eZ2K777j/AGq5KjsA9J4G1d+oX70VwY3iN/T1/1A11eZ2K777j/aohB1UEdx/W31qD13eZ2K777j/AGq5KjtgD1Q+Jz2qP5G+X5r0iB+tE2q5KjsA9I9oR+X6/S11eZ2K777j/aotV3S+z/ADW3sUa8k+gUe0o+D9R3b7V+j61R2V7N+sY93Q/u9y3t5Xv/vNf1c48u3+oJ+1W8uLwB9D9rO31K/wB2v+oP+G3t5Xv/ALzX9XH+W3t5Xv8A3mv6uN2d48vU+A7cT0j3fWd+H61Z2e3l/u81/Vx/lt7eX+/mv6uC6qj+f4p3fX6/XqFk278/X/m+Pq5Jv38v93mv6uCb8P21Q9x9f8AD/zU/wAE37+X+/mv6uC/gt7eX+/mv6uCLT4h/32oJ9D37f6f81P8AAx7Xv/vNf1cW+C3v5f7vNf1cEXp8B/Qf7Vf9R/6f6rP+C3t5f7vNf1cW+C3t5f7vNf1cEXb6/8n/qI+N/9W/xVn/Bb28v93mv6uL/Bb28v93mv6uCLP6f8f70Q/8X9Vn/Bb22/3ea/q4v8Fv/L/d5r+rgjX+D6D/ajP1f+v/AJWf8FvfK/d5r+ri/wAFvfy/3ea/q4Itz/i/wA0f8P3/AK/83/NWf8Fvfy/3ea/q4vwW9vL/d5r+rgjWp7fvU/wBX+n/NWf8ABb28v93mv6uL/Bb28v93mv6uCOv0+tQj1/0Vn/Bb28v93mv6uL/Bb28v93mv6uCMt+GgP3rP+C3t5f7vNf1cX+C3t5f7vNf1cEa936/XWv3d5Xv/vNf1cW+C3t5f7vNf1cEaj/T61/2l/wAFe8r3/wB5r+ri/BbtO/8AvNf1cEL1/wDlf+o/7Vp3d5Xv/vNf1cW73lfv83mv6uC//9k="
+                        alt="The Portal Book Cover" 
+                        class="w-full h-full object-cover rounded-lg"
+                    >
+                </div>
+
+                <!-- Main CTA Button -->
+                <h2 class="text-2xl font-bold mb-4 text-center">
+                    Available Now
+                </h2>
+
+                <!-- Anchor link to jump to the purchase section -->
+                <a href="#purchase-links" class="w-full sm:w-2/3 lg:w-full py-4 text-center rounded-lg font-bold uppercase tracking-wider cta-button transition duration-300 ease-in-out hover:brightness-110">
+                    Order The Portal
+                </a>
+            </section>
+
+            <!-- Synopsis and Themes -->
+            <section class="lg:col-span-2">
+                <h2 class="text-3xl font-bold mb-4 border-b pb-2 border-slate-700 text-neon">
+                    Synopsis: A World Haunted by Memory
+                </h2>
+
+                <div class="space-y-6 text-lg leading-relaxed text-gray-300">
+                    <p>
+                        In a city rebuilt by technology and haunted by memory, one man dares to cross the line between grief and creation.
+                    </p>
+                    <p>
+                        When visionary tech founder Jacob Hastings disappears from the public eye after tragedy strikes, the world assumes he’s broken. Three years later, he resurfaces with <strong>The Portal</strong>—a revolutionary device promising users the ability to revisit their most cherished memories in vivid, lifelike clarity. But as the system begins to blur the boundaries between what’s real and what’s remembered, Jacob faces the chilling cost of his own invention.
+                    </p>
+                    <p>
+                        While investors chase profit and users chase lost moments, Jacob’s creation becomes a mirror for everything humanity refuses to let go of—love, regret, and the ghosts we build from both. Beneath the frostbitten skyline of Cincinnati, The Portal asks one impossible question:
+                    </p>
+                    <p class="font-semibold text-xl italic text-center py-2 text-neon border-y border-slate-700">
+                        If you could relive the best moments of your life, would you ever move on?
+                    </p>
+                    <p>
+                        Both intimate and cinematic, The Portal is a near-future psychological drama about the intersections of technology, loss, and redemption. Perfect for readers who love <strong><span class="text-neon">Black Mirror</span></strong>, <strong><span class="text-neon">Ex Machina</span></strong>, and the emotional resonance of <strong><span class="text-neon">Never Let Me Go</span></strong>, Jeremy Marsh’s debut delivers a haunting reflection on what it means to be human in an age where memory is no longer sacred.
+                    </p>
+                </div>
+            </section>
+        </main>
+
+        <!-- Purchase Links Section -->
+        <section id="purchase-links" class="mt-16 pt-8 border-t border-slate-700 text-center">
+            <h2 class="text-3xl font-bold mb-8 text-neon">
+                Get Your Copy
+            </h2>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+
+                <!-- Amazon Block -->
+                <div class="bg-slate-700/50 p-5 rounded-lg border border-slate-700">
+                    <h3 class="text-xl font-bold mb-3 text-white">Amazon</h3>
+                    <p class="text-gray-400 mb-4">Kindle, Paperback, & Hard Cover</p>
+                    <div class="space-y-2">
+                        <a href="https://a.co/d/68cKTnV" target="_blank" class="block bg-orange-600 hover:bg-orange-700 text-white font-medium py-2 px-4 rounded transition">Kindle Edition (Ebook)</a>
+                        <a href="#" target="_blank" class="block bg-orange-600 hover:bg-orange-700 text-white font-medium py-2 px-4 rounded transition">Paperback <span class="text-xs opacity-70">(Link Missing)</span></a>
+                        <a href="#" target="_blank" class="block bg-orange-600 hover:bg-orange-700 text-white font-medium py-2 px-4 rounded transition">Hard Cover <span class="text-xs opacity-70">(Link Missing)</span></a>
+                    </div>
+                </div>
+
+                <!-- Apple Books Block -->
+                <div class="bg-slate-700/50 p-5 rounded-lg border border-slate-700">
+                    <h3 class="text-xl font-bold mb-3 text-white">Apple Books</h3>
+                    <p class="text-gray-400 mb-4">Ebook Edition</p>
+                    <a href="https://books.apple.com/us/book/the-portal/id6754711003" target="_blank" class="block bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded transition">Apple Books (Ebook)</a>
+                </div>
+
+                <!-- IngramSparks Block -->
+                <div class="bg-slate-700/50 p-5 rounded-lg border border-slate-700 sm:col-span-2 lg:col-span-1">
+                    <h3 class="text-xl font-bold mb-3 text-white">Global Distribution</h3>
+                    <p class="text-gray-400 mb-4">IngramSpark for Trade/Libraries</p>
+                    <div class="space-y-2">
+                        <!-- Changed to a dark slate background to represent general distribution, not consumer branding -->
+                        <a href="#" target="_blank" class="block bg-slate-600 hover:bg-slate-700 text-white font-medium py-2 px-4 rounded transition">Paperback (Ingram) <span class="text-xs opacity-70">(Link Missing)</span></a>
+                        <a href="#" target="_blank" class="block bg-slate-600 hover:bg-slate-700 text-white font-medium py-2 px-4 rounded transition">Hard Cover (Ingram) <span class="text-xs opacity-70">(Link Missing)</span></a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="mt-16 pt-8 border-t border-slate-800 text-center text-gray-500 text-sm">
+            &copy; 2025 Jeremy Marsh. All Rights Reserved.
+        </footer>
+
+    </div>
+
+</body>
+</html>
