@@ -3,82 +3,390 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Minimalist Bookstore</title>
-    <!-- Load Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>The Old World Bookstore</title>
+    <!-- Load Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Custom font import for a clean look */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        /* Custom font imports for old-world feel */
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Cormorant+Garamond:wght@400;600;700&family=IM+Fell+English+SC&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Parisienne&display=swap'); /* For Jeremy Marsh signature */
+
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #fcfcfc; /* Off-white background */
-            transition: all 0.3s ease;
+            font-family: 'Cormorant Garamond', serif; /* Elegant body text */
+            background-color: #3f2f27; /* Dark base brown */
+            color: #4b382d; /* Sepia-toned text */
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url('https://images.unsplash.com/photo-1521587765960-5f024765bbd6?q=80&w=1950&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
         }
-        /* Custom styles for interactive elements (still minimalist) */
-        .filter-select:focus {
-            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.4);
-            border-color: #4f46e5;
+
+        /* Main content container mimicking aged paper */
+        .old-world-container {
+            background-color: rgba(248, 242, 232, 0.95); /* Slightly transparent aged paper color */
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYwIiBoZWlnaHQ9IjE2MCIgdmlld0JveD0iMCAwIDE2MCAxNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVubm9kZCI+PGcgZmlsbD0iI0REQTVBMyI+PHBhdGggZD0iTTAgMTYwIEwxNjAgMCBMMCAwIFoiLz48cGF0aCBkPSJNMTYwIDE2MCBMMCAwIEwxNjAgMCBaIi8+PC9nPjwvZz48L3N2ZyUzRQ=='); /* Subtle paper texture */
+            background-repeat: repeat;
+            border: 1px solid rgba(75, 56, 45, 0.3); /* Softer border */
+            border-radius: 12px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5); /* Stronger, softer shadow */
+            padding: 2.5rem 3.5rem;
+            max-width: 900px;
+            width: 95%;
+            margin: 2rem auto;
+            position: relative; /* Needed for pseudo-elements */
+            overflow: hidden; /* Ensure textures stay within bounds */
+        }
+        /* Page corner curls (top-right and bottom-left) */
+        .old-world-container::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 100px;
+            height: 100px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M0 0 L100 0 L100 100 Q50 50 0 100 Z" fill="%23e8e2d8" filter="url(%23shadow)"/><defs><filter id="shadow"><feDropShadow dx="2" dy="2" stdDeviation="2" flood-color="%23000" flood-opacity="0.3"/></filter></defs></svg>');
+            background-repeat: no-repeat;
+            background-size: contain;
+            transform: rotate(90deg); /* Rotate for top-right */
+            pointer-events: none;
+            opacity: 0.8;
+        }
+        .old-world-container::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: -10px;
+            width: 100px;
+            height: 100px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M0 0 L100 0 L100 100 Q50 50 0 100 Z" fill="%23e8e2d8" filter="url(%23shadow)"/><defs><filter id="shadow"><feDropShadow dx="2" dy="2" stdDeviation="2" flood-color="%23000" flood-opacity="0.3"/></filter></defs></svg>');
+            background-repeat: no-repeat;
+            background-size: contain;
+            transform: rotate(-90deg); /* Rotate for bottom-left */
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+
+        /* Header specific styles */
+        .main-header {
+            padding-bottom: 2rem;
+            margin-bottom: 2.5rem;
+            border-bottom: 1px dashed #7a5f4c;
+            display: flex; /* Use flexbox for logo and text alignment */
+            flex-direction: column;
+            align-items: flex-start; /* Align header contents to the left */
+        }
+        .main-header h1 {
+            font-family: 'IM Fell English SC', serif;
+            font-size: 3.2rem; /* Adjusted for image */
+            line-height: 1.1;
+            letter-spacing: 0.05em;
+            color: #332720;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+            margin-top: 1.5rem; /* Space below logo */
+            margin-bottom: 0.5rem;
+        }
+        .main-header h1 span {
+            display: none; /* Hide modern icon */
+        }
+        .main-header p {
+            font-family: 'Merriweather', serif;
+            font-size: 1rem; /* Slightly smaller for image match */
+            color: #6a5344;
+            margin-top: 0;
+            font-style: italic;
+            letter-spacing: 0.02em;
+        }
+
+        /* Logo specifics */
+        .logo-link {
+            display: block; /* Ensure it takes its own line */
+            width: 200px; /* Specific width from image */
+            position: relative;
+            margin-bottom: 0.5rem;
+            filter: drop-shadow(0 3px 6px rgba(0,0,0,0.2));
+        }
+        .logo-link img {
+            height: auto; /* Allow height to adjust */
+            width: 100%;
+        }
+        /* Ornate border for logo */
+        .logo-link::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 2px solid #7a5f4c;
+            border-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 5L95 5L95 95L5 95L5 5Z" stroke="%237A5F4C" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 15L85 15L85 85L15 85L15 15Z" stroke="%237A5F4C" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M25 25L75 25L75 75L25 75L25 25Z" stroke="%237A5F4C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>') 10 / 10px; /* Example ornate border */
+            pointer-events: none;
+        }
+
+
+        /* Filter specific styles */
+        .filter-container {
+            margin-bottom: 3rem; /* Adjusted from image */
+            gap: 2rem; /* Wider gap between filters */
+            position: relative;
+        }
+        .filter-group {
+            position: relative;
+            background-color: #fbf6f0; /* Lighter background for filter area */
+            border: 1px solid #7a5f4c;
+            border-radius: 4px; /* Slight roundness */
+            padding: 0.7rem 1.2rem; /* Adjusted padding */
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            flex: 1; /* Ensure equal width */
+            min-width: 0; /* Allow shrinking */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        /* Ornate filter frame */
+        .filter-group::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border: 2px solid #9c7b60; /* Lighter antique border */
+            border-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 5L95 5L95 95L5 95L5 5Z" stroke="%239C7B60" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 15L85 15L85 85L15 85L15 15Z" stroke="%239C7B60" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>') 5 / 5px;
+            pointer-events: none;
+        }
+
+        .filter-label {
+            font-family: 'Merriweather', serif;
+            font-weight: 700;
+            color: #4b382d;
+            margin-bottom: 0.5rem; /* Adjusted for image */
+            font-size: 0.9rem; /* Smaller, as in image */
+            text-transform: uppercase;
+            letter-spacing: 0.08em; /* More pronounced */
+            text-align: center;
+            line-height: 1; /* Tighten line height */
+        }
+        .filter-select {
+            font-family: 'Cormorant Garamond', serif;
+            border: none; /* No visible border for dropdown itself */
+            background-color: transparent; /* Transparent background */
+            font-size: 1.05rem; /* Match image */
+            color: #4b382d;
+            text-align: center;
+            appearance: none;
+            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%237a5f4c%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-6.5%200-12.3%203.2-16.1%208.1-3.9%204.9-4.7%2011-2.9%2016.7l130.6%20173.8c2.1%202.7%205%204.1%208%204.1s5.9-1.4%208-4.1L289.9%2090.7c1.8-5.7%201-11.8-2.9-16.7z%22%2F%3E%3C%2Fsvg%3E');
+            background-repeat: no-repeat;
+            background-position: right 0.5rem center; /* Adjusted arrow position */
+            background-size: 0.8em; /* Smaller arrow */
+            cursor: pointer;
+            padding-right: 1.5rem; /* Make space for arrow */
+            padding-left: 0.5rem; /* Minor left padding */
+            outline: none; /* Remove focus outline */
+            box-shadow: none; /* Remove box shadow */
+        }
+        .filter-select:hover {
+            color: #332720; /* Darker text on hover */
+        }
+
+        /* Book results title */
+        #results-title {
+            font-family: 'Merriweather', serif;
+            font-size: 1.6rem; /* Smaller for image match */
+            color: #332720;
+            letter-spacing: 0.03em;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        /* Book card enhancements */
+        .book-card {
+            background-color: #fcf6ed;
+            border-radius: 8px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+            padding: 1.5rem;
+            border: 1px solid #7a5f4c;
+            position: relative;
+            display: flex; /* Flexbox for image and text side-by-side */
+            gap: 1.5rem;
+            width: 100%; /* Take full width */
+        }
+        /* Remove specific pseudo-elements from previous version if not in image */
+        .book-card::before, .book-card::after {
+            display: none;
+        }
+
+        .book-card:hover {
+            transform: translateY(-3px) scale(1.005); /* Less dramatic lift */
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+            border-color: #a0816a;
+        }
+        .book-cover-wrapper {
+            flex-shrink: 0; /* Don't shrink cover */
+            width: 120px; /* Fixed width for cover */
+            height: 180px; /* Fixed height for cover */
+            position: relative;
+            border: 2px solid #7a5f4c; /* Frame for cover */
+            border-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 5L95 5L95 95L5 95L5 5Z" stroke="%237A5F4C" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 15L85 15L85 85L15 85L15 15Z" stroke="%237A5F4C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>') 5 / 5px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .book-cover {
+            width: 100%;
+            height: 100%;
+            border-radius: 4px;
+            background-color: #5c4a3e;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .book-details {
+            flex-grow: 1;
+            padding-left: 0.5rem; /* Space between cover and text */
+        }
+        .book-details p:first-of-type { /* Title */
+            font-family: 'Merriweather', serif;
+            font-size: 1.4rem; /* Adjusted for image */
+            font-weight: 700;
+            color: #332720;
+            line-height: 1.2;
+            margin-bottom: 0.3rem;
+        }
+        .book-details p:nth-of-type(2) { /* Author */
+            font-size: 1rem;
+            color: #7a5f4c;
+            font-style: italic;
+            margin-top: 0;
+            margin-bottom: 0.2rem;
+            font-weight: 400; /* Match image style */
+        }
+        .book-details p:nth-of-type(3) { /* Series & Year */
+            font-size: 0.85rem;
+            color: #887a6d;
+            margin-top: 0.2rem;
+        }
+        .author-signature {
+            font-family: 'Parisienne', cursive; /* A script font for signature */
+            font-size: 1.3rem;
+            color: #5c4a3e;
+            margin-top: 0.8rem;
+            display: block; /* Ensure it's on its own line */
+        }
+
+
+        /* No books found message */
+        .no-books-found {
+            font-family: 'Merriweather', serif;
+            font-size: 1.6rem;
+            color: #6a5344;
+            padding: 3rem;
+            background-color: #fbf6f0;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            border: 1px solid #7a5f4c;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .old-world-container {
+                padding: 1.5rem 2rem;
+            }
+            .main-header h1 {
+                font-size: 2.5rem;
+            }
+            .main-header p {
+                font-size: 0.9rem;
+            }
+            .filter-container {
+                flex-direction: column; /* Stack filters on small screens */
+                gap: 1.5rem;
+            }
+            .filter-group {
+                padding: 0.6rem 1rem;
+            }
+            .filter-label {
+                font-size: 0.8rem;
+            }
+            .filter-select {
+                font-size: 1rem;
+            }
+            #results-title {
+                font-size: 1.4rem;
+            }
+            .book-card {
+                flex-direction: column; /* Stack cover and text on small screens */
+                gap: 1rem;
+                align-items: center; /* Center content when stacked */
+                padding: 1rem;
+            }
+            .book-cover-wrapper {
+                width: 150px; /* Adjust cover size for mobile */
+                height: 220px;
+            }
+            .book-details {
+                padding-left: 0;
+                text-align: center;
+            }
+            .book-details p:first-of-type {
+                font-size: 1.2rem;
+            }
+            .book-details p:nth-of-type(2) {
+                font-size: 0.9rem;
+            }
+            .author-signature {
+                font-size: 1.2rem;
+            }
         }
     </style>
 </head>
-<body class="min-h-screen p-4 md:p-8">
+<body class="min-h-screen p-4 md:p-8 flex justify-center">
 
-    <div class="max-w-4xl mx-auto">
-        <!-- HEADER - ALIGNED LEFT -->
-        <header class="text-left py-6 border-b border-gray-200 mb-8">
-            <!-- Linked Logo: Removed centering classes -->
-            <a href="https://jmarshmedia.com" target="_self" class="inline-block hover:opacity-80 transition duration-200 mb-2" title="Go to J. Marsh Media Homepage">
+    <div class="old-world-container">
+        <!-- HEADER - ALIGNED LEFT --><header class="main-header text-left">
+            <!-- Linked Logo with Old World Styling --><a href="https://jmarshmedia.com" target="_self" class="logo-link transition duration-200" title="Go to J. Marsh Media Homepage">
                 <img 
                     src="images/logos/jmarshmedia-logo.svg" 
-                    onerror="this.onerror=null;this.src='https://placehold.co/150x40/4f46e5/ffffff?text=J.MARSH+MEDIA';" 
+                    onerror="this.onerror=null;this.src='https://placehold.co/200x60/4b382d/f8f2e8?text=J.+Marsh+Media%0A%F0%9F%96%8B';" 
                     alt="J. Marsh Media Logo" 
-                    class="h-10"
                 >
             </a>
             
-            <h1 class="text-4xl font-extrabold text-gray-900 tracking-tighter">
-                <span class="text-indigo-600">📖</span> The Bookstore
-            </h1>
-            <p class="text-gray-500 mt-2 text-lg">
-                Your home for all J. Marsh Media Books
-            </p>
+            <h1>The Bookstore</h1>
+            <p>Your home for all J. Marsh Media Books</p>
         </header>
 
-        <!-- FILTER AREA - ALIGNED LEFT -->
-        <div class="mb-12 flex flex-wrap sm:flex-nowrap justify-start gap-6 w-full px-4 sm:px-0">
+        <!-- FILTER AREA - ALIGNED LEFT --><div class="filter-container flex flex-wrap sm:flex-nowrap justify-start gap-6 w-full px-4 sm:px-0">
             
-            <!-- Author Filter -->
-            <div class="flex-1 min-w-[250px] sm:min-w-0">
-                <label for="author-filter" class="block text-left text-sm font-medium text-gray-700 mb-2">Filter by Author</label>
-                <select id="author-filter" class="filter-select w-full p-4 border-2 border-gray-300 rounded-xl shadow-lg transition duration-200 text-lg">
-                    <!-- Options populated by JS -->
-                </select>
+            <!-- Author Filter --><div class="filter-group flex-1">
+                <label for="author-filter" class="filter-label block">Filter by Author</label>
+                <select id="author-filter" class="filter-select w-full">
+                    <!-- Options populated by JS --></select>
             </div>
 
-            <!-- Series Filter -->
-            <div class="flex-1 min-w-[250px] sm:min-w-0">
-                <label for="series-filter" class="block text-left text-sm font-medium text-gray-700 mb-2">Filter by Series</label>
-                <select id="series-filter" class="filter-select w-full p-4 border-2 border-gray-300 rounded-xl shadow-lg transition duration-200 text-lg">
+            <!-- Series Filter --><div class="filter-group flex-1">
+                <label for="series-filter" class="filter-label block">Filter by Series</label>
+                <select id="series-filter" class="filter-select w-full">
                     <option value="">— Show All Series —</option>
                 </select>
             </div>
 
-            <!-- Year Filter -->
-            <div class="flex-1 min-w-[250px] sm:min-w-0">
-                <label for="year-filter" class="block text-left text-sm font-medium text-gray-700 mb-2">Filter by Year</label>
-                <select id="year-filter" class="filter-select w-full p-4 border-2 border-gray-300 rounded-xl shadow-lg transition duration-200 text-lg">
+            <!-- Year Filter --><div class="filter-group flex-1">
+                <label for="year-filter" class="filter-label block">Filter by Year</label>
+                <select id="year-filter" class="filter-select w-full">
                     <option value="">— Show All Years —</option>
                 </select>
             </div>
         </div>
         
-        <!-- SEARCH RESULTS -->
-        <section class="mt-12">
-            <h2 id="results-title" class="text-xl font-semibold text-gray-800 mb-4 text-left">Available Books</h2>
-            <!-- Dynamic book cards will be rendered here -->
-            <div id="book-results-container" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-                <!-- Initial content will be set by JavaScript -->
-            </div>
+        <!-- SEARCH RESULTS --><section class="mt-12">
+            <h2 id="results-title" class="text-left">Available Books</h2>
+            <!-- Dynamic book cards will be rendered here --><div id="book-results-container" class="grid grid-cols-1 gap-8">
+                <!-- Initial content will be set by JavaScript --></div>
         </section>
 
     </div>
@@ -87,7 +395,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             // Data remains as one book
             const books = [
-                { id: 1, title: "The Portal", author: "Jeremy Marsh", year: 2025, image: "The+Portal", series: "Standalone" },
+                { id: 1, title: "The Portal", author: "Jeremy Marsh", year: 2025, image: "the-portal", series: "Standalone" },
             ];
 
             const authorFilter = document.getElementById('author-filter');
@@ -97,16 +405,9 @@
             const resultsTitle = document.getElementById('results-title');
 
             // --- Initial Setup Functions ---
-            
-            // NEW FUNCTION: Populates author filter based only on authors in the 'books' array
             function populateAuthorFilter() {
-                // 1. Get unique author names from the current book list
                 const authorNames = [...new Set(books.map(book => book.author))].sort();
-                
-                // 2. Clear and set the initial option
                 authorFilter.innerHTML = '<option value="">— Show All Authors —</option>'; 
-                
-                // 3. Add an option for each unique author
                 authorNames.forEach(author => {
                     const option = document.createElement('option');
                     option.value = author;
@@ -117,9 +418,7 @@
 
             function populateSeriesFilter() {
                 const seriesNames = [...new Set(books.map(book => book.series))].sort();
-                
                 seriesFilter.innerHTML = '<option value="">— Show All Series —</option>'; 
-                
                 seriesNames.forEach(series => {
                     const option = document.createElement('option');
                     option.value = series;
@@ -130,9 +429,7 @@
 
             function populateYearFilter() {
                 const years = [...new Set(books.map(book => book.year))].sort((a, b) => b - a);
-                
                 yearFilter.innerHTML = '<option value="">— Show All Years —</option>'; 
-                
                 years.forEach(year => {
                     const option = document.createElement('option');
                     option.value = String(year); 
@@ -141,34 +438,40 @@
                 });
             }
 
-            // --- Rendering Logic (Unchanged) ---
+            // --- Rendering Logic ---
             function renderBooks(booksToDisplay) {
                 if (!resultsContainer) return;
 
                 if (booksToDisplay.length === 0) {
-                    resultsContainer.innerHTML = '<p class="text-center text-gray-500 col-span-full py-8">No books found matching your current filters.</p>';
+                    resultsContainer.innerHTML = '<p class="no-books-found col-span-full">No books found matching your current filters.</p>';
                 } else {
+                    // Update: Single column grid for book cards as in image
+                    resultsContainer.classList.remove('grid-cols-2', 'sm:grid-cols-3', 'lg:grid-cols-4');
+                    resultsContainer.classList.add('grid-cols-1');
+
+
                     const bookCards = booksToDisplay.map(book => `
-                        <div class="bg-white rounded-xl shadow-lg p-4 transition duration-300 hover:shadow-2xl hover:-translate-y-1 cursor-pointer">
-                            <!-- Book Cover Placeholder: Uses title in URL for unique look -->
-                            <div class="h-56 bg-indigo-800 rounded-lg mb-3 flex items-center justify-center text-white font-bold text-xl" 
-                                style="background-image: url(https://placehold.co/150x220/1e3a8a/ffffff?text=${book.image}); background-size: cover; background-position: center;">
+                        <div class="book-card">
+                            <div class="book-cover-wrapper">
+                                <!-- Book Cover: Uses image property directly for a more specific image --><div class="book-cover" style="background-image: url(images/books/${book.image}.jpg);"></div>
                             </div>
-                            <p class="font-bold text-gray-900 leading-snug">${book.title}</p>
-                            <p class="text-sm text-gray-500">${book.author}</p>
-                            <p class="text-xs text-gray-400 mt-1">${book.series} (${book.year})</p>
+                            <div class="book-details">
+                                <p>${book.title}</p>
+                                <p>${book.author}</p>
+                                <p>${book.series} (${book.year})</p>
+                                <!-- Signature for Jeremy Marsh -->${book.author === 'Jeremy Marsh' ? `<span class="author-signature">Jeremy Marsh</span>` : ''}
+                            </div>
                         </div>
                     `).join('');
                     resultsContainer.innerHTML = bookCards;
                 }
                 
                 if (resultsTitle) {
-                     // FIX: Removed incorrect backslash escapes (\`) around the template literal
                      resultsTitle.textContent = `Available Books (${booksToDisplay.length})`;
                 }
             }
 
-            // --- Central Filtering Function (Unchanged) ---
+            // --- Central Filtering Function ---
             function applyFilters() {
                 const selectedAuthor = authorFilter.value;
                 const selectedSeries = seriesFilter.value;
@@ -192,7 +495,7 @@
                 renderBooks(filteredBooks);
             }
 
-            // --- Event Listeners (Unchanged) ---
+            // --- Event Listeners ---
             if (authorFilter) {
                 authorFilter.addEventListener('change', applyFilters);
             }
