@@ -40,11 +40,9 @@
           color: #ffffff;
           
           /* TECHNIQUE 1: The Animated Gradient Background 
-            We define a large background and animate its position.
-            This gives a "living" feel without any JS.
-            UPDATED: Warmer color tones.
+             UPDATED: New deep, atmospheric, cool-tone gradient (Indigo/Navy/Slate).
           */
-          background: linear-gradient(-45deg, #FF7E5F, #FEB47B, #FFD194, #FF9C7B); /* Warmer gradient */
+          background: linear-gradient(-45deg, #1c284a, #2a4365, #0a1733, #345479);
           background-size: 400% 400%;
           animation: gradientDrift 15s ease infinite;
           
@@ -63,7 +61,7 @@
 
         /* --- 2. Header & Navigation --- */
         .header {
-            position: absolute;
+            position: fixed; /* Changed to fixed for constant visibility */
             top: 0;
             left: 0;
             width: 100%;
@@ -72,8 +70,7 @@
             opacity: 0; /* Start hidden for animation */
             animation: fadeDown 0.8s ease-out 0.2s forwards;
             
-            /* Add a subtle glass effect to the header on scroll */
-            position: fixed;
+            /* Add a subtle glass effect to the header */
             background: rgba(0, 0, 0, 0.1);
             -webkit-backdrop-filter: blur(5px);
             backdrop-filter: blur(5px);
@@ -107,6 +104,8 @@
             flex-direction: column;
             justify-content: space-between;
             cursor: pointer;
+            position: relative; /* Essential for mobile z-index */
+            z-index: 101; 
         }
 
         .nav-toggle-label span {
@@ -139,6 +138,7 @@
             
             transform: translateX(100%); /* Hide off-screen */
             transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+            z-index: 99; /* Below the toggle button */
         }
 
         .nav-menu a {
@@ -253,6 +253,14 @@
             object-fit: cover; /* Ensures image fills the circle */
             margin-bottom: 1rem; /* Slightly reduced margin */
             border: 2px solid rgba(255, 255, 255, 0.5); /* Subtle border */
+            /* Placeholder styling to visually represent a missing image asset */
+            background-color: #333; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
         }
         
         .author-card h3 {
@@ -278,6 +286,7 @@
             border-radius: 30px;
             border: 1px solid rgba(255, 255, 255, 0.3);
             transition: background 0.3s ease;
+            margin-top: auto; /* Push the link to the bottom of the card */
         }
         
         .author-card-link:hover {
@@ -367,11 +376,18 @@
             font-size: 1rem;
             transition: border-color 0.3s ease, background-color 0.3s ease;
         }
+        
+        /* Ensures placeholder text is visible */
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
 
         .contact-form input:focus,
         .contact-form textarea:focus {
             outline: none;
-            border-color: #FEB47B; /* Highlight color from warm palette */
+            /* UPDATED: Softer blue highlight */
+            border-color: #5687f1; 
             background: rgba(255, 255, 255, 0.2);
         }
 
@@ -387,8 +403,8 @@
             font-size: 1rem;
             font-weight: 700;
             color: #ffffff;
-            /* Using a slightly more opaque background for the primary button */
-            background: linear-gradient(45deg, rgba(255, 126, 95, 0.8), rgba(254, 180, 123, 0.8)); 
+            /* UPDATED: New button gradient using a muted blue accent */
+            background: linear-gradient(45deg, rgba(86, 135, 241, 0.8), rgba(28, 40, 74, 0.8)); 
             border: 1px solid rgba(255, 255, 255, 0.4);
             padding: 1rem 2.5rem;
             border-radius: 50px;
@@ -403,28 +419,12 @@
         .contact-form button:focus {
             transform: translateY(-4px); 
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); 
-            background: linear-gradient(45deg, #FF7E5F, #FEB47B); /* Solid color on hover */
+            /* UPDATED: New button hover gradient */
+            background: linear-gradient(45deg, #5687f1, #2a4365); 
             outline: none;
         }
-
-        .contact-info p {
-            font-size: 1rem;
-            margin-bottom: 0.5rem;
-            opacity: 0.8;
-            text-align: center;
-        }
-
-        .contact-email {
-            font-size: 1.5rem;
-            font-weight: 700;
-            transition: color 0.3s ease;
-            display: block; /* Make the email a block element for spacing */
-            margin-top: 10px;
-        }
         
-        .contact-email:hover {
-            color: #FFD194; /* Light highlight */
-        }
+        /* Removed unused contact-info and contact-email CSS rules */
 
 
         /* --- 8. Animations --- */
@@ -509,7 +509,7 @@
 
     <header class="header">
         <nav class="nav">
-            <a href="https://jmarshmedia.com" class="nav-logo">J. Marsh Media</a>
+            <a href="#main" class="nav-logo">J. Marsh Media</a>
             
             <!-- Mobile Menu Toggle (Checkbox Hack) --><input type="checkbox" id="nav-toggle" class="nav-toggle-checkbox">
             <label for="nav-toggle" class="nav-toggle-label">
@@ -519,10 +519,12 @@
             </label>
             
             <!-- Navigation Menu --><ul class="nav-menu">
+                <!-- Added hash links for navigation -->
                 <li><a href="#talent-section">Talent</a></li>
                 <li><a href="#our-story-section">Our Story</a></li>
                 
                 <!-- NEW LINKS ADDED BELOW -->
+                <!-- Note: These external links would require separate HTML files to function in a real deployment -->
                 <li><a href="bookstore.html">Bookstore</a></li>
                 <li><a href="music.html">Watch & Listen</a></li>
                 
@@ -531,8 +533,9 @@
         </nav>
     </header>
 
-    <main class="content-wrapper">
-        <h1 class="headline">Control the Signal</h1>
+    <main class="content-wrapper" id="main">
+        <!-- UPDATED: Changed main headline text -->
+        <h1 class="headline">J. Marsh Media</h1>
         <p class="support-text">Author-Driven. Creator-Owned. Audience-Powered.</p>
     </main>
     
@@ -540,88 +543,61 @@
         <h2 class="section-title">Our Talent</h2>
         
         <!-- This is a responsive grid, not a scrolling carousel --><div class="carousel-wrapper">
-            <!-- Card 1: Jeremy Marsh --><div class="author-card">
-                <!-- Placeholder Image - Replace with actual image path --><img src="images/headshots/jeremy-marsh-headshot.svg">
+            <!-- Card 1: Jeremy Marsh -->
+            <div class="author-card">
+                <!-- Placeholder Image - In a live environment, this would be a real image URL -->
+                <img src="https://placehold.co/100x100/333333/ffffff?text=JM" alt="Jeremy Marsh Headshot" class="author-card-img">
                 <h3>Jeremy Marsh</h3>
                 <!-- UPDATED: Role description --><p>Author, Songwriter, Creative Director</p>
                 <a href="jeremy-marsh.html" class="author-card-link">View Profile</a>
             </div>
             
-            <!-- Card 2: Redwood Daniels --><div class="author-card">
-                <img src="images/headshots/redwood-daniels-headshot.svg" alt="Redwood Daniels" class="author-card-img">
-                <h3>Redwood Daniels</h3>
-                <p>Author</p>
-                <a href="redwood-daniels.html" class="author-card-link">View Profile</a>
-            </div>
-            
-            <!-- Card 3: Tessa Reese --><div class="author-card">
-                <img src="images/headshots/tessa-reese-headshot.svg" alt="Tessa Reese" class="author-card-img">
+            <!-- Card 2: Tessa Reese -->
+            <div class="author-card">
+                <img src="https://placehold.co/100x100/333333/ffffff?text=TR" alt="Tessa Reese Headshot" class="author-card-img">
                 <h3>Tessa Reese</h3>
                 <p>Author</p>
                 <a href="tessa-reese.html" class="author-card-link">View Profile</a>
             </div>
             
-            <!-- Card 4: Grayson Holt --><div class="author-card">
-                <img src="images/headshots/grayson-holt-headshot.svg" alt="Grayson Holt" class="author-card-img">
-                <h3>Grayson Holt</h3>
-                <p>Author</p>
-                <a href="grayson-holt.html" class="author-card-link">View Profile</a>
-            </div>
-            
-            <!-- Card 5: Asha Monroe --><div class="author-card">
-                <img src="images/headshots/Asha-Monroe-headshot.svg" alt="Asha Monroe" class="author-card-img">
+            <!-- Card 3: Asha Monroe -->
+            <div class="author-card">
+                <img src="https://placehold.co/100x100/333333/ffffff?text=AM" alt="Asha Monroe Headshot" class="author-card-img">
                 <h3>Asha Monroe</h3>
                 <p>Author</p>
                 <a href="asha-monroe.html" class="author-card-link">View Profile</a>
             </div>
             
-            <!-- Card 6: Ellis Jordan --><div class="author-card">
-                <img src="images/headshots/ellis-jordan-headshot.svg" alt="Ellis Jordan" class="author-card-img">
-                <h3>Ellis Jordan</h3>
-                <p>Author</p>
-                <a href="ellis-jordan.html" class="author-card-link">View Profile</a>
-            </div>
-            
-            <!-- Card 7: Miguel Marisma --><div class="author-card">
-                <img src="images/headshots/miguel-marisma-headshot.svg" alt="Miguel Marisma" class="author-card-img">
+            <!-- Card 4: Miguel Marisma -->
+            <div class="author-card">
+                <img src="https://placehold.co/100x100/333333/ffffff?text=MM" alt="Miguel Marisma Headshot" class="author-card-img">
                 <h3>Miguel Marisma</h3>
                 <p>Author</p>
                 <a href="miguel-marisma.html" class="author-card-link">View Profile</a>
             </div>
             
-            <!-- Card 8: Miles Reid --><div class="author-card">
-                <img src="images/headshots/miles-reid-headshot.svg" alt="Miles Reid" class="author-card-img">
+            <!-- Card 5: Miles Reid -->
+            <div class="author-card">
+                <img src="https://placehold.co/100x100/333333/ffffff?text=MR" alt="Miles Reid Headshot" class="author-card-img">
                 <h3>Miles Reid</h3>
                 <p>Author</p>
                 <a href="miles-reid.html" class="author-card-link">View Profile</a>
             </div>
             
-            <!-- Card 9: Reyna Noire --><div class="author-card">
-                <img src="images/headshots/reyna-noire-headshot.svg" alt="Reyna Noire" class="author-card-img">
+            <!-- Card 6: Reyna Noire -->
+            <div class="author-card">
+                <img src="https://placehold.co/100x100/333333/ffffff?text=RN" alt="Reyna Noire Headshot" class="author-card-img">
                 <h3>Reyna Noire</h3>
                 <p>Author</p>
                 <a href="reyna-noire.html" class="author-card-link">View Profile</a>
             </div>
             
-            <!-- Card 10: Reginald Roberts --><div class="author-card">
-                <img src="images/headshots/reginald-roberts-headshot.svg" alt="Reginald Roberts" class="author-card-img">
+            <!-- Card 7: Reginald Roberts -->
+            <div class="author-card">
+                <img src="https://placehold.co/100x100/333333/ffffff?text=RR" alt="Reginald Roberts Headshot" class="author-card-img">
                 <h3>Reginald Roberts</h3>
                 <p>Author</p>
                 <a href="reginald-roberts.html" class="author-card-link">View Profile</a>
-            </div>
-            
-            <!-- Card 11: Jacen Michaels --><div class="author-card">
-                <img src="images/headshots/jacen-michaels-headshot.svg" alt="Jacen Michaels" class="author-card-img">
-                <h3>Jacen Michaels</h3>
-                <p>Author</p>
-                <a href="jacen-michales.html" class="author-card-link">View Profile</a>
-            </div>
-            
-            <!-- Card 12: Damon Walker --><div class="author-card">
-                <img src="images/headshots/damon-walker-headshot.svg" alt="Damon Walker" class="author-card-img">
-                <h3>Damon Walker</h3>
-                <p>Author</p>
-                <a href="damon-walker.html" class="author-card-link">View Profile</a>
             </div>
             
         </div>
@@ -654,6 +630,7 @@
     <section id="contact-section">
         <h2 class="section-title">Get in Touch</h2>
         <div class="contact-wrapper">
+            <!-- Placeholder Formspree Action for testing submissions -->
             <form action="https://formspree.io/f/mdkpqkrw" method="POST" class="contact-form">
                 <input type="text" name="name" placeholder="Your Name" required>
                 <input type="email" name="_replyto" placeholder="Your Email" required>
@@ -661,10 +638,8 @@
                 <button type="submit">Send Message</button>
             </form>
             
-            <div class="contact-info">
-                <p>Or email us directly:</p>
-                <!-- FIXED: Changed link text to the full email address --><a href="mailto:hello@jmarshmedia.com" class="contact-email">@jmarshmedia.com</a>
-            </div>
+            <!-- Removed explicit email contact information as requested -->
+            
         </div>
     </section>
     
