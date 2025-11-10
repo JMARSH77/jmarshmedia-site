@@ -248,14 +248,25 @@
             flex-grow: 1;
             padding-left: 0.5rem; /* Space between cover and text */
         }
-        .book-details p:first-of-type { /* Title */
+        .book-details p:first-of-type { /* Title container */
             font-family: 'Merriweather', serif;
-            font-size: 1.4rem; /* Adjusted for image */
+            font-size: 1.4rem; 
             font-weight: 700;
             color: #332720;
             line-height: 1.2;
             margin-bottom: 0.3rem;
         }
+        
+        .book-title-link {
+            color: inherit; /* Inherit the dark text color */
+            text-decoration: none; /* Remove underline */
+            transition: color 0.2s, text-decoration 0.2s;
+        }
+        .book-title-link:hover {
+            color: #a0816a; /* Sepia color on hover */
+            text-decoration: underline; /* Add subtle underline on hover */
+        }
+
         .book-details p:nth-of-type(2) { /* Author */
             font-size: 1rem;
             color: #7a5f4c;
@@ -456,7 +467,9 @@
                                 <!-- Book Cover: Uses image property directly for a more specific image --><div class="book-cover" style="background-image: url(images/books/${book.image}.jpg);"></div>
                             </div>
                             <div class="book-details">
-                                <p>${book.title}</p>
+                                <p>
+                                    <a href="the-portal.html" class="book-title-link">${book.title}</a>
+                                </p>
                                 <p>${book.author}</p>
                                 <p>${book.series} (${book.year})</p>
                                 <!-- Signature for Jeremy Marsh -->${book.author === 'Jeremy Marsh' ? `<span class="author-signature">Jeremy Marsh</span>` : ''}
