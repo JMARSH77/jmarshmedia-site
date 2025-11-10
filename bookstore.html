@@ -1,1 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Minimalist Bookstore</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom font import for a clean look */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fcfcfc; /* Off-white background */
+            transition: all 0.3s ease;
+        }
+        /* Custom styles for interactive elements (still minimalist) */
+        .filter-select:focus {
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.4);
+            border-color: #4f46e5;
+        }
+    </style>
+</head>
+<body class="min-h-screen p-4 md:p-8">
 
+    <div class="max-w-4xl mx-auto">
+        <!-- HEADER - ALIGNED LEFT -->
+        <header class="text-left py-6 border-b border-gray-200 mb-8">
+            <!-- Linked Logo: Removed centering classes -->
+            <a href="https://jmarshmedia.com" target="_self" class="inline-block hover:opacity-80 transition duration-200 mb-2" title="Go to J. Marsh Media Homepage">
+                <img 
+                    src="images/logos/jmarshmedia-logo.svg" 
+                    onerror="this.onerror=null;this.src='https://placehold.co/150x40/4f46e5/ffffff?text=J.MARSH+MEDIA';" 
+                    alt="J. Marsh Media Logo" 
+                    class="h-10"
+                >
+            </a>
+            
+            <h1 class="text-4xl font-extrabold text-gray-900 tracking-tighter">
+                <span class="text-indigo-600">📖</span> The Bookstore
+            </h1>
+            <p class="text-gray-500 mt-2 text-lg">
+                Your home for all J. Marsh Media Books
+            </p>
+        </header>
+
+        <!-- FILTER AREA - ALIGNED LEFT -->
+        <div class="mb-12 flex flex-wrap sm:flex-nowrap justify-start gap-6 w-full px-4 sm:px-0">
+            
+            <!-- Author Filter -->
+            <div class="flex-1 min-w-[250px] sm:min-w-0">
+                <label for="author-filter" class="block text-left text-sm font-medium text-gray-700 mb-2">Filter by Author</label>
+                <select id="author-filter" class="filter-select w-full p-4 border-2 border-gray-300 rounded-xl shadow-lg transition duration-200 text-lg">
+                    <!-- Options populated by JS -->
+                </select>
+            </div>
+
+            <!-- Series Filter -->
+            <div class="flex-1 min-w-[250px] sm:min-w-0">
+                <label for="series-filter" class="block text-left text-sm font-medium text-gray-700 mb-2">Filter by Series</label>
+                <select id="series-filter" class="filter-select w-full p-4 border-2 border-gray-300 rounded-xl shadow-lg transition duration-200 text-lg">
+                    <option value="">— Show All Series —</option>
+                </select>
+            </div>
+
+            <!-- Year Filter -->
+            <div class="flex-1 min-w-[250px] sm:min-w-0">
+                <label for="year-filter" class="block text-left text-sm font-medium text-gray-700 mb-2">Filter by Year</label>
+                <select id="year-filter" class="filter-select w-full p-4 border-2 border-gray-300 rounded-xl shadow-lg transition duration-200 text-lg">
+                    <option value="">— Show All Years —</option>
+                </select>
+            </div>
+        </div>
+        
+        <!-- SEARCH RESULTS -->
+        <section class="mt-12">
+            <h2 id="results-title" class="text-xl font-semibold text-gray-800 mb-4 text-left">Available Books</h2>
+            <!-- Dynamic book cards will be rendered here -->
+            <div id="book-results-container" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Initial content will be set by JavaScript -->
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Data remains as one book
+            const books = [
+                { id: 1, title: "The Portal", author: "Jeremy Marsh", year: 2025, image: "The+Portal", series: "Standalone" },
+            ];
+
+            const authorFilter = document.getElementById('author-filter');
+            const seriesFilter = document.getElementById('series-filter');
+            const yearFilter = document.getElementById('year-filter'); 
+            const resultsContainer = document.getElementById('book-results-container');
+            const resultsTitle = document.getElementById('results-title');
+
+            // --- Initial Setup Functions ---
+            
+            // NEW FUNCTION: Populates author filter based only on authors in the 'books' array
+            function populateAuthorFilter() {
+                // 1. Get unique author names from the current book list
+                const authorNames = [...new Set(books.map(book => book.author))].sort();
+                
+                // 2. Clear and set the initial option
+                authorFilter.innerHTML = '<option value="">— Show All Authors —</option>'; 
+                
+                // 3. Add an option for each unique author
+                authorNames.forEach(author => {
+                    const option = document.createElement('option');
+                    option.value = author;
+                    option.textContent = author;
+                    authorFilter.appendChild(option);
+                });
+            }
+
+            function populateSeriesFilter() {
+                const seriesNames = [...new Set(books.map(book => book.series))].sort();
+                
+                seriesFilter.innerHTML = '<option value="">— Show All Series —</option>'; 
+                
+                seriesNames.forEach(series => {
+                    const option = document.createElement('option');
+                    option.value = series;
+                    option.textContent = series;
+                    seriesFilter.appendChild(option);
+                });
+            }
+
+            function populateYearFilter() {
+                const years = [...new Set(books.map(book => book.year))].sort((a, b) => b - a);
+                
+                yearFilter.innerHTML = '<option value="">— Show All Years —</option>'; 
+                
+                years.forEach(year => {
+                    const option = document.createElement('option');
+                    option.value = String(year); 
+                    option.textContent = year;
+                    yearFilter.appendChild(option);
+                });
+            }
+
+            // --- Rendering Logic (Unchanged) ---
+            function renderBooks(booksToDisplay) {
+                if (!resultsContainer) return;
+
+                if (booksToDisplay.length === 0) {
+                    resultsContainer.innerHTML = '<p class="text-center text-gray-500 col-span-full py-8">No books found matching your current filters.</p>';
+                } else {
+                    const bookCards = booksToDisplay.map(book => `
+                        <div class="bg-white rounded-xl shadow-lg p-4 transition duration-300 hover:shadow-2xl hover:-translate-y-1 cursor-pointer">
+                            <!-- Book Cover Placeholder: Uses title in URL for unique look -->
+                            <div class="h-56 bg-indigo-800 rounded-lg mb-3 flex items-center justify-center text-white font-bold text-xl" 
+                                style="background-image: url(https://placehold.co/150x220/1e3a8a/ffffff?text=${book.image}); background-size: cover; background-position: center;">
+                            </div>
+                            <p class="font-bold text-gray-900 leading-snug">${book.title}</p>
+                            <p class="text-sm text-gray-500">${book.author}</p>
+                            <p class="text-xs text-gray-400 mt-1">${book.series} (${book.year})</p>
+                        </div>
+                    `).join('');
+                    resultsContainer.innerHTML = bookCards;
+                }
+                
+                if (resultsTitle) {
+                     // FIX: Removed incorrect backslash escapes (\`) around the template literal
+                     resultsTitle.textContent = `Available Books (${booksToDisplay.length})`;
+                }
+            }
+
+            // --- Central Filtering Function (Unchanged) ---
+            function applyFilters() {
+                const selectedAuthor = authorFilter.value;
+                const selectedSeries = seriesFilter.value;
+                const selectedYear = yearFilter.value; 
+
+                let filteredBooks = books;
+
+                if (selectedAuthor) {
+                    filteredBooks = filteredBooks.filter(book => book.author === selectedAuthor);
+                }
+
+                if (selectedSeries) {
+                    filteredBooks = filteredBooks.filter(book => book.series === selectedSeries);
+                }
+
+                if (selectedYear) {
+                    const yearNumber = parseInt(selectedYear, 10); 
+                    filteredBooks = filteredBooks.filter(book => book.year === yearNumber);
+                }
+
+                renderBooks(filteredBooks);
+            }
+
+            // --- Event Listeners (Unchanged) ---
+            if (authorFilter) {
+                authorFilter.addEventListener('change', applyFilters);
+            }
+            if (seriesFilter) {
+                seriesFilter.addEventListener('change', applyFilters);
+            }
+            if (yearFilter) {
+                yearFilter.addEventListener('change', applyFilters);
+            }
+
+            // Initial Load - Now includes the dynamic author population
+            populateAuthorFilter(); 
+            populateSeriesFilter();
+            populateYearFilter(); 
+            applyFilters();
+        });
+    </script>
+</body>
+</html>
