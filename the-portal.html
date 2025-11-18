@@ -98,7 +98,7 @@
             </p>
             <p class="text-lg text-gray-500 mt-2">
                 By 
-                <a href="https://jmarshmedia.com/jeremy-marsh.html" class="text-neon font-semibold hover:underline transition duration-150">
+                <a href="#" class="text-neon font-semibold hover:underline transition duration-150">
                     Jeremy Marsh
                 </a>
             </p>
@@ -109,9 +109,10 @@
             <!-- Book Cover and CTA -->
             <section class="lg:col-span-1 flex flex-col items-center">
                 <!-- Book Cover Image (Pulsing Glow Applied) -->
-                <div class="w-2/3 max-w-xs aspect-[2/3] rounded-lg overflow-hidden shadow-neon mb-8 border-4 border-gray-600">
+                <!-- Note: Using a placeholder image to demonstrate layout since local 'images/books' path won't load here -->
+                <div class="w-2/3 max-w-xs aspect-[2/3] rounded-lg overflow-hidden shadow-neon mb-8 border-4 border-gray-600 relative bg-black">
                     <img 
-                        src="images/books/the-portal.jpg"
+                        src="https://placehold.co/400x600/0d1117/66ffcc?text=The+Portal%0A(Cover+Image)"
                         alt="The Portal Book Cover" 
                         class="w-full h-full object-cover rounded-lg"
                     >
@@ -126,6 +127,21 @@
                 <a href="#purchase-links" class="w-full sm:w-2/3 lg:w-full py-4 text-center rounded-lg font-bold uppercase tracking-wider cta-button transition duration-300 ease-in-out hover:brightness-110">
                     Order The Portal
                 </a>
+                
+                <!-- Responsive YouTube Trailer Embed -->
+                <div class="w-full sm:w-2/3 lg:w-full mt-8 rounded-lg overflow-hidden border border-neon/50 shadow-[0_0_15px_rgba(102,255,204,0.3)]">
+                    <div class="aspect-video">
+                        <iframe 
+                            class="w-full h-full"
+                            src="https://www.youtube.com/embed/WgPm0hHOzPw?si=-H5Be9e7eqp03mbs" 
+                            title="YouTube video player" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                            referrerpolicy="strict-origin-when-cross-origin" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
             </section>
 
             <!-- Synopsis and Themes -->
@@ -168,8 +184,8 @@
                     <p class="text-gray-400 mb-4">Kindle, Paperback, & Hard Cover</p>
                     <div class="space-y-2">
                         <a href="https://a.co/d/68cKTnV" target="_blank" class="block bg-orange-600 hover:bg-orange-700 text-white font-medium py-2 px-4 rounded transition">Kindle Edition (Ebook)</a>
-                        <a href="#" target="_blank" class="block bg-orange-600 hover:bg-orange-700 text-white font-medium py-2 px-4 rounded transition">Paperback <span class="text-xs opacity-70">(Link Missing)</span></a>
-                        <a href="#" target="_blank" class="block bg-orange-600 hover:bg-orange-700 text-white font-medium py-2 px-4 rounded transition">Hard Cover <span class="text-xs opacity-70">(Link Missing)</span></a>
+                        <a href="#" class="block bg-orange-600 hover:bg-orange-700 text-white font-medium py-2 px-4 rounded transition opacity-50 cursor-not-allowed">Paperback (Coming Soon)</a>
+                        <a href="#" class="block bg-orange-600 hover:bg-orange-700 text-white font-medium py-2 px-4 rounded transition opacity-50 cursor-not-allowed">Hard Cover (Coming Soon)</a>
                     </div>
                 </div>
 
@@ -186,8 +202,8 @@
                     <p class="text-gray-400 mb-4">IngramSpark for Trade/Libraries</p>
                     <div class="space-y-2">
                         <!-- Changed to a dark slate background to represent general distribution, not consumer branding -->
-                        <a href="#" target="_blank" class="block bg-slate-600 hover:bg-slate-700 text-white font-medium py-2 px-4 rounded transition">Paperback (Ingram) <span class="text-xs opacity-70">(Link Missing)</span></a>
-                        <a href="#" target="_blank" class="block bg-slate-600 hover:bg-slate-700 text-white font-medium py-2 px-4 rounded transition">Hard Cover (Ingram) <span class="text-xs opacity-70">(Link Missing)</span></a>
+                        <a href="#" class="block bg-slate-600 hover:bg-slate-700 text-white font-medium py-2 px-4 rounded transition opacity-50 cursor-not-allowed">Paperback (Ingram)</a>
+                        <a href="#" class="block bg-slate-600 hover:bg-slate-700 text-white font-medium py-2 px-4 rounded transition opacity-50 cursor-not-allowed">Hard Cover (Ingram)</a>
                     </div>
                 </div>
 
@@ -195,7 +211,7 @@
 
             <!-- New Back to Bookstore Button -->
             <div class="mt-8">
-                <a href="bookstore.html" class="inline-block bg-slate-800 hover:bg-slate-700 text-neon font-bold py-3 px-8 rounded transition duration-300 ease-in-out border border-slate-700 hover:border-neon/50">
+                <a href="#" class="inline-block bg-slate-800 hover:bg-slate-700 text-neon font-bold py-3 px-8 rounded transition duration-300 ease-in-out border border-slate-700 hover:border-neon/50">
                     ← Back to Bookstore
                 </a>
             </div>
