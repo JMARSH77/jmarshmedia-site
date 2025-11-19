@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jeremy Marsh | Author & Songwriter</title>
-    <!-- Load Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
-    <!-- Configure Tailwind to include the custom blue color --><script>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configure Tailwind to include the custom blue color -->
+    <script>
         tailwind.config = {
             theme: {
                 extend: {
@@ -16,7 +18,8 @@
             }
         }
     </script>
-    <!-- Load Google Fonts: Merriweather (Serif for elegance) and Inter (Sans for readability) --><link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Load Google Fonts: Merriweather (Serif for elegance) and Inter (Sans for readability) -->
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         /* Custom font declarations using Merriweather for display and Inter for body text */
         .font-serif-display { font-family: 'Merriweather', serif; }
@@ -31,66 +34,166 @@
             /* Updated shadow to reflect the new marsh-blue color */
             box-shadow: 0 10px 20px rgba(0, 51, 160, 0.2); 
         }
+
+        /* New Fixed Background GIF Style - Parallax and Muted */
+        .gif-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures the image covers the entire screen */
+            z-index: -1;
+            /* Apply muting/low-contrast effects */
+            opacity: 0.2; /* Subtle transparency */
+            filter: grayscale(100%); /* Low contrast/color */
+        }
+
+        /* CSS for the rotating headline fade transition */
+        .quote-fader {
+            transition: opacity 0.8s ease-in-out;
+            min-height: 2.5rem; /* Reserve space to prevent jarring layout shift */
+        }
+        
+        /* CSS for the Scroll Indicator Track */
+        #scroll-node {
+            transition: top 0.1s linear, background-color 0.3s;
+        }
     </style>
 </head>
-<!-- Switched to White background and Black/Dark Gray text --><body class="font-sans-body bg-white text-gray-900 min-h-screen">
+<body class="font-sans-body bg-white text-gray-900 min-h-screen">
 
-    <!-- Primary Container: Centered and Responsive --><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-20">
+    <!-- Subtle Parallax Background Layer (Now using the GIF) -->
+    <img src="images/gifs/jeremy-banner.gif" 
+         alt="Subtle animated background texture" 
+         class="gif-background"
+         onerror="this.onerror=null; this.src='https://placehold.co/1000x1000/f0f0f0/e0e0e0?text=';"> <!-- Fallback image -->
 
-        <!-- Header/Hero Section (Minimalist and high impact) --><header class="text-center mb-20 md:mb-32">
+    <!-- Story Arc Scroll Indicator Track (Fixed to the right) -->
+    <div id="scroll-track" class="fixed right-0 top-0 bottom-0 w-0.5 mr-4 bg-gray-300/30 z-40 hidden md:block">
+        <!-- Scroll Node (the moving circle) -->
+        <div id="scroll-node" class="absolute left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-marsh-blue shadow-lg"></div>
+    </div>
+
+    <!-- Fixed Navigation Bar: Added 'Music' link -->
+    <nav class="fixed top-0 w-full z-50 bg-marsh-blue shadow-xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <!-- Logo/Name on Left -->
+                <a href="#home" class="text-xl font-bold font-serif-display text-white hover:text-gray-200 transition duration-300">
+                    Jeremy Marsh
+                </a>
+                <!-- Nav Links on Right -->
+                <div class="flex space-x-6 sm:space-x-8">
+                    <!-- Added .nav-link class to facilitate highlighting in JS -->
+                    <a href="#bio" class="nav-link text-white hover:text-gray-200 transition duration-300 font-medium uppercase text-sm tracking-wider">About</a>
+                    <a href="#books" class="nav-link text-white hover:text-gray-200 transition duration-300 font-medium uppercase text-sm tracking-wider">Works</a>
+                    <a href="#music" class="nav-link text-white hover:text-gray-200 transition duration-300 font-medium uppercase text-sm tracking-wider">Music</a>
+                    <a href="mailto:jeremy.marsh.author@gmail.com" class="text-white hover:text-gray-200 transition duration-300 font-medium uppercase text-sm tracking-wider hidden sm:block">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Primary Container: Centered and Responsive. pt-20 added to account for fixed nav. -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-10 md:pb-20 relative z-10">
+        <!-- relative z-10 ensures content is above the parallax background -->
+
+        <!-- Header/Hero Section (Minimalist and high impact). Added ID for scroll target. -->
+        <header id="home" class="text-center mb-20 md:mb-32">
             
-            <!-- Removed: Brand Logo Link from Header -->
-
             <h1 class="font-serif-display text-5xl sm:text-7xl lg:text-8xl font-bold text-marsh-blue tracking-tight leading-tight">
                 Jeremy Marsh
             </h1>
             <p class="mt-4 text-lg sm:text-2xl text-gray-700 uppercase tracking-widest border-b border-t border-gray-300 py-2 inline-block">
                 Author & Songwriter
             </p>
-            <blockquote class="mt-8 md:mt-12 text-xl italic max-w-2xl mx-auto text-gray-600">
+            
+            <!-- Rotating Headline Container -->
+            <blockquote id="rotating-quote" class="mt-8 md:mt-12 text-xl italic max-w-2xl mx-auto text-gray-700 quote-fader">
+                <!-- Initial quote from the old static version -->
                 "The only thing more potent than a good character is a 100-proof story."
             </blockquote>
+
         </header>
 
-        <!-- Main Content Grid: Two Columns (Bio & Books) on Desktop, Stacked on Mobile --><main class="grid lg:grid-cols-3 gap-12 lg:gap-20">
+        <!-- Main Content Grid: Two Columns (Bio & Books) on Desktop, Stacked on Mobile -->
+        <main class="grid lg:grid-cols-3 gap-12 lg:gap-20 bg-white/95 p-6 md:p-10 rounded-xl shadow-2xl">
+            <!-- Added subtle background to main content for contrast against parallax -->
 
-            <!-- Column 1 & 2: Author Bio and Images (Lg: 2/3 width) --><section class="lg:col-span-2 space-y-16">
+            <!-- Column 1 & 2: Author Bio and Images (Lg: 2/3 width) -->
+            <section class="lg:col-span-2 space-y-16">
 
-                <!-- About Section - Character, Kentucky, Bourbon --><div id="bio">
+                <!-- About Section - Character, Kentucky, Bourbon -->
+                <div id="bio">
                     <h2 class="font-serif-display text-3xl font-bold mb-6 text-marsh-blue border-b border-gray-300 pb-2">
                         Rooted in Story
                     </h2>
-                    <p class="text-lg text-gray-800 leading-relaxed mb-6">
-                        Jeremy Marsh crafts worlds where character is everything. A native of **Kentucky**, his writing carries the deep, complex notes of the bluegrass state—a place of rich history, hidden truths, and uncompromising spirits. His narratives are as smooth and lingering as a glass of fine **bourbon**, revealing layer upon layer of human motivation and conflict.
-                    </p>
-                    <p class="text-lg text-gray-800 leading-relaxed">
-                        For Jeremy, a story isn't just a plot; it's an exploration of the souls who drive it. Whether through the intimate confession of a song or the sweeping scope of a novel, he is committed to the simple, profound truth: **people are the most interesting places on Earth.**
-                    </p>
+                    
+                    <!-- New: Archetype Formatting in a Grid -->
+                    <div class="grid md:grid-cols-3 gap-6 mb-10">
+
+                        <!-- Archetype 1: THE KENTUCKY ROOTS -->
+                        <div class="p-4 rounded-lg border border-gray-200 bg-gray-50 text-center hover-lift">
+                            <h3 class="font-serif-display text-xl font-bold text-marsh-blue mb-2">THE KENTUCKY ROOTS</h3>
+                            <p class="text-sm text-gray-700">
+                                A native of the bluegrass state, Jeremy's writing carries the deep, complex notes of a place rich with history, hidden truths, and uncompromising spirits.
+                            </p>
+                        </div>
+
+                        <!-- Archetype 2: THE BOURBON NARRATIVE -->
+                        <div class="p-4 rounded-lg border border-gray-200 bg-gray-50 text-center hover-lift">
+                            <h3 class="font-serif-display text-xl font-bold text-marsh-blue mb-2">THE BOURBON NARRATIVE</h3>
+                            <p class="text-sm text-gray-700">
+                                His stories are smooth and lingering as a glass of fine bourbon, revealing layer upon layer of human motivation, conflict, and aging truth.
+                            </p>
+                        </div>
+
+                        <!-- Archetype 3: THE CHARACTER ARCHEOLOGIST -->
+                        <div class="p-4 rounded-lg border border-gray-200 bg-gray-50 text-center hover-lift">
+                            <h3 class="font-serif-display text-xl font-bold text-marsh-blue mb-2">THE CHARACTER ARCHEOLOGIST</h3>
+                            <p class="text-sm text-gray-700">
+                                For Jeremy, a story is an exploration of the soul who drives it. People, he believes, are the most interesting places on Earth.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- End New Archetype Formatting -->
+
                 </div>
 
-                <!-- Images Section - Now only one image, centered and taking full width --><div class="flex justify-center pt-4"> <!-- Centering the single image --><!-- Image 1: Placeholder for Professional Shot --><div class="rounded-lg overflow-hidden shadow-xl hover-lift border-4 border-marsh-blue/30 max-w-lg w-full"> <!-- Added max-w-lg and w-full for sizing --><img src="images/headshots/jeremy-marsh-headshot.jpg"
+                <!-- Images Section - Now only one image, centered and taking full width -->
+                <div class="flex justify-center pt-4"> <!-- Centering the single image -->
+                    <!-- Image 1: Placeholder for Professional Shot. Added onerror for fallback. -->
+                    <div class="rounded-lg overflow-hidden shadow-xl hover-lift border-4 border-marsh-blue/30 max-w-lg w-full"> <!-- Added max-w-lg and w-full for sizing -->
+                        <img src="images/headshots/jeremy-marsh-headshot.jpg"
                              alt="Professional portrait of Jeremy Marsh, Author and Songwriter"
-                             class="w-full h-auto object-cover transform hover:scale-[1.01] transition duration-500 ease-in-out">
+                             class="w-full h-auto object-cover transform hover:scale-[1.01] transition duration-500 ease-in-out"
+                             onerror="this.onerror=null; this.src='https://placehold.co/400x500/0033a0/ffffff?text=Jeremy+Marsh+Photo'; this.classList.remove('transform', 'hover:scale-[1.01]', 'transition', 'duration-500', 'ease-in-out')">
                     </div>
                 </div>
             </section>
 
-            <!-- Column 3: Books Section (Lg: 1/3 width) --><section class="lg:col-span-1" id="books">
+            <!-- Column 3: Books Section (Lg: 1/3 width) -->
+            <section class="lg:col-span-1" id="books">
                 <h2 class="font-serif-display text-3xl font-bold mb-6 text-marsh-blue border-b border-gray-300 pb-2">
                     Current Works
                 </h2>
 
-                <!-- Book: The Portal --><div class="bg-gray-100 p-6 rounded-xl shadow-xl hover-lift">
+                <!-- Book: The Portal -->
+                <div class="bg-gray-100 p-6 rounded-xl shadow-xl hover-lift">
                     <h3 class="font-serif-display text-2xl font-bold mb-4 text-gray-900">The Portal</h3>
 
                     <div class="flex flex-col sm:flex-row lg:flex-col gap-6">
-                        <!-- Book Cover Thumbnail --><div class="flex-shrink-0 w-full sm:w-1/3 lg:w-full max-w-xs mx-auto">
+                        <!-- Book Cover Thumbnail. Added onerror for fallback. -->
+                        <div class="flex-shrink-0 w-full sm:w-1/3 lg:w-full max-w-xs mx-auto">
                             <img src="images/books/the-portal.jpg"
                                  alt="Cover art for the novel The Portal"
-                                 class="w-full h-auto rounded shadow-lg border-2 border-marsh-blue/50">
+                                 class="w-full h-auto rounded shadow-lg border-2 border-marsh-blue/50"
+                                 onerror="this.onerror=null; this.src='https://placehold.co/200x300/e0e7ff/0033a0?text=The+Portal+Cover'">
                         </div>
 
-                        <!-- Book Description and CTA --><div class="flex-grow">
+                        <!-- Book Description and CTA -->
+                        <div class="flex-grow">
                             <p class="text-gray-600 italic mb-4">
                                 "What if the character you wrote was real, and waiting for you on the other side?"
                             </p>
@@ -110,7 +213,8 @@
                     </div>
                 </div>
 
-                <!-- Upcoming Section Placeholder --><div class="mt-8 p-4 border border-dashed border-gray-300 rounded-lg text-center text-gray-500">
+                <!-- Upcoming Section Placeholder -->
+                <div class="mt-8 p-4 border border-dashed border-gray-300 rounded-lg text-center text-gray-500">
                     <p class="font-bold">Next Project</p>
                     <p class="text-sm">New Album / Novel coming soon.</p>
                 </div>
@@ -118,7 +222,31 @@
             </section>
         </main>
 
-        <!-- Footer Section - Simple Links and Copyright --><footer class="mt-20 pt-10 border-t border-gray-300 text-center">
+        <!-- Music / Songwriter Section (Full Width, Updated to "Coming Soon") -->
+        <section id="music" class="mt-20 pt-10 border-t border-gray-300 bg-white/95 p-6 md:p-10 rounded-xl shadow-2xl">
+            <h2 class="font-serif-display text-4xl font-bold mb-8 text-marsh-blue text-center">
+                The Songwriter's Heart
+            </h2>
+            <div class="max-w-4xl mx-auto text-center">
+                <p class="text-lg text-gray-800 leading-relaxed mb-10">
+                    Jeremy's narrative approach isn't limited to the page. As a songwriter, he explores the same themes of character, place, and hidden conflict through concise, emotional lyrics. His music is often described as **Kentucky Folk-Rock**, combining earnest storytelling with a driving, roots-inspired sound.
+                </p>
+                
+                <!-- Explicit Coming Soon Placeholder -->
+                <div class="p-12 border-4 border-dashed border-marsh-blue/50 rounded-xl bg-marsh-blue/5">
+                    <p class="font-serif-display text-4xl font-bold text-marsh-blue mb-4">
+                        New Music & Album Coming Soon.
+                    </p>
+                    <p class="text-lg text-gray-700">
+                        Stay tuned to Jeremy's social channels (links below) for updates on release dates and previews!
+                    </p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Footer Section - Simple Links and Copyright -->
+        <footer class="mt-20 pt-10 border-t border-gray-300 text-center">
             
             <!-- Brand Logo Link for J. Marsh Media (Centered) -->
             <div class="mb-6"> <!-- Adjusted margin for footer context -->
@@ -139,5 +267,129 @@
         </footer>
     </div>
 
+    <script>
+        // JavaScript for Smooth Scrolling and Navigation Updates
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- General Setup ---
+            const sections = {
+                home: document.getElementById('home'),
+                bio: document.getElementById('bio'),
+                books: document.getElementById('books'),
+                music: document.getElementById('music'),
+            };
+            const navLinks = document.querySelectorAll('.nav-link');
+            const scrollNode = document.getElementById('scroll-node');
+            const headerHeight = 80; // Offset for fixed nav bar
+
+            // --- Smooth Scrolling Handler ---
+            const anchorLinks = document.querySelectorAll('a[href^="#"]');
+            
+            anchorLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    const targetId = this.getAttribute('href');
+
+                    if (targetId === "#" || targetId.length <= 1 || this.href.includes('mailto') || !this.href.includes(location.origin)) {
+                        return;
+                    }
+                    
+                    e.preventDefault();
+                    
+                    const targetElement = document.querySelector(targetId);
+
+                    if (targetElement) {
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: "smooth"
+                        });
+                    }
+                });
+            });
+
+            // --- Scroll Indicator & Active Section Highlighter ---
+            function updateScrollIndicator() {
+                // 1. Update Scroll Node Position
+                const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrolled = window.scrollY;
+                
+                if (scrollNode && scrollHeight > 0) {
+                    // Calculate position on track. We subtract node height for better centering.
+                    const maxNodeTop = window.innerHeight - scrollNode.offsetHeight;
+                    const nodeTop = (scrolled / scrollHeight) * maxNodeTop;
+                    scrollNode.style.top = `${nodeTop}px`;
+                }
+
+                // 2. Highlight Active Navigation Link
+                let currentSection = 'home';
+                const offset = 100; // Offset to consider section active before it hits the very top
+
+                for (const key in sections) {
+                    const section = sections[key];
+                    if (section && window.scrollY >= section.offsetTop - offset) {
+                        currentSection = key;
+                    }
+                }
+
+                navLinks.forEach(link => {
+                    // Reset styling to default
+                    link.classList.remove('font-extrabold', 'text-lg', 'text-marsh-blue');
+                    link.classList.add('font-medium', 'text-sm', 'text-white', 'hover:text-gray-200');
+
+                    // Apply active styling
+                    if (link.getAttribute('href') === `#${currentSection}`) {
+                        link.classList.add('font-extrabold', 'text-lg', 'text-marsh-blue');
+                        link.classList.remove('font-medium', 'text-sm', 'text-white');
+                        // Use the dark blue on the link to make it pop against the white background (since the navbar background is marsh-blue)
+                        link.style.backgroundColor = 'white';
+                        link.style.padding = '4px 8px';
+                        link.style.borderRadius = '9999px'; // rounded-full
+                    } else {
+                        // Reset background style for inactive links
+                        link.style.backgroundColor = 'transparent';
+                        link.style.padding = '';
+                        link.style.borderRadius = '';
+                    }
+                });
+            }
+
+            // --- Rotating Headline Script ---
+            const quotes = [
+                "A story is just character under pressure.",
+                "Every great melody hides a secret.",
+                "The only thing more potent than a good character is a 100-proof story.",
+                "Words and notes: two sides of the same truth.",
+                "Rooted in Kentucky, exploring the world."
+            ];
+            const quoteElement = document.getElementById('rotating-quote');
+            let currentQuoteIndex = 0;
+            const cycleTime = 5000; // 5 seconds
+
+            function updateQuote() {
+                // Fade out
+                quoteElement.style.opacity = '0';
+                
+                // Wait for the fade out to complete (CSS transition is 0.8s)
+                setTimeout(() => {
+                    currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+                    quoteElement.textContent = quotes[currentQuoteIndex];
+                    // Fade in
+                    quoteElement.style.opacity = '1';
+                }, 800); 
+            }
+
+            // Start the rotation
+            quoteElement.style.opacity = '1';
+            setInterval(updateQuote, cycleTime);
+            // --- End Rotating Headline Script ---
+
+            // Initial call and attach event listeners
+            window.addEventListener('scroll', updateScrollIndicator);
+            window.addEventListener('resize', updateScrollIndicator);
+            updateScrollIndicator();
+        });
+    </script>
 </body>
 </html>
