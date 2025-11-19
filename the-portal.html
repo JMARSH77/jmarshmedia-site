@@ -81,8 +81,33 @@
             background-clip: text;
             text-fill-color: transparent;
         }
+
+        /* New grid setup for 4 columns on large screens */
+        .purchase-grid {
+            display: grid;
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+            gap: 1.5rem; /* 6 units in Tailwind spacing */
+            max-width: 80rem; /* Wide enough for four cards */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        @media (min-width: 640px) { /* sm breakpoint */
+            .purchase-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (min-width: 1024px) { /* lg breakpoint */
+            .purchase-grid {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+            }
+        }
         
     </style>
+    <script>
+        // All rating display logic and mock variables have been removed.
+    </script>
 </head>
 <body class="min-h-screen antialiased flex items-center justify-center p-4 sm:p-8">
 
@@ -175,29 +200,45 @@
             <h2 class="text-3xl font-bold mb-8 text-neon">
                 Get Your Copy
             </h2>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            
+            <!-- Modified the grid class to support 4 columns on large screens (lg:grid-cols-4) -->
+            <div class="purchase-grid">
 
                 <!-- Amazon Block -->
                 <div class="bg-slate-700/50 p-5 rounded-lg border border-slate-700">
-                    <h3 class="text-xl font-bold mb-3 text-white">Amazon</h3>
+                    <h3 class="text-xl font-bold mb-3 text-white">
+                        Amazon
+                    </h3>
                     <p class="text-gray-400 mb-4">Kindle, Paperback, & Hard Cover</p>
                     <div class="space-y-2">
                         <a href="https://a.co/d/68cKTnV" target="_blank" class="block bg-orange-600 hover:bg-orange-700 text-white font-medium py-2 px-4 rounded transition">Kindle Edition (Ebook)</a>
-                        <a href="#" class="block bg-orange-600 hover:bg-orange-700 text-white font-medium py-2 px-4 rounded transition opacity-50 cursor-not-allowed">Paperback (Coming Soon)</a>
-                        <a href="#" class="block bg-orange-600 hover:bg-orange-700 text-white font-medium py-2 px-4 rounded transition opacity-50 cursor-not-allowed">Hard Cover (Coming Soon)</a>
+                        <a href="https://a.co/d/68cKTnV" target="_blank" class="block bg-orange-600 hover:bg-orange-700 text-white font-medium py-2 px-4 rounded transition">Paperback</a>
+                        <a href="https://a.co/d/68cKTnV" target="_blank" class="block bg-orange-600 hover:bg-orange-700 text-white font-medium py-2 px-4 rounded transition">Hard Cover</a>
                     </div>
                 </div>
 
                 <!-- Apple Books Block -->
                 <div class="bg-slate-700/50 p-5 rounded-lg border border-slate-700">
-                    <h3 class="text-xl font-bold mb-3 text-white">Apple Books</h3>
+                    <h3 class="text-xl font-bold mb-3 text-white">
+                        Apple Books
+                    </h3>
                     <p class="text-gray-400 mb-4">Ebook Edition</p>
                     <a href="https://books.apple.com/us/book/the-portal/id6754711003" target="_blank" class="block bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded transition">Apple Books (Ebook)</a>
                 </div>
 
+                <!-- Goodreads Block (UPDATED CTA) -->
+                <div class="bg-slate-700/50 p-5 rounded-lg border border-slate-700">
+                    <h3 class="text-xl font-bold mb-3 text-white">
+                        Goodreads
+                    </h3>
+                    <!-- Updated text to be a clear review CTA -->
+                    <p class="text-gray-400 mb-4">Help fellow readers discover the portal by leaving a review!</p>
+                    <!-- Updated button text to be a clear review CTA -->
+                    <a href="https://www.goodreads.com/book/show/243335559-the-portal" target="_blank" class="block bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded transition">Write a Review</a>
+                </div>
+
                 <!-- IngramSparks Block -->
-                <div class="bg-slate-700/50 p-5 rounded-lg border border-slate-700 sm:col-span-2 lg:col-span-1">
+                <div class="bg-slate-700/50 p-5 rounded-lg border border-slate-700">
                     <h3 class="text-xl font-bold mb-3 text-white">Global Distribution</h3>
                     <p class="text-gray-400 mb-4">IngramSpark for Trade/Libraries</p>
                     <div class="space-y-2">
