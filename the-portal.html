@@ -4,10 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Portal by Jeremy Marsh</title>
+    
+    <!-- Social Media Meta Tags (Open Graph) -->
+    <!-- REPLACE 'your-website.com' with your actual domain name -->
+    <meta property="og:title" content="The Portal by Jeremy Marsh">
+    <meta property="og:description" content="In a city rebuilt by technology, one man dares to cross the line between grief and creation. A psychological sci-fi thriller.">
+    <meta property="og:image" content="https://your-website.com/images/books/the-portal.jpg"> 
+    <meta property="og:url" content="https://your-website.com/the-portal.html">
+    <meta property="og:type" content="book">
+    <meta name="twitter:card" content="summary_large_image">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font links for Inter, Tomorrow, and Electrolize -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Tomorrow:wght=700;800;900&family=Electrolize&display=swap" rel="stylesheet">
     <style>
+        /* SMOOTH SCROLLING: Enables the smooth jump when clicking 'Order The Portal' */
+        html {
+            scroll-behavior: smooth;
+        }
+
         /* Define the primary neon color and background color */
         :root {
             --neon-color: #66ffcc; /* Greenish Cyan Glow */
@@ -201,10 +216,11 @@
             </h2>
             
             <!-- Grid container for purchase options -->
+            <!-- ADDED HOVER CLASSES TO CHILDREN BELOW -->
             <div class="purchase-grid">
 
                 <!-- Amazon Block -->
-                <div class="bg-slate-700/50 p-5 rounded-lg border border-slate-700">
+                <div class="bg-slate-700/50 p-5 rounded-lg border border-slate-700 transition duration-300 hover:scale-[1.02] hover:border-[#66ffcc]/50 hover:shadow-[0_0_15px_rgba(102,255,204,0.1)]">
                     <h3 class="text-xl font-bold mb-3 text-white">
                         Amazon
                     </h3>
@@ -217,7 +233,7 @@
                 </div>
 
                 <!-- Apple Books Block -->
-                <div class="bg-slate-700/50 p-5 rounded-lg border border-slate-700">
+                <div class="bg-slate-700/50 p-5 rounded-lg border border-slate-700 transition duration-300 hover:scale-[1.02] hover:border-[#66ffcc]/50 hover:shadow-[0_0_15px_rgba(102,255,204,0.1)]">
                     <h3 class="text-xl font-bold mb-3 text-white">
                         Apple Books
                     </h3>
@@ -226,7 +242,7 @@
                 </div>
 
                 <!-- Goodreads Block (Review CTA) -->
-                <div class="bg-slate-700/50 p-5 rounded-lg border border-slate-700">
+                <div class="bg-slate-700/50 p-5 rounded-lg border border-slate-700 transition duration-300 hover:scale-[1.02] hover:border-[#66ffcc]/50 hover:shadow-[0_0_15px_rgba(102,255,204,0.1)]">
                     <h3 class="text-xl font-bold mb-3 text-white">
                         Goodreads
                     </h3>
@@ -236,14 +252,15 @@
                     <a href="https://www.goodreads.com/book/show/243335559-the-portal" target="_blank" class="block bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded transition">Write a Review</a>
                 </div>
 
-                <!-- Global Distribution Block (Placeholder links) -->
-                <div class="bg-slate-700/50 p-5 rounded-lg border border-slate-700">
-                    <h3 class="text-xl font-bold mb-3 text-white">Global Distribution</h3>
-                    <p class="text-gray-400 mb-4">IngramSpark for Trade/Libraries</p>
+                <!-- J. Marsh Media Store Block -->
+                <div class="bg-slate-700/50 p-5 rounded-lg border border-slate-700 transition duration-300 hover:scale-[1.02] hover:border-[#66ffcc]/50 hover:shadow-[0_0_15px_rgba(102,255,204,0.1)]">
+                    <h3 class="text-xl font-bold mb-3 text-white">Direct Purchase</h3>
+                    <p class="text-gray-400 mb-4">Support the author directly</p>
                     <div class="space-y-2">
-                        <!-- Changed to a dark slate background to represent general distribution, not consumer branding -->
-                        <a href="#" class="block bg-slate-600 hover:bg-slate-700 text-white font-medium py-2 px-4 rounded transition opacity-50 cursor-not-allowed">Paperback (Ingram)</a>
-                        <a href="#" class="block bg-slate-600 hover:bg-slate-700 text-white font-medium py-2 px-4 rounded transition opacity-50 cursor-not-allowed">Hard Cover (Ingram)</a>
+                        <!-- Updated Paperback Link -->
+                        <a href="https://shop.ingramspark.com/b/084?params=1kahgbQhQa4IZaEUL1jZjsTnPcGeiiiRwipqpZ0YO9k" target="_blank" class="block bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded transition">Paperback</a>
+                        <!-- Updated Hard Cover Link -->
+                        <a href="https://shop.ingramspark.com/b/084?params=qcL6A4SToISu5K8wX77X5AwcNKXRxN6zxaFFPCUH5ju" target="_blank" class="block bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded transition">Hard Cover</a>
                     </div>
                 </div>
 
