@@ -1,672 +1,762 @@
+@ -0,0 +1,761 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- 
-      CRITICAL: This meta tag ensures the page is mobile-first 
-      and scales correctly on all devices.
-    -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>J. Marsh Media</title>
-    
-    <!-- 
-      OPTIONAL: Add a modern font from Google Fonts. 
-      We'll use Inter for this design.
-    -->
+    <title>Jeremy Marsh — Author</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230033A0'/><text x='50' y='70' font-family='Georgia,serif' font-size='48' font-weight='bold' text-anchor='middle' fill='white'>JM</text></svg>">
+
+    <!-- Social / OG meta -->
+    <meta name="description" content="Jeremy Marsh is a Kentucky author of literary and speculative fiction. Author of The Portal.">
+    <meta property="og:title" content="Jeremy Marsh — Author">
+    <meta property="og:description" content="Author of The Portal. Fiction, non-fiction, songs. Born and raised in Kentucky.">
+    <meta property="og:image" content="portal_digital.png">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Jeremy Marsh — Author">
+    <meta name="twitter:description" content="Author of The Portal. Fiction, non-fiction, songs. Born and raised in Kentucky.">
+    <meta name="twitter:image" content="portal_digital.png">
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
     <style>
-        /* --- 1. Resets & Global Styles --- */
+        :root {
+            --navy:       #001233;
+            --blue:       #0033A0;
+            --blue-mid:   #002882;
+            --white:      #FFFFFF;
+            --off-white:  #F4F7FF;
+            --text:       #111111;
+            --text-muted: #555555;
 
-        * {
-          box-sizing: border-box;
-          margin: 0;
-          padding: 0;
+            --font-display: 'DM Serif Display', serif;
+            --font-body:    'Inter', sans-serif;
+            --font-mono:    'Space Mono', monospace;
+
+            --max-w: 1160px;
+            --nav-h: 70px;
         }
 
-        html {
-            /* NEW: Enables smooth scrolling when nav links are clicked */
-            scroll-behavior: smooth;
-        }
-
-        html, body {
-          height: 100%;
-        }
-
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
         body {
-          /* Use the "Inter" font stack */
-          font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, 
-                        Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-          color: #ffffff;
-          
-          /* TECHNIQUE 1: The Animated Gradient Background 
-             UPDATED: New deep, atmospheric, cool-tone gradient (Indigo/Navy/Slate).
-          */
-          background: linear-gradient(-45deg, #1c284a, #2a4365, #0a1733, #345479);
-          background-size: 400% 400%;
-          animation: gradientDrift 15s ease infinite;
-          
-          /* Ensures the gradient is fixed during scroll */
-          background-attachment: fixed;
+            background: var(--white);
+            color: var(--text);
+            font-family: var(--font-body);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
+        img { display: block; max-width: 100%; }
 
-        ul {
-          list-style: none;
-        }
-
-        a {
-          text-decoration: none;
-          color: inherit;
-        }
-
-        /* --- 2. Header & Navigation --- */
-        .header {
-            position: fixed; /* Changed to fixed for constant visibility */
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 1.5rem 2rem;
-            z-index: 100;
-            opacity: 0; /* Start hidden for animation */
-            animation: fadeDown 0.8s ease-out 0.2s forwards;
-            
-            /* Add a subtle glass effect to the header */
-            background: rgba(0, 0, 0, 0.1);
-            -webkit-backdrop-filter: blur(5px);
-            backdrop-filter: blur(5px);
-        }
-
-        .nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px; /* Constrain nav width on large screens */
-            margin: 0 auto;
-        }
-
-        .nav-logo {
-            font-weight: 700;
-            font-size: 1.25rem;
-            transition: opacity 0.3s ease;
-        }
-        .nav-logo:hover {
-            opacity: 0.7;
-        }
-
-        .nav-toggle-checkbox {
-            display: none; /* Hide the actual checkbox */
-        }
-
-        .nav-toggle-label {
-            width: 30px;
-            height: 22px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            cursor: pointer;
-            position: relative; /* Essential for mobile z-index */
-            z-index: 101; 
-        }
-
-        .nav-toggle-label span {
-            display: block;
-            width: 100%;
-            height: 3px;
-            background-color: #ffffff;
-            border-radius: 3px;
-            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-        }
-
-        .nav-menu {
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 70%;
-            max-width: 300px;
-            height: 100vh;
-            background: rgba(25, 25, 25, 0.7); /* Dark glass */
-            
-            /* Glassmorphism */
-            -webkit-backdrop-filter: blur(10px);
-            backdrop-filter: blur(10px); 
-            
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 2.5rem; /* Space out links */
-            
-            transform: translateX(100%); /* Hide off-screen */
-            transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
-            z-index: 99; /* Below the toggle button */
-        }
-
-        .nav-menu a {
-            font-size: 1.25rem;
-            font-weight: 700;
-            transition: opacity 0.3s ease;
-            white-space: nowrap; /* Ensures nav links do not wrap */
-        }
-        .nav-menu a:hover {
-            opacity: 0.7;
-        }
-
-        /* --- Mobile Menu Toggle Logic --- */
-        .nav-toggle-checkbox:checked ~ .nav-menu {
-            transform: translateX(0); /* Slide menu in */
-        }
-        
-        /* Animate hamburger icon to an 'X' */
-        .nav-toggle-checkbox:checked + .nav-toggle-label span:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 5px);
-        }
-        .nav-toggle-checkbox:checked + .nav-toggle-label span:nth-child(2) {
+        /* ─── SCROLL REVEAL ─── */
+        .reveal {
             opacity: 0;
+            transform: translateY(32px);
+            transition: opacity 0.75s ease, transform 0.75s ease;
         }
-        .nav-toggle-checkbox:checked + .nav-toggle-label span:nth-child(3) {
-            transform: rotate(-45deg) translate(7px, -7px);
+        .reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
         }
+        .reveal-d1 { transition-delay: 0.1s; }
+        .reveal-d2 { transition-delay: 0.2s; }
+        .reveal-d3 { transition-delay: 0.3s; }
+        .reveal-d4 { transition-delay: 0.4s; }
 
-
-        /* --- 3. Layout (Mobile-First Hero) --- */
-
-        .content-wrapper {
-          min-height: 100vh; /* Full vertical height */
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          text-align: center;
-          padding: 20px; /* Some padding for small screen edges */
-          /* Add padding-top to account for fixed header */
-          padding-top: 80px; 
-        }
-
-        /* --- 4. Content & Typography --- */
-
-        .headline {
-          font-size: clamp(2.5rem, 8vw, 5rem);
-          font-weight: 700;
-          line-height: 1.1;
-          margin-bottom: 1.5rem;
-        }
-
-        .support-text {
-          font-size: clamp(1rem, 2.5vw, 1.25rem);
-          font-weight: 400;
-          line-height: 1.5;
-          margin-bottom: 2.5rem;
-          max-width: 600px;
-        }
-        
-        /* --- 5. Talent Grid Section --- */
-        
-        #talent-section {
-            padding: 4rem 0; /* Vertical padding */
-            /* Add a semi-transparent dark layer over the gradient */
-            background: rgba(0, 0, 0, 0.2); 
-            -webkit-backdrop-filter: blur(10px);
-            backdrop-filter: blur(10px);
-            color: #fff; /* Ensure text is visible */
-        }
-        
-        .section-title {
-            font-size: clamp(2rem, 6vw, 3rem);
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 2.5rem;
-        }
-        
-        /* Responsive CSS grid for talent cards */
-        .carousel-wrapper {
-            display: grid;
-            /* Auto-fit cards, ensuring a minimum width of 200px. They will wrap naturally. */
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
-            
-            gap: 1.5rem; 
-            padding: 0 2rem; /* Horizontal padding for the content */
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .author-card {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 16px;
-            padding: 1.5rem; /* Slightly smaller padding for better fit */
-            text-align: center;
-            transition: transform 0.3s ease, background 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .author-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .author-card-img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%; /* Makes the image circular */
-            object-fit: cover; /* Ensures image fills the circle */
-            margin-bottom: 1rem; /* Slightly reduced margin */
-            border: 2px solid rgba(255, 255, 255, 0.5); /* Subtle border */
-            /* Placeholder styling to visually represent a missing image asset */
-            background-color: #333; 
+        /* ─── NAV ─── */
+        header {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            height: var(--nav-h);
+            background: transparent;
+            transition: background 0.4s ease, box-shadow 0.4s ease;
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.6);
-            text-transform: uppercase;
+            justify-content: space-between;
+            padding: 0 3rem;
+            z-index: 1000;
         }
-        
-        .author-card h3 {
+        header.scrolled {
+            background: rgba(0, 18, 51, 0.97);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 1px 0 rgba(255,255,255,0.06);
+        }
+        .nav-brand {
+            font-family: var(--font-display);
             font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
+            color: var(--white);
+            text-decoration: none;
+            flex-shrink: 0;
         }
-        
-        .author-card p {
-            font-size: 0.9rem;
-            opacity: 0.8;
-            margin-bottom: 1rem; /* Slightly reduced margin */
-            word-wrap: break-word; 
-            max-width: 100%;
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
         }
-        
-        .author-card-link {
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: #ffffff;
-            background: rgba(255, 255, 255, 0.15);
-            padding: 0.75rem 1.5rem;
-            border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            transition: background 0.3s ease;
-            margin-top: auto; /* Push the link to the bottom of the card */
+        .nav-links a {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.65);
+            text-decoration: none;
+            transition: color 0.15s;
         }
-        
-        .author-card-link:hover {
-            background: rgba(255, 255, 255, 0.3);
+        .nav-links a:hover { color: var(--white); }
+
+        /* Hamburger */
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            width: 40px;
+            height: 40px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 6px;
+        }
+        .nav-toggle span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--white);
+            transition: transform 0.25s ease, opacity 0.25s ease;
+            transform-origin: center;
+        }
+        .nav-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .nav-toggle.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .nav-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        /* ─── HERO ─── */
+        .hero {
+            min-height: 100vh;
+            padding-top: var(--nav-h);
+            background: linear-gradient(150deg, var(--navy) 0%, var(--blue-mid) 55%, var(--blue) 100%);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 4rem;
+            padding-left: clamp(2rem, 6vw, 7rem);
+            padding-right: clamp(2rem, 6vw, 7rem);
+            padding-bottom: 5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 700px; height: 700px;
+            background: radial-gradient(circle, rgba(0,64,200,0.3) 0%, transparent 70%);
+            top: 10%; right: 5%;
+            pointer-events: none;
+        }
+        .hero-text { position: relative; z-index: 1; }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(16px) scale(0.97); }
+            to   { opacity: 1; transform: translateY(0)    scale(1); }
         }
 
-        /* --- 6. Our Story Section --- */
-        #our-story-section {
-            padding: 4rem 2rem; /* Vertical and horizontal padding */
-            /* Consistent glass background */
-            background: rgba(0, 0, 0, 0.2); 
-            -webkit-backdrop-filter: blur(10px);
-            backdrop-filter: blur(10px);
-            color: #fff;
+        .hero-eyebrow {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.45);
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeUp 0.8s ease 0.3s forwards;
         }
+        .hero-name {
+            font-family: var(--font-display);
+            font-size: clamp(3.5rem, 7vw, 6.5rem);
+            color: var(--white);
+            line-height: 0.95;
+            margin-bottom: 1.75rem;
+            opacity: 0;
+            animation: fadeUp 0.9s ease 0.5s forwards;
+        }
+        .hero-tagline {
+            font-size: 1.05rem;
+            line-height: 1.75;
+            color: rgba(255,255,255,0.65);
+            max-width: 400px;
+            margin-bottom: 2.5rem;
+            opacity: 0;
+            animation: fadeUp 0.9s ease 0.7s forwards;
+        }
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            background: var(--white);
+            color: var(--blue);
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            text-decoration: none;
+            padding: 0.9rem 2rem;
+            transition: background 0.15s;
+            opacity: 0;
+            animation: fadeUp 0.9s ease 0.9s forwards;
+        }
+        .btn-primary:hover { background: rgba(255,255,255,0.88); }
 
-        .story-card-wrapper {
+        .hero-cover {
+            position: relative;
+            z-index: 1;
             display: flex;
             justify-content: center;
-            align-items: stretch; /* Makes cards same height */
-            flex-wrap: wrap; /* Allows cards to wrap on mobile */
-            gap: 1.5rem; /* Space between cards */
-            max-width: 1200px;
-            margin: 0 auto; /* Center the wrapper */
+            opacity: 0;
+            animation: fadeIn 1.2s ease 0.4s forwards;
+        }
+        .hero-cover img {
+            width: min(340px, 90%);
+            box-shadow: 0 50px 120px rgba(0,0,0,0.55), 0 20px 40px rgba(0,0,0,0.3);
         }
 
-        .story-card {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 16px;
-            padding: 2rem;
-            text-align: left;
-            flex-basis: 320px; /* Base width for each card */
-            flex-grow: 1; /* Allows cards to grow and fill space */
-            max-width: 400px; /* Max width for each card */
-            transition: transform 0.3s ease, background 0.3s ease;
+        /* ─── SHARED SECTION SHELL ─── */
+        .section { padding: 7rem clamp(2rem, 6vw, 7rem); }
+        .section-inner { max-width: var(--max-w); margin: 0 auto; }
+        .section-label {
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--blue);
+            margin-bottom: 0.75rem;
+        }
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+            color: var(--text);
+            line-height: 1.05;
+            margin-bottom: 4rem;
         }
 
-        .story-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.2);
+        /* ─── BOOKS ─── */
+        .books-section { background: var(--white); }
+        .books-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: start;
         }
-
-        .story-card h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
+        .book-card { display: flex; flex-direction: column; gap: 2rem; }
+        .book-cover-img {
+            position: relative;
+            width: 100%;
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
+        .book-cover-img img {
+            width: 100%;
+            height: auto;
+            box-shadow: 0 24px 64px rgba(0,0,0,0.14), 0 6px 16px rgba(0,0,0,0.08);
+        }
+        .book-info-title {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            color: var(--text);
+            margin-bottom: 0.6rem;
+        }
+        .book-info-sub {
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--blue);
             margin-bottom: 1rem;
         }
+        .book-info-desc {
+            font-size: 0.975rem;
+            line-height: 1.75;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            background: var(--blue);
+            color: var(--white);
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            text-decoration: none;
+            padding: 0.85rem 1.75rem;
+            transition: background 0.15s;
+        }
+        .btn-secondary:hover { background: var(--navy); }
 
-        .story-card p {
+        /* ─── PULL QUOTE ─── */
+        .pullquote-section {
+            background: var(--navy);
+            padding: 8rem clamp(2rem, 8vw, 10rem);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .pullquote-section::before {
+            content: '\201C';
+            position: absolute;
+            font-family: var(--font-display);
+            font-size: 30rem;
+            line-height: 1;
+            color: rgba(255,255,255,0.03);
+            top: -4rem;
+            left: 2rem;
+            pointer-events: none;
+            user-select: none;
+        }
+        .pullquote {
+            font-family: var(--font-display);
+            font-style: italic;
+            font-size: clamp(1.8rem, 4vw, 3.2rem);
+            color: var(--white);
+            line-height: 1.35;
+            max-width: 860px;
+            margin: 0 auto 2rem;
+        }
+        .pullquote-cite {
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.3);
+        }
+
+        /* ─── BLOG ─── */
+        .blog-section { background: var(--off-white); }
+        .blog-section .section-title { margin-bottom: 2rem; }
+        .ledger-coming { padding: 5rem 0; text-align: center; }
+        .ledger-coming-text {
+            font-family: var(--font-display);
+            font-style: italic;
+            font-size: clamp(1.6rem, 3vw, 2.5rem);
+            color: var(--blue);
+            opacity: 0.45;
+        }
+
+        /* ─── NEWSLETTER ─── */
+        .newsletter-section {
+            background: var(--blue);
+            padding: 7rem clamp(2rem, 6vw, 7rem);
+            text-align: center;
+        }
+        .newsletter-inner { max-width: 520px; margin: 0 auto; }
+        .newsletter-label {
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.4);
+            margin-bottom: 0.75rem;
+        }
+        .newsletter-title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            color: var(--white);
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+        .newsletter-desc {
+            font-size: 0.975rem;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.7;
+            margin-bottom: 2.5rem;
+        }
+        /*
+            NEWSLETTER FORM:
+            Replace action="#" with your Mailchimp list URL, e.g.:
+            action="https://yourname.us1.list-manage.com/subscribe/post?u=XXXXX&id=XXXXX"
+            Also update the hidden honeypot field name (b_placeholder) to match your list.
+        */
+        .newsletter-form { display: flex; max-width: 460px; margin: 0 auto; }
+        .newsletter-input {
+            flex: 1;
+            padding: 0.95rem 1.25rem;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            border: none;
+            background: rgba(255,255,255,0.12);
+            color: var(--white);
+            outline: none;
+            transition: background 0.15s;
+        }
+        .newsletter-input::placeholder { color: rgba(255,255,255,0.4); }
+        .newsletter-input:focus { background: rgba(255,255,255,0.18); }
+        .newsletter-btn {
+            padding: 0.95rem 1.75rem;
+            background: var(--white);
+            color: var(--blue);
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            transition: background 0.15s;
+            white-space: nowrap;
+        }
+        .newsletter-btn:hover { background: rgba(255,255,255,0.88); }
+        .newsletter-success {
+            display: none;
+            font-family: var(--font-display);
+            font-style: italic;
+            font-size: 1.3rem;
+            color: rgba(255,255,255,0.8);
+            padding: 1rem 0;
+        }
+        .newsletter-note {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            letter-spacing: 0.1em;
+            color: rgba(255,255,255,0.25);
+            text-transform: uppercase;
+            margin-top: 1.25rem;
+        }
+
+        /* ─── ABOUT ─── */
+        .about-section {
+            background: var(--navy);
+            position: relative;
+            overflow: hidden;
+        }
+        .about-section::before {
+            content: '';
+            position: absolute;
+            width: 700px; height: 700px;
+            background: radial-gradient(circle, rgba(0,51,160,0.35) 0%, transparent 70%);
+            bottom: -150px; left: -150px;
+            pointer-events: none;
+        }
+        .about-section .section-label { color: rgba(255,255,255,0.35); }
+        .about-section .section-title { color: var(--white); margin-bottom: 0; }
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: start;
+            margin-top: 3.5rem;
+        }
+        .about-text p {
             font-size: 1rem;
-            line-height: 1.6;
-            opacity: 0.9;
+            line-height: 1.85;
+            color: rgba(255,255,255,0.72);
+            margin-bottom: 1.5rem;
+        }
+        .about-text p:first-child::first-letter {
+            font-family: var(--font-display);
+            font-size: 4.5rem;
+            line-height: 0.75;
+            float: left;
+            margin-right: 0.12em;
+            margin-top: 0.08em;
+            color: rgba(255,255,255,0.2);
+        }
+        .about-photo img {
+            width: 100%;
+            height: auto;
+            filter: grayscale(15%) contrast(108%);
+            box-shadow: 0 40px 80px rgba(0,0,0,0.5);
         }
 
-        /* --- 7. Contact Section --- */
-        #contact-section {
-            padding: 4rem 2rem;
-            background: rgba(0, 0, 0, 0.2); 
-            -webkit-backdrop-filter: blur(10px);
-            backdrop-filter: blur(10px);
-            color: #fff;
+        /* ─── FOOTER ─── */
+        footer {
+            background: #000C20;
+            padding: 3rem clamp(2rem, 6vw, 7rem);
         }
-
-        .contact-wrapper {
-            max-width: 600px;
-            margin: 0 auto;
+        .footer-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            margin-bottom: 2rem;
+        }
+        .footer-brand {
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            color: var(--white);
+        }
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+        .footer-links a {
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.4);
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+        .footer-links a:hover { color: var(--white); }
+        .footer-copy {
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            letter-spacing: 0.08em;
+            color: rgba(255,255,255,0.22);
             text-align: center;
         }
 
-        .contact-form {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            text-align: left; /* Align labels/inputs */
-        }
-
-        .contact-form input,
-        .contact-form textarea {
-            padding: 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            color: #ffffff;
-            font-family: inherit;
-            font-size: 1rem;
-            transition: border-color 0.3s ease, background-color 0.3s ease;
-        }
-        
-        /* Ensures placeholder text is visible */
-        .contact-form input::placeholder,
-        .contact-form textarea::placeholder {
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .contact-form input:focus,
-        .contact-form textarea:focus {
-            outline: none;
-            /* UPDATED: Softer blue highlight */
-            border-color: #5687f1; 
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .contact-form textarea {
-            resize: vertical;
-            min-height: 150px;
-        }
-        
-        /* Styling for the form submission button (reusing CTA hover effects) */
-        .contact-form button {
-            cursor: pointer;
-            border: none;
-            font-size: 1rem;
-            font-weight: 700;
-            color: #ffffff;
-            /* UPDATED: New button gradient using a muted blue accent */
-            background: linear-gradient(45deg, rgba(86, 135, 241, 0.8), rgba(28, 40, 74, 0.8)); 
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            padding: 1rem 2.5rem;
-            border-radius: 50px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-            align-self: center; /* Center the button in the form */
-            width: 100%;
-            max-width: 200px;
-        }
-
-        .contact-form button:hover,
-        .contact-form button:focus {
-            transform: translateY(-4px); 
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); 
-            /* UPDATED: New button hover gradient */
-            background: linear-gradient(45deg, #5687f1, #2a4365); 
-            outline: none;
-        }
-        
-        /* Removed unused contact-info and contact-email CSS rules */
-
-
-        /* --- 8. Animations --- */
-
-        /* The @keyframes for the gradient background */
-        @keyframes gradientDrift {
-          0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
-        }
-
-        /* The @keyframes for the content fade-up */
-        @keyframes fadeUp {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        
-        /* The @keyframes for the header fade-down */
-        @keyframes fadeDown {
-          from {
-            opacity: 0;
-            transform: translateY(-20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        /* Staggered Load Animation */
-        /* Header animation is in .header block */
-        .headline {
-          animation: fadeUp 0.8s ease-out 0.5s forwards; /* Delayed */
-          opacity: 0; /* Start hidden */
-        }
-
-        .support-text {
-          animation: fadeUp 0.8s ease-out 0.8s forwards; /* Delayed */
-          opacity: 0; /* Start hidden */
-        }
-        
-        /* --- 9. Desktop & Tablet Styles --- */
-        
-        @media (min-width: 768px) {
-            .nav-toggle-label {
-                display: none; /* Hide hamburger on desktop */
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 900px) {
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+                padding-top: calc(var(--nav-h) + 3rem);
+                padding-bottom: 4rem;
+                gap: 3rem;
             }
-            
-            .nav-menu {
-                position: static; /* Reset from fixed */
-                transform: none; /* Reset from hidden */
-                flex-direction: row;
-                width: auto;
-                height: auto;
-                background: none;
-                backdrop-filter: none;
-                gap: 2rem;
+            .hero::before { display: none; }
+            .hero-tagline { margin-left: auto; margin-right: auto; }
+            .hero-cover { order: -1; }
+            .hero-cover img { width: min(240px, 65%); }
+            .books-grid { grid-template-columns: 1fr; gap: 4rem; }
+            .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+        }
+
+        @media (max-width: 700px) {
+            header { padding: 0 1.5rem; }
+            .nav-toggle { display: flex; }
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: var(--nav-h);
+                left: 0;
+                width: 100%;
+                flex-direction: column;
+                gap: 0;
+                background: rgba(0, 18, 51, 0.99);
+                backdrop-filter: blur(12px);
+                padding: 0.5rem 0 1rem;
             }
-            
-            .nav-menu a {
-                font-size: 1rem;
-                font-weight: 400; /* Less bold for desktop links */
-            }
-            
-            /* Center the carousel on desktop and add padding */
-            .carousel-wrapper {
-                max-width: 1200px;
-                margin: 0 auto;
-                padding: 0 2rem;
-            }
+            .nav-links.open { display: flex; }
+            .nav-links li a { display: block; padding: 0.85rem 2rem; font-size: 0.75rem; }
+        }
+
+        @media (max-width: 540px) {
+            .newsletter-form { flex-direction: column; }
+            .footer-top { flex-direction: column; align-items: flex-start; gap: 1.25rem; }
         }
     </style>
-
 </head>
 <body>
 
-    <header class="header">
-        <nav class="nav">
-            <a href="#main" class="nav-logo">J. Marsh Media</a>
-            
-            <!-- Mobile Menu Toggle (Checkbox Hack) -->
-            <input type="checkbox" id="nav-toggle" class="nav-toggle-checkbox">
-            <label for="nav-toggle" class="nav-toggle-label">
-                <span></span>
-                <span></span>
-                <span></span>
-            </label>
-            
-            <!-- Navigation Menu -->
-            <ul class="nav-menu">
-                <!-- Added hash links for navigation -->
-                <li><a href="#talent-section">Talent</a></li>
-                <li><a href="#our-story-section">Our Story</a></li>
-                
-                <!-- NEW LINKS ADDED BELOW -->
-                <!-- Note: These external links would require separate HTML files to function in a real deployment -->
-                <li><a href="bookstore.html">Bookstore</a></li>
-                <li><a href="music.html">Watch & Listen</a></li>
-                
-                <!-- UPDATED: Link to the new section -->
-                <li><a href="#contact-section">Contact</a></li>
+    <!-- ─── NAV ─── -->
+    <header>
+        <a href="#" class="nav-brand">Jeremy Marsh</a>
+        <button class="nav-toggle" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#books">Books</a></li>
+<li><a href="#blog">Blog</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
     </header>
 
-    <main class="content-wrapper" id="main">
-        <!-- UPDATED: Changed main headline text -->
-        <h1 class="headline">J. Marsh Media</h1>
-        <p class="support-text">Author-Driven. Creator-Owned. Audience-Powered.</p>
-    </main>
-    
-    <section id="talent-section">
-        <h2 class="section-title">Our Talent</h2>
-        
-        <!-- This is a responsive grid, not a scrolling carousel -->
-        <div class="carousel-wrapper">
-            <!-- Card 1: Jeremy Marsh -->
-            <div class="author-card">
-                <!-- Placeholder Image - In a live environment, this would be a real image URL -->
-                <img src="images/headshots/jeremy-marsh-headshot.jpg" 
-                     alt="Jeremy Marsh Headshot" 
-                     class="author-card-img"
-                     onerror="this.src='https://ui-avatars.com/api/?name=Jeremy+Marsh&background=random&color=fff'">
-                <h3>Jeremy Marsh</h3>
-                <!-- UPDATED: Role description -->
-                <p>Author, Songwriter, Creative Director</p>
-                <a href="jeremy-marsh.html" class="author-card-link">View Profile</a>
-            </div>
-            
-            <!-- OTHER TALENT HIDDEN TEMPORARILY -->
-            <!--
-            <div class="author-card">
-                <img src="images/headshots/tess-resse-headshot.jpg" 
-                     alt="Tessa Reese Headshot" 
-                     class="author-card-img"
-                     onerror="this.src='https://ui-avatars.com/api/?name=Tessa+Reese&background=random&color=fff'">
-                <h3>Tessa Reese</h3>
-                <p>Author</p>
-                <a href="tessa-reese.html" class="author-card-link">View Profile</a>
-            </div>
-            
-            <div class="author-card">
-                <img src="images/headshots/asha-monroe-Headshot.jpg" 
-                     alt="Asha Monroe Headshot" 
-                     class="author-card-img"
-                     onerror="this.src='https://ui-avatars.com/api/?name=Asha+Monroe&background=random&color=fff'">
-                <h3>Asha Monroe</h3>
-                <p>Author</p>
-                <a href="asha-monroe.html" class="author-card-link">View Profile</a>
-            </div>
-            
-            <div class="author-card">
-                <img src="images/headshots/miguel-marisma-headshot.jpg" 
-                     alt="Miguel Marisma Headshot" 
-                     class="author-card-img"
-                     onerror="this.src='https://ui-avatars.com/api/?name=Miguel+Marisma&background=random&color=fff'">
-                <h3>Miguel Marisma</h3>
-                <p>Author</p>
-                <a href="miguel-marisma.html" class="author-card-link">View Profile</a>
-            </div>
-            
-            <div class="author-card">
-                <img src="images/headshots/miles-reid-headshots.jpg" 
-                     alt="Miles Reid Headshot" 
-                     class="author-card-img"
-                     onerror="this.src='https://ui-avatars.com/api/?name=Miles+Reid&background=random&color=fff'">
-                <h3>Miles Reid</h3>
-                <p>Author</p>
-                <a href="miles-reid.html" class="author-card-link">View Profile</a>
-            </div>
-            
-            <div class="author-card">
-                <img src="images/headshots/reyna-noire-headshot.jpg" 
-                     alt="Reyna Noire Headshot" 
-                     class="author-card-img"
-                     onerror="this.src='https://ui-avatars.com/api/?name=Reyna+Noire&background=random&color=fff'">
-                <h3>Reyna Noire</h3>
-                <p>Author</p>
-                <a href="reyna-noire.html" class="author-card-link">View Profile</a>
-            </div>
-            
-            <div class="author-card">
-                <img src="images/headshots/reginald-roberts-headshot.jpg" 
-                     alt="Reginald Roberts Headshot" 
-                     class="author-card-img"
-                     onerror="this.src='https://ui-avatars.com/api/?name=Reginald+Roberts&background=random&color=fff'">
-                <h3>Reginald Roberts</h3>
-                <p>Author</p>
-                <a href="reginald-roberts.html" class="author-card-link">View Profile</a>
-            </div>
-            -->
-            
+    <!-- ─── HERO ─── -->
+    <section class="hero">
+        <div class="hero-text">
+            <p class="hero-eyebrow">Author &amp; Storyteller</p>
+            <h1 class="hero-name">Jeremy<br>Marsh</h1>
+            <p class="hero-tagline">Fiction, non-fiction, songs, and everything in between. Born and raised in Kentucky. Writing from experience.</p>
+            <a href="#books" class="btn-primary">Read the Books</a>
+        </div>
+        <div class="hero-cover">
+            <a href="the-portal.html"><img src="portal_digital.png" alt="The Portal by Jeremy Marsh"></a>
         </div>
     </section>
 
-    <!-- Our Story Section -->
-    <section id="our-story-section">
-        <h2 class="section-title">Our Story</h2>
-        <div class="story-card-wrapper">
-            
-            <div class="story-card">
-                <h3>Author-Driven</h3>
-                <p>We start with voice. Every project is built around the writer’s intent, not a committee’s compromise.</p>
-            </div>
-            
-            <div class="story-card">
-                <h3>Creator-Owned</h3>
-                <p>IP stays with its creator. We structure deals so the people who build the worlds keep the worlds.</p>
-            </div>
-            
-            <div class="story-card">
-                <h3>Audience-Powered</h3>
-                <p>We connect creators directly with their audience, building communities that are engaged, supportive, and truly invested in the journey. The signal flows both ways.</p>
-            </div>
+    <!-- ─── BOOKS ─── -->
+    <section id="books" class="section books-section">
+        <div class="section-inner">
+            <p class="section-label reveal">The Work</p>
+            <h2 class="section-title reveal reveal-d1">Novels</h2>
+            <div class="books-grid">
 
+                <div class="book-card reveal reveal-d2">
+                    <div class="book-cover-img">
+                        <a href="the-portal.html"><img src="portal_digital.png" alt="The Portal"></a>
+                    </div>
+                    <div>
+                        <h3 class="book-info-title">The Portal</h3>
+                        <p class="book-info-desc">The debut novel from Kentucky author Jeremy Marsh asks what happens when technology lets us relive the moments we were never meant to keep. Set in a near-future Cincinnati still recovering from economic collapse, the story follows Jacob Hastings, a grieving tech founder who builds an AI system designed to let people step back inside their most powerful memories.</p>
+                        <p class="book-info-desc">As Jacob descends deeper into the machine he created, he discovers the Portal doesn't just replay the past, it reacts to it. What begins as a desperate act of love becomes a battle between memory and truth, forcing Jacob and his family to confront what it really means to let go.</p>
+                        <p class="book-info-desc">Equal parts speculative fiction and intimate family drama, <em>The Portal</em> grounds its futuristic premise in raw emotional reality.</p>
+                        <a href="https://www.amazon.com/Portal-Grief-written-lines-never/dp/B0FY7KHQQ1/" target="_blank" rel="noopener" class="btn-secondary">Read Now</a>
+                    </div>
+                </div>
+
+                <div class="book-card reveal reveal-d3">
+                    <div class="book-cover-img">
+                        <img src="Book_of_Isaiah.png" alt="Altered State">
+                    </div>
+                    <div>
+                        <h3 class="book-info-title">Altered State</h3>
+                        <p class="book-info-sub">Coming 2026</p>
+                        <p class="book-info-desc">Fifteen years ago, Isaiah Hale made a promise to a God he no longer answers.</p>
+                        <p class="book-info-desc">The world did not end in fire. It ended in arithmetic: who gets to live, and who is left outside the wall. When the herd comes for the people he swore to protect, Isaiah holds the one crossing they cannot lose. What he does there will save them, and cost him the last thing he believed he was.</p>
+                        <p class="book-info-desc">A harrowing, humane debut for readers of <em>Station Eleven</em> and <em>The Dog Stars</em>.</p>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </section>
-    
-    <!-- NEW: Contact Section -->
-    <section id="contact-section">
-        <h2 class="section-title">Get in Touch</h2>
-        <div class="contact-wrapper">
-            <!-- Placeholder Formspree Action for testing submissions -->
-            <form action="https://formspree.io/f/mdkpqkrw" method="POST" class="contact-form">
-                <input type="text" name="name" placeholder="Your Name" required>
-                <input type="email" name="_replyto" placeholder="Your Email" required>
-                <textarea name="message" placeholder="Your Message" required></textarea>
-                <button type="submit">Send Message</button>
+
+    <!-- ─── PULL QUOTE ─── -->
+    <section class="pullquote-section">
+        <blockquote class="pullquote reveal">
+            "What begins as a desperate act of love becomes a battle between memory and truth."
+        </blockquote>
+        <cite class="pullquote-cite reveal reveal-d1">— The Portal</cite>
+    </section>
+
+    <!-- ─── BLOG ─── -->
+    <section id="blog" class="section blog-section">
+        <div class="section-inner">
+            <p class="section-label reveal">The Ledger</p>
+            <h2 class="section-title reveal reveal-d1">Writing &amp; Thoughts</h2>
+            <div class="ledger-coming reveal reveal-d2">
+                <p class="ledger-coming-text">Coming soon.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── NEWSLETTER ─── -->
+    <section class="newsletter-section">
+        <div class="newsletter-inner reveal">
+            <p class="newsletter-label">Stay in the loop</p>
+            <h2 class="newsletter-title">Get the newsletter.</h2>
+            <p class="newsletter-desc">New books, blog posts, and the occasional thought that didn't fit anywhere else. No noise.</p>
+            <form class="newsletter-form" action="#" method="post" id="newsletter-form">
+                <input class="newsletter-input" type="email" name="EMAIL" placeholder="Your email address" required>
+                <div style="position:absolute;left:-5000px" aria-hidden="true">
+                    <input type="text" name="b_placeholder" tabindex="-1" value="">
+                </div>
+                <button class="newsletter-btn" type="submit">Subscribe</button>
             </form>
-            
-            <!-- Removed explicit email contact information as requested -->
-            
+            <p class="newsletter-success" id="newsletter-success">You're in. Talk soon.</p>
+            <p class="newsletter-note">No spam. Unsubscribe any time.</p>
         </div>
     </section>
-    
+
+    <!-- ─── ABOUT ─── -->
+    <section id="about" class="section about-section">
+        <div class="section-inner">
+            <p class="section-label reveal">The Author</p>
+            <h2 class="section-title reveal reveal-d1">About Jeremy</h2>
+            <div class="about-grid">
+                <div class="about-text reveal reveal-d2">
+                    <p>Jeremy Marsh is a writer. Fiction, non-fiction, songs, the occasional YouTube project that takes three times longer than it should. If it involves words or something that could reasonably be called creative, he's probably already in.</p>
+                    <p>Born and raised in Kentucky, Jeremy doesn't just rep the state; he means it. You'll find him at Kroger Field on Saturdays in the fall, hollering at referees who absolutely cannot hear him. Catch him on the right weekend and he might be at a baseball game, or a basketball game cheering on Big Blue, or somewhere in between with a bourbon in hand and a completely defensible opinion about all of it.</p>
+                    <p>He describes himself as a nerdy jock, which confuses people until they spend five minutes with him. He reads constantly. He lifts consistently. The two have always coexisted without incident.</p>
+                    <p>His writing is character-driven and character-obsessed. The decisions people make when no one is watching. The things left unsaid and the weight they carry. He's published one novel and has another in the works. More on that soon.</p>
+                    <p>If you landed here, you're probably exactly where you're supposed to be.</p>
+                </div>
+                <div class="about-photo reveal reveal-d3">
+                    <img src="Jeremy_Marsh_Headshot_BW.jpg" alt="Jeremy Marsh">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── FOOTER ─── -->
+    <footer id="contact">
+        <div class="footer-top">
+            <div class="footer-brand">Jeremy Marsh</div>
+            <ul class="footer-links">
+                <li><a href="https://x.com/MarshJerem58454" target="_blank" rel="noopener">X</a></li>
+                <li><a href="https://www.instagram.com/jeremy_marsh_official/" target="_blank" rel="noopener">Instagram</a></li>
+                <li><a href="https://www.facebook.com/profile.php?id=61583065415161" target="_blank" rel="noopener">Facebook</a></li>
+                <li><a href="mailto:jeremy.marsh.author@gmail.com">Email</a></li>
+            </ul>
+        </div>
+        <p class="footer-copy">© 2026 Jeremy Marsh. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // ─── NAV: transparent → solid on scroll ───
+        const header = document.querySelector('header');
+        const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 60);
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+
+        // ─── HAMBURGER ───
+        const navToggle = document.querySelector('.nav-toggle');
+        const navLinks  = document.querySelector('.nav-links');
+        navToggle.addEventListener('click', () => {
+            navToggle.classList.toggle('active');
+            navLinks.classList.toggle('open');
+        });
+        navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+            navToggle.classList.remove('active');
+            navLinks.classList.remove('open');
+        }));
+
+        // ─── SCROLL REVEAL ───
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        // ─── 3D BOOK COVER TILT ───
+        document.querySelectorAll('.book-cover-img').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const r  = card.getBoundingClientRect();
+                const cx = r.width  / 2;
+                const cy = r.height / 2;
+                const rx = ((e.clientY - r.top  - cy) / cy) * -6;
+                const ry = ((e.clientX - r.left - cx) / cx) *  6;
+                card.style.transition = 'none';
+                card.style.transform  = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.02)`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transition = 'transform 0.5s ease';
+                card.style.transform  = 'perspective(900px) rotateX(0) rotateY(0) scale(1)';
+            });
+        });
+
+        // ─── NEWSLETTER ───
+        document.getElementById('newsletter-form').addEventListener('submit', function(e) {
+            if (this.action.endsWith('#')) {
+                e.preventDefault();
+                this.style.display = 'none';
+                document.getElementById('newsletter-success').style.display = 'block';
+            }
+        });
+    </script>
+
 </body>
 </html>
