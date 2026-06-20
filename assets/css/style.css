@@ -1,0 +1,14 @@
+
+/* Default Light Theme */
+body {
+  background-color: #ffffff;
+  color: #000000;
+  font-family: sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #111111;
+    color: #f4f4f4;
+  }
+}
