@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Altered State — The Book of Isaiah</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --black:   #070705;
+      --white:   #d4ccb8;
+      --dim:     rgba(212, 204, 184, 0.38);
+      --amber:   #c07818;
+      --amber-d: rgba(192, 120, 24, 0.22);
+      --mono:    'Courier New', 'Courier', monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { width: 100%; height: 100%; overflow: hidden; background: var(--black); }
+    body { font-family: 'Inter', sans-serif; color: var(--white); -webkit-font-smoothing: antialiased; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── GRAIN ── */
+    #grain {
+      position: fixed; inset: 0; z-index: 9000; pointer-events: none;
+      opacity: 0.065; background-repeat: repeat; background-size: 200px 200px;
+    }
+
+    /* ── SCANLINES ── */
+    #scanlines {
+      position: fixed; inset: 0; z-index: 8999; pointer-events: none;
+      background: repeating-linear-gradient(
+        to bottom, transparent 0px, transparent 3px,
+        rgba(0,0,0,0.14) 3px, rgba(0,0,0,0.14) 4px
+      );
+    }
+
+    /* ── FLASH ── */
+    #flash {
+      position: fixed; inset: 0; z-index: 8000; pointer-events: none;
+      background: #f0e8cc; opacity: 0;
+    }
+
+    /* ── CORNER UI ── */
+    #ui-tl {
+      position: fixed; top: 2rem; left: 2.5rem; z-index: 500;
+      font-family: var(--mono); font-size: 0.56rem;
+      letter-spacing: 0.28em; text-transform: uppercase; color: var(--dim);
+    }
+    #ui-tr {
+      position: fixed; top: 2rem; right: 2.5rem; z-index: 500;
+      font-family: var(--mono); font-size: 0.56rem;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--dim); text-align: right;
+    }
+    #ui-bl {
+      position: fixed; bottom: 2.2rem; left: 2.5rem; z-index: 500;
+      font-family: var(--mono); font-size: 0.56rem;
+      letter-spacing: 0.25em; color: var(--dim);
+      display: flex; align-items: center; gap: 1.25rem;
+    }
+    #ui-counter-num { color: var(--amber); }
+    #ui-br {
+      position: fixed; bottom: 2.2rem; right: 2.5rem; z-index: 500;
+      font-family: var(--mono); font-size: 0.56rem;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--dim); cursor: pointer; transition: color 0.3s;
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+    #ui-br:hover { color: var(--white); }
+    #ui-br.end { opacity: 0; pointer-events: none; }
+    #ui-br::after { content: '→'; font-size: 1rem; font-family: sans-serif; }
+
+    /* ── DOTS ── */
+    #dots {
+      position: fixed; right: 2.5rem; top: 50%;
+      transform: translateY(-50%); z-index: 500;
+      display: flex; flex-direction: column; gap: 1.3rem;
+    }
+    .dot {
+      width: 4px; height: 4px; border-radius: 50%;
+      background: rgba(212,204,184,0.18);
+      cursor: pointer; transition: 0.35s; position: relative;
+    }
+    .dot.active { background: var(--amber); box-shadow: 0 0 9px var(--amber); }
+    .dot:hover { background: rgba(212,204,184,0.55); }
+    .dot::before {
+      content: attr(data-label);
+      position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+      font-family: var(--mono); font-size: 0.54rem;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--dim); white-space: nowrap;
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .dot:hover::before { opacity: 1; }
+
+    /* ── SCENES ── */
+    #scenes { position: fixed; inset: 0; }
+
+    .scene {
+      position: absolute; inset: 0;
+      display: flex; overflow: hidden;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .scene.active { opacity: 1; pointer-events: all; }
+
+    /* bg image — starts very dark, blooms to visible when scene activates */
+    .scene-bg {
+      position: absolute; inset: -5%; z-index: 0;
+      background-size: cover; background-repeat: no-repeat;
+      /* default "off" brightness — nearly invisible */
+      filter: brightness(0.04) contrast(1.2) saturate(0.5);
+      transition: filter 2s cubic-bezier(0.4, 0, 0.2, 1),
+                  transform 0.1s linear;
+      will-change: filter, transform;
+    }
+    /* bloom to target brightness when active — each scene overrides via custom property */
+    .scene.active .scene-bg {
+      filter: brightness(var(--bg-b, 0.55)) contrast(var(--bg-c, 1.15)) saturate(var(--bg-s, 0.55));
+    }
+
+    /* directional gradient overlay per scene — sits above bg, below content */
+    .scene-overlay {
+      position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    }
+
+    /* vignette */
+    .scene::after {
+      content: ''; position: absolute; inset: 0; z-index: 2; pointer-events: none;
+      background: radial-gradient(ellipse 100% 85% at 50% 50%, transparent 20%, rgba(0,0,0,0.78) 100%);
+    }
+
+    /* scene content layer */
+    .scene-body { position: relative; z-index: 3; width: 100%; }
+
+    /* ── TEXT REVEAL ──
+       Elements marked .rv start hidden and slide+fade in when .in is added */
+    .rv {
+      opacity: 0; transform: translateY(26px);
+      transition: opacity 0.75s ease, transform 0.75s ease;
+    }
+    .rv.in { opacity: 1; transform: translateY(0); }
+    .rv.d1 { transition-delay: 0.20s; }
+    .rv.d2 { transition-delay: 0.40s; }
+    .rv.d3 { transition-delay: 0.62s; }
+    .rv.d4 { transition-delay: 0.84s; }
+    .rv.d5 { transition-delay: 1.05s; }
+
+    /* ── SHARED TYPE ── */
+    .s-label {
+      font-family: var(--mono); font-size: 0.58rem;
+      letter-spacing: 0.4em; text-transform: uppercase; color: var(--amber);
+      margin-bottom: 2rem; display: flex; align-items: center; gap: 1rem;
+    }
+    .s-label::before {
+      content: ''; display: block; width: 24px; height: 1px;
+      background: var(--amber); opacity: 0.5;
+    }
+    .s-heading {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 8.5vw, 8rem);
+      line-height: 0.9; letter-spacing: 0.03em; color: var(--white);
+      margin-bottom: 2.5rem;
+    }
+    .s-body {
+      font-size: clamp(0.82rem, 1.4vw, 0.96rem); font-weight: 300;
+      line-height: 2.05; color: rgba(212,204,184,0.6);
+      border-left: 1px solid var(--amber-d);
+      padding-left: 1.5rem; max-width: 460px;
+    }
+
+    /* ════════════════════════════════
+       S1 — ENTER
+    ════════════════════════════════ */
+    #s1 { align-items: center; justify-content: center; flex-direction: column; }
+    #s1 .scene-bg {
+      background-image: url('isaiah-landscape.png');
+      background-position: center 62%;
+      --bg-b: 0.44; --bg-c: 1.2; --bg-s: 0.45;
+    }
+    #s1 .scene-overlay {
+      background: linear-gradient(
+        to bottom,
+        rgba(7,7,5,0.82) 0%,
+        rgba(7,7,5,0.28) 38%,
+        rgba(7,7,5,0.25) 58%,
+        rgba(7,7,5,0.90) 100%
+      );
+    }
+    #s1 .scene-body {
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; height: 100%;
+    }
+    .s1-pre {
+      font-family: var(--mono); font-size: 0.6rem;
+      letter-spacing: 0.55em; text-transform: uppercase; color: var(--dim);
+      margin-bottom: 2.5rem;
+    }
+    .s1-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(5rem, 19vw, 19rem);
+      line-height: 0.84; letter-spacing: 0.06em; color: var(--white);
+    }
+    .s1-sub {
+      font-family: var(--mono); font-size: clamp(0.5rem, 1vw, 0.72rem);
+      letter-spacing: 0.6em; text-transform: uppercase; color: var(--amber);
+      margin-top: 2rem;
+    }
+    .s1-cue {
+      font-family: var(--mono); font-size: 0.55rem;
+      letter-spacing: 0.35em; text-transform: uppercase; color: var(--dim);
+      margin-top: 5rem; animation: blink 1.8s step-end infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    /* ════════════════════════════════
+       S2 — THE WORLD
+    ════════════════════════════════ */
+    #s2 { align-items: flex-end; }
+    #s2 .scene-bg {
+      background-image: url('isaiah-landscape.png');
+      background-position: center 28%;
+      --bg-b: 0.62; --bg-c: 1.15; --bg-s: 0.55;
+    }
+    #s2 .scene-overlay {
+      background: linear-gradient(
+        110deg,
+        rgba(7,7,5,0.94) 0%,
+        rgba(7,7,5,0.65) 38%,
+        rgba(7,7,5,0.12) 65%,
+        rgba(7,7,5,0.50) 100%
+      );
+    }
+    #s2 .scene-body { padding: 0 8% 8rem; max-width: 680px; }
+
+    /* ════════════════════════════════
+       S3 — ISAIAH
+    ════════════════════════════════ */
+    #s3 { align-items: flex-end; justify-content: flex-end; }
+    #s3 .scene-bg {
+      background-image: url('isaiah-landscape.png');
+      background-position: center 72%;
+      --bg-b: 0.54; --bg-c: 1.2; --bg-s: 0.50;
+    }
+    #s3 .scene-overlay {
+      background: linear-gradient(
+        to left,
+        rgba(7,7,5,0.90) 0%,
+        rgba(7,7,5,0.55) 42%,
+        rgba(7,7,5,0.12) 68%,
+        rgba(7,7,5,0.55) 100%
+      );
+    }
+    #s3 .scene-body {
+      padding: 0 8% 7rem; text-align: right;
+      max-width: 680px; margin-left: auto;
+    }
+    #s3 .s-label { justify-content: flex-end; }
+    #s3 .s-label::before { display: none; }
+    #s3 .s-label::after {
+      content: ''; display: block; width: 24px; height: 1px;
+      background: var(--amber); opacity: 0.5;
+    }
+    .s3-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(5rem, 20vw, 21rem);
+      line-height: 0.84; letter-spacing: 0.04em; color: var(--white);
+      margin-bottom: 2rem;
+    }
+    #s3 .s-body {
+      border-left: none; border-right: 1px solid var(--amber-d);
+      padding-left: 0; padding-right: 1.5rem; margin-left: auto;
+    }
+
+    /* ════════════════════════════════
+       S4 — THE QUESTION
+    ════════════════════════════════ */
+    #s4 { align-items: center; justify-content: center; flex-direction: column; background: var(--black); text-align: center; }
+    #s4 .scene-body { display: flex; flex-direction: column; align-items: center; padding: 0 8%; }
+    #s4 .s-label { justify-content: center; }
+    #s4 .s-label::before { display: none; }
+    .s4-question {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 8.5vw, 9rem);
+      line-height: 0.92; letter-spacing: 0.03em; color: var(--white);
+      max-width: 920px; margin-bottom: 3rem;
+    }
+    .s4-question em { color: var(--amber); font-style: normal; }
+    .s4-rule { width: 48px; height: 1px; background: linear-gradient(to right, transparent, var(--amber), transparent); }
+
+    /* ════════════════════════════════
+       S5 — AUTHOR
+    ════════════════════════════════ */
+    #s5 { align-items: center; background: var(--black); }
+    #s5 .scene-body { padding: 0 8%; max-width: 640px; }
+    .s5-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3.5rem, 10vw, 10rem);
+      line-height: 0.88; letter-spacing: 0.04em; color: var(--white); margin-bottom: 2.5rem;
+    }
+    #s5 .s-body em { color: rgba(212,204,184,0.8); font-style: italic; }
+
+    /* ════════════════════════════════
+       S6 — BEGIN
+    ════════════════════════════════ */
+    #s6 { align-items: center; justify-content: center; flex-direction: column; text-align: center; }
+    #s6 .scene-bg {
+      background-image: url('isaiah-landscape.png');
+      background-position: center 44%;
+      --bg-b: 0.50; --bg-c: 1.18; --bg-s: 0.48;
+    }
+    #s6 .scene-overlay {
+      background: radial-gradient(ellipse 85% 75% at 50% 55%, rgba(7,7,5,0.08) 0%, rgba(7,7,5,0.88) 100%);
+    }
+    #s6 .scene-body { display: flex; flex-direction: column; align-items: center; padding: 0 8%; }
+    #s6 .s-label { justify-content: center; }
+    #s6 .s-label::before { display: none; }
+    .s6-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4rem, 14vw, 14rem);
+      line-height: 0.88; letter-spacing: 0.05em; color: var(--white); margin-bottom: 1.5rem;
+    }
+    .s6-sub {
+      font-family: var(--mono); font-size: 0.68rem;
+      letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--dim); margin-bottom: 3.5rem;
+    }
+    .s6-actions { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; margin-bottom: 3.5rem; }
+    .btn {
+      font-family: var(--mono); font-size: 0.64rem;
+      letter-spacing: 0.25em; text-transform: uppercase;
+      padding: 0.9rem 2.25rem; cursor: pointer; transition: 0.3s; display: inline-block;
+    }
+    .btn-solid { background: var(--white); color: var(--black); }
+    .btn-solid:hover { background: var(--amber); }
+    .btn-wire { border: 1px solid rgba(212,204,184,0.22); color: var(--dim); }
+    .btn-wire:hover { border-color: var(--white); color: var(--white); }
+    .s6-copy {
+      font-family: var(--mono); font-size: 0.48rem;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(212,204,184,0.16);
+    }
+
+    @media (max-width: 768px) {
+      #dots { display: none; }
+      #ui-tl { font-size: 0.5rem; }
+      #ui-tr { display: none; }
+      #s3 .scene-body { text-align: left; margin-left: 0; }
+      #s3 .s-label { justify-content: flex-start; }
+      #s3 .s-label::before { display: block; }
+      #s3 .s-label::after { display: none; }
+      #s3 .s-body { border-right: none; border-left: 1px solid var(--amber-d); padding-right: 0; padding-left: 1.5rem; margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="grain"></div>
+  <div id="scanlines"></div>
+  <div id="flash"></div>
+
+  <div id="ui-tl">Altered State: The Book of Isaiah</div>
+  <div id="ui-tr"><span id="scene-label-display">Enter</span></div>
+  <div id="ui-bl">
+    <span id="ui-counter-num">01</span>
+    <span style="opacity:.25">—</span>
+    <span style="opacity:.25">06</span>
+  </div>
+  <div id="ui-br">Continue</div>
+
+  <nav id="dots">
+    <div class="dot active" data-i="0" data-label="Enter"></div>
+    <div class="dot" data-i="1" data-label="The World"></div>
+    <div class="dot" data-i="2" data-label="Isaiah"></div>
+    <div class="dot" data-i="3" data-label="The Question"></div>
+    <div class="dot" data-i="4" data-label="Author"></div>
+    <div class="dot" data-i="5" data-label="Begin"></div>
+  </nav>
+
+  <div id="scenes">
+
+    <!-- S1: ENTER -->
+    <div class="scene active" id="s1">
+      <div class="scene-bg"></div>
+      <div class="scene-overlay"></div>
+      <div class="scene-body">
+        <p class="s1-pre rv">Altered State</p>
+        <h1 class="s1-title rv d1">ISAIAH</h1>
+        <p class="s1-sub rv d2">The Book of Isaiah &nbsp;/&nbsp; Jeremy Marsh</p>
+        <p class="s1-cue rv d3">— click to enter —</p>
+      </div>
+    </div>
+
+    <!-- S2: THE WORLD -->
+    <div class="scene" id="s2">
+      <div class="scene-bg"></div>
+      <div class="scene-overlay"></div>
+      <div class="scene-body">
+        <p class="s-label rv">The World / 02</p>
+        <h2 class="s-heading rv d1">The world<br>you knew<br>is gone.</h2>
+        <p class="s-body rv d2">
+          Civilization didn't collapse all at once. It came apart the way it always does — slowly, then faster than anyone expected. What remains is a landscape stripped of order, a society running on fear and on memory. Isaiah stands in the middle of it, asking what no one else dares to.
+        </p>
+      </div>
+    </div>
+
+    <!-- S3: ISAIAH -->
+    <div class="scene" id="s3">
+      <div class="scene-bg"></div>
+      <div class="scene-overlay"></div>
+      <div class="scene-body">
+        <p class="s-label rv">The Man / 03</p>
+        <h2 class="s3-name rv d1">ISAIAH</h2>
+        <p class="s-body rv d2">
+          Not a hero. Not a savior. Just a man who refused to stop believing the world could be repaired — and was willing to pay whatever it cost to find out if he was right.
+        </p>
+      </div>
+    </div>
+
+    <!-- S4: THE QUESTION -->
+    <div class="scene" id="s4">
+      <div class="scene-body">
+        <p class="s-label rv">The Question / 04</p>
+        <h2 class="s4-question rv d1">
+          What does it cost<br>to make the world<br><em>work again?</em>
+        </h2>
+        <div class="s4-rule rv d2"></div>
+      </div>
+    </div>
+
+    <!-- S5: AUTHOR -->
+    <div class="scene" id="s5">
+      <div class="scene-body">
+        <p class="s-label rv">The Author / 05</p>
+        <h2 class="s5-name rv d1">Jeremy<br>Marsh</h2>
+        <p class="s-body rv d2">
+          Filmmaker, storyteller, media producer. <em>Altered State: The Book of Isaiah</em> is his debut novel — a literary reckoning with what it means to remain human when the systems around you have failed. He writes with the precision of a documentarian and the urgency of a survivor.
+        </p>
+      </div>
+    </div>
+
+    <!-- S6: BEGIN -->
+    <div class="scene" id="s6">
+      <div class="scene-bg"></div>
+      <div class="scene-overlay"></div>
+      <div class="scene-body">
+        <p class="s-label rv">Begin / 06</p>
+        <h2 class="s6-title rv d1">Get the<br>Book</h2>
+        <p class="s6-sub rv d2">Altered State: The Book of Isaiah — Available Now</p>
+        <div class="s6-actions rv d3">
+          <a href="#" class="btn btn-solid">Order Now</a>
+          <a href="index.html" class="btn btn-wire">&larr; Back to Site</a>
+        </div>
+        <p class="s6-copy rv d4">&copy; 2026 JM Media. All rights reserved.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+  // ── Film grain ──
+  (function () {
+    const c = document.createElement('canvas');
+    c.width = c.height = 200;
+    const ctx = c.getContext('2d');
+    const id = ctx.createImageData(200, 200);
+    for (let i = 0; i < id.data.length; i += 4) {
+      const v = (Math.random() * 255) | 0;
+      id.data[i] = id.data[i+1] = id.data[i+2] = v; id.data[i+3] = 255;
+    }
+    ctx.putImageData(id, 0, 0);
+    const el = document.getElementById('grain');
+    el.style.backgroundImage = `url(${c.toDataURL()})`;
+    const offs = Array.from({length:24}, () => [
+      ((Math.random()-.5)*180)|0, ((Math.random()-.5)*180)|0
+    ]);
+    let f=0, last=0;
+    function tick(ts) {
+      if (ts-last > 70) { f=(f+1)%offs.length; el.style.backgroundPosition=`${offs[f][0]}px ${offs[f][1]}px`; last=ts; }
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  })();
+
+  // ── Scene engine ──
+  const SCENES  = Array.from(document.querySelectorAll('.scene'));
+  const DOTS    = Array.from(document.querySelectorAll('.dot'));
+  const TOTAL   = SCENES.length;
+  const META    = ['Enter','The World','Isaiah','The Question','The Author','Begin'];
+  const counter = document.getElementById('ui-counter-num');
+  const labelEl = document.getElementById('scene-label-display');
+  const advBtn  = document.getElementById('ui-br');
+  const flash   = document.getElementById('flash');
+
+  let cur = 0, locked = false;
+
+  function revealText(scene) {
+    scene.querySelectorAll('.rv').forEach(el => {
+      el.classList.remove('in');
+      void el.offsetWidth;  // force reflow so transition restarts
+      el.classList.add('in');
+    });
+  }
+
+  function go(idx) {
+    if (locked || idx === cur || idx < 0 || idx >= TOTAL) return;
+    locked = true;
+
+    const f = flash;
+    // primary strike — instant bright
+    f.style.transition = 'opacity 0.03s ease';
+    f.style.opacity = '1';
+
+    setTimeout(() => {
+      // decay fast
+      f.style.transition = 'opacity 0.1s ease';
+      f.style.opacity = '0.05';
+
+      setTimeout(() => {
+        // echo strike — dimmer
+        f.style.transition = 'opacity 0.04s ease';
+        f.style.opacity = '0.55';
+
+        setTimeout(() => {
+          // switch scene at peak of echo
+          SCENES[cur].classList.remove('active');
+          cur = idx;
+          SCENES[cur].classList.add('active');
+          DOTS.forEach((d,i) => d.classList.toggle('active', i===cur));
+          counter.textContent = String(cur+1).padStart(2,'0');
+          labelEl.textContent = META[cur];
+          advBtn.classList.toggle('end', cur===TOTAL-1);
+
+          // fade out as new scene blooms in
+          f.style.transition = 'opacity 0.35s ease';
+          f.style.opacity = '0';
+
+          setTimeout(() => { revealText(SCENES[cur]); }, 160);
+          setTimeout(() => { locked = false; }, 1000);
+        }, 55);
+      }, 100);
+    }, 40);
+  }
+
+  // initial reveal on first scene
+  setTimeout(() => revealText(SCENES[0]), 400);
+
+  // cursor parallax — bg images shift subtly with mouse
+  document.addEventListener('mousemove', e => {
+    const x = (e.clientX / window.innerWidth  - 0.5) * 16;
+    const y = (e.clientY / window.innerHeight - 0.5) * 9;
+    document.querySelectorAll('.scene-bg').forEach(bg => {
+      bg.style.transform = `translate(${x}px, ${y}px)`;
+    });
+  }, { passive: true });
+
+  // interactions
+  document.getElementById('scenes').addEventListener('click', () => { if (cur < TOTAL-1) go(cur+1); });
+  advBtn.addEventListener('click', e => { e.stopPropagation(); go(cur+1); });
+  DOTS.forEach(d => { d.addEventListener('click', e => { e.stopPropagation(); go(+d.dataset.i); }); });
+  document.addEventListener('keydown', e => {
+    if (e.key==='ArrowRight'||e.key==='ArrowDown'||e.key===' ') { e.preventDefault(); go(cur+1); }
+    if (e.key==='ArrowLeft' ||e.key==='ArrowUp')                { e.preventDefault(); go(cur-1); }
+  });
+  let tx=0,ty=0;
+  document.addEventListener('touchstart', e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+  document.addEventListener('touchend', e=>{
+    const dx=e.changedTouches[0].clientX-tx, dy=e.changedTouches[0].clientY-ty;
+    if (Math.abs(dx)>40||Math.abs(dy)>40){ (dx<0||dy<0)?go(cur+1):go(cur-1); } else { go(cur+1); }
+  },{passive:true});
+  </script>
+</body>
+</html>
